@@ -18,21 +18,21 @@ insert into sys_menu
 values ('2004', '我的提议', '2000', '4', 'mine', 'vote/mine/index', '', 1, 1, 'C', '0', '0', 'vote:mine',
         'search', 'admin', sysdate(), '', null, '管理我的提议');
 
--- ----------------------------
--- 1、投票类型表
--- ----------------------------
-drop table if exists selab_vote_type;
-create table selab_vote_type
-(
-    id             int         not null auto_increment comment '投票类型ID',
-    vote_type_name varchar(30) not null comment '投票类型名称',
-    remark         varchar(500) default '' comment '备注',
-    primary key (id)
-) engine=innodb comment = '投票类型表';
+-- -- ----------------------------
+-- -- 1、投票类型表
+-- -- ----------------------------
+-- drop table if exists selab_vote_type;
+-- create table selab_vote_type
+-- (
+--     id             int         not null auto_increment comment '投票类型ID',
+--     vote_type_name varchar(30) not null comment '投票类型名称',
+--     remark         varchar(500) default '' comment '备注',
+--     primary key (id)
+-- ) engine=innodb comment = '投票类型表';
 
 
 -- ----------------------------
--- 2、投票选项存储表
+-- 1、投票选项存储表
 -- ----------------------------
 drop table if exists selab_vote_option;
 create table selab_vote_option
@@ -47,7 +47,7 @@ create table selab_vote_option
 
 
 -- ----------------------------
--- 3、投票表
+-- 2、投票表
 -- ----------------------------
 drop table if exists selab_vote_info;
 create table selab_vote_info
@@ -64,7 +64,7 @@ create table selab_vote_info
 ) engine=innodb comment = '投票信息表';
 
 -- ----------------------------
--- 4、投票结果表
+-- 3、投票结果表
 -- ----------------------------
 drop table if exists selab_vote_info;
 create table selab_vote_info

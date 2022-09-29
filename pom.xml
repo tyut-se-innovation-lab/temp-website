@@ -197,6 +197,7 @@
         <module>ruoyi-generator</module>
         <module>ruoyi-common</module>
         <module>selab-vote</module>
+        <module>selab-schedule</module>
     </modules>
     <packaging>pom</packaging>
 

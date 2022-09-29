@@ -33,13 +33,13 @@ drop table if exists selab_schedule_info;
 create table selab_schedule_info
 (
     id           bigint   not null auto_increment comment '数据唯一标识',
-    user         bigint   not null comment '用户id',
+    user_id      bigint   not null comment '用户id',
     `period`     int      not null comment '第几节课',
     week         int      not null comment '星期几',
     week_no      int      not null comment '第几周',
     status       int      not null comment '状态',
     course_title varchar(30) default '' comment '课程名称',
     create_time  datetime not null comment '创建时间',
-    update_time  datetime default null comment '修改时间',
+    update_time  datetime    default null comment '修改时间',
     primary key (id)
 ) engine=innodb comment = '课表信息';

@@ -40,6 +40,6 @@ create table selab_schedule_info
     status       int      not null comment '状态',
     course_title varchar(30) default '' comment '课程名称',
     create_time  datetime not null comment '创建时间',
-    update_time  datetime not null comment '修改时间',
+    update_time  datetime default null comment '修改时间',
     primary key (id)
 ) engine=innodb comment = '课表信息';

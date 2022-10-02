@@ -32,6 +32,57 @@ public enum WeekNo {
         this.name = name;
     }
 
+    public static WeekNo getWeekNoById(int id){
+        switch (id){
+            case 1:
+                return FIRST_TERM;
+            case 2:
+                return SECOND_TERM;
+            case 3:
+                return THIRD_TERM;
+            case 4:
+                return FORTH_TERM;
+            case 5:
+                return FIFTH_TERM;
+            case 6:
+                return SIXTH_TERM;
+            case 7:
+                return SEVENTH_TERM;
+            case 8:
+                return EIGHTH_TERM;
+            case 9:
+                return NINTH_TERM;
+            case 10:
+                return TENTH_TERM;
+            case 11:
+                return ELEVENTH_TERM;
+            case 12:
+                return TWELFTH_TERM;
+            case 13:
+                return THIRTEENTH_TERM;
+            case 14:
+                return FOURTEENTH_TERM;
+            case 15:
+                return FIFTEENTH_TERM;
+            case 16:
+                return SIXTEENTH_TERM;
+            case 17:
+                return SEVENTEENTH_TERM;
+            case 18:
+                return EIGHTEENTH_TERM;
+            case 19:
+                return NINETEENTH_TERM;
+            case 20:
+                return TWENTIETH_TERM;
+            case 21:
+                return FIRST_EXTRA_TERM;
+            case 22:
+                return SECOND_EXTRA_TERM;
+            default:
+                return null;
+        }
+    }
+
     public int getId() {
         return id;
     }

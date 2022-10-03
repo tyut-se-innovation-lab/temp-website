@@ -20,32 +20,6 @@ public enum Period {
         this.name = name;
     }
 
-    public static Period getPeriodById(int id){
-        switch (id){
-            case 1:
-                return FIRST;
-            case 2:
-                return SECOND;
-            case 3:
-                return THIRD;
-            case 4:
-                return FORTH;
-            case 5:
-                return FIFTH;
-            case 6:
-                return SIXTH;
-            case 7:
-                return SEVENTH;
-            case 8:
-                return EIGHTH;
-            case 9:
-                return NINTH;
-            case 10:
-                return TENTH;
-            default:
-                return null;
-        }
-    }
 
     public int getId() {
         return id;

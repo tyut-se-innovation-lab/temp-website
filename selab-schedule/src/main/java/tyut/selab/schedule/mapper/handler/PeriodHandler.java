@@ -29,13 +29,11 @@ public class PeriodHandler implements TypeHandler<Period> {
 
     @Override
     public Period getResult(ResultSet resultSet, int i) throws SQLException {
-        int id = resultSet.getInt(i);
-        return Period.getPeriodById(id);
+        return Period.values()[resultSet.getInt(i)];
     }
 
     @Override
     public Period getResult(CallableStatement callableStatement, int i) throws SQLException {
-        int id = callableStatement.getInt(i);
-        return Period.getPeriodById(id);
+        return null;
     }
 }

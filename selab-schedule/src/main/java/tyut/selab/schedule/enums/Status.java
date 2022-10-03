@@ -13,18 +13,6 @@ public enum Status {
         this.comment = comment;
     }
 
-    public static Status getStatusById(int id){
-        switch (id){
-            case 0:
-                return ENABLE;
-            case 1:
-                return DELETED;
-            case 2:
-                return EXPIRED;
-            default:
-                return null;
-        }
-    }
 
     public int getId() {
         return id;

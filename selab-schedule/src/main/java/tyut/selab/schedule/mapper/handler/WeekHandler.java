@@ -3,6 +3,7 @@ package tyut.selab.schedule.mapper.handler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 import org.springframework.stereotype.Component;
+import tyut.selab.schedule.enums.Period;
 import tyut.selab.schedule.enums.Week;
 
 import java.sql.CallableStatement;
@@ -28,13 +29,11 @@ public class WeekHandler implements TypeHandler<Week> {
 
     @Override
     public Week getResult(ResultSet resultSet, int i) throws SQLException {
-        int id = resultSet.getInt(i);
-        return Week.getWeekById(id);
+        return Week.values()[resultSet.getInt(i)];
     }
 
     @Override
     public Week getResult(CallableStatement callableStatement, int i) throws SQLException {
-        int id = callableStatement.getInt(i);
-        return Week.getWeekById(id);
+        return null;
     }
 }

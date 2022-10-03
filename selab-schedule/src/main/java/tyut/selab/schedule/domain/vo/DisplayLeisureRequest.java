@@ -1,40 +1,20 @@
 package tyut.selab.schedule.domain.vo;
 
-import tyut.selab.schedule.enums.Period;
-import tyut.selab.schedule.enums.Week;
-import tyut.selab.schedule.enums.WeekNo;
+import tyut.selab.schedule.domain.TimeFrame;
 
 import java.util.List;
 
 public class DisplayLeisureRequest {
-    private List<Period> period;
-    private List<Week> week;
-    private List<WeekNo> weekNo;
+    private List<TimeFrame> timeFrames;
     private List<Long> DeptIds;
     private List<Long> roleIds;
 
-    public List<Period> getPeriod() {
-        return period;
+    public List<TimeFrame> getTimeFrames() {
+        return timeFrames;
     }
 
-    public void setPeriod(List<Period> period) {
-        this.period = period;
-    }
-
-    public List<Week> getWeek() {
-        return week;
-    }
-
-    public void setWeek(List<Week> week) {
-        this.week = week;
-    }
-
-    public List<WeekNo> getWeekNo() {
-        return weekNo;
-    }
-
-    public void setWeekNo(List<WeekNo> weekNo) {
-        this.weekNo = weekNo;
+    public void setTimeFrames(List<TimeFrame> timeFrames) {
+        this.timeFrames = timeFrames;
     }
 
     public List<Long> getDeptIds() {

@@ -4,18 +4,35 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="tyut.selab.schedule.mapper.IUploadScheduleMapper">
 
-    <resultMap id="ScheduleResult" type="Schedule">
+    <resultMap id="ScheduleResult" type="tyut.selab.schedule.domain.po.Schedule">
         <id property="id"           column="id"/>
         <id property="userId"       column="user_id"/>
-        <id property="period"       column="period"/>
-        <id property="week"         column="week"/>
-        <id property="weekNo"       column="week_no"/>
+        <id property="period"       column="period"
+            typeHandler="tyut.selab.schedule.mapper.handler.PeriodHandler"/>
+        <id property="week"         column="week"
+            typeHandler="tyut.selab.schedule.mapper.handler.WeekHandler"/>
+        <id property="weekNo"       column="week_no"
+            typeHandler="tyut.selab.schedule.mapper.handler.WeekNoHandler"/>
         <id property="courseTitle"  column="course_title"/>
         <id property="createTime"   column="creat_time"/>
         <id property="updateTime"   column="update_time"/>
     </resultMap>
 
-    <insert id="insertSchedule" parameterType="Schedule" useGeneratedKeys="true" keyProperty="id">
+    <parameterMap id="ScheduleResult" type="tyut.selab.schedule.domain.po.Schedule">
+        <parameter property="id"           javaType="Long"/>
+        <parameter property="userId"       javaType="Long"/>
+        <parameter property="period"       javaType="tyut.selab.schedule.enums.Period"
+            typeHandler="tyut.selab.schedule.mapper.handler.PeriodHandler"/>
+        <parameter property="week"         javaType="tyut.selab.schedule.enums.Week"
+            typeHandler="tyut.selab.schedule.mapper.handler.WeekHandler"/>
+        <parameter property="weekNo"       javaType="tyut.selab.schedule.enums.WeekNo"
+            typeHandler="tyut.selab.schedule.mapper.handler.WeekNoHandler"/>
+        <parameter property="courseTitle"  javaType="String"/>
+        <parameter property="createTime"   javaType="Date"/>
+        <parameter property="updateTime"   javaType="Date"/>
+    </parameterMap>
+
+    <insert id="insertSchedule" parameterType="tyut.selab.schedule.domain.po.Schedule" useGeneratedKeys="true" keyProperty="id">
         insert into selab_schedule_info(
         <if test="id != null and id != 0">id,</if>
         <if test="userId != null and userId != 0">user_id,</if>

@@ -19,8 +19,8 @@ public class UploadController {
     private UploadScheduleService uploadScheduleService;
 
     @PostMapping("/selab/Schedule")
-    @PreAuthorize("@ss.hasAnyPermi('schedule:upload')")
-    public void uploadSchedule(@RequestBody List<Schedule> schedules){
+    @PreAuthorize("@ss.hasAnyPermi('schedule:mine:upload')")
+    public void uploadSchedule(List<Schedule> schedules){
         uploadScheduleService.insertSchedule(schedules);
     }
 

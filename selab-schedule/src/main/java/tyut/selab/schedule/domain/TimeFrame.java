@@ -32,4 +32,24 @@ public class TimeFrame {
     public void setWeekNo(WeekNo weekNo) {
         this.weekNo = weekNo;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TimeFrame timeFrame = (TimeFrame) o;
+
+        if (period != timeFrame.period) return false;
+        if (week != timeFrame.week) return false;
+        return weekNo == timeFrame.weekNo;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = period != null ? period.hashCode() : 0;
+        result = 31 * result + (week != null ? week.hashCode() : 0);
+        result = 31 * result + (weekNo != null ? weekNo.hashCode() : 0);
+        return result;
+    }
 }

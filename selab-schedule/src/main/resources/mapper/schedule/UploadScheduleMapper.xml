@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tyut.selab.schedule.mapper.IUploadScheduleMapper">
+
+    <resultMap id="Schedule" type="tyut.selab.schedule.domain.po.Schedule">
+        <id property="id" column="id"/>
+        <id property="userId" column="user_id"/>
+        <id property="period" column="period"
+            typeHandler="tyut.selab.schedule.mapper.handler.PeriodHandler"/>
+        <id property="week" column="week"
+            typeHandler="tyut.selab.schedule.mapper.handler.WeekHandler"/>
+        <id property="weekNo" column="week_no"
+            typeHandler="tyut.selab.schedule.mapper.handler.WeekNoHandler"/>
+        <id property="courseTitle" column="course_title"/>
+        <id property="createTime" column="creat_time"/>
+        <id property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <parameterMap id="Schedule" type="tyut.selab.schedule.domain.po.Schedule">
+        <parameter property="id" javaType="Long"/>
+        <parameter property="user_id" javaType="Long"/>
+        <parameter property="period" javaType="tyut.selab.schedule.enums.Period"
+                   typeHandler="tyut.selab.schedule.mapper.handler.PeriodHandler"/>
+        <parameter property="week" javaType="tyut.selab.schedule.enums.Week"
+                   typeHandler="tyut.selab.schedule.mapper.handler.WeekHandler"/>
+        <parameter property="week_no" javaType="tyut.selab.schedule.enums.WeekNo"
+                   typeHandler="tyut.selab.schedule.mapper.handler.WeekNoHandler"/>
+        <parameter property="course_title" javaType="String"/>
+        <parameter property="create_time" javaType="Date"/>
+        <parameter property="update_time" javaType="Date"/>
+    </parameterMap>
+
+    <insert id="insertSchedule" parameterMap="Schedule" useGeneratedKeys="true" keyProperty="id">
+        insert into selab_schedule_info(
+        <if test="id != null">id,</if>
+        <if test="userId != null">user_id,</if>
+        <if test="period != null">`period`,</if>
+        <if test="week != null">week,</if>
+        <if test="weekNo != null">week_no,</if>
+        <if test="status != null">status,</if>
+        <if test="courseTitle != null">course_title,</if>
+        <if test="createTime != null">create_time,</if>
+        <if test="updateTime != null">update_time</if>
+        )value (
+        <if test="id != null and id != 0">#{id},</if>
+        <if test="userId != null">#{userId},</if>
+        <if test="period != null">#{period,typeHandler=tyut.selab.schedule.mapper.handler.PeriodHandler},</if>
+        <if test="week != null">#{week,typeHandler=tyut.selab.schedule.mapper.handler.WeekHandler},</if>
+        <if test="weekNo != null">#{weekNo,typeHandler=tyut.selab.schedule.mapper.handler.WeekNoHandler},</if>
+        <if test="status != null">#{status,typeHandler=tyut.selab.schedule.mapper.handler.StatusHandler},</if>
+        <if test="courseTitle != null">#{courseTitle},</if>
+        <if test="createTime != null">#{createTime},</if>
+        <if test="updateTime != null">#{updateTime}</if>
+        )
+    </insert>
+</mapper>

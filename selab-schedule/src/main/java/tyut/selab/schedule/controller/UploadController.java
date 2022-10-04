@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import tyut.selab.schedule.domain.po.Schedule;
-import tyut.selab.schedule.service.UploadScheduleService;
+import tyut.selab.schedule.service.impl.UploadScheduleService;
 
 import java.util.List;
 

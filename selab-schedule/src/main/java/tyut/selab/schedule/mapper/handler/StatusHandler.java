@@ -14,7 +14,6 @@ import java.sql.SQLException;
 /**
  * @author Big_bai on 2022/10/2
  */
-@Component
 public class StatusHandler implements TypeHandler<Status> {
     @Override
     public void setParameter(PreparedStatement preparedStatement, int i, Status status, JdbcType jdbcType) throws SQLException {

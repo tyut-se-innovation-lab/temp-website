@@ -1,6 +1,7 @@
 package tyut.selab.schedule.domain.po;
 
 import tyut.selab.schedule.enums.Period;
+import tyut.selab.schedule.enums.Status;
 import tyut.selab.schedule.enums.Week;
 import tyut.selab.schedule.enums.WeekNo;
 
@@ -12,6 +13,7 @@ public class Schedule {
     private Period period;
     private Week week;
     private WeekNo weekNo;
+    private Status status;
     private String courseTitle;
     private Date createTime;
     private Date updateTime;
@@ -78,5 +80,13 @@ public class Schedule {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

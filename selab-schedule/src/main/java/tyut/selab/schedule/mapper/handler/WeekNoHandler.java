@@ -14,7 +14,6 @@ import java.sql.SQLException;
 /**
  * @author Big_bai on 2022/10/2
  */
-@Component
 public class WeekNoHandler implements TypeHandler<WeekNo> {
     @Override
     public void setParameter(PreparedStatement preparedStatement, int i, WeekNo weekNo, JdbcType jdbcType) throws SQLException {

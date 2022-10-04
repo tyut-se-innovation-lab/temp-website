@@ -14,7 +14,6 @@ import java.sql.SQLException;
 /**
  * @author Big_bai on 2022/10/2
  */
-@Component
 public class WeekHandler implements TypeHandler<Week> {
 
     @Override

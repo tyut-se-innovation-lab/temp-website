@@ -13,13 +13,12 @@ import java.sql.SQLException;
 /**
  * @author Big_bai on 2022/9/30
  */
-@Component
 public class PeriodHandler implements TypeHandler<Period> {
 
 
     @Override
     public void setParameter(PreparedStatement preparedStatement, int i, Period period, JdbcType jdbcType) throws SQLException {
-        preparedStatement.setInt(i,period.getId());
+        preparedStatement.setInt(i, period.getId());
     }
 
     @Override
@@ -29,7 +28,8 @@ public class PeriodHandler implements TypeHandler<Period> {
 
     @Override
     public Period getResult(ResultSet resultSet, int i) throws SQLException {
-        return Period.values()[resultSet.getInt(i)];
+        int anInt = resultSet.getInt(i);
+        return Period.values()[anInt - 1];
     }
 
     @Override

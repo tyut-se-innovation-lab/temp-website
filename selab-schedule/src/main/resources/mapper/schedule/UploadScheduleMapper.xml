@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tyut.selab.schedule.mapper.IUploadScheduleMapper">
+
+    <resultMap id="ScheduleResult" type="Schedule">
+        <id property="id"           column="id"/>
+        <id property="userId"       column="user_id"/>
+        <id property="period"       column="period"/>
+        <id property="week"         column="week"/>
+        <id property="weekNo"       column="week_no"/>
+        <id property="courseTitle"  column="course_title"/>
+        <id property="createTime"   column="creat_time"/>
+        <id property="updateTime"   column="update_time"/>
+    </resultMap>
+
+    <insert id="insertSchedule" parameterType="Schedule" useGeneratedKeys="true" keyProperty="id">
+        insert into selab_schedule_info(
+        <if test="id != null and id != 0">id,</if>
+        <if test="userId != null and userId != 0">user_id,</if>
+        <if test="period != null and period != 0">'period',</if>
+        <if test="week != null and week != 0">week,</if>
+        <if test="weekNo != null and weekNo != 0">week_no,</if>
+        <if test="courseTitle != null and courseTitle != ''">course_title,</if>
+        <if test="creatTime != null">creat_time,</if>
+        <if test="updateTime != null">update_time</if>
+        )value (
+        <if test="id != null and id != 0">#{id},</if>
+        <if test="userId != null and userId != 0">#{userId},</if>
+        <if test="period != null and period != 0">#{period},</if>
+        <if test="week != null and week != 0">#{week},</if>
+        <if test="weekNo != null and weekNo != 0">#{weekNo},</if>
+        <if test="courseTitle != null and courseTitle != ''">#{courseTitle},</if>
+        <if test="creatTime != null">#{creatTime},</if>
+        <if test="updateTime != null">#{updateTime}</if>
+        )
+    </insert>
+</mapper>

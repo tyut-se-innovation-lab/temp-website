@@ -39,5 +39,9 @@
             <version>3.5.9</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>ruoyi-common</artifactId>
+        </dependency>
     </dependencies>
 </project>

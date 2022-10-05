@@ -40,11 +40,11 @@ public class DisplayLeisureServiceImpl implements IDisplayLeisureService {
         }
         if (timeFrames!=null) {
             for (TimeFrame timeFrame : timeFrames) {
-                List<Long> user_NoClass = userIds;
+                List<Long> user_noClass = userIds;
                 List<Long> userIds_hasClass = null;
                 userIds_hasClass.addAll(displayLeisureMapper.getUserIdByTimeFrame(timeFrame,userIds));
-                user_NoClass.removeAll(userIds_hasClass);
-                List<DisplayLeisureResponse> response = displayLeisureMapper.getResponseByUserId(user_NoClass);
+                user_noClass.removeAll(userIds_hasClass);
+                List<DisplayLeisureResponse> response = displayLeisureMapper.getResponseByUserId(user_noClass);
                 responseMap.put(timeFrame,response);
             }
         }

@@ -27,35 +27,37 @@ public class UploadScheduleMapperTest {
     @Autowired
     IUploadScheduleMapper iUploadScheduleMapper;
 
-    @Test
-    public void testMapper(){
-        System.out.println(iUploadScheduleMapper);
-    }
-
-    @Test
-    public void testService(@Autowired ISysMenuService service){
-        System.out.println(service);
-    }
-
-    @Test
-    public void testSysMapper(@Autowired SysConfigMapper configMapper){
-        System.out.println(configMapper);
-    }
+//    @Test
+//    public void testMapper(){
+//        System.out.println(iUploadScheduleMapper);
+//    }
+//
+//    @Test
+//    public void testService(@Autowired ISysMenuService service){
+//        System.out.println(service);
+//    }
 
 //    @Test
-//    public void test() {
-//        System.out.println(iUploadScheduleMapper);
-//        Schedule schedule = new Schedule();
-//        schedule.setUserId(10L);
-//        schedule.setCourseTitle("aaa");
-//        schedule.setCreateTime(new Date());
-//        schedule.setPeriod(Period.FIFTH);
-//        schedule.setWeek(Week.FRIDAY);
-//        schedule.setWeekNo(WeekNo.EIGHTH_TERM);
-//
-//        int i = iUploadScheduleMapper.insertSchedule(schedule);
-//        System.out.println(i);
+//    public void testSysMapper(@Autowired SysConfigMapper configMapper){
+//        System.out.println(configMapper);
 //    }
+
+    @Test
+    public void test() {
+        Schedule schedule = new Schedule();
+//        schedule.setId(500L);
+        schedule.setUserId(10L);
+        schedule.setCourseTitle("数据结构");
+        schedule.setCreateTime(new Date());
+        schedule.setPeriod(Period.EIGHTH);
+        schedule.setWeek(Week.WEDNESDAY);
+        schedule.setWeekNo(WeekNo.EIGHTH_TERM);
+        schedule.setUpdateTime(new Date());
+        schedule.setStatus(Status.ENABLE);
+
+        int i = iUploadScheduleMapper.insertSchedule(schedule);
+        System.out.println(i);
+    }
 
 //    @Test
 //    public void testSqlSessionFactory(@Autowired SqlSessionFactory sqlFactory){

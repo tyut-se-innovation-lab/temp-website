@@ -1,4 +1,4 @@
-package tyut.selab.schedule.mapper.handler;
+package tyut.selab.schedule.config.jdbc.handler;
 
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;

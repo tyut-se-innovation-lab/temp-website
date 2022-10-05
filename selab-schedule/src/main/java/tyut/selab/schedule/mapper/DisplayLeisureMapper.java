@@ -1,15 +1,13 @@
 package tyut.selab.schedule.mapper;
 
-import com.ruoyi.common.core.domain.entity.SysUser;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 import tyut.selab.schedule.domain.TimeFrame;
 import tyut.selab.schedule.domain.vo.DisplayLeisureResponse;
 
 import java.util.List;
 
 public interface DisplayLeisureMapper {
-     List<Long> getUserByTimeFrame(@Param("timeFrame") TimeFrame timeFrame,@Param("userIds") List<Long> userIds);
+     List<Long> getUserIdByTimeFrame(@Param("timeFrame") TimeFrame timeFrame, @Param("userIds") List<Long> userIds);
 
      List<Long> getUserIdByDeptId(@Param("deptIds") List<Long> deptIds);
 

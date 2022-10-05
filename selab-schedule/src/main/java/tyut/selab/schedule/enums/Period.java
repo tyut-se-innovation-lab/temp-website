@@ -1,6 +1,5 @@
 package tyut.selab.schedule.enums;
 
-import sun.reflect.generics.tree.BaseType;
 
 public enum Period {
     FIRST(1, "第一节课"),

@@ -29,6 +29,8 @@
                    typeHandler="tyut.selab.schedule.config.jdbc.handler.WeekHandler"/>
         <parameter property="week_no" javaType="tyut.selab.schedule.enums.WeekNo"
                    typeHandler="tyut.selab.schedule.config.jdbc.handler.WeekNoHandler"/>
+        <parameter property="status"    javaType="tyut.selab.schedule.enums.Status"
+                   typeHandler="tyut.selab.schedule.config.jdbc.handler.StatusHandler"/>
         <parameter property="course_title" javaType="String"/>
         <parameter property="create_time" javaType="Date"/>
         <parameter property="update_time" javaType="Date"/>
@@ -36,25 +38,19 @@
 
     <insert id="insertSchedule" parameterMap="Schedule" useGeneratedKeys="true" keyProperty="id">
         insert into selab_schedule_info(
-        <if test="id != null">id,</if>
-        <if test="userId != null">user_id,</if>
-        <if test="period != null">`period`,</if>
-        <if test="week != null">week,</if>
-        <if test="weekNo != null">week_no,</if>
-        <if test="status != null">status,</if>
-        <if test="courseTitle != null">course_title,</if>
-        <if test="createTime != null">create_time,</if>
-        <if test="updateTime != null">update_time</if>
-        )value (
-        <if test="id != null and id != 0">#{id},</if>
-        <if test="userId != null">#{userId},</if>
-        <if test="period != null">#{period,typeHandler=tyut.selab.schedule.config.jdbc.handler.PeriodHandler},</if>
-        <if test="week != null">#{week,typeHandler=tyut.selab.schedule.config.jdbc.handler.WeekHandler},</if>
-        <if test="weekNo != null">#{weekNo,typeHandler=tyut.selab.schedule.config.jdbc.handler.WeekNoHandler},</if>
-        <if test="status != null">#{status,typeHandler=tyut.selab.schedule.config.jdbc.handler.StatusHandler},</if>
-        <if test="courseTitle != null">#{courseTitle},</if>
-        <if test="createTime != null">#{createTime},</if>
-        <if test="updateTime != null">#{updateTime}</if>
-        )
+            user_id,`period`,week,week_no,status,course_title,create_time,update_time
+        )value
+        <foreach collection="list" item="a" separator=",">
+            (
+            #{a.userId},
+            #{a.period,typeHandler=tyut.selab.schedule.config.jdbc.handler.PeriodHandler},
+            #{a.week,typeHandler=tyut.selab.schedule.config.jdbc.handler.WeekHandler},
+            #{a.weekNo,typeHandler=tyut.selab.schedule.config.jdbc.handler.WeekNoHandler},
+            #{a.status,typeHandler=tyut.selab.schedule.config.jdbc.handler.StatusHandler},
+            #{a.courseTitle},
+            #{a.createTime},
+            #{a.updateTime}
+            )
+        </foreach>
     </insert>
 </mapper>

@@ -8,11 +8,13 @@
         <id property="id" column="id"/>
         <id property="userId" column="user_id"/>
         <id property="period" column="period"
-            typeHandler="tyut.selab.schedule.mapper.handler.PeriodHandler"/>
+            typeHandler="tyut.selab.schedule.config.jdbc.handler.PeriodHandler"/>
         <id property="week" column="week"
-            typeHandler="tyut.selab.schedule.mapper.handler.WeekHandler"/>
+            typeHandler="tyut.selab.schedule.config.jdbc.handler.WeekHandler"/>
         <id property="weekNo" column="week_no"
-            typeHandler="tyut.selab.schedule.mapper.handler.WeekNoHandler"/>
+            typeHandler="tyut.selab.schedule.config.jdbc.handler.WeekNoHandler"/>
+        <id property="status"   column="status"
+            typeHandler="tyut.selab.schedule.config.jdbc.handler.StatusHandler"/>
         <id property="courseTitle" column="course_title"/>
         <id property="createTime" column="creat_time"/>
         <id property="updateTime" column="update_time"/>
@@ -22,11 +24,11 @@
         <parameter property="id" javaType="Long"/>
         <parameter property="user_id" javaType="Long"/>
         <parameter property="period" javaType="tyut.selab.schedule.enums.Period"
-                   typeHandler="tyut.selab.schedule.mapper.handler.PeriodHandler"/>
+                   typeHandler="tyut.selab.schedule.config.jdbc.handler.PeriodHandler"/>
         <parameter property="week" javaType="tyut.selab.schedule.enums.Week"
-                   typeHandler="tyut.selab.schedule.mapper.handler.WeekHandler"/>
+                   typeHandler="tyut.selab.schedule.config.jdbc.handler.WeekHandler"/>
         <parameter property="week_no" javaType="tyut.selab.schedule.enums.WeekNo"
-                   typeHandler="tyut.selab.schedule.mapper.handler.WeekNoHandler"/>
+                   typeHandler="tyut.selab.schedule.config.jdbc.handler.WeekNoHandler"/>
         <parameter property="course_title" javaType="String"/>
         <parameter property="create_time" javaType="Date"/>
         <parameter property="update_time" javaType="Date"/>
@@ -46,10 +48,10 @@
         )value (
         <if test="id != null and id != 0">#{id},</if>
         <if test="userId != null">#{userId},</if>
-        <if test="period != null">#{period,typeHandler=tyut.selab.schedule.mapper.handler.PeriodHandler},</if>
-        <if test="week != null">#{week,typeHandler=tyut.selab.schedule.mapper.handler.WeekHandler},</if>
-        <if test="weekNo != null">#{weekNo,typeHandler=tyut.selab.schedule.mapper.handler.WeekNoHandler},</if>
-        <if test="status != null">#{status,typeHandler=tyut.selab.schedule.mapper.handler.StatusHandler},</if>
+        <if test="period != null">#{period,typeHandler=tyut.selab.schedule.config.jdbc.handler.PeriodHandler},</if>
+        <if test="week != null">#{week,typeHandler=tyut.selab.schedule.config.jdbc.handler.WeekHandler},</if>
+        <if test="weekNo != null">#{weekNo,typeHandler=tyut.selab.schedule.config.jdbc.handler.WeekNoHandler},</if>
+        <if test="status != null">#{status,typeHandler=tyut.selab.schedule.config.jdbc.handler.StatusHandler},</if>
         <if test="courseTitle != null">#{courseTitle},</if>
         <if test="createTime != null">#{createTime},</if>
         <if test="updateTime != null">#{updateTime}</if>

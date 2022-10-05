@@ -62,7 +62,8 @@
         </foreach>
     </select>
     <select id="getResponseByUserId" resultMap="DisplayLeisureResponse" parameterType="list">
-        select * from sys_user where user_id in
+        select * from sys_user
+        where user_id in
         <foreach collection="userIds" item="userId" separator="," open="(" close=")">
             #{userId}
         </foreach>

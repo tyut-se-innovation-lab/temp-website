@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tyut.selab.schedule.mapper.DisplayLeisureMapper">
+    <resultMap id="DisplayLeisureResponse" type="tyut.selab.schedule.domain.vo.DisplayLeisureResponse">
+        <id property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="roleId" column="role_id"/>
+        <result property="sex" column="sex"/>
+    </resultMap>
+
+    <parameterMap id="TimeFrame" type="tyut.selab.schedule.domain.TimeFrame">
+        <parameter property="period" typeHandler="tyut.selab.schedule.config.jdbc.handler.PeriodHandler" javaType="tyut.selab.schedule.enums.Period"/>
+        <parameter property="weekNo" typeHandler="tyut.selab.schedule.config.jdbc.handler.WeekNoHandler" javaType="tyut.selab.schedule.enums.WeekNo"/>
+        <parameter property="week" typeHandler="tyut.selab.schedule.config.jdbc.handler.WeekHandler" javaType="tyut.selab.schedule.enums.Week"/>
+    </parameterMap>
+
+    <select id="getUserIdByTimeFrame" resultType="long">
+        select user_id from selab_schedule_info
+        where status = 0
+        <if test="timeFrame.getWeek() != null and timeFrame.getWeek() != ''">
+            AND week = #{timeFrame.week}
+        </if>
+        <if test="timeFrame.getWeekNo() != null and timeFrame.getWeekNo() != ''">
+            AND week_no = #{timeFrame.weekNo}
+        </if>
+        <if test="timeFrame.getPeriod() != null and timeFrame.getPeriod() != ''">
+            AND period = #{timeFrame.period}
+        </if>
+        <foreach collection="userIds" item="userId" separator="," open="and user_id in (" close=")">
+            #{userId}
+        </foreach>
+    </select>
+
+    <select id="getUserIdByDeptId" parameterType="list" resultType="long">
+        select user_id from sys_user
+        where status = 0
+        <if test="deptIds != null and deptIds != ''">
+            AND dept_id in
+            <foreach collection="deptIds" item="deptId" separator="," open="(" close=")">
+                #{deptId}
+            </foreach>
+        </if>
+    </select>
+    <select id="getUserIdByRoleId" parameterType="list" resultType="java.lang.Long">
+        select user_id from sys_user_role
+        where status = 0
+        <if test="roleIds != null and roleIds != ''">
+            AND role_id in
+            <foreach collection="roleIds" item="roleId" separator="," open="(" close=")">
+                #{roleId}
+            </foreach>
+        </if>
+    </select>
+    <select id="getRoleIdByDeptId" parameterType="list" resultType="java.lang.Long">
+        select roleId from sys_role_dept
+        where deptId in
+        <foreach collection="deptIds" item="deptId" open="(" close=")" separator=",">
+            #{deptId}
+        </foreach>
+    </select>
+    <select id="getResponseByUserId" resultMap="DisplayLeisureResponse" parameterType="list">
+        select * from sys_user where user_id in
+        <foreach collection="userIds" item="userId" separator="," open="(" close=")">
+            #{userId}
+        </foreach>
+    </select>
+</mapper>

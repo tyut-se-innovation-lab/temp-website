@@ -1,6 +1,5 @@
 package tyut.selab.schedule.service.impl;
 
-import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.system.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,7 +42,7 @@ public class DisplayLeisureServiceImpl implements IDisplayLeisureService {
         }
         if (timeFrames!=null) {
             for (TimeFrame timeFrame : timeFrames) {
-                userIds_filtration.addAll(displayLeisureMapper.getUserByTimeFrame(timeFrame,userIds));
+                userIds_filtration.addAll(displayLeisureMapper.getUserIdByTimeFrame(timeFrame,userIds));
             }
         }
 

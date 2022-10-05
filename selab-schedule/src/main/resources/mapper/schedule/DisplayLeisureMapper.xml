@@ -17,7 +17,7 @@
         <parameter property="week" typeHandler="tyut.selab.schedule.config.jdbc.handler.WeekHandler" javaType="tyut.selab.schedule.enums.Week"/>
     </parameterMap>
 
-    <select id="getUserByTimeFrame"  resultType="long">
+    <select id="getUserIdByTimeFrame" resultType="long">
         select user_id from selab_schedule_info
         where status = 0
         <if test="timeFrame.getWeek() != null and timeFrame.getWeek() != ''">

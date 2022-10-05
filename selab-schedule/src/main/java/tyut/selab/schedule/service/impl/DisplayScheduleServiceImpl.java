@@ -3,8 +3,8 @@ package tyut.selab.schedule.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.schedule.domain.po.Schedule;
-import tyut.selab.schedule.mapper.IMyScheduleMapper;
-import tyut.selab.schedule.service.IMyScheduleService;
+import tyut.selab.schedule.mapper.IDisplayScheduleMapper;
+import tyut.selab.schedule.service.IDisplayScheduleService;
 
 import java.util.List;
 
@@ -15,10 +15,10 @@ import java.util.List;
  * @Date: 2022/10/4 9:03
  */
 @Service
-public class MyScheduleServiceImpl implements IMyScheduleService
+public class DisplayScheduleServiceImpl implements IDisplayScheduleService
 {
     @Autowired
-    private IMyScheduleMapper scheduleMapper;
+    private IDisplayScheduleMapper scheduleMapper;
 
     /**
      * 查询课程信息集合

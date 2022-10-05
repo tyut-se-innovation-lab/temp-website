@@ -8,7 +8,7 @@ import java.util.List;
  * @Author: Gulu
  * @Date: 2022/10/1 13:23
  */
-public interface IMyScheduleMapper {
+public interface IDisplayScheduleMapper {
     /**
      * 查询课表
      * @param schedule 查询条件

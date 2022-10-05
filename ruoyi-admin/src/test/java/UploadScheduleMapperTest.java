@@ -15,9 +15,11 @@ import tyut.selab.schedule.enums.Period;
 import tyut.selab.schedule.enums.Status;
 import tyut.selab.schedule.enums.Week;
 import tyut.selab.schedule.enums.WeekNo;
+import tyut.selab.schedule.mapper.IDisplayScheduleMapper;
 import tyut.selab.schedule.mapper.IUploadScheduleMapper;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Big_bai on 2022/10/4
@@ -25,7 +27,9 @@ import java.util.Date;
 @SpringBootTest(classes = RuoYiApplication.class)
 public class UploadScheduleMapperTest {
     @Autowired
-    IUploadScheduleMapper iUploadScheduleMapper;
+    IDisplayScheduleMapper iDisplayScheduleMapper;
+    @Autowired
+    IUploadScheduleMapper iUploadScheduleMapper ;
 
 //    @Test
 //    public void testMapper(){
@@ -55,8 +59,9 @@ public class UploadScheduleMapperTest {
         schedule.setUpdateTime(new Date());
         schedule.setStatus(Status.ENABLE);
 
-        int i = iUploadScheduleMapper.insertSchedule(schedule);
-        System.out.println(i);
+        //iUploadScheduleMapper.insertSchedule(schedule);
+        List user = iDisplayScheduleMapper.selectScheduleList(schedule);
+        System.out.println(user);
     }
 
 //    @Test

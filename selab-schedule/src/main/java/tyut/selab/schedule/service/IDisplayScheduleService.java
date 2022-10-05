@@ -10,7 +10,7 @@ import java.util.List;
  * @Author: Gulu
  * @Date: 2022/10/4 9:02
  */
-public interface IMyScheduleService {
+public interface IDisplayScheduleService {
     /**
      * 查询课程信息
      * @param schedule 课程信息

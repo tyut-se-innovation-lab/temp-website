@@ -9,8 +9,6 @@ import tyut.selab.schedule.domain.po.Schedule;
  * @author Big_bai on 2022/10/4
  *
  */
-@Repository
-@Mapper
 public interface IUploadScheduleMapper {
     /**
      * 上传课表

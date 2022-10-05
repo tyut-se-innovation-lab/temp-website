@@ -5,9 +5,21 @@ import tyut.selab.schedule.enums.Week;
 import tyut.selab.schedule.enums.WeekNo;
 
 public class UploadScheduleRequest {
+    /**
+     * 第几节课
+     */
     private Period period;
+    /**
+     * 星期几
+     */
     private Week week;
+    /**
+     * 第几周
+     */
     private WeekNo weekNo;
+    /**
+     * 课程名称
+     */
     private String courseTitle;
 
     public Period getPeriod() {

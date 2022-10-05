@@ -5,8 +5,17 @@ import tyut.selab.schedule.domain.TimeFrame;
 import java.util.List;
 
 public class DisplayLeisureRequest {
+    /**
+     * 需要展示空课的时间段
+     */
     private List<TimeFrame> timeFrames;
+    /**
+     * 需要展示空课的部门ID
+     */
     private List<Long> deptIds;
+    /**
+     * 需要展示空课的角色ID
+     */
     private List<Long> roleIds;
 
     public List<TimeFrame> getTimeFrames() {

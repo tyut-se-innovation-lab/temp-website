@@ -1,14 +1,25 @@
 package tyut.selab.schedule.domain.vo;
 
 public class DisplayLeisureResponse {
+    /**
+     * 用户ID
+     */
     private Long userId;
-
+    /**
+     * 用户姓名
+     */
     private String userName;
-
+    /**
+     * 部门ID
+     */
     private Long deptId;
-
+    /**
+     * 角色ID
+     */
     private Long roleId;
-
+    /**
+     * 性别
+     */
     private String sex;
 
     public String getUserName() {

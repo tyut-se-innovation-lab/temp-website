@@ -16,5 +16,5 @@ public interface IUploadScheduleService {
      * 添加课表
      * @param schedule
      */
-    public void insertSchedule(List<Schedule> schedule);
+    public void insertSchedule(List<Schedule> schedule,Long userId);
 }

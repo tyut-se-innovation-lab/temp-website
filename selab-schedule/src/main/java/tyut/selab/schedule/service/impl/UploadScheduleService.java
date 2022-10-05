@@ -18,8 +18,9 @@ public class UploadScheduleService implements IUploadScheduleService {
     private IUploadScheduleMapper iUploadScheduleMapper;
 
     @Override
-    public void insertSchedule(List<Schedule> schedules){
+    public void insertSchedule(List<Schedule> schedules,Long userId){
         for (Schedule schedule:schedules) {
+            schedule.setUserId(userId);
             iUploadScheduleMapper.insertSchedule(schedule);
         }
     }

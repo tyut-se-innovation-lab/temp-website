@@ -24,8 +24,11 @@ import java.util.Date;
  */
 @SpringBootTest(classes = RuoYiApplication.class)
 public class UploadScheduleMapperTest {
+    @Autowired
+    IUploadScheduleMapper iUploadScheduleMapper;
+
     @Test
-    public void testMapper(@Autowired IUploadScheduleMapper iUploadScheduleMapper){
+    public void testMapper(){
         System.out.println(iUploadScheduleMapper);
     }
 

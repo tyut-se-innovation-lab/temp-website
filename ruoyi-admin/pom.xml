@@ -65,14 +65,19 @@
         <dependency>
             <groupId>tyut.selab</groupId>
             <artifactId>selab-schedule</artifactId>
-            <version>3.8.3</version>
         </dependency>
 
         <!-- 投票系统 -->
         <dependency>
             <groupId>tyut.selab</groupId>
             <artifactId>selab-vote</artifactId>
-            <version>3.8.3</version>
+        </dependency>
+
+        <!-- springboot测试 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

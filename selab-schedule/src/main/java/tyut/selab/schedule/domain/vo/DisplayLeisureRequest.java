@@ -6,7 +6,7 @@ import java.util.List;
 
 public class DisplayLeisureRequest {
     private List<TimeFrame> timeFrames;
-    private List<Long> DeptIds;
+    private List<Long> deptIds;
     private List<Long> roleIds;
 
     public List<TimeFrame> getTimeFrames() {
@@ -18,11 +18,11 @@ public class DisplayLeisureRequest {
     }
 
     public List<Long> getDeptIds() {
-        return DeptIds;
+        return deptIds;
     }
 
     public void setDeptIds(List<Long> deptIds) {
-        DeptIds = deptIds;
+        this.deptIds = deptIds;
     }
 
     public List<Long> getRoleIds() {

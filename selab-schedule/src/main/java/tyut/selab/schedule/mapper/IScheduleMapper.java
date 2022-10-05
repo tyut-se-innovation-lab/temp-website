@@ -8,6 +8,12 @@ public interface IScheduleMapper {
 
     List<Schedule> select(Schedule schedule);
 
+    /**
+     * 添加新课表
+     * @param schedules
+     * @return
+     */
+
     Integer insert(List<Schedule> schedules);
 
     Integer delete(Schedule schedule);

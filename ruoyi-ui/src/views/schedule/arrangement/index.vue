@@ -104,6 +104,7 @@ export default {
                 {
                     value:2,
                     label:"网安组"
+
                 }
             ],
             // 小组选择

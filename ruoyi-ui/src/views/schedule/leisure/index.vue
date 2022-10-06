@@ -272,6 +272,7 @@ export default {
     margin-left: 20px;
 }
 
+
 .el-main {
 
     color: #333;

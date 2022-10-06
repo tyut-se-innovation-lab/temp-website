@@ -18,6 +18,7 @@ import tyut.selab.schedule.enums.WeekNo;
 import tyut.selab.schedule.mapper.IDisplayScheduleMapper;
 import tyut.selab.schedule.mapper.IUploadScheduleMapper;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -51,17 +52,27 @@ public class UploadScheduleMapperTest {
         Schedule schedule = new Schedule();
 //        schedule.setId(500L);
         schedule.setUserId(10L);
-        schedule.setCourseTitle("数据结构");
+        schedule.setCourseTitle("xx");
         schedule.setCreateTime(new Date());
         schedule.setPeriod(Period.EIGHTH);
         schedule.setWeek(Week.WEDNESDAY);
         schedule.setWeekNo(WeekNo.EIGHTH_TERM);
-        schedule.setUpdateTime(new Date());
         schedule.setStatus(Status.ENABLE);
 
-        //iUploadScheduleMapper.insertSchedule(schedule);
-        List user = iDisplayScheduleMapper.selectScheduleList(schedule);
-        System.out.println(user);
+        Schedule schedule1 = new Schedule();
+        schedule1.setUserId(10L);
+        schedule1.setCourseTitle("ggs");
+        schedule1.setCreateTime(new Date());
+        schedule1.setPeriod(Period.FIFTH);
+        schedule1.setWeek(Week.THURSDAY);
+        schedule1.setWeekNo(WeekNo.TENTH_TERM);
+        schedule1.setStatus(Status.ENABLE);
+        List<Schedule> schedules = new ArrayList<>();
+        schedules.add(schedule);
+        schedules.add(schedule1);
+        iUploadScheduleMapper.insertSchedule(schedules);
+//        List user = iDisplayScheduleMapper.selectScheduleList(schedule);
+//        System.out.println(user);
     }
 
 //    @Test

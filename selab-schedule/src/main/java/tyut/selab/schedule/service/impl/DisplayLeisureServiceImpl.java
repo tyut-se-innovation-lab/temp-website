@@ -17,13 +17,13 @@ public class DisplayLeisureServiceImpl implements IDisplayLeisureService {
     @Autowired
     private DisplayLeisureMapper displayLeisureMapper;
 
-    public Map<TimeFrame, List<DisplayLeisureResponse>> getLeisure(DisplayLeisureRequest displayLeisureRequest){
+    public List<DisplayLeisureResponse> getLeisure(DisplayLeisureRequest displayLeisureRequest){
         List<TimeFrame> timeFrames = displayLeisureRequest.getTimeFrames();
         List<Long> deptIds = displayLeisureRequest.getDeptIds();
         List<Long> roleIds = displayLeisureRequest.getRoleIds();
         List<Long> roleIdByDeptId = displayLeisureMapper.getRoleIdByDeptId(deptIds);
         List<Long> userIds = null;
-        Map<TimeFrame,List<DisplayLeisureResponse>> responseMap = null;
+        List<DisplayLeisureResponse> response = null;
 
         if (roleIds!=null) {
             for (Long roleId : roleIds) {
@@ -40,15 +40,13 @@ public class DisplayLeisureServiceImpl implements IDisplayLeisureService {
         }
         if (timeFrames!=null) {
             for (TimeFrame timeFrame : timeFrames) {
-                List<Long> user_noClass = userIds;
                 List<Long> userIds_hasClass = null;
                 userIds_hasClass.addAll(displayLeisureMapper.getUserIdByTimeFrame(timeFrame,userIds));
-                user_noClass.removeAll(userIds_hasClass);
-                List<DisplayLeisureResponse> response = displayLeisureMapper.getResponseByUserId(user_noClass);
-                responseMap.put(timeFrame,response);
+                userIds.removeAll(userIds_hasClass);
             }
+             response = displayLeisureMapper.getResponseByUserId(userIds);
         }
-        return responseMap;
+        return response;
 
     }
 

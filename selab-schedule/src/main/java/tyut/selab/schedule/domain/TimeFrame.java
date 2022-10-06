@@ -5,8 +5,17 @@ import tyut.selab.schedule.enums.Week;
 import tyut.selab.schedule.enums.WeekNo;
 
 public class TimeFrame {
+    /**
+     * 第几节课
+     */
     private Period period;
+    /**
+     * 星期几
+     */
     private Week week;
+    /**
+     * 第几周
+     */
     private WeekNo weekNo;
 
     public Period getPeriod() {

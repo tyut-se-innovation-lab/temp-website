@@ -3,6 +3,7 @@ package tyut.selab.schedule.service;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 import tyut.selab.schedule.domain.po.Schedule;
+import tyut.selab.schedule.domain.vo.UploadScheduleRequest;
 
 import java.util.List;
 
@@ -13,8 +14,9 @@ import java.util.List;
 @Repository
 public interface IUploadScheduleService {
     /**
-     * 添加课表
-     * @param schedule
+     * 上传课表
+     * @param uploadScheduleRequests 课表集合
+     * @param userId 用户id
      */
-    public void insertSchedule(List<Schedule> schedule,Long userId);
+    public void insertSchedule(List<UploadScheduleRequest> uploadScheduleRequests, Long userId);
 }

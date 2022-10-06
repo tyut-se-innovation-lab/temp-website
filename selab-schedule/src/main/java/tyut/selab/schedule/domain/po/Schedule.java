@@ -8,14 +8,41 @@ import tyut.selab.schedule.enums.WeekNo;
 import java.util.Date;
 
 public class Schedule {
+    /**
+     * 数据唯一标识
+     */
     private Long id;
+    /**
+     * 用户ID
+     */
     private Long userId;
+    /**
+     * 第几节课
+     */
     private Period period;
+    /**
+     * 星期几
+     */
     private Week week;
+    /**
+     * 第几周
+     */
     private WeekNo weekNo;
+    /**
+     * 状态
+     */
     private Status status;
+    /**
+     * 课程名称
+     */
     private String courseTitle;
+    /**
+     * 创建时间
+     */
     private Date createTime;
+    /**
+     * 更新时间
+     */
     private Date updateTime;
 
     public Long getId() {

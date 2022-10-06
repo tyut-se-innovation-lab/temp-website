@@ -7,8 +7,10 @@
         <id property="userId" column="user_id"/>
         <result property="userName" column="user_name"/>
         <result property="deptId" column="dept_id"/>
-        <result property="roleId" column="role_id"/>
         <result property="sex" column="sex"/>
+        <association property="roleId" column="user_id" select="tyut.selab.schedule.mapper.DisplayLeisureMapper.getRoleIDByUserId"/>
+        <association property="roleName" column="role_id" select="tyut.selab.schedule.mapper.DisplayLeisureMapper.getRoleNameByRoleId"/>
+        <association property="deptName" column="dept_id" select="tyut.selab.schedule.mapper.DisplayLeisureMapper.getDeptNameByDeptId"/>
     </resultMap>
 
     <parameterMap id="TimeFrame" type="tyut.selab.schedule.domain.TimeFrame">
@@ -44,6 +46,7 @@
             </foreach>
         </if>
     </select>
+
     <select id="getUserIdByRoleId" parameterType="list" resultType="java.lang.Long">
         select user_id from sys_user_role
         where status = 0
@@ -54,6 +57,7 @@
             </foreach>
         </if>
     </select>
+
     <select id="getRoleIdByDeptId" parameterType="list" resultType="java.lang.Long">
         select roleId from sys_role_dept
         where deptId in
@@ -61,10 +65,27 @@
             #{deptId}
         </foreach>
     </select>
+
     <select id="getResponseByUserId" resultMap="DisplayLeisureResponse" parameterType="list">
-        select * from sys_user where user_id in
+        select * from sys_user
+        where user_id in
         <foreach collection="userIds" item="userId" separator="," open="(" close=")">
             #{userId}
         </foreach>
+    </select>
+
+    <select id="getRoleIDByUserId" resultType="long">
+        select role_id from sys_user_role
+        where user_id = #{userId}
+    </select>
+
+    <select id="getRoleNameByRoleId" resultType="java.lang.String">
+        select role_name from sys_role
+        where role_id = #{roleId}
+    </select>
+
+    <select id="getDeptNameByDeptId" resultType="java.lang.String">
+        select dept_name from sys_dept
+        where dept_id = #{deptId}
     </select>
 </mapper>

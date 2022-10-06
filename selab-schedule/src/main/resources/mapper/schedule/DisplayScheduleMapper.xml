@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tyut.selab.schedule.mapper.IDisplayScheduleMapper">
+
+    <resultMap id="ScheduleResult" type="tyut.selab.schedule.domain.po.Schedule">
+        <id     property="id"          column="id"          />
+        <result property="userId"      column="user_id"     />
+        <result property="period"      column="period"
+                typeHandler="tyut.selab.schedule.config.jdbc.handler.PeriodHandler"/>
+        <result property="week"        column="week"
+                typeHandler="tyut.selab.schedule.config.jdbc.handler.WeekHandler"/>
+        <result property="weekNo"      column="week_no"
+                typeHandler="tyut.selab.schedule.config.jdbc.handler.WeekNoHandler"/>
+        <result property="status"   column="status"
+            typeHandler="tyut.selab.schedule.config.jdbc.handler.StatusHandler"/>
+        <result property="courseTitle" column="course_title"/>
+        <result property="createTime"  column="create_time" />
+        <result property="updateTime"  column="update_time" />
+    </resultMap>
+
+    <parameterMap id="Schedule" type="tyut.selab.schedule.domain.po.Schedule">
+        <parameter property="id" javaType="Long"/>
+        <parameter property="user_id" javaType="Long"/>
+        <parameter property="period" javaType="tyut.selab.schedule.enums.Period"
+                   typeHandler="tyut.selab.schedule.config.jdbc.handler.PeriodHandler"/>
+        <parameter property="week" javaType="tyut.selab.schedule.enums.Week"
+                   typeHandler="tyut.selab.schedule.config.jdbc.handler.WeekHandler"/>
+        <parameter property="week_no" javaType="tyut.selab.schedule.enums.WeekNo"
+                   typeHandler="tyut.selab.schedule.config.jdbc.handler.WeekNoHandler"/>
+        <parameter property="course_title" javaType="String"/>
+        <parameter property="create_time" javaType="Date"/>
+        <parameter property="update_time" javaType="Date"/>
+    </parameterMap>
+
+    <sql id="selectScheduleVo">
+        select id,user_id,period,week,week_no,course_title,create_time,update_time
+        from selab_schedule_info
+    </sql>
+    
+    <select id="selectScheduleList" resultMap="ScheduleResult">
+        <include refid="selectScheduleVo"/>
+        <where>
+            <if test="userId != null ">
+                AND user_id like concat('%',#{userId},'%')
+            </if>
+            <if test="status != null ">
+                AND status = 0
+            </if>
+        </where>
+    </select>
+</mapper>

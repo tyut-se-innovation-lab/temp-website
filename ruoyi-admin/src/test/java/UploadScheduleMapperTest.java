@@ -49,30 +49,31 @@ public class UploadScheduleMapperTest {
 
     @Test
     public void test() {
-        Schedule schedule = new Schedule();
-//        schedule.setId(500L);
-        schedule.setUserId(10L);
-        schedule.setCourseTitle("xx");
-        schedule.setCreateTime(new Date());
-        schedule.setPeriod(Period.EIGHTH);
-        schedule.setWeek(Week.WEDNESDAY);
-        schedule.setWeekNo(WeekNo.EIGHTH_TERM);
-        schedule.setStatus(Status.ENABLE);
-
-        Schedule schedule1 = new Schedule();
-        schedule1.setUserId(10L);
-        schedule1.setCourseTitle("ggs");
-        schedule1.setCreateTime(new Date());
-        schedule1.setPeriod(Period.FIFTH);
-        schedule1.setWeek(Week.THURSDAY);
-        schedule1.setWeekNo(WeekNo.TENTH_TERM);
-        schedule1.setStatus(Status.ENABLE);
-        List<Schedule> schedules = new ArrayList<>();
-        schedules.add(schedule);
-        schedules.add(schedule1);
-        iUploadScheduleMapper.insertSchedule(schedules);
-//        List user = iDisplayScheduleMapper.selectScheduleList(schedule);
-//        System.out.println(user);
+//        Schedule schedule = new Schedule();
+////        schedule.setId(500L);
+//        schedule.setUserId(20L);
+//        schedule.setCourseTitle("xx");
+//        schedule.setCreateTime(new Date());
+//        schedule.setPeriod(Period.EIGHTH);
+//        schedule.setWeek(Week.WEDNESDAY);
+//        schedule.setWeekNo(WeekNo.EIGHTH_TERM);
+//        schedule.setStatus(Status.ENABLE);
+//        Schedule schedule1 = new Schedule();
+//        schedule1.setUserId(20L);
+//        schedule1.setCourseTitle("ggs");
+//        schedule1.setCreateTime(new Date());
+//        schedule1.setPeriod(Period.FIFTH);
+//        schedule1.setWeek(Week.THURSDAY);
+//        schedule1.setWeekNo(WeekNo.TENTH_TERM);
+//        schedule1.setStatus(Status.ENABLE);
+//        List<Schedule> schedules = new ArrayList<>();
+//        schedules.add(schedule);
+//        schedules.add(schedule1);
+//        iUploadScheduleMapper.insertSchedule(schedules);
+        List<Schedule> user = iDisplayScheduleMapper.selectScheduleList(10L);
+        for (Schedule schedule:user) {
+            System.out.println(schedule.getCourseTitle());
+        }
     }
 
 //    @Test

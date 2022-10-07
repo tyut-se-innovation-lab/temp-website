@@ -39,7 +39,7 @@
         from selab_schedule_info
     </sql>
     
-    <select id="selectScheduleList" resultMap="ScheduleResult">
+    <select id="selectScheduleList" resultMap="ScheduleResult" parameterMap="Schedule">
         <include refid="selectScheduleVo"/>
         <where>
             <if test="userId != null ">

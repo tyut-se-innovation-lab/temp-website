@@ -23,7 +23,7 @@ public class PeriodHandler implements TypeHandler<Period> {
 
     @Override
     public Period getResult(ResultSet resultSet, String s) throws SQLException {
-        return null;
+        return Period.values()[resultSet.getInt(s)];
     }
 
     @Override

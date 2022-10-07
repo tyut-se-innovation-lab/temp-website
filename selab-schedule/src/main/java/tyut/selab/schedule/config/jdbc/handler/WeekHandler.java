@@ -1,5 +1,6 @@
 package tyut.selab.schedule.config.jdbc.handler;
 
+import com.ruoyi.framework.web.domain.server.Sys;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 import org.springframework.stereotype.Component;
@@ -23,7 +24,7 @@ public class WeekHandler implements TypeHandler<Week> {
 
     @Override
     public Week getResult(ResultSet resultSet, String s) throws SQLException {
-        return null;
+        return Week.values()[resultSet.getInt(s)-1];
     }
 
     @Override

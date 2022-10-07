@@ -22,7 +22,7 @@ public class StatusHandler implements TypeHandler<Status> {
 
     @Override
     public Status getResult(ResultSet resultSet, String s) throws SQLException {
-        return null;
+        return Status.values()[resultSet.getInt(s)];
     }
 
     @Override

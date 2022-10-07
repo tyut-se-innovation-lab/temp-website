@@ -1,5 +1,7 @@
 package tyut.selab.schedule.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.schedule.domain.po.Schedule;
@@ -19,6 +21,7 @@ import java.util.List;
 @Service
 public class DisplayScheduleServiceImpl implements IDisplayScheduleService
 {
+    private static Logger logger = LoggerFactory.getLogger(DisplayScheduleServiceImpl.class);
     @Autowired
     private IDisplayScheduleMapper scheduleMapper;
 
@@ -38,6 +41,7 @@ public class DisplayScheduleServiceImpl implements IDisplayScheduleService
             uploadScheduleRequest.setWeekNo(sc.getWeekNo());
             uploadScheduleRequest.setPeriod(sc.getPeriod());
             uploadScheduleRequest.setCourseTitle(sc.getCourseTitle());
+            logger.debug(uploadScheduleRequests.toString());
             uploadScheduleRequests.add(uploadScheduleRequest);
         }
         return  uploadScheduleRequests;

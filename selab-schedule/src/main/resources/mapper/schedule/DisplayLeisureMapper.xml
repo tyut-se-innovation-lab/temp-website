@@ -60,7 +60,7 @@
     </select>
 
     <select id="getRoleIdByDeptId" parameterType="list" resultType="java.lang.Long">
-        select roleId from sys_role_dept
+        select role_id from sys_role_dept
         where dept_id in
         <foreach collection="deptIds" item="deptId" open="(" close=")" separator=",">
             #{deptId}

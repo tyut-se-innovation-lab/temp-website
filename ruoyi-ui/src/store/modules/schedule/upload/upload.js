@@ -50,7 +50,7 @@ export default {
                         period: state.period,
                         week: state.period,
                         weekNo: j,
-                        title: state.inputData[i].courseName,
+                        courseTitle: state.inputData[i].courseName,
                     })
                 }
 

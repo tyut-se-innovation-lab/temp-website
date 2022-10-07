@@ -1,5 +1,8 @@
 package tyut.selab.schedule.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum WeekNo {
     FIRST_TERM(1, "第一周"),
     SECOND_TERM(2, "第二周"),

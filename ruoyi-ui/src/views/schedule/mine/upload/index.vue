@@ -49,7 +49,7 @@ export default {
     sendData() {
       //显示修改框
       this.modifybutton = !this.modifybutton;
-      uploadSchedule(this.sendedData);
+      uploadSchedule(JSON.stringify(this.sendedData));
     },
   },
 };

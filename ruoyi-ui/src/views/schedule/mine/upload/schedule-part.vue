@@ -1,5 +1,5 @@
 <template>
-  <div class="part">
+  <div :class="{ part: writable }">
     <!-- 插槽 -->
     <slot
       v-if="!(partdata !== undefined && partdata[dataIndex].courseName)"

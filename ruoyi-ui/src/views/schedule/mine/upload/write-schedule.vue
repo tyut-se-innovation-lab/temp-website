@@ -56,7 +56,7 @@ export default {
     SchedulePart,
   },
   computed: {
-    ...mapState("scheduleupload", ["dayTime", "scheduleData"]),
+    ...mapState("scheduleupload", ["dayTime", "scheduleData", "writable"]),
   },
   methods: {
     //简化Vuex中的Mutations的方法

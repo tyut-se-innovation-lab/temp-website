@@ -5,6 +5,6 @@ export function uploadSchedule(query) {
     return request({
         url: '/selab/schedule/add',
         method: 'post',
-        params: query
+        data: query
     })
 }

@@ -20,7 +20,7 @@ import java.util.List;
 public class DisplayScheduleController extends BaseController {
     @Autowired
     private IDisplayScheduleService displayScheduleService;
-    @GetMapping("/selab/Schedule")
+    @GetMapping("/selab/schedule/display")
     @PreAuthorize("@ss.hasAnyPermi('schedule:mine:display')")
     @ResponseBody
     public List<UploadScheduleRequest> displaySchedule(){

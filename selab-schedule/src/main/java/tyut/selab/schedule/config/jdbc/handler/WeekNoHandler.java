@@ -22,7 +22,7 @@ public class WeekNoHandler implements TypeHandler<WeekNo> {
 
     @Override
     public WeekNo getResult(ResultSet resultSet, String s) throws SQLException {
-        return null;
+        return WeekNo.values()[resultSet.getInt(s)];
     }
 
     @Override

@@ -142,7 +142,6 @@ public class ArrangePeriodService implements IArrangePeriodService {
                                     }
                                 }
                             }
-
                         }
                     }
                 }

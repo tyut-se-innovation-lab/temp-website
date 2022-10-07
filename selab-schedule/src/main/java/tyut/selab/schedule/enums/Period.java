@@ -1,6 +1,5 @@
 package tyut.selab.schedule.enums;
 
-
 public enum Period {
     FIRST(1, "第一节课"),
     SECOND(2, "第二节课"),

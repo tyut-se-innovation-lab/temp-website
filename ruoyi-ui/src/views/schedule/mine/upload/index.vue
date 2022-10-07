@@ -9,12 +9,17 @@
           <schedule-input></schedule-input>
         </el-col>
       </el-cow>
+      <div>
+        <el-button v-if="!modifybutton" @click="sendData">提交</el-button>
+        <el-button v-if="modifybutton" @click="writeData">修改</el-button>
+      </div>
     </el-main>
   </el-container>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { uploadSchedule } from "@/api/schedule/upload";
+import { mapMutations, mapState } from "vuex";
 import ScheduleInput from "./schedule-input.vue";
 import WriteSchedule from "./write-schedule.vue";
 export default {
@@ -24,11 +29,28 @@ export default {
     ScheduleInput,
   },
   data() {
-    return {};
+    return {
+      modifybutton: true,
+    };
   },
   computed: {
     //引入Vuex数据为计算数据
-    ...mapState("scheduleupload", ["scale1", "scale2"]),
+    ...mapState("scheduleupload", ["scale1", "scale2", "sendedData"]),
+  },
+  methods: {
+    ...mapMutations("scheduleupload", ["writableData"]),
+    writeData() {
+      //出现提交按钮
+      this.modifybutton = !this.modifybutton;
+      //修改数据为可读可写
+      this.writableData();
+    },
+    //发送数据
+    sendData() {
+      //显示修改框
+      this.modifybutton = !this.modifybutton;
+      uploadSchedule(JSON.stringify(this.sendedData));
+    },
   },
 };
 </script>

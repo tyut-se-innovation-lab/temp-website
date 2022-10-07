@@ -63,7 +63,7 @@
       <p>当前添加的课表时间：{{ whatDay }}：{{ dayTime }}</p>
     </div>
     <div class="button">
-      <el-button type="primary" @click="onSubmit">提交</el-button>
+      <el-button type="primary" @click="onSubmit">保存</el-button>
       <el-button @click="cancelSubmit">取消</el-button>
     </div>
   </el-form>
@@ -95,6 +95,8 @@ export default {
       "storeScheduleData",
     ]),
     onSubmit() {
+      //
+      this.writable = false;
       //返回原始的课表比例
       this.restoreScale();
       //存储之前的临时数据

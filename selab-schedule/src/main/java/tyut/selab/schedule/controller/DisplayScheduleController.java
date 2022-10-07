@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import tyut.selab.schedule.domain.vo.ScheduleDisplayResponse;
 import tyut.selab.schedule.domain.vo.UploadScheduleRequest;
 import tyut.selab.schedule.service.IDisplayScheduleService;
 import java.util.List;
@@ -23,7 +24,7 @@ public class DisplayScheduleController extends BaseController {
     @GetMapping("/selab/schedule/display")
     @PreAuthorize("@ss.hasAnyPermi('schedule:mine:display')")
     @ResponseBody
-    public List<UploadScheduleRequest> displaySchedule(){
+    public List<ScheduleDisplayResponse> displaySchedule(){
         return displayScheduleService.selectScheduleList(getUserId());
     }
 }

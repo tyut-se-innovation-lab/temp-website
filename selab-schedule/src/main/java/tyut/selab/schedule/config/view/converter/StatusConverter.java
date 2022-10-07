@@ -5,12 +5,12 @@ import org.springframework.stereotype.Component;
 import tyut.selab.schedule.enums.Status;
 
 @Component
-public class StatusConverter implements Converter<String, Status> {
+public class StatusConverter implements Converter<Integer, Status> {
     @Override
-    public Status convert(String source) {
+    public Status convert(Integer source) {
         Status status = null;
         for (Status s : Status.values()) {
-            if (s.getComment().equals(source)) {
+            if (source.equals(s.getId())) {
                 status = s;
                 break;
             }

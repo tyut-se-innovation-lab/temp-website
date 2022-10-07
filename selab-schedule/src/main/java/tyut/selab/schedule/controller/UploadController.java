@@ -31,7 +31,7 @@ public class UploadController extends BaseController {
      */
     @PostMapping("/add")
     @PreAuthorize("@ss.hasAnyPermi('schedule:mine:upload')")
-    public void uploadSchedule(List<UploadScheduleRequest> uploadScheduleRequests){
+    public void uploadSchedule(@RequestBody List<UploadScheduleRequest> uploadScheduleRequests){
         uploadScheduleService.insertSchedule(uploadScheduleRequests,getUserId());
 
     }

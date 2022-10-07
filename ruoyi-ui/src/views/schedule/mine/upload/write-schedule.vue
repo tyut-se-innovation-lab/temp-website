@@ -77,6 +77,10 @@ export default {
       // console.log(column.index);
 
       let time = {
+        //一天中的第几节
+        period: row.index + 1,
+        //一周中的星期几
+        week: column.index,
         //表格的行
         row: row.index,
         //表格的列

@@ -1,4 +1,4 @@
-import request from "@/utils/request";
+import { uploadSchedule } from "@/api/schedule/upload";
 //求和功能相关的配置
 export default {
     //开启命名空间
@@ -20,9 +20,9 @@ export default {
         //传递时间
         sendTime(state, time) {
             let currentTime = new Date();
-            //表格坐标
-            state.tableCoordinate.row = time.row;
-            state.tableCoordinate.column = time.column - 1;
+            //时间
+            state.period = time.period;
+            state.week = time.week;
             //夏冬季不同，计算的方式也不同
             if (time.row < 4) {
                 state.dayTime = `${time.row + 8}点~${time.row + 9}点`;
@@ -43,8 +43,18 @@ export default {
         },
         //提交并存储数据
         storeScheduleData(state) {
-            console.log(state.inputData);
             state.scheduleData[state.tableCoordinate.row].courseData[state.tableCoordinate.column] = state.inputData;
+            for (let i = 0; i < state.inputData.length; i++) {
+                for (let j = state.inputData[i].startWeek; j <= state.inputData[i].endWeek; j++) {
+                    state.sendedData.push({
+                        period: state.period,
+                        week: state.period,
+                        weekNo: j,
+                        title: state.inputData[i].courseName,
+                    })
+                }
+
+            }
         },
         //修改数据
         modifyScheduleData(state, index) {
@@ -52,14 +62,10 @@ export default {
             console.log(state.inputData);
         },
         //发送数据
-        sendData(state) {
-            request({
-                url: '/lottery/p'
-            }).then(response => {
-                console.log(response);
-                self.data = response;
-                console.log(self.data.stock);
-            })
+
+        //修改数据为可读可写
+        writableData(state) {
+            state.writable = !state.writable;
         }
     },
     state: {
@@ -71,11 +77,16 @@ export default {
             row: 0,
             column: 0
         },
+        //定义是否可读或者可写
+        writable: false,
         //课表数据
-        dayTime: "",
+        period: 0,
+        week: 0,
         whatDay: "",
+        dayTime: "",
         //临时数据
         inputData: [],
+        sendedData: [],
         scheduleData: [
             {
                 // 第一行

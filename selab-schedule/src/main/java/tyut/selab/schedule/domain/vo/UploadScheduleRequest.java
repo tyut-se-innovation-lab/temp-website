@@ -8,41 +8,41 @@ public class UploadScheduleRequest {
     /**
      * 第几节课
      */
-    private Period period;
+    private int period;
     /**
      * 星期几
      */
-    private Week week;
+    private int week;
     /**
      * 第几周
      */
-    private WeekNo weekNo;
+    private int weekNo;
     /**
      * 课程名称
      */
     private String courseTitle;
 
-    public Period getPeriod() {
+    public int getPeriod() {
         return period;
     }
 
-    public void setPeriod(Period period) {
+    public void setPeriod(int period) {
         this.period = period;
     }
 
-    public Week getWeek() {
+    public int getWeek() {
         return week;
     }
 
-    public void setWeek(Week week) {
+    public void setWeek(int week) {
         this.week = week;
     }
 
-    public WeekNo getWeekNo() {
+    public int getWeekNo() {
         return weekNo;
     }
 
-    public void setWeekNo(WeekNo weekNo) {
+    public void setWeekNo(int weekNo) {
         this.weekNo = weekNo;
     }
 

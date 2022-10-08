@@ -40,9 +40,9 @@ public class UploadScheduleService implements IUploadScheduleService {
             schedule.setUserId(userId);
             schedule.setCourseTitle(s.getCourseTitle());
             schedule.setCreateTime(new Date());
-            schedule.setPeriod(s.getPeriod());
-            schedule.setWeek(s.getWeek());
-            schedule.setWeekNo(s.getWeekNo());
+            schedule.setPeriod(Period.values()[s.getPeriod()]);
+            schedule.setWeek(Week.values()[s.getWeek()]);
+            schedule.setWeekNo(WeekNo.values()[s.getWeekNo()-1]);
             schedule.setStatus(Status.ENABLE);
             schedules.add(schedule);
         }

@@ -8,10 +8,13 @@
         <result property="userName" column="user_name"/>
         <result property="deptId" column="dept_id"/>
         <result property="sex" column="sex"/>
-        <result property="roleName" column="role_name"/>
-        <association property="roleId" column="user_id" select="tyut.selab.schedule.mapper.DisplayLeisureMapper.getRoleIDByUserId"/>
-<!--        <association property="roleName" column="roleId" select="tyut.selab.schedule.mapper.DisplayLeisureMapper.getRoleNameByRoleId"/>-->
+        <result property="nickName" column="nick_name"/>
+        <association property="roleIds" column="user_id" javaType="list" select="tyut.selab.schedule.mapper.DisplayLeisureMapper.getRoleIdsByUserId"/>
+        <!--        <association property="roleNames" column="roleIds" select="tyut.selab.schedule.mapper.DisplayLeisureMapper.getRoleNameByRoleId"/>-->
         <association property="deptName" column="dept_id" select="tyut.selab.schedule.mapper.DisplayLeisureMapper.getDeptNameByDeptId"/>
+        <collection ofType="string" property="roleNames" >
+            <result column="role_name" javaType="string"/>
+        </collection>
     </resultMap>
 
     <parameterMap id="TimeFrame" type="tyut.selab.schedule.domain.TimeFrame">
@@ -50,16 +53,16 @@
 
     <select id="getUserIdByRoleId" parameterType="list" resultType="java.lang.Long">
         select user_id from sys_user_role
-        where status = 0
+        where
         <if test="roleIds != null and roleIds != ''">
-            AND role_id in
-            <foreach collection="roleIds" item="roleId" separator="," open="(" close=")">
-                #{roleId}
+            role_id in
+            <foreach collection="roleIds" item="roleIds" separator="," open="(" close=")">
+                #{roleIds}
             </foreach>
         </if>
     </select>
 
-    <select id="getRoleIdByDeptId" parameterType="list" resultType="java.lang.Long">
+    <select id="getRoleIdsByDeptId" parameterType="list" resultType="java.lang.Long">
         select role_id from sys_role_dept
         where dept_id in
         <foreach collection="deptIds" item="deptId" open="(" close=")" separator=",">
@@ -68,7 +71,7 @@
     </select>
 
     <select id="getResponseByUserId" resultMap="DisplayLeisureResponse" parameterType="list">
-        select su.user_id,su.dept_id,su.user_name,su.sex,sr.role_name from sys_user su
+        select su.nick_name,su.user_id,su.dept_id,su.user_name,su.sex,sr.role_name from sys_user su
         left join sys_user_role sur
         on su.user_id = sur.user_id
         left join sys_role sr
@@ -79,14 +82,14 @@
         </foreach>
     </select>
 
-    <select id="getRoleIDByUserId" resultType="long">
+    <select id="getRoleIdsByUserId" resultType="long">
         select role_id from sys_user_role
         where user_id = #{userId}
     </select>
 
     <select id="getRoleNameByRoleId" resultType="java.lang.String">
         select role_name from sys_role
-        where role_id = #{roleId}
+        where role_id = #{roleIds}
     </select>
 
     <select id="getDeptNameByDeptId" resultType="java.lang.String">

@@ -1,5 +1,8 @@
 package tyut.selab.schedule.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Status {
     ENABLE(0, "有效"),
     DELETED(1, "被删除"),

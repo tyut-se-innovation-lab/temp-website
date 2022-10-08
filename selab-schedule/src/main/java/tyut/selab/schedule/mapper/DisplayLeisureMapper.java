@@ -34,7 +34,7 @@ public interface DisplayLeisureMapper {
       * @param deptId 部门ID
       * @return 角色ID
       */
-     List<Long> getRoleIdByDeptId(@Param("deptIds") List<Long> deptId);
+     List<Long> getRoleIdsByDeptId(@Param("deptIds") List<Long> deptId);
 
      /**
       * 根据用户ID查找结果集
@@ -48,7 +48,7 @@ public interface DisplayLeisureMapper {
       * @param useId 用户ID
       * @return 角色ID
       */
-     Long getRoleIDByUserId(@Param("userId") Long useId);
+     List<Long> getRoleIdsByUserId(@Param("userId") Long useId);
 
      /**
       * 根据角色ID获取角色名称

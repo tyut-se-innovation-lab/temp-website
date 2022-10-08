@@ -1,5 +1,7 @@
 package tyut.selab.schedule.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public enum Week {
     MONDAY(1, "星期一"),
     TUESDAY(2, "星期二"),

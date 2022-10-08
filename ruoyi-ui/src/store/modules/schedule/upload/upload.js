@@ -1,4 +1,6 @@
-import request from "@/utils/request";
+import { uploadSchedule } from "@/api/schedule/upload";
+import { getSchedule } from "@/api/schedule/display"
+import Vue from "vue";
 //求和功能相关的配置
 export default {
     //开启命名空间
@@ -19,10 +21,13 @@ export default {
         },
         //传递时间
         sendTime(state, time) {
-            let currentTime = new Date();
-            //表格坐标
+            //存储坐标
             state.tableCoordinate.row = time.row;
             state.tableCoordinate.column = time.column - 1;
+            console.log(state.tableCoordinate.row, state.tableCoordinate.column);
+            //时间
+            state.period = time.period;
+            state.week = time.week;
             //夏冬季不同，计算的方式也不同
             if (time.row < 4) {
                 state.dayTime = `${time.row + 8}点~${time.row + 9}点`;
@@ -43,8 +48,18 @@ export default {
         },
         //提交并存储数据
         storeScheduleData(state) {
-            console.log(state.inputData);
             state.scheduleData[state.tableCoordinate.row].courseData[state.tableCoordinate.column] = state.inputData;
+            for (let i = 0; i < state.inputData.length; i++) {
+                for (let j = state.inputData[i].startWeek; j <= state.inputData[i].endWeek; j++) {
+                    state.sendedData.push({
+                        period: state.period,
+                        week: state.period,
+                        weekNo: j,
+                        courseTitle: state.inputData[i].courseName,
+                    })
+                }
+
+            }
         },
         //修改数据
         modifyScheduleData(state, index) {
@@ -52,15 +67,75 @@ export default {
             console.log(state.inputData);
         },
         //发送数据
-        sendData(state) {
-            request({
-                url: '/lottery/p'
-            }).then(response => {
-                console.log(response);
-                self.data = response;
-                console.log(self.data.stock);
+
+        //修改数据为可读可写
+        writableData(state) {
+            state.writable = !state.writable;
+        },
+
+        //获取课表数据
+        getScheduleData(state) {
+            getSchedule().then(response => {
+                //整理发回来的数据
+                for (let i = 0; i < response.length; i++) {
+                    //如果是第一个就将这个数据压入栈中
+                    if (i === 0) {
+                        state.responData.push({
+                            courseName: response[i].courseTitle,
+                            startWeek: response[i].weekNo,
+                            endWeek: response[i].weekNo,
+                            row: response[i].period - 1,
+                            column: response[i].week,
+                        })
+                    } else {
+                        //循环responData的数据
+                        console.log(i);
+                        for (let j = 0; j < state.responData.length; j++) {
+                            //如果三个数据相等，就合并
+                            if (response[i].courseTitle === state.responData[j].courseName && response[i].period - 1 === state.responData[j].row && response[i].week === state.responData[j].column) {
+                                //判断大小，如果大了，替换结束周，如果小了，替换开始周
+                                if (response[i].weekNo > state.responData[j].endWeek) {
+                                    state.responData[j].endWeek = response[i].weekNo;
+                                }
+                                if (response[i].weekNo < state.responData[j].startWeek) {
+                                    state.responData[j].startWeek = response[i].weekNo;
+                                }
+                            } else {
+                                console.log(567);
+                                //如果遍历完后数据不相等，就往数组push一个新的数据
+                                if (j === state.responData.length - 1) {
+                                    state.responData.push({
+                                        courseName: response[i].courseTitle,
+                                        startWeek: response[i].weekNo,
+                                        endWeek: response[i].weekNo,
+                                        row: response[i].period - 1,
+                                        column: response[i].week,
+                                    })
+                                }
+                            }
+                        }
+                    }
+                }
+                console.log(state.responData);
+                //存储整理后的数据
+                for (let i = 0; i < state.responData.length; i++) {
+                    //创建一个数组
+                    if (state.scheduleData[state.responData[i].row].courseData[state.responData[i].column] === undefined) {
+                        state.scheduleData[state.responData[i].row].courseData[state.responData[i].column] = [];
+                    }
+
+                    //把元素压入栈中
+                    state.scheduleData[state.responData[i].row].courseData[state.responData[i].column].push({
+                        courseName: state.responData[i].courseName,
+                        startWeek: state.responData[i].startWeek,
+                        endWeek: state.responData[i].endWeek,
+                    })
+                }
+
+
+                console.log(state.scheduleData);
             })
-        }
+        },
     },
     state: {
         //输入表单的比例
@@ -71,11 +146,20 @@ export default {
             row: 0,
             column: 0
         },
+        //深度优先配合标记已经走过
+        steps: [],
+        //定义是否可读或者可写
+        writable: false,
         //课表数据
-        dayTime: "",
+        period: 0,
+        week: 0,
         whatDay: "",
+        dayTime: "",
+        //课表名
+        responData: [],
         //临时数据
         inputData: [],
+        sendedData: [],
         scheduleData: [
             {
                 // 第一行

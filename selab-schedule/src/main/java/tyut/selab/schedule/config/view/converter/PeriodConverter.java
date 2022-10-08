@@ -5,12 +5,12 @@ import org.springframework.stereotype.Component;
 import tyut.selab.schedule.enums.Period;
 
 @Component
-public class PeriodConverter implements Converter<String, Period> {
+public class PeriodConverter implements Converter<Integer, Period> {
     @Override
-    public Period convert(String source) {
+    public Period convert(Integer source) {
         Period period = null;
         for (Period p : Period.values()) {
-            if (p.getName().equals(source)){
+            if (source.equals(p.getId())) {
                 period = p;
                 break;
             }

@@ -26,7 +26,11 @@
           "
         >
           <template>
-            <el-button class="isAppear" @click="addSchedule">添加</el-button>
+            <el-button
+              :class="{ isAppear: writable, isAppear2: !writable }"
+              @click="addSchedule"
+              >添加</el-button
+            >
           </template>
         </SchedulePart>
       </template>
@@ -50,13 +54,14 @@ export default {
         "星期六",
         "星期日",
       ],
+      data: [],
     };
   },
   components: {
     SchedulePart,
   },
   computed: {
-    ...mapState("scheduleupload", ["dayTime", "scheduleData"]),
+    ...mapState("scheduleupload", ["dayTime", "scheduleData", "writable"]),
   },
   methods: {
     //简化Vuex中的Mutations的方法
@@ -77,6 +82,10 @@ export default {
       // console.log(column.index);
 
       let time = {
+        //一天中的第几节
+        period: row.index + 1,
+        //一周中的星期几
+        week: column.index,
         //表格的行
         row: row.index,
         //表格的列
@@ -101,6 +110,14 @@ export default {
     //合并行和列的回调方法
     combineRowColumn({ row, column, rowIndex, columnIndex }) {},
   },
+  mounted() {
+    //自动重新获取数据，防止Vuex的bug，实际上没用
+    this.$bus.$on("getdata", () => {
+      setTimeout(() => {
+        this.data = this.theScheduleData;
+      }, 500);
+    });
+  },
 };
 </script>
 
@@ -113,6 +130,9 @@ export default {
   transition: all 0.5s;
 }
 .isAppear {
+  display: none;
+}
+.isAppear2 {
   display: none;
 }
 </style>

@@ -5,12 +5,12 @@ import org.springframework.stereotype.Component;
 import tyut.selab.schedule.enums.Week;
 
 @Component
-public class WeekConverter implements Converter<String, Week> {
+public class WeekConverter implements Converter<Integer, Week> {
     @Override
-    public Week convert(String source) {
+    public Week convert(Integer source) {
         Week week = null;
         for (Week w : Week.values()) {
-            if (w.getName().equals(source)) {
+            if (source.equals(w.getId())) {
                 week = w;
                 break;
             }

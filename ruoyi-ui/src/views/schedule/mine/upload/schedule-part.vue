@@ -61,6 +61,11 @@ export default {
       this.$bus.$emit("modify", this.partdata.length);
     },
   },
+  mounted() {
+    setTimeout(() => {
+      console.log(this.partdata);
+    }, 1000);
+  },
 };
 </script>
 

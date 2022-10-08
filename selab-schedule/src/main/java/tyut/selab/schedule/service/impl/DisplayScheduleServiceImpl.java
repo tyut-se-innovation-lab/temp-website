@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.schedule.domain.po.Schedule;
+import tyut.selab.schedule.domain.vo.ScheduleDisplayResponse;
 import tyut.selab.schedule.domain.vo.UploadScheduleRequest;
 import tyut.selab.schedule.mapper.IDisplayScheduleMapper;
 import tyut.selab.schedule.service.IDisplayScheduleService;
@@ -32,18 +33,18 @@ public class DisplayScheduleServiceImpl implements IDisplayScheduleService
      * @return 课程信息集合
      */
     @Override
-    public List<UploadScheduleRequest> selectScheduleList(Long userId) {
-        List<UploadScheduleRequest> uploadScheduleRequests = new ArrayList<>();
+    public List<ScheduleDisplayResponse> selectScheduleList(Long userId) {
+        List<ScheduleDisplayResponse> scheduleDisplayResponses = new ArrayList<>();
         List<Schedule> schedules = scheduleMapper.selectScheduleList(userId);
         for (Schedule sc:schedules) {
-            UploadScheduleRequest uploadScheduleRequest = new UploadScheduleRequest();
-            uploadScheduleRequest.setWeek(sc.getWeek());
-            uploadScheduleRequest.setWeekNo(sc.getWeekNo());
-            uploadScheduleRequest.setPeriod(sc.getPeriod());
-            uploadScheduleRequest.setCourseTitle(sc.getCourseTitle());
-            logger.debug(uploadScheduleRequests.toString());
-            uploadScheduleRequests.add(uploadScheduleRequest);
+            ScheduleDisplayResponse scheduleDisplayResponse = new ScheduleDisplayResponse();
+            scheduleDisplayResponse.setWeek(sc.getWeek().getId());
+            scheduleDisplayResponse.setWeekNo(sc.getWeekNo().getId());
+            scheduleDisplayResponse.setPeriod(sc.getPeriod().getId());
+            scheduleDisplayResponse.setCourseTitle(sc.getCourseTitle());
+            logger.debug(scheduleDisplayResponses.toString());
+            scheduleDisplayResponses.add(scheduleDisplayResponse);
         }
-        return  uploadScheduleRequests;
+        return  scheduleDisplayResponses;
     }
 }

@@ -38,8 +38,8 @@ public class DisplayScheduleServiceImpl implements IDisplayScheduleService
         List<Schedule> schedules = scheduleMapper.selectScheduleList(userId);
         for (Schedule sc:schedules) {
             ScheduleDisplayResponse scheduleDisplayResponse = new ScheduleDisplayResponse();
-            scheduleDisplayResponse.setWeek(sc.getWeek().getId()-1);
-            scheduleDisplayResponse.setWeekNo(sc.getWeekNo().getId()+1);
+            scheduleDisplayResponse.setWeek(sc.getWeek().getId());
+            scheduleDisplayResponse.setWeekNo(sc.getWeekNo().getId());
             scheduleDisplayResponse.setPeriod(sc.getPeriod().getId());
             scheduleDisplayResponse.setCourseTitle(sc.getCourseTitle());
             logger.debug(scheduleDisplayResponses.toString());

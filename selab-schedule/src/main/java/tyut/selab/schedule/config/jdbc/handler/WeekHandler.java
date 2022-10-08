@@ -23,12 +23,12 @@ public class WeekHandler implements TypeHandler<Week> {
 
     @Override
     public Week getResult(ResultSet resultSet, String s) throws SQLException {
-        return Week.values()[resultSet.getInt(s)];
+        return Week.values()[resultSet.getInt(s)-1];
     }
 
     @Override
     public Week getResult(ResultSet resultSet, int i) throws SQLException {
-        return Week.values()[resultSet.getInt(i)];
+        return Week.values()[resultSet.getInt(i)-1];
     }
 
     @Override

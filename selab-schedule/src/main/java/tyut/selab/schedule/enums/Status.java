@@ -1,6 +1,8 @@
 package tyut.selab.schedule.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Status {
@@ -8,6 +10,7 @@ public enum Status {
     DELETED(1, "被删除"),
     EXPIRED(2, "过期的");
 
+    @JsonValue
     private final int id;
     private final String comment;
 

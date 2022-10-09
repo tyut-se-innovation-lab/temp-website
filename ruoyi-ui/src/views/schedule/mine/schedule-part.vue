@@ -1,13 +1,13 @@
 <template>
-  <div class="part">
+  <div :class="{ part: writable }">
     <!-- 插槽 -->
     <slot
       v-if="!(partdata !== undefined && partdata[dataIndex].courseName)"
     ></slot>
     <div v-if="partdata !== undefined && partdata[dataIndex].courseName">
       <el-button class="isAppear1" @click="modifyData">修改</el-button>
-      <div>
-        <h5>{{ partdata[dataIndex].courseName }}</h5>
+      <div class="text">
+        <h4>{{ partdata[dataIndex].courseName }}</h4>
         <p>
           {{ partdata[dataIndex].startWeek }}周~{{
             partdata[dataIndex].endWeek
@@ -37,6 +37,12 @@ export default {
       dataIndex: 0,
     };
   },
+  mounted() {
+    console.log(this.partdata); //之前跑过，一直是undefined泡一下看看，没后端前端都开不了
+  },
+  computed: {
+    ...mapState("scheduleupload", ["writable"]),
+  },
   methods: {
     ...mapMutations("scheduleupload", ["changeScale", "modifyScheduleData"]),
     //切换多组数据
@@ -58,10 +64,22 @@ export default {
       this.$bus.$emit("modify", this.partdata.length);
     },
   },
+  mounted() {
+    // setTimeout(() => {
+    //   console.log(this.row);
+    // }, 1000);
+  },
+  updated() {
+    // console.log(this.partdata);
+  },
 };
 </script>
 
 <style scoped>
+* {
+  list-style: none;
+}
+
 .isAppear1 {
   width: 70px;
   left: 0;
@@ -74,10 +92,15 @@ export default {
   display: block;
   transition: all 0.5s;
 }
+.text h4,
+.text p {
+  margin: 10px 0;
+}
 .dots {
   display: flex;
   justify-content: center;
   margin-top: 5px;
+  padding: 0;
 }
 .dot {
   width: 8px;

@@ -1,6 +1,10 @@
 package tyut.selab.schedule.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonValue;
 
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum Period {
     FIRST(1, "第一节课"),
     SECOND(2, "第二节课"),
@@ -13,6 +17,7 @@ public enum Period {
     NINTH(9, "第九节课"),
     TENTH(10, "第十节课");
 
+    @JsonValue
     private final int id;
     private final String name;
 
@@ -28,5 +33,10 @@ public enum Period {
 
     public String getName() {
         return name;
+    }
+
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static Period getPeriodById(int id){
+        return values()[id -1];
     }
 }

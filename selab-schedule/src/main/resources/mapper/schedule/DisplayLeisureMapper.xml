@@ -8,9 +8,13 @@
         <result property="userName" column="user_name"/>
         <result property="deptId" column="dept_id"/>
         <result property="sex" column="sex"/>
-        <association property="roleId" column="user_id" select="tyut.selab.schedule.mapper.DisplayLeisureMapper.getRoleIDByUserId"/>
-        <association property="roleName" column="role_id" select="tyut.selab.schedule.mapper.DisplayLeisureMapper.getRoleNameByRoleId"/>
+        <result property="nickName" column="nick_name"/>
+        <association property="roleIds" column="user_id" javaType="list" select="tyut.selab.schedule.mapper.DisplayLeisureMapper.getRoleIdsByUserId"/>
+        <!--        <association property="roleNames" column="roleIds" select="tyut.selab.schedule.mapper.DisplayLeisureMapper.getRoleNameByRoleId"/>-->
         <association property="deptName" column="dept_id" select="tyut.selab.schedule.mapper.DisplayLeisureMapper.getDeptNameByDeptId"/>
+        <collection ofType="string" property="roleNames" >
+            <result column="role_name" javaType="string"/>
+        </collection>
     </resultMap>
 
     <parameterMap id="TimeFrame" type="tyut.selab.schedule.domain.TimeFrame">
@@ -22,14 +26,14 @@
     <select id="getUserIdByTimeFrame" resultType="long">
         select user_id from selab_schedule_info
         where status = 0
-        <if test="timeFrame.getWeek() != null and timeFrame.getWeek() != ''">
-            AND week = #{timeFrame.week}
+        <if test="timeFrame.getWeek() != null ">
+            AND week = #{timeFrame.week,typeHandler=tyut.selab.schedule.config.jdbc.handler.WeekHandler}
         </if>
-        <if test="timeFrame.getWeekNo() != null and timeFrame.getWeekNo() != ''">
-            AND week_no = #{timeFrame.weekNo}
+        <if test="timeFrame.getWeekNo() != null ">
+            AND week_no = #{timeFrame.weekNo,typeHandler=tyut.selab.schedule.config.jdbc.handler.WeekNoHandler}
         </if>
-        <if test="timeFrame.getPeriod() != null and timeFrame.getPeriod() != ''">
-            AND period = #{timeFrame.period}
+        <if test="timeFrame.getPeriod() != null ">
+            AND period = #{timeFrame.period,typeHandler=tyut.selab.schedule.config.jdbc.handler.PeriodHandler}
         </if>
         <foreach collection="userIds" item="userId" separator="," open="and user_id in (" close=")">
             #{userId}
@@ -49,39 +53,43 @@
 
     <select id="getUserIdByRoleId" parameterType="list" resultType="java.lang.Long">
         select user_id from sys_user_role
-        where status = 0
+        where
         <if test="roleIds != null and roleIds != ''">
-            AND role_id in
-            <foreach collection="roleIds" item="roleId" separator="," open="(" close=")">
-                #{roleId}
+            role_id in
+            <foreach collection="roleIds" item="roleIds" separator="," open="(" close=")">
+                #{roleIds}
             </foreach>
         </if>
     </select>
 
-    <select id="getRoleIdByDeptId" parameterType="list" resultType="java.lang.Long">
-        select roleId from sys_role_dept
-        where deptId in
+    <select id="getRoleIdsByDeptId" parameterType="list" resultType="java.lang.Long">
+        select role_id from sys_role_dept
+        where dept_id in
         <foreach collection="deptIds" item="deptId" open="(" close=")" separator=",">
             #{deptId}
         </foreach>
     </select>
 
     <select id="getResponseByUserId" resultMap="DisplayLeisureResponse" parameterType="list">
-        select * from sys_user
-        where user_id in
+        select su.nick_name,su.user_id,su.dept_id,su.user_name,su.sex,sr.role_name from sys_user su
+        left join sys_user_role sur
+        on su.user_id = sur.user_id
+        left join sys_role sr
+        on sr.role_id = sur.role_id
+        where su.user_id in
         <foreach collection="userIds" item="userId" separator="," open="(" close=")">
             #{userId}
         </foreach>
     </select>
 
-    <select id="getRoleIDByUserId" resultType="long">
+    <select id="getRoleIdsByUserId" resultType="long">
         select role_id from sys_user_role
         where user_id = #{userId}
     </select>
 
     <select id="getRoleNameByRoleId" resultType="java.lang.String">
         select role_name from sys_role
-        where role_id = #{roleId}
+        where role_id = #{roleIds}
     </select>
 
     <select id="getDeptNameByDeptId" resultType="java.lang.String">

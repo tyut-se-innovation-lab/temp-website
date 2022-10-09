@@ -1,0 +1,99 @@
+<template>
+  <el-container>
+    <el-main>
+      <el-cow>
+        <el-col :span="scale1">
+          <write-schedule></write-schedule>
+          <div class="buttons">
+            <el-button type="primary" v-if="!modifybutton" @click="sendData"
+              >提交</el-button
+            >
+            <el-button type="primary" v-if="modifybutton" @click="writeData"
+              >修改</el-button
+            >
+          </div>
+        </el-col>
+        <el-col :span="scale2">
+          <schedule-input></schedule-input>
+        </el-col>
+      </el-cow>
+    </el-main>
+  </el-container>
+</template>
+
+<script>
+import { uploadSchedule } from "@/api/schedule/upload";
+import { mapActions, mapMutations, mapState } from "vuex";
+import ScheduleInput from "./schedule-input.vue";
+import WriteSchedule from "./write-schedule.vue";
+export default {
+  name: "upload",
+  components: {
+    WriteSchedule,
+    ScheduleInput,
+  },
+  data() {
+    return {
+      modifybutton: true,
+    };
+  },
+  computed: {
+    //引入Vuex数据为计算数据
+    ...mapState("scheduleupload", [
+      "scale1",
+      "scale2",
+      "sendedData",
+      "control",
+    ]),
+  },
+  methods: {
+    ...mapActions("scheduleupload", ["getData"]),
+    ...mapMutations("scheduleupload", [
+      "writableData",
+      "getScheduleData",
+      "addControl",
+    ]),
+    writeData() {
+      //出现提交按钮
+      this.modifybutton = !this.modifybutton;
+      //修改数据为可读可写
+      this.writableData();
+    },
+    //发送数据
+    sendData() {
+      //修改数据为只读
+      this.writableData();
+      //显示修改框
+      this.modifybutton = !this.modifybutton;
+      uploadSchedule(JSON.stringify(this.sendedData));
+      //获取数据
+      setTimeout(() => {
+        this.getData();
+        setTimeout(() => {
+          this.writableData();
+          this.writableData();
+        }, 200);
+      }, 500);
+    },
+  },
+  created() {
+    //获取数据
+    if (!this.control) {
+      this.getData();
+      //control加一，只进行一次
+      this.addControl();
+      setTimeout(() => {
+        this.writableData();
+        this.writableData();
+      }, 200);
+    }
+  },
+};
+</script>
+
+<style scoped>
+.buttons {
+  margin-top: 20px;
+  right: 50px;
+}
+</style>

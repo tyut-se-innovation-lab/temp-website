@@ -1,6 +1,8 @@
 package tyut.selab.schedule.service;
 
 import tyut.selab.schedule.domain.po.Schedule;
+import tyut.selab.schedule.domain.vo.ScheduleDisplayResponse;
+import tyut.selab.schedule.domain.vo.UploadScheduleRequest;
 
 import java.util.List;
 
@@ -13,8 +15,8 @@ import java.util.List;
 public interface IDisplayScheduleService {
     /**
      * 查询课程信息
-     * @param schedule 课程信息
+     * @param userId 课程信息
      * @return 课程信息集合
      */
-    public List<Schedule> selectScheduleList(Schedule schedule);
+    public List<ScheduleDisplayResponse> selectScheduleList(Long userId);
 }

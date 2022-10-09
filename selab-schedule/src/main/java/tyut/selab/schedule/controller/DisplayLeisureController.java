@@ -12,14 +12,14 @@ import tyut.selab.schedule.domain.vo.DisplayLeisureRequest;
 import tyut.selab.schedule.service.IDisplayLeisureService;
 
 @RestController
-@RequestMapping("/schedule")
+@RequestMapping("/selab/schedule/leisure")
 public class DisplayLeisureController extends BaseController {
 
     @Autowired
     private IDisplayLeisureService displayLeisureService;
 
     @PreAuthorize("@ss.hasPermi('schedule:leisure')")
-    @GetMapping("/leisure")
+    @GetMapping("/display")
     public AjaxResult getLeisure(DisplayLeisureRequest displayLeisureRequest){
         return AjaxResult.success(displayLeisureService.getLeisure(displayLeisureRequest));
     }

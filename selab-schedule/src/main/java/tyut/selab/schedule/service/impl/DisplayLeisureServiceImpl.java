@@ -8,8 +8,9 @@ import tyut.selab.schedule.domain.vo.DisplayLeisureResponse;
 import tyut.selab.schedule.mapper.DisplayLeisureMapper;
 import tyut.selab.schedule.service.IDisplayLeisureService;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class DisplayLeisureServiceImpl implements IDisplayLeisureService {
@@ -21,9 +22,9 @@ public class DisplayLeisureServiceImpl implements IDisplayLeisureService {
         List<TimeFrame> timeFrames = displayLeisureRequest.getTimeFrames();
         List<Long> deptIds = displayLeisureRequest.getDeptIds();
         List<Long> roleIds = displayLeisureRequest.getRoleIds();
-        List<Long> roleIdByDeptId = displayLeisureMapper.getRoleIdByDeptId(deptIds);
-        List<Long> userIds = null;
-        List<DisplayLeisureResponse> response = null;
+        List<Long> roleIdByDeptId = displayLeisureMapper.getRoleIdsByDeptId(deptIds);
+        List<Long> userIds = new LinkedList<>();
+        List<DisplayLeisureResponse> response = new ArrayList<>();
 
         if (roleIds!=null) {
             for (Long roleId : roleIds) {
@@ -33,7 +34,7 @@ public class DisplayLeisureServiceImpl implements IDisplayLeisureService {
             }
         }
         if (roleIds!=null){
-            userIds = displayLeisureMapper.getUserIdByRoleId(roleIds);
+           userIds.addAll(displayLeisureMapper.getUserIdByRoleId(roleIds));
         }
         if (deptIds!=null) {
             userIds.addAll(displayLeisureMapper.getUserIdByDeptId(deptIds));
@@ -44,8 +45,8 @@ public class DisplayLeisureServiceImpl implements IDisplayLeisureService {
                 userIds_hasClass.addAll(displayLeisureMapper.getUserIdByTimeFrame(timeFrame,userIds));
                 userIds.removeAll(userIds_hasClass);
             }
-             response = displayLeisureMapper.getResponseByUserId(userIds);
         }
+        response = displayLeisureMapper.getResponseByUserId(userIds);
         return response;
 
     }

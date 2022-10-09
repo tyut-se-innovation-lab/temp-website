@@ -1,5 +1,10 @@
 package tyut.selab.schedule.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum WeekNo {
     FIRST_TERM(1, "第一周"),
     SECOND_TERM(2, "第二周"),
@@ -24,6 +29,7 @@ public enum WeekNo {
     FIRST_EXTRA_TERM(21, "小学期第一周"),
     SECOND_EXTRA_TERM(22, "小学期第二周");
 
+    @JsonValue
     private final int id;
     private final String name;
 
@@ -39,5 +45,10 @@ public enum WeekNo {
 
     public String getName() {
         return name;
+    }
+
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static WeekNo getWeekNoById(int id){
+        return values()[id -1];
     }
 }

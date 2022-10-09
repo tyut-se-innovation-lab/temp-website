@@ -18,6 +18,8 @@
       class-name="appear"
     >
       <template slot-scope="scope">
+        <!-- 这个scheduleData在数据接受并且存到state中无法再传到子组件中 不能子组件直接去stroe取吗？能，但是我还是想解决这个问题 -->
+        <!-- 必须读取Vuex中的数据，或者调用其中的方法，或者拖一下页面才行，好像是触发了某种更新机制 -->
         <SchedulePart
           :row="scope.row.index"
           :column="scope.column.index"
@@ -26,7 +28,11 @@
           "
         >
           <template>
-            <el-button class="isAppear" @click="addSchedule">添加</el-button>
+            <el-button
+              :class="{ isAppear: writable, isAppear2: !writable }"
+              @click="addSchedule"
+              >添加</el-button
+            >
           </template>
         </SchedulePart>
       </template>
@@ -50,13 +56,15 @@ export default {
         "星期六",
         "星期日",
       ],
+      data: [],
     };
   },
   components: {
     SchedulePart,
   },
+  //按理说，这里会出问题吗，还是我的理解错误
   computed: {
-    ...mapState("scheduleupload", ["dayTime", "scheduleData"]),
+    ...mapState("scheduleupload", ["dayTime", "scheduleData", "writable"]),
   },
   methods: {
     //简化Vuex中的Mutations的方法
@@ -73,10 +81,14 @@ export default {
 
     getTime(row, column, cell, event) {
       //显示每个表格点击后的行和列
-      // console.log(row.index);
-      // console.log(column.index);
+      console.log(row.index);
+      console.log(column.index);
 
       let time = {
+        //一天中的第几节
+        period: row.index + 1,
+        //一周中的星期几
+        week: column.index,
         //表格的行
         row: row.index,
         //表格的列
@@ -101,6 +113,10 @@ export default {
     //合并行和列的回调方法
     combineRowColumn({ row, column, rowIndex, columnIndex }) {},
   },
+  mounted() {
+    console.log(this.scheduleData); //这个可以输出Vuex里面的，用了setTImeout输出的是存储过的，但是页面不更新
+    // 获取scheduleData是异步的 同步获取不到是正常的 你去子组件直接从store取数据就行了，OK，行我试试
+  },
 };
 </script>
 
@@ -113,6 +129,9 @@ export default {
   transition: all 0.5s;
 }
 .isAppear {
+  display: none;
+}
+.isAppear2 {
   display: none;
 }
 </style>

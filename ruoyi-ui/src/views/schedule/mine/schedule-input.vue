@@ -1,72 +1,74 @@
 <template>
-  <el-form
-    ref="form"
-    :model="scheduleData"
-    label-width="80px"
-    style="margin-top: 20px"
-  >
-    <div class="beCenter">
-      <h2>添加课程</h2>
-    </div>
-    <div class="scheduleButton">
-      <el-button
-        type="primary"
-        plain
-        circle
-        size="samll"
-        v-for="index of scheduleNum"
-        :key="index"
-        @click="switchScheduleData(index)"
-        >{{ index }}</el-button
-      >
-      <el-button
-        type="primary"
-        plain
-        circle
-        size="samll"
-        @click="scheduleNum++"
-        class="addScheduleNum"
-        >+</el-button
-      >
-    </div>
-    <el-form-item label="课程名字">
-      <el-input
-        v-model="scheduleData.courseName"
-        placeholder="请输入课程名字"
-      ></el-input>
-    </el-form-item>
-    <el-form-item label="课程时间">
-      <el-select
-        style="width: 40%"
-        size="mini"
-        v-model="scheduleData.startWeek"
-        placeholder="起始周"
-      >
-        <el-option v-for="index of 22" :key="index" :value="index">{{
-          index
-        }}</el-option>
-      </el-select>
-      周到
-      <el-select
-        style="width: 40%"
-        size="mini"
-        v-model="scheduleData.endWeek"
-        placeholder="结束周"
-      >
-        <el-option v-for="index of 22" :key="index" :value="index">{{
-          index
-        }}</el-option>
-      </el-select>
-      周
-    </el-form-item>
-    <div class="dayTime">
-      <p>当前添加的课表时间：{{ whatDay }}：{{ dayTime }}</p>
-    </div>
-    <div class="button">
-      <el-button type="primary" @click="onSubmit">提交</el-button>
-      <el-button @click="cancelSubmit">取消</el-button>
-    </div>
-  </el-form>
+  <div class="formarea">
+    <el-form
+      ref="form"
+      :model="scheduleData"
+      label-width="80px"
+      style="margin-top: 20px"
+    >
+      <div class="beCenter">
+        <h2>添加课程</h2>
+      </div>
+      <div class="scheduleButton">
+        <el-button
+          type="primary"
+          plain
+          circle
+          size="samll"
+          v-for="index of scheduleNum"
+          :key="index"
+          @click="switchScheduleData(index)"
+          >{{ index }}</el-button
+        >
+        <el-button
+          type="primary"
+          plain
+          circle
+          size="samll"
+          @click="scheduleNum++"
+          class="addScheduleNum"
+          >+</el-button
+        >
+      </div>
+      <el-form-item label="课程名字">
+        <el-input
+          v-model="scheduleData.courseName"
+          placeholder="请输入课程名字"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="课程时间">
+        <el-select
+          style="width: 40%"
+          size="mini"
+          v-model="scheduleData.startWeek"
+          placeholder="起始周"
+        >
+          <el-option v-for="index of 22" :key="index" :value="index">{{
+            index
+          }}</el-option>
+        </el-select>
+        周到
+        <el-select
+          style="width: 40%"
+          size="mini"
+          v-model="scheduleData.endWeek"
+          placeholder="结束周"
+        >
+          <el-option v-for="index of 22" :key="index" :value="index">{{
+            index
+          }}</el-option>
+        </el-select>
+        周
+      </el-form-item>
+      <div class="dayTime">
+        <p>当前添加的课表时间：{{ whatDay }}：{{ dayTime }}</p>
+      </div>
+      <div class="button">
+        <el-button type="primary" @click="onSubmit">保存</el-button>
+        <el-button @click="cancelSubmit">取消</el-button>
+      </div>
+    </el-form>
+  </div>
 </template>
 
 <script>
@@ -169,6 +171,10 @@ export default {
 </script>
 
 <style scoped>
+.fromarea {
+  height: 80%;
+  border: 1px black solid;
+}
 .scheduleButton {
   display: flex;
   justify-content: center;

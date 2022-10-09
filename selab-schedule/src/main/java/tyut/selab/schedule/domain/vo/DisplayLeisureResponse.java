@@ -1,5 +1,7 @@
 package tyut.selab.schedule.domain.vo;
 
+import java.util.List;
+
 public class DisplayLeisureResponse {
     /**
      * 用户ID
@@ -16,7 +18,7 @@ public class DisplayLeisureResponse {
     /**
      * 角色ID
      */
-    private Long roleId;
+    private List<Long> roleIds;
     /**
      * 性别
      */
@@ -24,11 +26,51 @@ public class DisplayLeisureResponse {
     /**
      * 角色名称
      */
-    private String roleName;
+    private List<String> roleNames;
     /**
      * 部门名称
      */
     private String deptName;
+
+    private String nickName;
+
+    public List<Long> getRoleIds() {
+        return roleIds;
+    }
+
+    @Override
+    public String toString() {
+        return "DisplayLeisureResponse{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", deptId=" + deptId +
+                ", roleIds=" + roleIds +
+                ", sex='" + sex + '\'' +
+                ", roleNames=" + roleNames +
+                ", deptName='" + deptName + '\'' +
+                ", nickName='" + nickName + '\'' +
+                '}';
+    }
+
+    public void setRoleIds(List<Long> roleIds) {
+        this.roleIds = roleIds;
+    }
+
+    public List<String> getRoleNames() {
+        return roleNames;
+    }
+
+    public void setRoleNames(List<String> roleNames) {
+        this.roleNames = roleNames;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
 
     public String getUserName() {
         return userName;
@@ -54,28 +96,12 @@ public class DisplayLeisureResponse {
         this.deptId = deptId;
     }
 
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
-
     public String getSex() {
         return sex;
     }
 
     public void setSex(String sex) {
         this.sex = sex;
-    }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
     }
 
     public String getDeptName() {
@@ -86,16 +112,4 @@ public class DisplayLeisureResponse {
         this.deptName = deptName;
     }
 
-    @Override
-    public String toString() {
-        return "DisplayLeisureResponse{" +
-                "userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", deptId=" + deptId +
-                ", roleId=" + roleId +
-                ", sex='" + sex + '\'' +
-                ", roleName='" + roleName + '\'' +
-                ", deptName='" + deptName + '\'' +
-                '}';
-    }
 }

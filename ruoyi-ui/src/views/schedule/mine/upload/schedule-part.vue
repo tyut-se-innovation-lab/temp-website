@@ -37,6 +37,9 @@ export default {
       dataIndex: 0,
     };
   },
+  mounted() {
+    console.log(this.partdata); //之前跑过，一直是undefined泡一下看看，没后端前端都开不了
+  },
   computed: {
     ...mapState("scheduleupload", ["writable"]),
   },

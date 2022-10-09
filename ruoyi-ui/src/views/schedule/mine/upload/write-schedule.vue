@@ -18,6 +18,8 @@
       class-name="appear"
     >
       <template slot-scope="scope">
+        <!-- 这个scheduleData在数据接受并且存到state中无法再传到子组件中 不能子组件直接去stroe取吗？能，但是我还是想解决这个问题 -->
+        <!-- 必须读取Vuex中的数据，或者调用其中的方法，或者拖一下页面才行，好像是触发了某种更新机制 -->
         <SchedulePart
           :row="scope.row.index"
           :column="scope.column.index"
@@ -60,6 +62,7 @@ export default {
   components: {
     SchedulePart,
   },
+  //按理说，这里会出问题吗，还是我的理解错误
   computed: {
     ...mapState("scheduleupload", ["dayTime", "scheduleData", "writable"]),
   },
@@ -111,9 +114,8 @@ export default {
     combineRowColumn({ row, column, rowIndex, columnIndex }) {},
   },
   mounted() {
-    setTimeout(() => {
-      console.log(this.scheduleData);
-    }, 500);
+    console.log(this.scheduleData); //这个可以输出Vuex里面的，用了setTImeout输出的是存储过的，但是页面不更新
+    // 获取scheduleData是异步的 同步获取不到是正常的 你去子组件直接从store取数据就行了，OK，行我试试
   },
 };
 </script>

@@ -12,7 +12,6 @@ export default {
                 context.commit("getScheduleData", response)
             })
         }
-
     },
     mutations: {
         //改变课表和表单的比例，出现表单
@@ -66,7 +65,10 @@ export default {
                 arr[i] = state.inputData[i].startWeek;
             }
             for (let i = 0; i < state.inputData.length; i++) {
-
+                // state.inputData.sort((a,b)=>{
+                //     //return a-b
+                //     //return ...
+                // })
                 //冒泡排序，将时间的大小排出来
                 if (i !== state.inputData.length - 1) {
                     for (let j = 0; j < arr.length - 1 - i; j++) {
@@ -227,7 +229,7 @@ export default {
                     ],
                 ],
             },
-            {
+            {   //这是一个表格，12345是侧边，第一节课，第二节课等等开不了，我在宿舍，没后端
                 num: "3",
                 courseData: [
                     //第一列
@@ -302,6 +304,7 @@ export default {
                     ],
                 ],
             },
+            //这12345数据意义何在,
             {
                 num: "8",
                 courseData: [

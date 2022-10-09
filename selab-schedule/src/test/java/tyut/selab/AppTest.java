@@ -3,10 +3,12 @@ package tyut.selab;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import oshi.jna.platform.mac.SystemB;
+import tyut.selab.schedule.controller.ArrangeController;
+import tyut.selab.schedule.domain.vo.ArrangePeriodRequest;
 import tyut.selab.schedule.enums.Period;
 import tyut.selab.schedule.enums.Week;
 import tyut.selab.schedule.enums.WeekNo;
+import tyut.selab.schedule.service.impl.ArrangePeriodService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,13 +53,23 @@ public class AppTest
 //            }
 //        }
 
-        Long userId = 45L;
+//        Long userId = 45L;
+//        Map<Long,Integer> map = new HashMap<Long,Integer>();
+//        map.put(45L,4);
+//        for(Map.Entry<Long,Integer> entry : map.entrySet()){
+//            if(userId == entry.getKey()){
+//                System.out.println("sdasd");
+//            }
+//        }
+
         Map<Long,Integer> map = new HashMap<Long,Integer>();
-        map.put(45L,4);
-        for(Map.Entry<Long,Integer> entry : map.entrySet()){
-            if(userId == entry.getKey()){
-                System.out.println("sdasd");
-            }
-        }
+
+        map.put(2002L,50);
+        map.put(2003L,60);
+
+        System.out.println(map.containsKey(2002L));
+
+        System.out.println(map.get(2002L));
+        System.out.println(map.entrySet());
     }
 }

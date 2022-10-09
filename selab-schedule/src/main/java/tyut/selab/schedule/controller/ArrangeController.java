@@ -21,7 +21,7 @@ public class ArrangeController {
 
     @PreAuthorize("@ss.hasPermi('schedule:arrangement')")
     @RequestMapping("schedule")
-    public AjaxResult arrangePeriod(ArrangePeriodRequest arrangePeriodRequest){
+    public AjaxResult arrangePeriod(ArrangePeriodRequest arrangePeriodRequest) {
         return AjaxResult.success(arrangePeriodService.ArrangePeriod(arrangePeriodRequest));
     }
 }

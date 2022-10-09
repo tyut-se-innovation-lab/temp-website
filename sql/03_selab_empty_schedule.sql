@@ -6,7 +6,7 @@ values ('2005', '空课表系统', '0', '5', 'schedule', null, '', 1, 0, 'M', '0
         null, '空课表目录');
 -- 功能菜单
 insert into sys_menu
-values ('2007', '我的课表', '2005', '1', 'mine', 'schedule/mine/index', '', 1, 1, 'C', '0', '0',
+values ('2008', '我的课表', '2005', '1', 'mine', 'schedule/mine/index', '', 1, 1, 'C', '0', '0',
         'schedule:mine',
         'edit', 'admin', sysdate(), '', null, '我的课表');
 insert into sys_menu

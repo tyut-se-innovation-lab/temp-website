@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import tyut.selab.schedule.domain.vo.ScheduleDisplayResponse;
 import tyut.selab.schedule.domain.vo.UploadScheduleRequest;
 import tyut.selab.schedule.service.IDisplayScheduleService;
+
 import java.util.List;
 
 /**
@@ -21,10 +22,11 @@ import java.util.List;
 public class DisplayScheduleController extends BaseController {
     @Autowired
     private IDisplayScheduleService displayScheduleService;
+
     @GetMapping("/selab/schedule/display")
     @PreAuthorize("@ss.hasAnyPermi('schedule:mine')")
     @ResponseBody
-    public List<ScheduleDisplayResponse> displaySchedule(){
+    public List<ScheduleDisplayResponse> displaySchedule() {
         return displayScheduleService.selectScheduleList(getUserId());
     }
 }

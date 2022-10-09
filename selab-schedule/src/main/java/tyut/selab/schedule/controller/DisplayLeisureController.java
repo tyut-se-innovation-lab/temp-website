@@ -20,7 +20,7 @@ public class DisplayLeisureController extends BaseController {
 
     @PreAuthorize("@ss.hasPermi('schedule:leisure')")
     @GetMapping("/leisure")
-    public AjaxResult getLeisure(DisplayLeisureRequest displayLeisureRequest){
+    public AjaxResult getLeisure(DisplayLeisureRequest displayLeisureRequest) {
         return AjaxResult.success(displayLeisureService.getLeisure(displayLeisureRequest));
     }
 

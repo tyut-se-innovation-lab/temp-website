@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import tyut.selab.schedule.domain.vo.ScheduleDisplayResponse;
-import tyut.selab.schedule.domain.vo.UploadScheduleRequest;
 import tyut.selab.schedule.service.IDisplayScheduleService;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public class DisplayScheduleController extends BaseController {
     @Autowired
     private IDisplayScheduleService displayScheduleService;
 
-    @GetMapping("/selab/schedule/display")
+    @GetMapping("/selab/schedule/mine/display")
     @PreAuthorize("@ss.hasAnyPermi('schedule:mine')")
     @ResponseBody
     public List<ScheduleDisplayResponse> displaySchedule() {

@@ -30,7 +30,7 @@ public class UploadController extends BaseController {
      *上传课表
      */
     @PostMapping("/add")
-    @PreAuthorize("@ss.hasAnyPermi('schedule:mine:upload')")
+    @PreAuthorize("@ss.hasAnyPermi('schedule:mine')")
     public void uploadSchedule(@RequestBody List<UploadScheduleRequest> uploadScheduleRequests){
         uploadScheduleService.insertSchedule(uploadScheduleRequests,getUserId());
     }

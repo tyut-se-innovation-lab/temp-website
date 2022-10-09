@@ -23,7 +23,7 @@ public class DisplayScheduleController extends BaseController {
     @Autowired
     private IDisplayScheduleService displayScheduleService;
 
-    @GetMapping("/selab/schedule/display")
+    @GetMapping("/selab/schedule/mine/display")
     @PreAuthorize("@ss.hasAnyPermi('schedule:mine')")
     @ResponseBody
     public List<ScheduleDisplayResponse> displaySchedule() {

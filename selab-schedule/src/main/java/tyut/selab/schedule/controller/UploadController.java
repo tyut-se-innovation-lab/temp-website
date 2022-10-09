@@ -18,7 +18,7 @@ import java.util.List;
  * @author Big_bai on 2022/10/4
  */
 @RestController
-@RequestMapping("/selab/schedule")
+@RequestMapping("/selab/schedule/mine")
 public class UploadController extends BaseController {
     /**
      * Service对象
@@ -29,7 +29,7 @@ public class UploadController extends BaseController {
     /**
      * 上传课表
      */
-    @PostMapping("/add")
+    @PostMapping("/upload")
     @PreAuthorize("@ss.hasAnyPermi('schedule:mine')")
     public void uploadSchedule(@RequestBody List<UploadScheduleRequest> uploadScheduleRequests) {
         uploadScheduleService.insertSchedule(uploadScheduleRequests, getUserId());

@@ -1,6 +1,8 @@
 package tyut.selab.schedule.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Week {
     MONDAY(1, "星期一"),
@@ -11,6 +13,7 @@ public enum Week {
     SATURDAY(6, "星期六"),
     SUNDAY(7, "星期日");
 
+    @JsonValue
     private final int id;
     private final String name;
 
@@ -26,5 +29,10 @@ public enum Week {
 
     public String getName() {
         return name;
+    }
+
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static Week getWeekById(int id){
+        return values()[id -1];
     }
 }

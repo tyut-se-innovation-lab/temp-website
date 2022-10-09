@@ -23,7 +23,7 @@
 
 <script>
 import { uploadSchedule } from "@/api/schedule/upload";
-import { mapMutations, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 import ScheduleInput from "./schedule-input.vue";
 import WriteSchedule from "./write-schedule.vue";
 export default {
@@ -39,10 +39,20 @@ export default {
   },
   computed: {
     //引入Vuex数据为计算数据
-    ...mapState("scheduleupload", ["scale1", "scale2", "sendedData"]),
+    ...mapState("scheduleupload", [
+      "scale1",
+      "scale2",
+      "sendedData",
+      "control",
+    ]),
   },
   methods: {
-    ...mapMutations("scheduleupload", ["writableData", "getScheduleData"]),
+    ...mapActions("scheduleupload", ["getData"]),
+    ...mapMutations("scheduleupload", [
+      "writableData",
+      "getScheduleData",
+      "addControl",
+    ]),
     writeData() {
       //出现提交按钮
       this.modifybutton = !this.modifybutton;
@@ -58,33 +68,31 @@ export default {
       uploadSchedule(JSON.stringify(this.sendedData));
       //获取数据
       setTimeout(() => {
-        this.getScheduleData();
-        //更新数据
+        this.getData();
         setTimeout(() => {
           this.writableData();
           this.writableData();
-        }, 500);
+        }, 200);
       }, 500);
     },
   },
-  mounted() {
+  created() {
     //获取数据
-    this.getScheduleData();
-    //更新数据
-    // setTimeout(() => {
-    //   this.$bus.$emit("getdata");
-    // }, 500);
-    setTimeout(() => {
-      this.writableData();
-      this.writableData();
-    }, 500);
+    if (!this.control) {
+      this.getData();
+      //control加一，只进行一次
+      this.addControl();
+      setTimeout(() => {
+        this.writableData();
+        this.writableData();
+      }, 200);
+    }
   },
 };
 </script>
 
 <style scoped>
 .buttons {
-  position: absolute;
   margin-top: 20px;
   right: 50px;
 }

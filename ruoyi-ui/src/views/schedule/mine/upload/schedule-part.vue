@@ -62,9 +62,12 @@ export default {
     },
   },
   mounted() {
-    setTimeout(() => {
-      console.log(this.partdata);
-    }, 1000);
+    // setTimeout(() => {
+    //   console.log(this.row);
+    // }, 1000);
+  },
+  updated() {
+    // console.log(this.partdata);
   },
 };
 </script>

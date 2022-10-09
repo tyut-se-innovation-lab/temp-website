@@ -34,7 +34,7 @@
         </dependency>
         <dependency>
             <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-framework</artifactId>
+            <artifactId>ruoyi-system</artifactId>
         </dependency>
     </dependencies>
 </project>

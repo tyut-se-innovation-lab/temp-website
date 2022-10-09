@@ -78,8 +78,8 @@ export default {
 
     getTime(row, column, cell, event) {
       //显示每个表格点击后的行和列
-      // console.log(row.index);
-      // console.log(column.index);
+      console.log(row.index);
+      console.log(column.index);
 
       let time = {
         //一天中的第几节
@@ -111,12 +111,9 @@ export default {
     combineRowColumn({ row, column, rowIndex, columnIndex }) {},
   },
   mounted() {
-    //自动重新获取数据，防止Vuex的bug，实际上没用
-    this.$bus.$on("getdata", () => {
-      setTimeout(() => {
-        this.data = this.theScheduleData;
-      }, 500);
-    });
+    setTimeout(() => {
+      console.log(this.scheduleData);
+    }, 500);
   },
 };
 </script>

@@ -1,12 +1,8 @@
 package tyut.selab.schedule.domain.vo;
 
-import com.ruoyi.common.core.domain.entity.SysUser;
-import com.ruoyi.system.domain.SysUserRole;
 import tyut.selab.schedule.enums.Period;
 import tyut.selab.schedule.enums.Week;
 import tyut.selab.schedule.enums.WeekNo;
-
-import java.util.List;
 
 /**
  * @author 冯洋

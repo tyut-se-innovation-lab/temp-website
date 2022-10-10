@@ -6,10 +6,17 @@ export default {
     //开启命名空间
     namespaced: true,
     actions: {
-        getData(context) {
+        getData(context, _this) {
             getSchedule().then(response => {
                 //填充数据扔到mutation
-                context.commit("getScheduleData", response)
+                context.commit("getScheduleData", response.data);
+                //出现一个弹窗
+                const h = _this.$createElement;
+                _this.$notify({
+                    title: '获取数据',
+                    message: h('i', { style: 'color: teal' }, response.msg),
+                    duration: 2000
+                });
             })
         }
     },
@@ -44,7 +51,7 @@ export default {
         },
         // 存储临时数据
         storeInputData(state, data) {
-            console.log(data.index);
+            console.log(data);
             //如果是第一次存储或者存储之前存储过的数据，则不会进入以下代码(比如：当前在第二格编辑，然后点击第一个)
             if (data.index !== 0 && data.index >= state.inputData.length) {
                 let arr = [];
@@ -61,16 +68,16 @@ export default {
                     for (let k = 0; k < length; k++) {
                         //是否为最后一次循环
                         if (k === length - 1) {
-                            console.log(111);
-                            console.log(arr[k][1]);
-                            console.log(state.inputData[arr[k][1]].endWeek, data.scheduleData.startWeek);
                             //添加的数据的开始周如果大于最后一周的的结束周
                             if (data.scheduleData.startWeek > state.inputData[arr[k][1]].endWeek) {
-                                console.log(data.index);
                                 state.inputData[data.index] = data.scheduleData;
-                                console.log(data.index);
                             } else {
-                                alert("输入周数重复，请重新填写");
+                                const h = data._this.$createElement;
+                                data._this.$notify({
+                                    title: '输入数据',
+                                    message: h('i', { style: 'color: teal' }, "输入周数重复，请重新填写"),
+                                    duration: 2000
+                                });
                                 break;
                             }
                         } else {
@@ -78,13 +85,34 @@ export default {
                             if (data.scheduleData.startWeek > state.inputData[arr[k][1]].endWeek && data.scheduleData.endWeek < arr[k + 1]) {
                                 state.inputData[data.index] = data.scheduleData;
                             } else {
-                                alert("输入周数重复，请重新填写");
+                                const h = data._this.$createElement;
+                                data._this.$notify({
+                                    title: '输入数据',
+                                    message: h('i', { style: 'color: teal' }, "输入周数重复，请重新填写"),
+                                    duration: 2000
+                                });
                                 break;
                             }
                         }
                     }
                 } else {
-                    alert("输入数据不全或开始周不能大于结束周");
+                    const h = data._this.$createElement;
+                    data._this.$notify({
+                        title: '输入数据',
+                        message: h('i', { style: 'color: teal' }, "输入数据不全或开始周不能大于结束周"),
+                        duration: 2000
+                    });
+                }
+            } else if (data.index === 0) {
+                if (data.scheduleData.courseName != "" && data.scheduleData.startWeek != 0 && data.scheduleData.endWeek != 0 && data.scheduleData.startWeek < data.scheduleData.endWeek) {
+                    state.inputData[data.index] = data.scheduleData;
+                } else {
+                    const h = data._this.$createElement;
+                    data._this.$notify({
+                        title: '输入数据',
+                        message: h('i', { style: 'color: teal' }, "输入数据不全或开始周不能大于结束周"),
+                        duration: 2000
+                    });
                 }
             }
         },

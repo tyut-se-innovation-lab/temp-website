@@ -20,13 +20,7 @@
       <template slot-scope="scope">
         <!-- 这个scheduleData在数据接受并且存到state中无法再传到子组件中 不能子组件直接去stroe取吗？能，但是我还是想解决这个问题 -->
         <!-- 必须读取Vuex中的数据，或者调用其中的方法，或者拖一下页面才行，好像是触发了某种更新机制 -->
-        <SchedulePart
-          :row="scope.row.index"
-          :column="scope.column.index"
-          :partdata="
-            scheduleData[scope.row.index].courseData[scope.column.index - 1]
-          "
-        >
+        <SchedulePart :row="scope.row.index" :column="scope.column.index">
           <template>
             <el-button
               :class="{ isAppear: writable, isAppear2: !writable }"

@@ -82,10 +82,10 @@ export default {
       this.getData();
       //control加一，只进行一次
       this.addControl();
-      // setTimeout(() => {
-      //   this.writableData();
-      //   this.writableData();
-      // }, 200);
+      setTimeout(() => {
+        this.writableData();
+        this.writableData();
+      }, 200);
     }
   },
 };

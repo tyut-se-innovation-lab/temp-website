@@ -101,7 +101,7 @@ export default {
             // 展示表格
             show: false,
             // 左右边框
-            border: true,
+            border: true,           
             // 角色称呼
             deptNum: [],
             // 发送的id组群
@@ -213,12 +213,12 @@ export default {
 
         },
         // 获取空课人员
-        getmessage() {
+        getmessage() {       
             listleisure(this.params).then((res) =>{
-                console.log(res);
+                console.log(res); 
                 this.tableData = [];
                 for(let i=0 ;i<res.data.length;i++){
-
+                   
                     this.tableData.push(
                         {
                             name:res.data[i].nickName,
@@ -262,7 +262,7 @@ export default {
                         value: res.rows[i].roleId,
                         label: res.rows[i].roleName
 
-                    })
+                    })   
                 }
             })
         },

@@ -29,13 +29,13 @@ public class MineScheduleController extends BaseController {
      * 上传课表
      */
     @PostMapping("/upload")
-    @PreAuthorize("@ss.hasAnyPermi('schedule:mine')")
+    @PreAuthorize("@ss.hasPermi('schedule:mine')")
     public void uploadSchedule(@RequestBody List<UploadScheduleRequest> uploadScheduleRequests) {
         uploadScheduleService.insertSchedule(uploadScheduleRequests, getUserId());
     }
 
     @GetMapping("/display")
-    @PreAuthorize("@ss.hasAnyPermi('schedule:mine')")
+    @PreAuthorize("@ss.hasPermi('schedule:mine')")
     @ResponseBody
     public List<ScheduleDisplayResponse> displaySchedule() {
         return displayScheduleService.selectScheduleList(getUserId());

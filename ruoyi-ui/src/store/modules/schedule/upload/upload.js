@@ -86,6 +86,12 @@ export default {
                 } else {
                     alert("输入数据不全或开始周不能大于结束周");
                 }
+            } else if (data.index === 0) {
+                if (data.scheduleData.courseName != "" && data.scheduleData.startWeek != 0 && data.scheduleData.endWeek != 0 && data.scheduleData.startWeek < data.scheduleData.endWeek) {
+                    state.inputData[data.index] = data.scheduleData;
+                } else {
+                    alert("输入数据不全或开始周不能大于结束周");
+                }
             }
         },
         //清空临时数据

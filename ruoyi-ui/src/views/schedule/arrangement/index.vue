@@ -3,12 +3,10 @@
         <el-container>
 
             <el-header>
-                排课课表
+                随机排课
             </el-header>
             <el-container>
                 <el-main>
-                    <el-link href="https://element.eleme.io" target="_blank" style="float:left">
-                        < < 返 回 </el-link><br><br>
 
                         <div class="choose">
                             <span>选择部门:</span>
@@ -17,12 +15,12 @@
                                     :value="item.value">
                                 </el-option>
                             </el-select>
-                            <span>选择小组:&nbsp;&nbsp; &nbsp;</span>
+                            <!-- <span>请选择小组:</span>
                             <el-select v-model="group"  placeholder="请选择小组">
-                                <el-option v-for="item in caregroups" :key="item.value" :label="item.label | fifweek"
+                                <el-option v-for="item in caregroups" :key="item.value" :label="item.label | fifgroup"
                                     :value="item.value">
                                 </el-option>
-                            </el-select>
+                            </el-select> -->
                             <span>选择第几周:</span>
                             <el-select v-model="week"  placeholder="请选择第几周">
                                 <el-option v-for="item in WeekNum" :key="item.value" :label="item.label | fifweek"
@@ -75,7 +73,8 @@
 
 <script>
 
-import axios from 'axios'
+import request from '@/utils/request'
+import {listDept} from '@/api/system/dept.js'
 export default {
     data() {
         return {
@@ -108,9 +107,9 @@ export default {
                 }
             ],
             // 小组选择
-            group:'',
+            // group:'',
             // 具体小组选择
-            caregroups:[],
+            // caregroups:[],
             // 数据展示
             tableData: [{
                 date: '第一节课',
@@ -186,10 +185,7 @@ export default {
                     Wed: '',
                     Thu: '',
                     Fir: '',
-                    Sat: '',
-                    Sun: ''
-                }
-            }, {
+                    Sat: '', 
                 date: '第八节课',
                 week: {
                     Mon: "",
@@ -201,19 +197,7 @@ export default {
                     Sun: ''
                 }
             },
-            {
-                date: '第九节课',
-                week: {
-                    Mon: "",
-                    Tue: '',
-                    Wed: '',
-                    Thu: '',
-                    Fir: '',
-                    Sat: '',
-                    Sun: ''
-                }
-            },
-            {
+          
                 date: '第十节课',
                 week: {
                     Mon: "",
@@ -236,11 +220,16 @@ export default {
     methods: {
 
         // 请求
-        axiosRequest(week) {
-            axios({
+        axiosRequest() {
+            request({
                 method:'get',
-                params:{weekda: week},
-                url:''
+                params:{
+                    needTime:this.chooseday,
+                    seatNum:this.seat,
+                    weekNo:this.week,
+                    roleId:this.role
+                },
+                url:'http://kuangshen.xyz:8080/'
             })
                 .then(function (response) {
                     console.log(response);
@@ -269,14 +258,28 @@ export default {
                 )
             }
 
-
         },
+        // 写请求
         sout(role,week,day,seat){
             console.log(`rele${role},week${week},day${day},seat${seat}`);
+            this.axiosRequest()
         },
-        handleChange(value) {
-        console.log(value);
-      }
+         // 获取部门信息
+        getselablistDept(){
+        listDept().then((res)=>{
+            
+            for(let i=0;i<res.data.length;i++){
+                this.roleNum.push(
+                    {
+                        value: res.data[i].deptId,
+                        label: res.data[i].deptName
+                    }
+                )
+            }
+           
+        })
+       },
+
     },
     filters:{
         fifweek(val){
@@ -285,6 +288,9 @@ export default {
         fifday(val){
             return `${val}个小时`
         },
+        fifgroup(val){
+            return `第${val}组`
+        }
     }
 }
 </script>
@@ -301,7 +307,6 @@ export default {
 
 
 .el-main {
-    background-color: #E9EEF3;
     color: #333;
     text-align: center;
     width: 100%;

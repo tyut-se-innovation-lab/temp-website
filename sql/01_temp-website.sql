@@ -1641,10 +1641,7 @@ TABLES `sys_user` WRITE;
 INSERT INTO `sys_user`
 VALUES (1, 101, 'admin', '孙鸿飞', '00', '021027shf@gmail.com', '13383553209', '1', '',
         '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2022-09-25 15:51:49',
-        'admin', '2022-09-25 09:08:52', '', '2022-09-25 15:51:49', '管理员'),
-       (2, 105, 'ry', '若依', '00', 'ry@qq.com', '15666666666', '1', '',
-        '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '2', '127.0.0.1', '2022-09-25 09:08:52',
-        'admin', '2022-09-25 09:08:52', '', NULL, '测试员');
+        'admin', '2022-09-25 09:08:52', '', '2022-09-25 15:51:49', '管理员');
 /*!40000 ALTER TABLE `sys_user` ENABLE KEYS */;
 UNLOCK
 TABLES;

@@ -13,7 +13,7 @@
         <association property="roleIds" column="user_id" javaType="list" select="tyut.selab.schedule.mapper.DisplayLeisureMapper.getRoleIdsByUserId"/>
         <!--        <association property="roleNames" column="roleIds" select="tyut.selab.schedule.mapper.DisplayLeisureMapper.getRoleNameByRoleId"/>-->
         <association property="deptName" column="dept_id" select="tyut.selab.schedule.mapper.DisplayLeisureMapper.getDeptNameByDeptId"/>
-        <collection ofType="string" property="roleNames" >
+        <collection ofType="string" property="roleNames" javaType="list" >
             <result column="role_name" javaType="string"/>
         </collection>
     </resultMap>

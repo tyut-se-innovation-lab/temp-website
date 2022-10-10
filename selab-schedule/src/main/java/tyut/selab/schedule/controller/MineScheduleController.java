@@ -1,6 +1,7 @@
 package tyut.selab.schedule.controller;
 
 import com.ruoyi.common.core.controller.BaseController;
+import com.ruoyi.common.core.domain.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -37,8 +38,8 @@ public class MineScheduleController extends BaseController {
     @GetMapping("/display")
     @PreAuthorize("@ss.hasPermi('schedule:mine')")
     @ResponseBody
-    public List<ScheduleDisplayResponse> displaySchedule() {
-        return displayScheduleService.selectScheduleList(getUserId());
+    public AjaxResult displaySchedule() {
+        return AjaxResult.success(displayScheduleService.selectScheduleList(getUserId()));
     }
 
 }

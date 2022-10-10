@@ -14,13 +14,13 @@ import tyut.selab.schedule.service.impl.ArrangePeriodService;
  */
 
 @RestController
-@RequestMapping("arrange")
+@RequestMapping("/selab/schedule")
 public class ArrangeController {
     @Autowired
     private ArrangePeriodService arrangePeriodService;
 
     @PreAuthorize("@ss.hasPermi('schedule:arrangement')")
-    @RequestMapping("schedule")
+    @RequestMapping("/arrange")
     public AjaxResult arrangePeriod(ArrangePeriodRequest arrangePeriodRequest) {
         return AjaxResult.success(arrangePeriodService.ArrangePeriod(arrangePeriodRequest));
     }

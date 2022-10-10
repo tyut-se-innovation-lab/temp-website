@@ -27,7 +27,7 @@ public class ArrangePeriodService implements IArrangePeriodService {
     private SysUserMapper sysUserMapper;
 
 
-    public List<SysUser>[][] ArrangePeriod(ArrangePeriodRequest arrangePeriodRequest){
+    public List<SysUser>[][] arrangePeriod(ArrangePeriodRequest arrangePeriodRequest){
         //记录每个人一个星期还剩多少个小时
         Integer needTime = arrangePeriodRequest.getNeedTime();
         //记录该节空课的用户和剩余的时长

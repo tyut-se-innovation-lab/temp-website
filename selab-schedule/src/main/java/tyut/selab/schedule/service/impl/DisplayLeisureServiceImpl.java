@@ -18,35 +18,41 @@ public class DisplayLeisureServiceImpl implements IDisplayLeisureService {
     @Autowired
     private DisplayLeisureMapper displayLeisureMapper;
 
-    public List<DisplayLeisureResponse> getLeisure(DisplayLeisureRequest displayLeisureRequest){
+    public List<DisplayLeisureResponse> getLeisure(DisplayLeisureRequest displayLeisureRequest) {
         List<TimeFrame> timeFrames = displayLeisureRequest.getTimeFrames();
         List<Long> deptIds = displayLeisureRequest.getDeptIds();
         List<Long> roleIds = displayLeisureRequest.getRoleIds();
-        List<Long> roleIdByDeptId = displayLeisureMapper.getRoleIdsByDeptId(deptIds);
+        List<Long> roleIdByDeptId = new ArrayList<>();
         List<Long> userIds = new LinkedList<>();
         List<DisplayLeisureResponse> response = new ArrayList<>();
 
-        if (roleIds!=null) {
+        if (deptIds != null) {
+            roleIdByDeptId = displayLeisureMapper.getRoleIdsByDeptId(deptIds);
+        }
+
+        if (roleIds != null) {
             for (Long roleId : roleIds) {
-                if (roleIdByDeptId.contains(roleId)){
+                if (roleIdByDeptId.contains(roleId)) {
                     roleIds.remove(roleId);
                 }
             }
         }
-        if (roleIds!=null){
-           userIds.addAll(displayLeisureMapper.getUserIdByRoleId(roleIds));
+        if (roleIds != null) {
+            userIds.addAll(displayLeisureMapper.getUserIdByRoleId(roleIds));
         }
-        if (deptIds!=null) {
+        if (deptIds != null) {
             userIds.addAll(displayLeisureMapper.getUserIdByDeptId(deptIds));
         }
-        if (timeFrames!=null) {
+        if (timeFrames != null) {
             for (TimeFrame timeFrame : timeFrames) {
                 List<Long> userIds_hasClass = null;
-                userIds_hasClass.addAll(displayLeisureMapper.getUserIdByTimeFrame(timeFrame,userIds));
+                userIds_hasClass.addAll(displayLeisureMapper.getUserIdByTimeFrame(timeFrame, userIds));
                 userIds.removeAll(userIds_hasClass);
             }
         }
-        response = displayLeisureMapper.getResponseByUserId(userIds);
+        if (!userIds.isEmpty()) {
+            response = displayLeisureMapper.getResponseByUserId(userIds);
+        }
         return response;
 
     }

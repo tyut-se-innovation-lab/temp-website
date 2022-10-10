@@ -12,7 +12,7 @@ public class ArrangePeriodRequest {
      */
     private Integer seatNum;
     /**
-     * 需要排第几节课
+     * 需要排第几周的课
      */
     private WeekNo weekNo;
     /**

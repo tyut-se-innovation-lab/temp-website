@@ -2,22 +2,36 @@
   <div :class="{ part: writable }">
     <!-- 插槽 -->
     <slot
-      v-if="!(partdata !== undefined && partdata[dataIndex].courseName)"
+      v-if="
+        !(
+          scheduleData[row].courseData[column - 1] &&
+          scheduleData[row].courseData[column - 1][dataIndex].courseName
+        )
+      "
     ></slot>
-    <div v-if="partdata !== undefined && partdata[dataIndex].courseName">
+    <div
+      v-if="
+        scheduleData[row].courseData[column - 1] &&
+        scheduleData[row].courseData[column - 1][dataIndex].courseName
+      "
+    >
       <el-button class="isAppear1" @click="modifyData">修改</el-button>
       <div class="text">
-        <h4>{{ partdata[dataIndex].courseName }}</h4>
+        <h4>
+          {{ scheduleData[row].courseData[column - 1][dataIndex].courseName }}
+        </h4>
         <p>
-          {{ partdata[dataIndex].startWeek }}周~{{
-            partdata[dataIndex].endWeek
+          {{
+            scheduleData[row].courseData[column - 1][dataIndex].startWeek
+          }}周~{{
+            scheduleData[row].courseData[column - 1][dataIndex].endWeek
           }}周
         </p>
       </div>
 
       <ul class="dots">
         <li
-          v-for="index of partdata.length"
+          v-for="index of scheduleData[row].courseData[column - 1].length"
           :key="index"
           class="dot"
           @click="switchScheduleGroup(index)"
@@ -31,17 +45,21 @@
 import { mapMutations, mapState } from "vuex";
 export default {
   name: "schedulepart",
-  props: ["row", "column", "partdata"],
+  props: ["row", "column"],
   data() {
     return {
       dataIndex: 0,
     };
   },
-  mounted() {
-    console.log(this.partdata); //之前跑过，一直是undefined泡一下看看，没后端前端都开不了
-  },
   computed: {
-    ...mapState("scheduleupload", ["writable"]),
+    ...mapState("scheduleupload", ["writable", "scheduleData"]),
+    // partData() {
+    //   let index = {
+    //     row: this.row,
+    //     column: this.column - 1,
+    //   };
+    //   return this.$store.getters["scheduleupload/getPartData"](index);
+    // },
   },
   methods: {
     ...mapMutations("scheduleupload", ["changeScale", "modifyScheduleData"]),
@@ -61,16 +79,16 @@ export default {
       //将课程数据填充到表单数据中
       this.modifyScheduleData(index);
       //发送数据的组数，进行表单初始化
-      this.$bus.$emit("modify", this.partdata.length);
+      this.$bus.$emit(
+        "modify",
+        this.scheduleData[this.row].courseData[this.column - 1].length
+      );
     },
   },
   mounted() {
-    // setTimeout(() => {
-    //   console.log(this.row);
-    // }, 1000);
-  },
-  updated() {
-    // console.log(this.partdata);
+    setTimeout(() => {
+      // console.log(this.partData);
+    }, 1000);
   },
 };
 </script>

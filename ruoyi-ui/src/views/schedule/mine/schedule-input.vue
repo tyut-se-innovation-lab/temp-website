@@ -119,6 +119,9 @@ export default {
     //存储同一天同一时间的多组课表
     switchScheduleData(index) {
       //存储上一组数据
+      if (this.scheduleData.courseName === "") {
+        this.scheduleData.courseName = "有课";
+      }
       let data = {
         index: this.scheduleIndex - 1,
         scheduleData: this.scheduleData,

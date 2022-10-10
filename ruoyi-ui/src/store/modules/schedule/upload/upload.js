@@ -45,11 +45,47 @@ export default {
         // 存储临时数据
         storeInputData(state, data) {
             console.log(data.index);
-            //判断是否该写的数据都写了,判断开始周是否小于结束周
-            if (data.courseName != "" && data.startWeek != 0 && data.endWeek != 0 && data.startWeek < data.endWeek) {
-                state.inputData[data.index] = data.scheduleData;
-            } else {
-                alert("输入内容格式错误，请重新输入");
+            //如果是第一次存储或者存储之前存储过的数据，则不会进入以下代码(比如：当前在第二格编辑，然后点击第一个)
+            if (data.index !== 0 && data.index >= state.inputData.length) {
+                let arr = [];
+                for (let i = 0; i < state.inputData.length; i++) {
+                    arr[i] = [];
+                    arr[i][0] = state.inputData[i].startWeek;
+                    arr[i][1] = i;
+                }
+                arr.sort();
+                //判断能写的是否都写了开始周是否小于结束周
+                if (data.scheduleData.courseName != "" && data.scheduleData.startWeek != 0 && data.scheduleData.endWeek != 0 && data.scheduleData.startWeek < data.scheduleData.endWeek) {
+                    //固定length
+                    let length = state.inputData.length;
+                    for (let k = 0; k < length; k++) {
+                        //是否为最后一次循环
+                        if (k === length - 1) {
+                            console.log(111);
+                            console.log(arr[k][1]);
+                            console.log(state.inputData[arr[k][1]].endWeek, data.scheduleData.startWeek);
+                            //添加的数据的开始周如果大于最后一周的的结束周
+                            if (data.scheduleData.startWeek > state.inputData[arr[k][1]].endWeek) {
+                                console.log(data.index);
+                                state.inputData[data.index] = data.scheduleData;
+                                console.log(data.index);
+                            } else {
+                                alert("输入周数重复，请重新填写");
+                                break;
+                            }
+                        } else {
+                            // 添加的数据的开始周是否大于某一周的结束周同时小于下一周的开始周
+                            if (data.scheduleData.startWeek > state.inputData[arr[k][1]].endWeek && data.scheduleData.endWeek < arr[k + 1]) {
+                                state.inputData[data.index] = data.scheduleData;
+                            } else {
+                                alert("输入周数重复，请重新填写");
+                                break;
+                            }
+                        }
+                    }
+                } else {
+                    alert("输入数据不全或开始周不能大于结束周");
+                }
             }
         },
         //清空临时数据
@@ -60,27 +96,7 @@ export default {
         //提交并存储数据
         storeScheduleData(state) {
             state.scheduleData[state.tableCoordinate.row].courseData[state.tableCoordinate.column] = state.inputData;
-            let arr = [];
             for (let i = 0; i < state.inputData.length; i++) {
-                arr[i] = state.inputData[i].startWeek;
-            }
-            for (let i = 0; i < state.inputData.length; i++) {
-                // state.inputData.sort((a,b)=>{
-                //     //return a-b
-                //     //return ...
-                // })
-                //冒泡排序，将时间的大小排出来
-                if (i !== state.inputData.length - 1) {
-                    for (let j = 0; j < arr.length - 1 - i; j++) {
-                        // 白话解释：如果前面的数大，放到后面(当然是从小到大的冒泡排序)
-                        if (arr[j] > arr[j + 1]) {
-                            let temp = arr[j];
-                            arr[j] = arr[j + 1];
-                            arr[j + 1] = temp;
-                        }
-                    }
-                }
-
                 //存入数据
                 for (let j = state.inputData[i].startWeek; j <= state.inputData[i].endWeek; j++) {
                     state.sendedData.push({
@@ -90,7 +106,6 @@ export default {
                         courseTitle: state.inputData[i].courseName,
                     })
                 }
-
             }
         },
         //修改数据
@@ -107,7 +122,6 @@ export default {
 
         //获取课表数据
         getScheduleData(state, response) {
-            //扔到actions
             if (response != undefined) {
                 //整理发回来的数据
                 for (let i = 0; i < response.length; i++) {
@@ -150,7 +164,6 @@ export default {
                         }
                     }
                 }
-                console.log(state.responData);
                 //存储整理后的数据
                 for (let i = 0; i < state.responData.length; i++) {
                     //创建一个数组
@@ -163,7 +176,6 @@ export default {
                         endWeek: state.responData[i].endWeek,
                     })
                 }
-                console.log(state.scheduleData);
             }
         },
         //control加一
@@ -194,7 +206,13 @@ export default {
         //课表名
         responData: [],
         //临时数据
-        inputData: [],
+        inputData: [
+            {
+                courseName: "",
+                startWeek: 0,
+                endWeek: 0,
+            }
+        ],
         sendedData: [],
         scheduleData: [
             {
@@ -353,5 +371,11 @@ export default {
         ],
     },
     getters: {
+        getPartData: (state) => (index) => {
+            // 如果存在
+            console.log(index);
+            console.log(state.scheduleData[index.row].courseData[index.column]);
+            return state.scheduleData[index.row].courseData[index.column];
+        }
     }
 }

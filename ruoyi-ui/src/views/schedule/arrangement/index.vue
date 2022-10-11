@@ -72,10 +72,8 @@
   </template>
 
   <script>
-
-
-  // import {listAttange} from '@/api/schedule/arrange'
-  // import {listDept} from '@/api/system/dept'
+  import {listAttange} from '@/api/schedule/arrange'
+  import {listDept} from '@/api/system/dept'
   export default {
     data() {
         return {

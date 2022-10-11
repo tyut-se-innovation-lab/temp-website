@@ -41,7 +41,7 @@ public class ArrangePeriodService implements IArrangePeriodService {
         //查看该角色下所有的用户
         sysUser.setRoleId(arrangePeriodRequest.getRoleId());
         List<SysUser> sysUserList = sysUserMapper.selectUserList(sysUser);
-        List<Long> userId = new ArrayList<>();
+        Set<Long> userId = new HashSet<>();
         for (SysUser user : sysUserList) {
             userId.add(user.getUserId());
         }

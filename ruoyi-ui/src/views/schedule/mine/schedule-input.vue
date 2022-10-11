@@ -103,6 +103,7 @@ export default {
       let data = {
         index: this.scheduleIndex - 1,
         scheduleData: this.scheduleData,
+        _this: this,
       };
       this.storeInputData(data);
       //存储全部数据到 Vuex
@@ -125,6 +126,7 @@ export default {
       let data = {
         index: this.scheduleIndex - 1,
         scheduleData: this.scheduleData,
+        _this: this,
       };
       this.storeInputData(data);
 

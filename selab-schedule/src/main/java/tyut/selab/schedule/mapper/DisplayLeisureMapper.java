@@ -5,6 +5,7 @@ import tyut.selab.schedule.domain.TimeFrame;
 import tyut.selab.schedule.domain.vo.DisplayLeisureResponse;
 
 import java.util.List;
+import java.util.Set;
 
 public interface DisplayLeisureMapper {
      /**
@@ -13,7 +14,7 @@ public interface DisplayLeisureMapper {
       * @param userIds 筛选出来的要查询的用户ID
       * @return 有课的用户ID
       */
-     List<Long> getUserIdByTimeFrame(@Param("timeFrame") TimeFrame timeFrame, @Param("userIds") List<Long> userIds);
+     List<Long> getUserIdByTimeFrame(@Param("timeFrame") TimeFrame timeFrame, @Param("userIds") Set<Long> userIds);
 
      /**
       * 根据部门ID获取用户ID
@@ -41,7 +42,7 @@ public interface DisplayLeisureMapper {
       * @param userId 用户ID
       * @return Response结果集
       */
-     List<DisplayLeisureResponse> getResponseByUserId(@Param("userIds") List<Long> userId);
+     List<DisplayLeisureResponse> getResponseByUserId(@Param("userIds") Set<Long> userId);
 
      /**
       * 根据用户ID查询角色ID

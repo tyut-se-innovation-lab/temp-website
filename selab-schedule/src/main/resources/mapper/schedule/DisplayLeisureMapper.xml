@@ -71,7 +71,7 @@
         </foreach>
     </select>
 
-    <select id="getResponseByUserId" resultMap="DisplayLeisureResponse" parameterType="list">
+    <select id="getResponseByUserId" resultMap="DisplayLeisureResponse" parameterType="hashmap">
         select su.nick_name,su.user_id,su.dept_id,su.user_name,su.sex,sr.role_name from sys_user su
         left join sys_user_role sur
         on su.user_id = sur.user_id

@@ -31,7 +31,7 @@ public class DisplayLeisureServiceImpl implements IDisplayLeisureService {
         List<DisplayLeisureResponse> response = new ArrayList<>();
 
         if (deptIds != null) {
-            for (Long dept :deptIds ) {
+            for (Long dept : deptIds) {
                 List<SysDept> sysDepts = sysDeptMapper.selectChildrenDeptById(dept);
                 for (SysDept sysdept : sysDepts) {
                     childDeptIds.add(sysdept.getDeptId());
@@ -64,17 +64,17 @@ public class DisplayLeisureServiceImpl implements IDisplayLeisureService {
         if (!userIds.isEmpty()) {
             response = displayLeisureMapper.getResponseByUserId(userIds);
         }
-        if (deptIds !=null) {
-            System.out.println("deptIds"+Arrays.toString(deptIds.toArray()));
+        if (deptIds != null) {
+            System.out.println("deptIds" + Arrays.toString(deptIds.toArray()));
         }
-        if (roleIds!=null) {
-            System.out.println("roleIds"+Arrays.toString(roleIds.toArray()));
+        if (roleIds != null) {
+            System.out.println("roleIds" + Arrays.toString(roleIds.toArray()));
         }
-        if (timeFrames!=null) {
-            System.out.println("timeFrames"+Arrays.toString(timeFrames.toArray()));
+        if (timeFrames != null) {
+            System.out.println("timeFrames" + Arrays.toString(timeFrames.toArray()));
         }
-        if (userIds!=null) {
-            System.out.println("userIds"+Arrays.toString(userIds.toArray()));
+        if (userIds != null) {
+            System.out.println("userIds" + Arrays.toString(userIds.toArray()));
         }
         return response;
 

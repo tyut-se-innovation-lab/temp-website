@@ -21,63 +21,78 @@ public class DisplayLeisureServiceImpl implements IDisplayLeisureService {
     @Autowired
     private SysDeptMapper sysDeptMapper;
 
+    List<Long> childDeptIds = new ArrayList<>();
+    List<Long> roleIdByDeptId = new ArrayList<>();
+    List<Long> userIds = new LinkedList<>();
+    List<DisplayLeisureResponse> response = new ArrayList<>();
+
     public List<DisplayLeisureResponse> getLeisure(DisplayLeisureRequest displayLeisureRequest) {
+
         List<TimeFrame> timeFrames = displayLeisureRequest.getTimeFrames();
         List<Long> deptIds = displayLeisureRequest.getDeptIds();
-        List<Long> childDeptIds = new ArrayList<>();
         List<Long> roleIds = displayLeisureRequest.getRoleIds();
-        List<Long> roleIdByDeptId = new ArrayList<>();
-        List<Long> userIds = new LinkedList<>();
-        List<DisplayLeisureResponse> response = new ArrayList<>();
 
-        if (deptIds != null) {
-            for (Long dept :deptIds ) {
+        getRoleIdsByDeptIds(deptIds);
+        getUserIdsByRoleIdsAndDeptIds(roleIds,deptIds);
+        getUserIdsByTimeFrame(timeFrames);
+
+        //根据用户Id查出响应数据
+        return displayLeisureMapper.getResponseByUserId(userIds);
+
+    }
+
+    /**
+     * 用部门Id获取子部门，用子部门Id去查找部门下的角色Id
+     *
+     * @param deptIds 部门Id
+     */
+    private void getRoleIdsByDeptIds(List<Long> deptIds) {
+        if (Objects.nonNull(deptIds)) {
+            for (Long dept : deptIds) {
                 List<SysDept> sysDepts = sysDeptMapper.selectChildrenDeptById(dept);
                 for (SysDept sysdept : sysDepts) {
                     childDeptIds.add(sysdept.getDeptId());
                 }
+                sysDepts.stream()
+                        .map(SysDept::getDeptId)
+                        .forEach(childDeptIds::add);
             }
             childDeptIds.addAll(deptIds);
             roleIdByDeptId = displayLeisureMapper.getRoleIdsByDeptId(childDeptIds);
         }
+    }
 
-        if (roleIds != null) {
-            for (Long roleId : roleIds) {
-                if (roleIdByDeptId.contains(roleId)) {
-                    roleIds.remove(roleId);
-                }
-            }
+    /**
+     * 根据筛选出来的角色Id和部门Id去查找对应的用户Id
+     *
+     * @param roleIds 角色Id
+     * @param deptIds 部门Id
+     */
+    private void getUserIdsByRoleIdsAndDeptIds(List<Long> roleIds, List<Long> deptIds) {
+        if (Objects.nonNull(roleIds)) {
+            roleIds.removeIf(roleId -> roleIdByDeptId.contains(roleId));
         }
-        if (roleIds != null) {
+
+        if (Objects.nonNull(roleIds)) {
             userIds.addAll(displayLeisureMapper.getUserIdByRoleId(roleIds));
         }
         if (!childDeptIds.isEmpty()) {
             userIds.addAll(displayLeisureMapper.getUserIdByDeptId(childDeptIds));
         }
-        if (timeFrames != null) {
+    }
+
+    /**
+     * 根据时间条件筛选有课的用户Id
+     * @param timeFrames 时间条件
+     */
+    private void getUserIdsByTimeFrame(List<TimeFrame> timeFrames) {
+        if (Objects.nonNull(timeFrames)) {
             for (TimeFrame timeFrame : timeFrames) {
                 List<Long> userIds_hasClass = null;
                 userIds_hasClass.addAll(displayLeisureMapper.getUserIdByTimeFrame(timeFrame, userIds));
                 userIds.removeAll(userIds_hasClass);
             }
         }
-        if (!userIds.isEmpty()) {
-            response = displayLeisureMapper.getResponseByUserId(userIds);
-        }
-        if (deptIds !=null) {
-            System.out.println("deptIds"+Arrays.toString(deptIds.toArray()));
-        }
-        if (roleIds!=null) {
-            System.out.println("roleIds"+Arrays.toString(roleIds.toArray()));
-        }
-        if (timeFrames!=null) {
-            System.out.println("timeFrames"+Arrays.toString(timeFrames.toArray()));
-        }
-        if (userIds!=null) {
-            System.out.println("userIds"+Arrays.toString(userIds.toArray()));
-        }
-        return response;
-
     }
 
 }

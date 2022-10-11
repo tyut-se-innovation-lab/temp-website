@@ -68,7 +68,7 @@ export default {
       uploadSchedule(JSON.stringify(this.sendedData));
       //获取数据
       setTimeout(() => {
-        this.getData();
+        this.getData(this);
         setTimeout(() => {
           this.writableData();
           this.writableData();
@@ -79,7 +79,7 @@ export default {
   created() {
     //获取数据
     if (!this.control) {
-      this.getData();
+      this.getData(this);
       //control加一，只进行一次
       this.addControl();
       setTimeout(() => {

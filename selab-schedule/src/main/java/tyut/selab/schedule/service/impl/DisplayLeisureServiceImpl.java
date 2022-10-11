@@ -21,49 +21,48 @@ public class DisplayLeisureServiceImpl implements IDisplayLeisureService {
     @Autowired
     private SysDeptMapper sysDeptMapper;
 
-    List<Long> childDeptIds = new ArrayList<>();
-    Set<Long> userIds = new HashSet<>();
-
     public List<DisplayLeisureResponse> getLeisure(DisplayLeisureRequest displayLeisureRequest) {
-
+        List<Long> childDeptIds = new ArrayList<>();
+        Set<Long> userIds = new HashSet<>();
+        List<DisplayLeisureResponse> displayLeisureResponses = new ArrayList<>();
         List<TimeFrame> timeFrames = displayLeisureRequest.getTimeFrames();
         List<Long> deptIds = displayLeisureRequest.getDeptIds();
         List<Long> roleIds = displayLeisureRequest.getRoleIds();
 
-        getChildDeptsByDeptIds(deptIds);
-        getUserIdsByRoleIdsAndDeptIds(roleIds);
-        getUserIdsByTimeFrame(timeFrames);
-
+        getChildDeptsByDeptIds(deptIds,childDeptIds);
+        getUserIdsByRoleIdsAndDeptIds(roleIds,childDeptIds,userIds);
+        getUserIdsByTimeFrame(timeFrames,userIds);
+        if (!userIds.isEmpty()) {
+            displayLeisureResponses = displayLeisureMapper.getResponseByUserId(userIds);
+        }
         //根据用户Id查出响应数据
-        return displayLeisureMapper.getResponseByUserId(userIds);
+        return displayLeisureResponses;
 
     }
 
     /**
      * 用部门Id获取子部门，用子部门Id去查找部门下的角色Id
-     *
      * @param deptIds 部门Id
      */
-    private void getChildDeptsByDeptIds(List<Long> deptIds) {
+    private void getChildDeptsByDeptIds(List<Long> deptIds,List<Long> childDeptIds) {
         if (!deptIds.isEmpty()) {
             for (Long dept : deptIds) {
                 List<SysDept> sysDepts = sysDeptMapper.selectChildrenDeptById(dept);
-                for (SysDept sysdept : sysDepts) {
-                    childDeptIds.add(sysdept.getDeptId());
+                if (!sysDepts.isEmpty()) {
+                    sysDepts.stream()
+                            .map(SysDept::getDeptId)
+                            .forEach(childDeptIds::add);
                 }
-                sysDepts.stream()
-                        .map(SysDept::getDeptId)
-                        .forEach(childDeptIds::add);
             }
             childDeptIds.addAll(deptIds);
         }
     }
 
     /**
-     * 根据筛选出来的角色Id和部门Id去查找对应的用户Id
+     * 根据筛选出来的角色Id和子部门Id去查找对应的用户Id
      * @param roleIds 角色Id
      */
-    private void getUserIdsByRoleIdsAndDeptIds(List<Long> roleIds) {
+    private void getUserIdsByRoleIdsAndDeptIds(List<Long> roleIds,List<Long> childDeptIds,Set<Long> userIds) {
         if (!roleIds.isEmpty()) {
             userIds.addAll(displayLeisureMapper.getUserIdByRoleId(roleIds));
         }
@@ -76,7 +75,7 @@ public class DisplayLeisureServiceImpl implements IDisplayLeisureService {
      * 根据时间条件筛选有课的用户Id
      * @param timeFrames 时间条件
      */
-    private void getUserIdsByTimeFrame(List<TimeFrame> timeFrames) {
+    private void getUserIdsByTimeFrame(List<TimeFrame> timeFrames,Set<Long> userIds) {
         if (!timeFrames.isEmpty()) {
             for (TimeFrame timeFrame : timeFrames) {
                 List<Long> userIds_hasClass = new ArrayList<>();

@@ -1,11 +1,10 @@
 import request from '@/utils/request'
 
-
 // 获取随即课表
-export function listleisure(params) {
+export function listleisure(data) {
     return request({
       url:'/selab/schedule/leisure/display',
-      method: 'get',
-      params: params
+      method: 'post',
+      data: data
     })
   }

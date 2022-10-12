@@ -12,19 +12,19 @@
                 <el-main>
                     <div class="top">
                         <span>部门:</span>
-                        <el-select v-model="role" multiple style="width:200px" collapse-tags placeholder="选择部门">
+                        <el-select v-model="params.deptIds" multiple style="width:200px" collapse-tags placeholder="选择部门">
                             <el-option v-for="item in roleNum" :key="item.value" :label="item.label "
                                 :value="item.value">
                             </el-option>
                         </el-select>
                         <span>角色:</span>
-                        <el-select v-model="deptIds" style="width:200px" placeholder="选择角色">
+                        <el-select v-model="params.roleIds" multiple collapse-tags style="width:200px" placeholder="选择角色">
                             <el-option v-for="item in deptNum" :key="item.value" :label="item.label "
                                 :value="item.value">
                             </el-option>
                         </el-select>
                     </div>
-                    <template v-for="contect in contect">
+                    <template v-for="contect in params.timeFrames">
                         <div class="checkbox">
 
                             <span>选择第几周</span>
@@ -59,10 +59,16 @@
                     <br /><br />
                     <template v-if="show">
                         <el-table :data="tableData" style="width: 100%" :cell-style="{ textAlign: 'center' }"
-                            :header-cell-style="{ textAlign: 'center' }" border stripe>
-                            <el-table-column prop="name" label="姓名" width="200px">
+                            :header-cell-style="{ textAlign: 'center' }" border stripe >
+                            <el-table-column prop="username" label="用户名称">
                             </el-table-column>
-                            <el-table-column prop="more" label="详情">
+                            <el-table-column prop="name" label="姓名" >
+                            </el-table-column>
+                            <el-table-column prop="root" label="管理权限">
+                            </el-table-column>
+                              <el-table-column prop="deptName" label="小组">
+                            </el-table-column>
+                            <el-table-column prop="sex" label="性别">
                             </el-table-column>
                         </el-table>
                     </template>
@@ -74,9 +80,12 @@
 
 <script>
 
-import request from '@/utils/request'
+// import request from '@/utils/request'
 import {listDept} from '@/api/system/dept.js'
 import {listRole} from '@/api/system/role.js'
+import {listleisure} from '@/api/schedule/leisure.js'
+// 为添加一个数组的全局变量
+
 export default {
     data() {
         return {
@@ -99,25 +108,9 @@ export default {
             // 展示表格
             show: false,
             // 左右边框
-            border: true,
-            // 动态添加时间，小组，那一周
-            contect: [
-                {
-
-                    // 具体那一周
-                    weekNo: '',
-                    // 具体周几
-                    week: '',
-                    // 具体课时
-                    period: '',
-                }
-            ],
-            // 角色id
-            deptIds: '',
+            border: true,           
             // 角色称呼
             deptNum: [],
-            // 具体那一个部门
-            role: '',
             // 发送的id组群
             rolegroups: "",
             // 发送的周组群
@@ -128,7 +121,21 @@ export default {
             timegroup: [],
             // 数据展示
             tableData: [],
-            // 
+            //
+            params:{
+                timeFrames: [
+                {
+                    // 具体那一周
+                    weekNo: '',
+                    // 具体周几
+                    week: '',
+                    // 具体课时
+                    period: '',
+                }
+            ],
+                deptIds:'',
+                roleIds:''
+            }
         }
     },
     created(){
@@ -139,8 +146,6 @@ export default {
     },
     mounted() {
         this.addoption();
-        
-
     },
     methods: {
         // 为选项值便利
@@ -173,9 +178,8 @@ export default {
         },
         // 添加查询时间
         addnewtime() {
-            this.contect.push(
+            this.params.timeFrames.push(
                 {
-
                     // 具体那一周
                     weekNo: '',
                     // 具体周几
@@ -187,58 +191,51 @@ export default {
         },
         // 删除元素
         deletetime(index) {
-            this.contect.splice(index, 1)
+            this.params.TimeFrame.splice(i, 1)
         },
         // 查询空课
         check() {
-            this.show = true;
-            console.log(this.contect);
-
+           
+            // console.log(this.contect);
             this.weekgroups = [];
             this.daygroups = [];
             this.timegroup = [];
-
-
-            for (let i = 0; i < this.contect.length; i++) {
+            for (let i = 0; i < this.params.timeFrames.length; i++) {
                 this.weekgroups.push(
-                    this.contect[i].weekNo
+                    this.params.timeFrames[i].weekNo
                 )
             }
-            for (let i = 0; i < this.contect.length; i++) {
+            for (let i = 0; i < this.params.timeFrames.length; i++) {
                 this.daygroups.push(
-                    this.contect[i].week
+                    this.params.timeFrames[i].week
                 )
-            } for (let i = 0; i < this.contect.length; i++) {
+            } for (let i = 0; i < this.params.timeFrames.length; i++) {
                 this.timegroup.push(
-                    this.contect[i].period
+                    this.params.timeFrames[i].period
                 )
             }
-            this.getmessage();
             
+            this.isnull()
         },
         // 获取空课人员
-        getmessage() {
-            console.log(this.role,this.deptIds);
-            request({
-                method: 'get',
-               
-                params:{
-                    TimeFrame:this.contect,
-                    deptIds:this.role,
-                    roleIds:this.deptIds
-                },
-
-                url: '/schedule/leisure'
-            }).then(function (res) {
+        getmessage() {       
+            console.log(this.params.timeFrames);
+            this.show = true;
+            listleisure(this.params).then((res) =>{
+                console.log(res); 
+                this.tableData = [];
                 for(let i=0 ;i<res.data.length;i++){
+                   
                     this.tableData.push(
                         {
                             name:res.data[i].nickName,
-                            more: `管理权限${res.data[i].rolename},性别：${this.checksex(res.data[i].sex)}`
+                            root:res.data[i].roleNames.join(", "),
+                            sex:this.checksex(res.data[i].sex),
+                            username: res.data[i].userName,
+                            deptName: res.data[i].deptName      
                         }
                     )
                 }
-
             })
         },
         // 获取性别
@@ -253,7 +250,7 @@ export default {
         // 获取部门信息
        getselablistDept(){
         listDept().then((res)=>{
-            
+
             for(let i=0;i<res.data.length;i++){
                 this.roleNum.push(
                     {
@@ -262,10 +259,9 @@ export default {
                     }
                 )
             }
-           
+
         })
        },
-
         // 获取角色
         getselablistRole(){
             listRole().then((res)=>{
@@ -276,12 +272,38 @@ export default {
                         value: res.rows[i].roleId,
                         label: res.rows[i].roleName
 
-                    }
-                )
-            }
+                    })   
+                }
             })
+        },
+        // 加选项一个判断
+        isnull(){
+                // console.log(this.params.TimeFrame[0].weekNo);
+            if(this.judge( this.params.timeFrames))
+            {
+                
+                this.$modal.msgError("时间不能为空！！！");
+            }
+            else{
+                this.getmessage()
+            }
+        },
+        // 判断封装
+        judge(val){ 
+             console.log(val);
+            for(let i=0 ;i<val.length;i++){
+                if(val[i].weekNo == ''){
+                    return true
+                } 
+                else if(val[i].week == ''){
+                    return true
+                } 
+                else if(val[i].period == ''){
+                    return true
+                } 
+            }
+            return false;
         }
-        
     },
     filters: {
         fifweekday(val) {
@@ -306,8 +328,6 @@ export default {
             else if (val == 7) {
                 return '周日'
             }
-
-
         },
         fiftime(val) {
             return `第${val}节课`
@@ -341,6 +361,7 @@ export default {
 }
 
 .top {
+    width:1200px;
     margin-left: 10px;
     text-align: left;
     height: 60px;
@@ -358,6 +379,7 @@ export default {
     position: absolute;
     top: 25px;
     right: 40px;
+    width:28 0px
 
 }
 </style>

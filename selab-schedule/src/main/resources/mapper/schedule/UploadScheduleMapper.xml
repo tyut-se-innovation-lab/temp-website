@@ -38,7 +38,7 @@
 
     <insert id="insertSchedule" parameterMap="Schedule" useGeneratedKeys="true" keyProperty="id">
         insert into selab_schedule_info(
-            user_id,`period`,week,week_no,status,course_title,create_time,update_time
+            user_id,`period`,week,week_no,status,course_title,create_time
         )value
         <foreach collection="list" item="a" separator=",">
             (
@@ -48,8 +48,7 @@
             #{a.weekNo,typeHandler=tyut.selab.schedule.config.jdbc.handler.WeekNoHandler},
             #{a.status,typeHandler=tyut.selab.schedule.config.jdbc.handler.StatusHandler},
             #{a.courseTitle},
-            #{a.createTime},
-            #{a.updateTime}
+            #{a.createTime}
             )
         </foreach>
     </insert>

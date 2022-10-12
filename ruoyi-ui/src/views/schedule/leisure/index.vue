@@ -176,6 +176,7 @@ export default {
                 )
             }
         },
+    
         // 添加查询时间
         addnewtime() {
             this.params.timeFrames.push(

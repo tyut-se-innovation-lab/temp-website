@@ -2,6 +2,7 @@ package tyut.selab.schedule.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tyut.selab.schedule.domain.TimeFrame;
 import tyut.selab.schedule.domain.po.Schedule;
 import tyut.selab.schedule.domain.vo.ScheduleDisplayResponse;
 import tyut.selab.schedule.domain.vo.UploadScheduleRequest;
@@ -13,9 +14,8 @@ import tyut.selab.schedule.mapper.IUploadScheduleMapper;
 import tyut.selab.schedule.service.IDisplayScheduleService;
 import tyut.selab.schedule.service.IUploadScheduleService;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Big_bai on 2022/10/4
@@ -38,15 +38,36 @@ public class UploadScheduleService implements IUploadScheduleService {
      * @param userId 用户id
      */
     @Override
-    public void insertSchedule(List<UploadScheduleRequest> uploadScheduleRequests, Long userId){
+    public void insertSchedule(List<UploadScheduleRequest> uploadScheduleRequests, Long userId) {
+        UploadThread uploadThread = new UploadThread(iUploadScheduleMapper,iDisplayScheduleService,userId,uploadScheduleRequests);
+        uploadThread.run();
+    }
+
+}
+
+class UploadThread implements Runnable{
+
+    private IUploadScheduleMapper iUploadScheduleMapper;
+    private IDisplayScheduleService iDisplayScheduleService;
+    private Long userId;
+    private List<UploadScheduleRequest> uploadScheduleRequests;
+    UploadThread(IUploadScheduleMapper iUploadScheduleMapper,IDisplayScheduleService iDisplayScheduleService,Long userId,List<UploadScheduleRequest> uploadScheduleRequests){
+        this.iUploadScheduleMapper = iUploadScheduleMapper;
+        this.iDisplayScheduleService = iDisplayScheduleService;
+        this.userId = userId;
+        this.uploadScheduleRequests = uploadScheduleRequests;
+    }
+    @Override
+    public void run() {
         List<Schedule> schedules = new ArrayList<>();
         List<ScheduleDisplayResponse> schedulesByThisUser = iDisplayScheduleService.selectScheduleList(userId);
+
+        Set<TimeFrame> collect = schedulesByThisUser.stream()
+                .map(data -> new TimeFrame(data.getPeriod(), data.getWeek(), data.getWeekNo()))
+                .collect(Collectors.toSet());
+
+
         for(UploadScheduleRequest s:uploadScheduleRequests){
-            for (ScheduleDisplayResponse a:schedulesByThisUser) {
-                if(s.getPeriod().getId()==a.getPeriod()&&s.getWeek().getId()==a.getWeek()&&s.getWeekNo().getId()==a.getWeekNo()) {
-                    uploadScheduleRequests.remove(s);
-                }
-            }
             Schedule schedule = new Schedule();
             schedule.setUserId(userId);
             schedule.setCourseTitle(s.getCourseTitle());
@@ -59,5 +80,4 @@ public class UploadScheduleService implements IUploadScheduleService {
         }
         iUploadScheduleMapper.insertSchedule(schedules);
     }
-
-}
+    }

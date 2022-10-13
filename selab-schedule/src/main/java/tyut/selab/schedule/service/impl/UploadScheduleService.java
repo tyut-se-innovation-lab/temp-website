@@ -3,12 +3,14 @@ package tyut.selab.schedule.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.schedule.domain.po.Schedule;
+import tyut.selab.schedule.domain.vo.ScheduleDisplayResponse;
 import tyut.selab.schedule.domain.vo.UploadScheduleRequest;
 import tyut.selab.schedule.enums.Period;
 import tyut.selab.schedule.enums.Status;
 import tyut.selab.schedule.enums.Week;
 import tyut.selab.schedule.enums.WeekNo;
 import tyut.selab.schedule.mapper.IUploadScheduleMapper;
+import tyut.selab.schedule.service.IDisplayScheduleService;
 import tyut.selab.schedule.service.IUploadScheduleService;
 
 import java.util.ArrayList;
@@ -27,6 +29,9 @@ public class UploadScheduleService implements IUploadScheduleService {
     @Autowired
     private IUploadScheduleMapper iUploadScheduleMapper;
 
+    @Autowired
+    private IDisplayScheduleService iDisplayScheduleService;
+
     /**
      * 上传课表
      * @param uploadScheduleRequests 课表集合
@@ -35,7 +40,13 @@ public class UploadScheduleService implements IUploadScheduleService {
     @Override
     public void insertSchedule(List<UploadScheduleRequest> uploadScheduleRequests, Long userId){
         List<Schedule> schedules = new ArrayList<>();
+        List<ScheduleDisplayResponse> schedulesByThisUser = iDisplayScheduleService.selectScheduleList(userId);
         for(UploadScheduleRequest s:uploadScheduleRequests){
+            for (ScheduleDisplayResponse a:schedulesByThisUser) {
+                if(s.getPeriod().getId()==a.getPeriod()&&s.getWeek().getId()==a.getWeek()&&s.getWeekNo().getId()==a.getWeekNo()) {
+                    uploadScheduleRequests.remove(s);
+                }
+            }
             Schedule schedule = new Schedule();
             schedule.setUserId(userId);
             schedule.setCourseTitle(s.getCourseTitle());

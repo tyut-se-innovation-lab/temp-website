@@ -31,8 +31,9 @@ public class MineScheduleController extends BaseController {
      */
     @PostMapping("/upload")
     @PreAuthorize("@ss.hasPermi('schedule:mine')")
-    public void uploadSchedule(@RequestBody List<UploadScheduleRequest> uploadScheduleRequests) {
+    public AjaxResult uploadSchedule(@RequestBody List<UploadScheduleRequest> uploadScheduleRequests) {
         uploadScheduleService.insertSchedule(uploadScheduleRequests, getUserId());
+        return AjaxResult.success("正在上传，请稍后查看");
     }
 
     @GetMapping("/display")

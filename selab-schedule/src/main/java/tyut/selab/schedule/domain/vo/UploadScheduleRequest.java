@@ -1,8 +1,11 @@
 package tyut.selab.schedule.domain.vo;
 
+import tyut.selab.schedule.domain.TimeFrame;
 import tyut.selab.schedule.enums.Period;
 import tyut.selab.schedule.enums.Week;
 import tyut.selab.schedule.enums.WeekNo;
+
+
 
 public class UploadScheduleRequest {
     /**
@@ -52,5 +55,13 @@ public class UploadScheduleRequest {
 
     public void setCourseTitle(String courseTitle) {
         this.courseTitle = courseTitle;
+    }
+
+    public TimeFrame toTimeFrame(){
+        TimeFrame timeFrame = new TimeFrame();
+        timeFrame.setPeriod(this.getPeriod());
+        timeFrame.setWeek(this.getWeek());
+        timeFrame.setWeekNo(this.getWeekNo());
+        return timeFrame;
     }
 }

@@ -1,5 +1,6 @@
 package tyut.selab.schedule.service.impl;
 
+import com.ruoyi.framework.web.domain.server.Sys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.schedule.domain.TimeFrame;
@@ -39,8 +40,8 @@ public class UploadScheduleService implements IUploadScheduleService {
      */
     @Override
     public void insertSchedule(List<UploadScheduleRequest> uploadScheduleRequests, Long userId) {
-        UploadThread uploadThread = new UploadThread(iUploadScheduleMapper,iDisplayScheduleService,userId,uploadScheduleRequests);
-        uploadThread.run();
+        Thread t = new Thread(new UploadThread(iUploadScheduleMapper,iDisplayScheduleService,userId,uploadScheduleRequests));
+        t.start();
     }
 
 }
@@ -66,6 +67,16 @@ class UploadThread implements Runnable{
                 .map(data -> new TimeFrame(data.getPeriod(), data.getWeek(), data.getWeekNo()))
                 .collect(Collectors.toSet());
 
+        for(int i = 0;i<uploadScheduleRequests.size();i++){
+            if(collect.contains(uploadScheduleRequests.get(i).toTimeFrame())){
+                uploadScheduleRequests.remove(i);
+                i--;
+            }
+        }
+
+        if(uploadScheduleRequests.size()==0){
+            return;
+        }
 
         for(UploadScheduleRequest s:uploadScheduleRequests){
             Schedule schedule = new Schedule();

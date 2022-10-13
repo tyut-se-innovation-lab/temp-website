@@ -40,8 +40,7 @@ public class UploadScheduleService implements IUploadScheduleService {
      */
     @Override
     public void insertSchedule(List<UploadScheduleRequest> uploadScheduleRequests, Long userId) {
-        // 次做法无法支撑大规模的高并发操作
-        synchronized (threads) {
+        synchronized (userId) {
             if (threads.contains(userId)) {
                 throw new RepetitiveRequestException("数据正在存储中,请勿重复提交!");
             } else {

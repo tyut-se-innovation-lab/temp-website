@@ -24,7 +24,7 @@
                             </el-option>
                         </el-select>
                     </div>
-                    <template v-for="contect in params.timeFrames">
+                    <div v-for="(contect,index) in params.timeFrames" :key='index'>
                         <div class="checkbox">
 
                             <span>选择第几周</span>
@@ -48,14 +48,14 @@
 
                             <div class="del">
                                 <template>
-                                    <el-popconfirm title="确定删除吗？" @confirm="deletetime(contect.index)">
+                                    <el-popconfirm title="确定删除吗？" @confirm="deletetime(index)">
                                         <el-button slot="reference" style="background-color:#F56C6C  ; color:aliceblue">
                                             删除</el-button>
                                     </el-popconfirm>
                                 </template>
                             </div>
                         </div>
-                    </template>
+                    </div>
                     <br /><br />
                     <template v-if="show">
                         <el-table :data="tableData" style="width: 100%" :cell-style="{ textAlign: 'center' }"
@@ -176,6 +176,7 @@ export default {
                 )
             }
         },
+    
         // 添加查询时间
         addnewtime() {
             this.params.timeFrames.push(
@@ -191,7 +192,7 @@ export default {
         },
         // 删除元素
         deletetime(index) {
-            this.params.TimeFrame.splice(i, 1)
+            this.params.timeFrames.splice(index, 1)
         },
         // 查询空课
         check() {
@@ -219,7 +220,7 @@ export default {
         },
         // 获取空课人员
         getmessage() {       
-            console.log(this.params.timeFrames);
+            // console.log(this.params.timeFrames);
             this.show = true;
             listleisure(this.params).then((res) =>{
                 console.log(res); 
@@ -240,10 +241,10 @@ export default {
         },
         // 获取性别
         checksex(val){
-            if(val == 1){
+            if(val == 0){
                 return `男`
             }
-            else if(val == 0){
+            else if(val == 1){
                 return `女`
             }
         },

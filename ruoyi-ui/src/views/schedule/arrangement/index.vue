@@ -9,8 +9,8 @@
           <el-main>
 
             <div class="choose">
-              <span>选择部门:</span>
-              <el-select v-model="data.roleId" placeholder="请选择部门">
+              <span>选择角色:</span>
+              <el-select v-model="data.roleId" placeholder="请选择角色">
                 <el-option v-for="item in roleNum" :key="item.value" :label="item.label " :value="item.value">
                 </el-option>
               </el-select>
@@ -73,7 +73,7 @@
 
   <script>
   import {listAttange} from '@/api/schedule/arrange'
-  import {listDept} from '@/api/system/dept'
+  import {listRole} from '@/api/system/role.js'
   export default {
     data() {
         return {
@@ -103,7 +103,7 @@
         // 增加天数
         this.addDay()
         // 获取部门
-        this.getselablistDept()
+        this.getselablistRole()
 
 
     },
@@ -150,23 +150,23 @@
               )
             }
         },
-      // 获取部门
-        getselablistDept(){
-        listDept().then((res)=>{
-            for(let i=0;i<res.data.length;i++){
-
+        // 获取角色
+        getselablistRole(){
+            listRole().then((res)=>{
+                for(let i=0;i<res.rows.length;i++){
                 this.roleNum.push(
                     {
-                        value: res.data[i].deptId,
-                        label: res.data[i].deptName
-                    }
-                )
-            }
+                        value: res.rows[i].roleId,
+                        label: res.rows[i].roleName
 
-        })
+                    })   
+                }
+            })
+        },
+
        },
 
-    },
+    
     filters:{
         fifweek(val){
             return `第${val}周`

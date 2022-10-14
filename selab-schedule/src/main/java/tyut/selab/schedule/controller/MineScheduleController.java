@@ -5,7 +5,6 @@ import com.ruoyi.common.core.domain.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import tyut.selab.schedule.domain.vo.ScheduleDisplayResponse;
 import tyut.selab.schedule.domain.vo.UploadScheduleRequest;
 import tyut.selab.schedule.service.IDisplayScheduleService;
 import tyut.selab.schedule.service.impl.UploadScheduleService;
@@ -31,8 +30,9 @@ public class MineScheduleController extends BaseController {
      */
     @PostMapping("/upload")
     @PreAuthorize("@ss.hasPermi('schedule:mine')")
-    public void uploadSchedule(@RequestBody List<UploadScheduleRequest> uploadScheduleRequests) {
+    public AjaxResult uploadSchedule(@RequestBody List<UploadScheduleRequest> uploadScheduleRequests) {
         uploadScheduleService.insertSchedule(uploadScheduleRequests, getUserId());
+        return AjaxResult.success("正在上传，请稍后");
     }
 
     @GetMapping("/display")

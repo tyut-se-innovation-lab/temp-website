@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.schedule.domain.po.Schedule;
 import tyut.selab.schedule.domain.vo.ScheduleDisplayResponse;
-import tyut.selab.schedule.domain.vo.UploadScheduleRequest;
 import tyut.selab.schedule.mapper.IDisplayScheduleMapper;
 import tyut.selab.schedule.service.IDisplayScheduleService;
 
@@ -38,9 +37,9 @@ public class DisplayScheduleServiceImpl implements IDisplayScheduleService
         List<Schedule> schedules = scheduleMapper.selectScheduleList(userId);
         for (Schedule sc:schedules) {
             ScheduleDisplayResponse scheduleDisplayResponse = new ScheduleDisplayResponse();
-            scheduleDisplayResponse.setWeek(sc.getWeek().getId());
-            scheduleDisplayResponse.setWeekNo(sc.getWeekNo().getId());
-            scheduleDisplayResponse.setPeriod(sc.getPeriod().getId());
+            scheduleDisplayResponse.setWeek(sc.getWeek());
+            scheduleDisplayResponse.setWeekNo(sc.getWeekNo());
+            scheduleDisplayResponse.setPeriod(sc.getPeriod());
             scheduleDisplayResponse.setCourseTitle(sc.getCourseTitle());
             logger.debug(scheduleDisplayResponses.toString());
             scheduleDisplayResponses.add(scheduleDisplayResponse);

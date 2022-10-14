@@ -6,6 +6,10 @@ import java.util.List;
 
 public class DisplayLeisureRequest {
     /**
+     * 需要展示的空课唯一id
+     */
+    private Long id;
+    /**
      * 需要展示空课的时间段
      */
     private List<TimeFrame> timeFrames;

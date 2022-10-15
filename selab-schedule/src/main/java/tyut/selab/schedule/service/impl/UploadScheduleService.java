@@ -75,6 +75,7 @@ public class UploadScheduleService implements IUploadScheduleService {
             }
 
             if (uploadScheduleRequests.size() == 0) {
+                threads.remove(userId);
                 return;
             }
 

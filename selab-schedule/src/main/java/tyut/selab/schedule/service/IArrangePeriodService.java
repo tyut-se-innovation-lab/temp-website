@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface IArrangePeriodService {
     List<SysUser>[][] arrangePeriod(ArrangePeriodRequest arrangePeriodRequest);
+    public List<SysUser>[][] arrangePeriodSecond(ArrangePeriodRequest arrangePeriodRequest);
 }

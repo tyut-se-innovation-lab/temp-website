@@ -19,4 +19,6 @@ public interface IDisplayScheduleService {
      * @return 课程信息集合
      */
     public List<ScheduleDisplayResponse> selectScheduleList(Long userId);
+
+    public int deleteSchedule(List<Long> ids);
 }

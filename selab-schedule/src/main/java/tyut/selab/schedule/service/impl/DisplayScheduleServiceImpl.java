@@ -37,6 +37,7 @@ public class DisplayScheduleServiceImpl implements IDisplayScheduleService
         List<Schedule> schedules = scheduleMapper.selectScheduleList(userId);
         for (Schedule sc:schedules) {
             ScheduleDisplayResponse scheduleDisplayResponse = new ScheduleDisplayResponse();
+            scheduleDisplayResponse.setId(sc.getId());
             scheduleDisplayResponse.setWeek(sc.getWeek());
             scheduleDisplayResponse.setWeekNo(sc.getWeekNo());
             scheduleDisplayResponse.setPeriod(sc.getPeriod());
@@ -46,4 +47,23 @@ public class DisplayScheduleServiceImpl implements IDisplayScheduleService
         }
         return  scheduleDisplayResponses;
     }
+
+    /**
+     * 删除我的课程信息
+     * @param ids 课程唯一id集合
+     * @return 删除成功条数
+     */
+    @Override
+    public int deleteSchedule(List<Long> ids) {
+        if(!ids.isEmpty()){
+            int i = ids.size();
+            for(Long id:ids){
+                int number = scheduleMapper.deleteScheduleById(id);
+                if(number == 0) i--;
+            }
+            return i;
+        }
+        return 0;
+    }
+
 }

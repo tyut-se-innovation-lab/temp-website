@@ -9,6 +9,10 @@ import tyut.selab.schedule.enums.WeekNo;
  */
 public class ScheduleDisplayResponse {
     /**
+     * 课程唯一id
+     */
+    private Long id;
+    /**
      * 第几节课
      */
     private Period period;
@@ -24,6 +28,15 @@ public class ScheduleDisplayResponse {
      * 课程名称
      */
     private String courseTitle;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Period getPeriod() {
         return period;
     }

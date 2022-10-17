@@ -97,4 +97,9 @@
         select dept_name from sys_dept
         where dept_id = #{deptId}
     </select>
+
+    <select id="getNickNameByUserId" resultType="java.lang.String">
+        select nick_name from sys_user
+        where user_id = #{userId};
+    </select>
 </mapper>

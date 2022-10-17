@@ -25,7 +25,7 @@
           plain
           circle
           size="samll"
-          @click="scheduleNum++"
+          @click="addSwitchButton"
           class="addScheduleNum"
           >+</el-button
         >
@@ -83,6 +83,7 @@ export default {
         courseName: "",
         startWeek: 0,
         endWeek: 0,
+        isGet: false, //是否为后端获取的数据
       },
     };
   },
@@ -99,13 +100,14 @@ export default {
     onSubmit() {
       //返回原始的课表比例
       this.restoreScale();
-      //存储之前的临时数据
+
       let data = {
         index: this.scheduleIndex - 1,
         scheduleData: this.scheduleData,
         _this: this,
       };
       this.storeInputData(data);
+
       //存储全部数据到 Vuex
       this.storeScheduleData();
       //清空数据
@@ -120,9 +122,11 @@ export default {
     //存储同一天同一时间的多组课表
     switchScheduleData(index) {
       //存储上一组数据
+      //如果数据为空，存储为有课
       if (this.scheduleData.courseName === "") {
         this.scheduleData.courseName = "有课";
       }
+
       let data = {
         index: this.scheduleIndex - 1,
         scheduleData: this.scheduleData,
@@ -130,7 +134,6 @@ export default {
       };
       this.storeInputData(data);
 
-      console.log(this.inputData);
       //读取当前点击组的课表的数据
       this.readScheduleData(index);
       //如何删除表单
@@ -138,9 +141,13 @@ export default {
       //切换到点击后的第 n 组课表
       this.scheduleIndex = index;
     },
+    addSwitchButton() {
+      this.scheduleNum++;
+      //切换到新加的选项中
+      this.switchScheduleData(this.scheduleNum);
+    },
     readScheduleData(index) {
       if (index <= this.inputData.length) {
-        console.log(666666666);
         this.scheduleData = this.inputData[index - 1];
       } else {
         this.scheduleData = {

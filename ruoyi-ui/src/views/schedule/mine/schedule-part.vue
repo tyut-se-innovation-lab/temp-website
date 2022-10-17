@@ -53,13 +53,6 @@ export default {
   },
   computed: {
     ...mapState("scheduleupload", ["writable", "scheduleData"]),
-    // partData() {
-    //   let index = {
-    //     row: this.row,
-    //     column: this.column - 1,
-    //   };
-    //   return this.$store.getters["scheduleupload/getPartData"](index);
-    // },
   },
   methods: {
     ...mapMutations("scheduleupload", ["changeScale", "modifyScheduleData"]),
@@ -84,11 +77,6 @@ export default {
         this.scheduleData[this.row].courseData[this.column - 1].length
       );
     },
-  },
-  mounted() {
-    setTimeout(() => {
-      // console.log(this.partData);
-    }, 1000);
   },
 };
 </script>

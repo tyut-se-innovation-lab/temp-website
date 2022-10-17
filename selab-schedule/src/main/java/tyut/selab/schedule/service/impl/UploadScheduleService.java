@@ -8,6 +8,7 @@ import tyut.selab.schedule.domain.vo.ScheduleDisplayResponse;
 import tyut.selab.schedule.domain.vo.UploadScheduleRequest;
 import tyut.selab.schedule.enums.Status;
 import tyut.selab.schedule.exception.RepetitiveRequestException;
+import tyut.selab.schedule.mapper.IDisplayScheduleMapper;
 import tyut.selab.schedule.mapper.IUploadScheduleMapper;
 import tyut.selab.schedule.service.IDisplayScheduleService;
 import tyut.selab.schedule.service.IUploadScheduleService;
@@ -32,6 +33,9 @@ public class UploadScheduleService implements IUploadScheduleService {
     @Autowired
     private IDisplayScheduleService iDisplayScheduleService;
 
+    @Autowired
+    private IDisplayScheduleMapper iDisplayScheduleMapper;
+
     /**
      * 上传课表
      *
@@ -47,17 +51,19 @@ public class UploadScheduleService implements IUploadScheduleService {
                 threads.add(userId);
             }
         }
-        new Thread(new UploadThread(userId, uploadScheduleRequests)).start();
+        new Thread(new UploadThread(userId, uploadScheduleRequests,iDisplayScheduleMapper)).start();
     }
 
     class UploadThread implements Runnable {
 
         private Long userId;
         private List<UploadScheduleRequest> uploadScheduleRequests;
+        private IDisplayScheduleMapper iDisplayScheduleMapper;
 
-        UploadThread(Long userId, List<UploadScheduleRequest> uploadScheduleRequests) {
+        UploadThread(Long userId, List<UploadScheduleRequest> uploadScheduleRequests,IDisplayScheduleMapper iDisplayScheduleMapper) {
             this.userId = userId;
             this.uploadScheduleRequests = uploadScheduleRequests;
+            this.iDisplayScheduleMapper = iDisplayScheduleMapper;
         }
 
         @Override
@@ -65,19 +71,24 @@ public class UploadScheduleService implements IUploadScheduleService {
             List<Schedule> schedules = new ArrayList<>();
             List<ScheduleDisplayResponse> schedulesByThisUser = iDisplayScheduleService.selectScheduleList(userId);
 
-            Set<TimeFrame> collect = schedulesByThisUser.stream().map(data -> new TimeFrame(data.getPeriod(), data.getWeek(), data.getWeekNo())).collect(Collectors.toSet());
+            //过滤重复数据
+//            Set<TimeFrame> collect = schedulesByThisUser.stream().map(data -> new TimeFrame(data.getPeriod(), data.getWeek(), data.getWeekNo())).collect(Collectors.toSet());
+//
+//            for (int i = 0; i < uploadScheduleRequests.size(); i++) {
+//                if (collect.contains(uploadScheduleRequests.get(i).toTimeFrame())) {
+//                    uploadScheduleRequests.remove(i);
+//                    i--;
+//                }
+//            }
+//
+//            if (uploadScheduleRequests.size() == 0) {
+//                threads.remove(userId);
+//                return;
+//            }
 
-            for (int i = 0; i < uploadScheduleRequests.size(); i++) {
-                if (collect.contains(uploadScheduleRequests.get(i).toTimeFrame())) {
-                    uploadScheduleRequests.remove(i);
-                    i--;
-                }
-            }
-
-            if (uploadScheduleRequests.size() == 0) {
-                threads.remove(userId);
-                return;
-            }
+            //伪删除
+            //每次传回来数据就把本人以前上传的全部删除
+            iDisplayScheduleMapper.deleteScheduleByUserId(userId);
 
             for (UploadScheduleRequest s : uploadScheduleRequests) {
                 Schedule schedule = new Schedule();

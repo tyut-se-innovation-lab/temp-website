@@ -23,4 +23,11 @@ public interface IDisplayScheduleMapper {
      * @return 1
      */
     int deleteScheduleById(Long id);
+
+    /**
+     * 根据用户id删除所有本用户所上传的全部课表
+     * @param userId
+     * @return
+     */
+    int deleteScheduleByUserId(Long userId);
 }

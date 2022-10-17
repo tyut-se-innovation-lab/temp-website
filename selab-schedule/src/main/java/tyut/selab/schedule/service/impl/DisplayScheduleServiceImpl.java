@@ -37,6 +37,7 @@ public class DisplayScheduleServiceImpl implements IDisplayScheduleService
         List<Schedule> schedules = scheduleMapper.selectScheduleList(userId);
         for (Schedule sc:schedules) {
             ScheduleDisplayResponse scheduleDisplayResponse = new ScheduleDisplayResponse();
+            scheduleDisplayResponse.setId(sc.getId());
             scheduleDisplayResponse.setWeek(sc.getWeek());
             scheduleDisplayResponse.setWeekNo(sc.getWeekNo());
             scheduleDisplayResponse.setPeriod(sc.getPeriod());

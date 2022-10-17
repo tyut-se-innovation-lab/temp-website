@@ -44,23 +44,23 @@
           </div>
           <br />
           <div class="table">
-            <el-table :data="tableData" stripe style="width: 100%" border :cell-style="{ textAlign: 'center' }"
-              :header-cell-style="{ textAlign: 'center' }">
+            <el-table :data="tableData" stripe style="width: 100% ,white-space : pre-line" border :cell-style="{ textAlign: 'center'  }"
+              :header-cell-style="{ textAlign: 'center' }" >
               <el-table-column prop="data" label="课时/星期">
               </el-table-column>
-              <el-table-column prop="week.Mon" label="星期一">
+              <el-table-column prop="week.Mon" label="星期一" >
               </el-table-column>
-              <el-table-column prop="week.Tue" label="星期二">
+              <el-table-column prop="week.Tue" label="星期二" >
               </el-table-column>
-              <el-table-column prop="week.Wed" label="星期三">
+              <el-table-column prop="week.Wed" label="星期三" >
               </el-table-column>
-              <el-table-column prop="week.Thu" label="星期四">
+              <el-table-column prop="week.Thu" label="星期四" >
               </el-table-column>
-              <el-table-column prop="week.Fir" label="星期五">
+              <el-table-column prop="week.Fir" label="星期五" >
               </el-table-column>
-              <el-table-column prop="week.Sat" label="星期六">
+              <el-table-column prop="week.Sat" label="星期六" >
               </el-table-column>
-              <el-table-column prop="week.Sun" label="星期日">
+              <el-table-column prop="week.Sun" label="星期日" >
               </el-table-column>
             </el-table>
             <br><br>
@@ -187,10 +187,19 @@ export default {
     displaymessage(week, cla) {
       // console.log(this.message[1][1]);
 
-      let nickName = '';
+      let nickName = "";
       if (this.message[week][cla] != null) {
         for (let i = 0; i < this.message[week][cla].length; i++) {
-          nickName = nickName + this.message[week][cla][i].nickName + " "
+         if(this.message[week][cla][i].nickName==2){
+          nickName = nickName + this.message[week][cla][i].nickName + "、  "
+         }else{
+          nickName = nickName + this.message[week][cla][i].nickName + "、"
+         }
+         
+          if((i+1)%3 == 0){
+            nickName = nickName + `
+            ` 
+          }
         }
         // console.log(nickName);
         return nickName;
@@ -242,6 +251,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
+/deep/ .el-table .cell{
+  white-space:pre-line;
+}
 .el-header {
   background-color: #B3C0D1;
   color: #333;
@@ -251,7 +263,6 @@ export default {
   font-size: larger;
 }
 
-
 .el-main {
   color: #333;
   text-align: center;
@@ -260,7 +271,7 @@ export default {
 }
 
 .choose {
-  width: auto;
+  width: 100%;
   margin: 0 auto;
   height: auto;
   text-align: left;
@@ -268,7 +279,7 @@ export default {
 }
 
 .button {
-  width: 200px;
+  width: 150px;
   display: inline-block;
   text-align: right;
   height: auto;
@@ -276,7 +287,7 @@ export default {
 
 .table {
   margin: 0 auto;
-  width: 1100px;
   text-align: center;
+  white-space: pre-wrap;
 }
 </style>

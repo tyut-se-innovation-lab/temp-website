@@ -64,4 +64,11 @@ public interface DisplayLeisureMapper {
       * @return 部门名称
       */
      String getDeptNameByDeptId(@Param("deptId") Long deptId);
+
+     /**
+      * 根据用户id获得用户名字
+      * @param userId
+      * @return
+      */
+     String getNickNameByUserId(@Param("userId")Long userId);
 }

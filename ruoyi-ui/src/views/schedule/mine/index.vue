@@ -5,9 +5,7 @@
         <el-col :span="scale1">
           <write-schedule></write-schedule>
           <div class="buttons">
-            <el-button type="primary" v-if="!modifybutton" @click="sendData"
-              >提交</el-button
-            >
+            <el-button v-if="!modifybutton" @click="sendData">提交</el-button>
             <el-button type="primary" v-if="modifybutton" @click="writeData"
               >修改</el-button
             >
@@ -52,6 +50,7 @@ export default {
       "writableData",
       "getScheduleData",
       "addControl",
+      "clearSendedData",
     ]),
     writeData() {
       //出现提交按钮
@@ -65,7 +64,14 @@ export default {
       this.writableData();
       //显示修改框
       this.modifybutton = !this.modifybutton;
-      uploadSchedule(JSON.stringify(this.sendedData));
+      if (this.sendedData.length != 0) {
+        uploadSchedule(JSON.stringify(this.sendedData));
+        //清除发送过的数据
+        this.clearSendedData();
+      } else {
+        this.$modal.msgError("数据为空,无法提交");
+      }
+
       //获取数据
       setTimeout(() => {
         this.getData(this);

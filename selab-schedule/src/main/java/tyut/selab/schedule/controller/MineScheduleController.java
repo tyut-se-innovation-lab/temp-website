@@ -5,7 +5,6 @@ import com.ruoyi.common.core.domain.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import tyut.selab.schedule.domain.vo.DisplayLeisureRequest;
 import tyut.selab.schedule.domain.vo.ScheduleDisplayResponse;
 import tyut.selab.schedule.domain.vo.UploadScheduleByCookieRequest;
 import tyut.selab.schedule.domain.vo.UploadScheduleRequest;
@@ -42,7 +41,7 @@ public class MineScheduleController extends BaseController {
     @PostMapping("/upload/cookie")
     @PreAuthorize("@ss.hasPermi('schedule:mine')")
     public AjaxResult uploadScheduleByToken(@RequestBody UploadScheduleByCookieRequest request) {
-        uploadScheduleService.crawlScheduleIdentifiedByCookie(getUserId(), request.getToken(), request.getCookie());
+        uploadScheduleService.crawlScheduleIdentifiedByCookie(getUserId(), request.getToken(), request.getAsp());
         return AjaxResult.success("正在查询并记录，请稍后查看");
     }
 

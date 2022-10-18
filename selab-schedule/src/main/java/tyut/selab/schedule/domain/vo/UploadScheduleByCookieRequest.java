@@ -1,15 +1,15 @@
 package tyut.selab.schedule.domain.vo;
 
 public class UploadScheduleByCookieRequest {
-    private String cookie;
+    private String asp;
     private String token;
 
-    public String getCookie() {
-        return cookie;
+    public String getAsp() {
+        return asp;
     }
 
-    public void setCookie(String cookie) {
-        this.cookie = cookie;
+    public void setAsp(String asp) {
+        this.asp = asp;
     }
 
     public String getToken() {

@@ -25,6 +25,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
 
 /**
@@ -75,8 +76,8 @@ public class UploadScheduleService implements IUploadScheduleService {
             HttpResponse<InputStream> response = httpClient.send(request, HttpResponse.BodyHandlers.ofInputStream());
             String body = unzipInputStreamToString(response.body());
             List<Map<String, String>> list = parseRawData(body);
-            List<UploadScheduleRequest> requestData = encapsulateRowDataToSchedule(list);
-            insertSchedule(requestData,userId);
+            List<UploadScheduleRequest> requestData = encapsulateRawDataToSchedule(list);
+            insertSchedule(requestData, userId);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
@@ -84,38 +85,42 @@ public class UploadScheduleService implements IUploadScheduleService {
         }
     }
 
-    private List<UploadScheduleRequest> encapsulateRowDataToSchedule(List<Map<String, String>> rowData) {
+    private List<UploadScheduleRequest> encapsulateRawDataToSchedule(List<Map<String, String>> rowData) {
         return rowData.stream()
                 .flatMap(data -> {
-                    LinkedList<UploadScheduleRequest> schedules = new LinkedList<>();
-                    String weekNos = data.get("Zcsm");
-                    String[] weekNoEdge = weekNos.substring(0, weekNos.length() - 1).split("-");
-                    String courseName = data.get("Kcm");
-                    int week = Integer.parseInt(data.get("Skxq"));
-                    int startPeriod = Integer.parseInt(data.get("Skjc"));
-                    int durationPeriod = Integer.parseInt(data.get("Cxjc"));
+                    try {
+                        LinkedList<UploadScheduleRequest> schedules = new LinkedList<>();
+                        String weekNos = data.get("Zcsm");
+                        String[] weekNoEdge = weekNos.substring(0, weekNos.length() - 1).split("-");
+                        String courseName = data.get("Kcm");
+                        int week = Integer.parseInt(data.get("Skxq"));
+                        int startPeriod = Integer.parseInt(data.get("Skjc"));
+                        int durationPeriod = Integer.parseInt(data.get("Cxjc"));
 
-                    int startWeekNo = Integer.parseInt(weekNoEdge[0]);
-                    int endWeekNo = Integer.parseInt(weekNoEdge[1]);
+                        int startWeekNo = Integer.parseInt(weekNoEdge[0]);
+                        int endWeekNo = Integer.parseInt(weekNoEdge[1]);
 
-                    for (int weekNo = startWeekNo; weekNo <= endWeekNo; weekNo++) {
-                        for (int duration = 0; duration < durationPeriod; duration++) {
-                            UploadScheduleRequest schedule = new UploadScheduleRequest();
-                            schedule.setCourseTitle(courseName);
-                            schedule.setWeekNo(WeekNo.getWeekNoById(weekNo));
-                            schedule.setWeek(Week.getWeekById(week));
-                            schedule.setPeriod(Period.getPeriodById(startPeriod + durationPeriod));
-                            schedules.add(schedule);
+                        for (int weekNo = startWeekNo; weekNo <= endWeekNo; weekNo++) {
+                            for (int duration = 0; duration < durationPeriod; duration++) {
+                                UploadScheduleRequest schedule = new UploadScheduleRequest();
+                                schedule.setCourseTitle(courseName);
+                                schedule.setWeekNo(WeekNo.getWeekNoById(weekNo));
+                                schedule.setWeek(Week.getWeekById(week));
+                                schedule.setPeriod(Period.getPeriodById(startPeriod + durationPeriod));
+                                schedules.add(schedule);
+                            }
                         }
+                        return schedules.stream();
+                    } catch (NumberFormatException e) {
+                        return Stream.empty();
                     }
-
-                    return schedules.stream();
                 })
                 .collect(Collectors.toList());
     }
 
     private List<Map<String, String>> parseRawData(String rowData) {
-        HashMap hashMap = JSON.parseObject(rowData, HashMap.class);;
+        HashMap hashMap = JSON.parseObject(rowData, HashMap.class);
+        ;
         return (List<Map<String, String>>) hashMap.entrySet().stream()
                 .map(obj -> ((Map.Entry) obj).getValue())
                 .flatMap(value -> ((List<Map<String, String>>) value).stream())

@@ -10,16 +10,18 @@
         <h2>添加课程</h2>
       </div>
       <div class="scheduleButton">
-        <el-button
-          type="primary"
-          plain
-          circle
-          size="samll"
-          v-for="index of scheduleNum"
-          :key="index"
-          @click="switchScheduleData(index)"
-          >{{ index }}</el-button
-        >
+        <div class="button-box" v-for="index of scheduleNum" :key="index">
+          <label class="close" @click="deleteData(index)">x</label>
+          <el-button
+            type="primary"
+            plain
+            circle
+            size="samll"
+            @click="switchScheduleData(index)"
+            >{{ index }}</el-button
+          >
+        </div>
+
         <el-button
           type="primary"
           plain
@@ -96,6 +98,7 @@ export default {
       "storeInputData",
       "clearInputData",
       "storeScheduleData",
+      "deleteScheduleData",
     ]),
     onSubmit() {
       //返回原始的课表比例
@@ -157,6 +160,27 @@ export default {
         };
       }
     },
+    deleteData(index) {
+      if (this.scheduleNum !== 1) {
+        this.scheduleNum--;
+        this.scheduleData = {
+          courseName: "",
+          startWeek: 0,
+          endWeek: 0,
+        };
+      }
+      if (this.scheduleIndex !== 1) {
+        this.scheduleIndex--;
+      }
+      let data = {
+        index: index - 1,
+        scheduleData: this.inputData[index - 1],
+      };
+      //调用方法删除
+      this.deleteScheduleData(data);
+      //切换
+      this.readScheduleData(this.scheduleIndex);
+    },
   },
   mounted() {
     //修改时初始化数据
@@ -183,6 +207,30 @@ export default {
 </script>
 
 <style scoped>
+.button-box {
+  margin-right: 8px;
+  position: relative;
+}
+.close {
+  width: 10px;
+  height: 10px;
+  font-size: 8px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: rgb(219, 226, 232);
+  background-color: rgba(98, 94, 94, 0.2);
+  text-align: center;
+  line-height: 10px;
+  border-radius: 50%;
+  display: none;
+}
+.button-box:hover .close {
+  display: block;
+}
+.close:hover {
+  color: black;
+}
 .fromarea {
   height: 80%;
   border: 1px black solid;

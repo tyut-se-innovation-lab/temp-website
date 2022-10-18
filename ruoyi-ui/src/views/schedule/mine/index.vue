@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-main>
-      <el-cow>
+      <el-row :gutter="0">
         <el-col :span="scale1">
           <write-schedule></write-schedule>
           <div class="buttons">
@@ -14,7 +14,7 @@
         <el-col :span="scale2">
           <schedule-input></schedule-input>
         </el-col>
-      </el-cow>
+      </el-row>
     </el-main>
   </el-container>
 </template>
@@ -51,6 +51,7 @@ export default {
       "getScheduleData",
       "addControl",
       "clearSendedData",
+      "storeGetedData",
     ]),
     writeData() {
       //出现提交按钮
@@ -64,6 +65,7 @@ export default {
       this.writableData();
       //显示修改框
       this.modifybutton = !this.modifybutton;
+      this.storeGetedData();
       if (this.sendedData.length != 0) {
         uploadSchedule(JSON.stringify(this.sendedData));
         //清除发送过的数据

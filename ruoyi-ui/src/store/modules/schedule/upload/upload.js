@@ -120,6 +120,7 @@ export default {
         //存储临时数据
         storeScheduleData(state) {
             state.scheduleData[state.tableCoordinate.row].courseData[state.tableCoordinate.column] = state.inputData;
+
             //存入到发送数据中
             for (let i = 0; i < state.inputData.length; i++) {
                 //存入数据
@@ -153,6 +154,8 @@ export default {
 
         //获取课表数据
         getScheduleData(state, response) {
+            //清除已经存储过从后台获取的数据
+            state.responData.length = 0;
             if (response != undefined) {
                 //整理发回来的数据
                 for (let i = 0; i < response.length; i++) {
@@ -206,18 +209,60 @@ export default {
                         courseName: state.responData[i].courseName,
                         startWeek: state.responData[i].startWeek,
                         endWeek: state.responData[i].endWeek,
-                        isGet: true,
+                        isGet: true
                     })
                 }
-                //清除已经存储过从后台获取的数据
-                state.responData.length = 0;
             }
+        },
+        deleteScheduleData(state, deldata) {
+            //删除总数据中的数据
+            state.scheduleData[state.tableCoordinate.row].courseData[state.tableCoordinate.column].splice(deldata.index, 1);
+            console.log(state.scheduleData);
+            //删除上传数据内的数据
+            console.log(state.responData);
+            for (let i = 0; i < state.responData.length; i++) {
+                console.log(666);
+                if (deldata.scheduleData.courseName === state.responData[i].courseName && state.tableCoordinate.row === state.responData[i].row && state.tableCoordinate.column === state.responData[i].column) {
+                    //删除当前数组的元素
+                    state.responData.splice(i, 1);
+                    console.log(state.responData);
+                    //跳出循环
+                    break;
+                }
+            }
+            console.log(deldata);
+
+            //删除本地数据内的数据
+            for (let i = 0; i < state.inputData.length; i++) {
+                console.log(777);
+                if (deldata.scheduleData.courseName === state.inputData[i].courseName && deldata.scheduleData.startWeek === state.inputData[i].startWeek && deldata.scheduleData.endWeek === state.inputData[i].endWeek) {
+                    //删除当前数组的元素
+                    state.inputData.splice(i, 1);
+                    //跳出循环
+                    break;
+                }
+            }
+
         },
         //control加一
         addControl(state) {
             state.control++;
+        },
+        //存储以前获取的数据
+        storeGetedData(state) {
+            //存入到发送数据中
+            for (let i = 0; i < state.responData.length; i++) {
+                //存入数据
+                for (let j = state.responData[i].startWeek; j <= state.responData[i].endWeek; j++) {
+                    state.sendedData.push({
+                        period: state.responData[i].row + 1,
+                        week: state.responData[i].column + 1,
+                        weekNo: j,
+                        courseTitle: state.responData[i].courseName,
+                    })
+                }
+            }
         }
-
     },
     state: {
         //控制发请求的次数
@@ -249,6 +294,7 @@ export default {
                 endWeek: 0,
             }
         ],
+        responseData: [],
         sendedData: [],
         scheduleData: [
             {

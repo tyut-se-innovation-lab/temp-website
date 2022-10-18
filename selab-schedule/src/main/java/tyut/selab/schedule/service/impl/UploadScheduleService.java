@@ -1,6 +1,6 @@
 package tyut.selab.schedule.service.impl;
 
-import com.google.gson.Gson;
+import com.alibaba.fastjson2.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.schedule.domain.po.Schedule;
@@ -115,8 +115,7 @@ public class UploadScheduleService implements IUploadScheduleService {
     }
 
     private List<Map<String, String>> parseRawData(String rowData) {
-        Gson gson = new Gson();
-        HashMap hashMap = gson.fromJson(new String(rowData), HashMap.class);
+        HashMap hashMap = JSON.parseObject(rowData, HashMap.class);;
         return (List<Map<String, String>>) hashMap.entrySet().stream()
                 .map(obj -> ((Map.Entry) obj).getValue())
                 .flatMap(value -> ((List<Map<String, String>>) value).stream())

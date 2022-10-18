@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import tyut.selab.schedule.domain.vo.DisplayLeisureRequest;
 import tyut.selab.schedule.domain.vo.ScheduleDisplayResponse;
+import tyut.selab.schedule.domain.vo.UploadScheduleByCookieRequest;
 import tyut.selab.schedule.domain.vo.UploadScheduleRequest;
 import tyut.selab.schedule.service.IDisplayScheduleService;
 import tyut.selab.schedule.service.impl.UploadScheduleService;
@@ -38,6 +39,13 @@ public class MineScheduleController extends BaseController {
         return AjaxResult.success("正在上传，请稍后");
     }
 
+    @PostMapping("/upload/cookie")
+    @PreAuthorize("@ss.hasPermi('schedule:mine')")
+    public AjaxResult uploadScheduleByToken(@RequestBody UploadScheduleByCookieRequest request) {
+        uploadScheduleService.crawlScheduleIdentifiedByCookie(getUserId(), request.getToken(), request.getCookie());
+        return AjaxResult.success("正在查询并记录，请稍后查看");
+    }
+
     @GetMapping("/display")
     @PreAuthorize("@ss.hasPermi('schedule:mine')")
     @ResponseBody
@@ -47,7 +55,7 @@ public class MineScheduleController extends BaseController {
 
     @PostMapping("/delete")
     @PreAuthorize("@ss.hasPermi('schedule:mine')")
-    public AjaxResult deleteSchedule(@RequestBody List<ScheduleDisplayResponse> deleteScheduleResponses){
-        return AjaxResult.success("成功删除"+displayScheduleService.deleteSchedule(deleteScheduleResponses.stream().map(ScheduleDisplayResponse::getId).collect(Collectors.toList()))+"条课程信息");
+    public AjaxResult deleteSchedule(@RequestBody List<ScheduleDisplayResponse> deleteScheduleResponses) {
+        return AjaxResult.success("成功删除" + displayScheduleService.deleteSchedule(deleteScheduleResponses.stream().map(ScheduleDisplayResponse::getId).collect(Collectors.toList())) + "条课程信息");
     }
 }

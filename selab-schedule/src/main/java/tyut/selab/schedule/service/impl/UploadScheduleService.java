@@ -90,24 +90,38 @@ public class UploadScheduleService implements IUploadScheduleService {
                     try {
                         LinkedList<UploadScheduleRequest> schedules = new LinkedList<>();
                         String weekNos = data.get("Zcsm").toString();
-                        String[] weekNoEdge = weekNos.substring(0, weekNos.length() - 1).split("-");
+                        String[] weekNoRange = weekNos.substring(0, weekNos.length() - 1).split(",");
+                        String[][] weekNoEdge = new String[weekNoRange.length][];
+                        for (int i = 0; i < weekNoRange.length; i++) {
+                            weekNoEdge[i] = weekNoRange[i].split("-");
+                        }
                         String courseName = data.get("Kcm").toString();
                         String[] periodRange = data.get("Jc").toString().split("-");
 
                         int week = Integer.parseInt(data.get("Skxq").toString());
                         int startPeriod = Integer.parseInt(periodRange[0]);
                         int endPeriod = Integer.parseInt(periodRange[1]);
-                        int startWeekNo = Integer.parseInt(weekNoEdge[0]);
-                        int endWeekNo = Integer.parseInt(weekNoEdge[1]);
 
-                        for (int weekNo = startWeekNo; weekNo <= endWeekNo; weekNo++) {
-                            for (int duration = 0; duration + startPeriod <= endPeriod; duration++) {
-                                UploadScheduleRequest schedule = new UploadScheduleRequest();
-                                schedule.setCourseTitle(courseName);
-                                schedule.setWeekNo(WeekNo.getWeekNoById(weekNo));
-                                schedule.setWeek(Week.getWeekById(week));
-                                schedule.setPeriod(Period.getPeriodById(startPeriod + duration));
-                                schedules.add(schedule);
+
+                        for (int weekNoTime = 0; weekNoTime < weekNoEdge.length; weekNoTime++) {
+                            int startWeekNo;
+                            int endWeekNo;
+                            if (weekNoEdge[weekNoTime].length == 1){
+                                startWeekNo = Integer.parseInt(weekNoEdge[weekNoTime][0]);
+                                endWeekNo = Integer.parseInt(weekNoEdge[weekNoTime][0]);
+                            }else {
+                                startWeekNo = Integer.parseInt(weekNoEdge[weekNoTime][0]);
+                                endWeekNo = Integer.parseInt(weekNoEdge[weekNoTime][1]);
+                            }
+                            for (int weekNo = startWeekNo; weekNo <= endWeekNo; weekNo++) {
+                                for (int duration = 0; duration + startPeriod <= endPeriod; duration++) {
+                                    UploadScheduleRequest schedule = new UploadScheduleRequest();
+                                    schedule.setCourseTitle(courseName);
+                                    schedule.setWeekNo(WeekNo.getWeekNoById(weekNo));
+                                    schedule.setWeek(Week.getWeekById(week));
+                                    schedule.setPeriod(Period.getPeriodById(startPeriod + duration));
+                                    schedules.add(schedule);
+                                }
                             }
                         }
                         return schedules.stream();

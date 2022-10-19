@@ -4,7 +4,6 @@ import com.alibaba.fastjson2.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.schedule.domain.po.Schedule;
-import tyut.selab.schedule.domain.vo.ScheduleDisplayResponse;
 import tyut.selab.schedule.domain.vo.UploadScheduleRequest;
 import tyut.selab.schedule.enums.Period;
 import tyut.selab.schedule.enums.Status;
@@ -93,19 +92,21 @@ public class UploadScheduleService implements IUploadScheduleService {
                         String weekNos = data.get("Zcsm").toString();
                         String[] weekNoEdge = weekNos.substring(0, weekNos.length() - 1).split("-");
                         String courseName = data.get("Kcm").toString();
+                        String[] periodRange = data.get("Jc").toString().split("-");
+
                         int week = Integer.parseInt(data.get("Skxq").toString());
-                        int startPeriod = (int) Double.parseDouble(data.get("Skjc").toString());
-                        int durationPeriod = (int) Double.parseDouble(data.get("Cxjc").toString());
+                        int startPeriod = Integer.parseInt(periodRange[0]);
+                        int endPeriod = Integer.parseInt(periodRange[1]);
                         int startWeekNo = Integer.parseInt(weekNoEdge[0]);
                         int endWeekNo = Integer.parseInt(weekNoEdge[1]);
 
                         for (int weekNo = startWeekNo; weekNo <= endWeekNo; weekNo++) {
-                            for (int duration = 0; duration < durationPeriod; duration++) {
+                            for (int duration = 0; duration + startPeriod <= endPeriod; duration++) {
                                 UploadScheduleRequest schedule = new UploadScheduleRequest();
                                 schedule.setCourseTitle(courseName);
                                 schedule.setWeekNo(WeekNo.getWeekNoById(weekNo));
                                 schedule.setWeek(Week.getWeekById(week));
-                                schedule.setPeriod(Period.getPeriodById(startPeriod + durationPeriod));
+                                schedule.setPeriod(Period.getPeriodById(startPeriod + duration));
                                 schedules.add(schedule);
                             }
                         }

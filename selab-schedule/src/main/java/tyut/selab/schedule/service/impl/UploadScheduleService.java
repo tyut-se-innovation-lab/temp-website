@@ -66,7 +66,7 @@ public class UploadScheduleService implements IUploadScheduleService {
                 threads.add(userId);
             }
         }
-        new Thread(new UploadThread(userId, uploadScheduleRequests, iDisplayScheduleMapper)).start();
+        new Thread(new UploadThread(userId, uploadScheduleRequests)).start();
     }
 
     @Override
@@ -75,7 +75,7 @@ public class UploadScheduleService implements IUploadScheduleService {
         try {
             HttpResponse<InputStream> response = httpClient.send(request, HttpResponse.BodyHandlers.ofInputStream());
             String body = unzipInputStreamToString(response.body());
-            List<Map<String, String>> list = parseRawData(body);
+            List<Map<String, Object>> list = parseRawData(body);
             List<UploadScheduleRequest> requestData = encapsulateRawDataToSchedule(list);
             insertSchedule(requestData, userId);
         } catch (IOException e) {
@@ -85,18 +85,17 @@ public class UploadScheduleService implements IUploadScheduleService {
         }
     }
 
-    private List<UploadScheduleRequest> encapsulateRawDataToSchedule(List<Map<String, String>> rowData) {
+    private List<UploadScheduleRequest> encapsulateRawDataToSchedule(List<Map<String, Object>> rowData) {
         return rowData.stream()
                 .flatMap(data -> {
                     try {
                         LinkedList<UploadScheduleRequest> schedules = new LinkedList<>();
-                        String weekNos = data.get("Zcsm");
+                        String weekNos = data.get("Zcsm").toString();
                         String[] weekNoEdge = weekNos.substring(0, weekNos.length() - 1).split("-");
-                        String courseName = data.get("Kcm");
-                        int week = Integer.parseInt(data.get("Skxq"));
-                        int startPeriod = Integer.parseInt(data.get("Skjc"));
-                        int durationPeriod = Integer.parseInt(data.get("Cxjc"));
-
+                        String courseName = data.get("Kcm").toString();
+                        int week = Integer.parseInt(data.get("Skxq").toString());
+                        int startPeriod = (int) Double.parseDouble(data.get("Skjc").toString());
+                        int durationPeriod = (int) Double.parseDouble(data.get("Cxjc").toString());
                         int startWeekNo = Integer.parseInt(weekNoEdge[0]);
                         int endWeekNo = Integer.parseInt(weekNoEdge[1]);
 
@@ -118,10 +117,9 @@ public class UploadScheduleService implements IUploadScheduleService {
                 .collect(Collectors.toList());
     }
 
-    private List<Map<String, String>> parseRawData(String rowData) {
+    private List<Map<String, Object>> parseRawData(String rowData) {
         HashMap hashMap = JSON.parseObject(rowData, HashMap.class);
-        ;
-        return (List<Map<String, String>>) hashMap.entrySet().stream()
+        return (List<Map<String, Object>>) hashMap.entrySet().stream()
                 .map(obj -> ((Map.Entry) obj).getValue())
                 .flatMap(value -> ((List<Map<String, String>>) value).stream())
                 .collect(Collectors.toList());
@@ -167,19 +165,16 @@ public class UploadScheduleService implements IUploadScheduleService {
 
         private Long userId;
         private List<UploadScheduleRequest> uploadScheduleRequests;
-        private IDisplayScheduleMapper iDisplayScheduleMapper;
 
-        UploadThread(Long userId, List<UploadScheduleRequest> uploadScheduleRequests, IDisplayScheduleMapper iDisplayScheduleMapper) {
+        UploadThread(Long userId, List<UploadScheduleRequest> uploadScheduleRequests) {
             this.userId = userId;
             this.uploadScheduleRequests = uploadScheduleRequests;
-            this.iDisplayScheduleMapper = iDisplayScheduleMapper;
         }
 
         @Override
         public void run() {
             List<Schedule> schedules = new ArrayList<>();
-            List<ScheduleDisplayResponse> schedulesByThisUser = iDisplayScheduleService.selectScheduleList(userId);
-
+//            List<ScheduleDisplayResponse> schedulesByThisUser = iDisplayScheduleService.selectScheduleList(userId);
             //过滤重复数据
 //            Set<TimeFrame> collect = schedulesByThisUser.stream().map(data -> new TimeFrame(data.getPeriod(), data.getWeek(), data.getWeekNo())).collect(Collectors.toSet());
 //
@@ -198,7 +193,6 @@ public class UploadScheduleService implements IUploadScheduleService {
             //伪删除
             //每次传回来数据就把本人以前上传的全部删除
             iDisplayScheduleMapper.deleteScheduleByUserId(userId);
-
             for (UploadScheduleRequest s : uploadScheduleRequests) {
                 Schedule schedule = new Schedule();
                 schedule.setUserId(userId);

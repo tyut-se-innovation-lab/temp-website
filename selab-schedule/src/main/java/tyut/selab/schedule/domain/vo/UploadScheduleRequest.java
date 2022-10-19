@@ -64,4 +64,14 @@ public class UploadScheduleRequest {
         timeFrame.setWeekNo(this.getWeekNo());
         return timeFrame;
     }
+
+    @Override
+    public String toString() {
+        return "UploadScheduleRequest{" +
+                "period=" + period +
+                ", week=" + week +
+                ", weekNo=" + weekNo +
+                ", courseTitle='" + courseTitle + '\'' +
+                '}';
+    }
 }

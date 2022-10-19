@@ -25,23 +25,22 @@
 
 
 <script>
-import {tempfind} from "@/api/schedule/temp_find"
+import { tempfind } from "@/api/schedule/temp_find"
 export default {
     data() {
         return {
             mes: {
-                asp : "",
-                token : ""
+                asp: "",
+                token: ""
             }
         }
-
     },
     methods: {
         // 发送请求获取数据
         getmessage() {
-              console.log(this.mes);
-            tempfind(this.mes).then(function(res){
-                console.log(res);
+            console.log(this.mes);
+            tempfind(this.mes).then(function (res) {
+                this.$modal.alertSuccess(res.msg);
             })
         },
         // 判断是否为空
@@ -51,6 +50,7 @@ export default {
             }
             else {
                 this.getmessage();
+
             }
         }
     }
@@ -68,7 +68,7 @@ export default {
     margin-left: 30px;
 }
 
- .token {
+.token {
 
     display: inline-block;
     width: 600px;
@@ -84,6 +84,6 @@ export default {
 
 .button {
 
- margin-top: 10px;
+    margin-top: 10px;
 }
 </style>

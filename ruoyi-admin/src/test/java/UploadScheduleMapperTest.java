@@ -18,19 +18,21 @@ import tyut.selab.schedule.enums.WeekNo;
 import tyut.selab.schedule.mapper.IDisplayScheduleMapper;
 import tyut.selab.schedule.mapper.IUploadScheduleMapper;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Big_bai on 2022/10/4
  */
 @SpringBootTest(classes = RuoYiApplication.class)
 public class UploadScheduleMapperTest {
-    @Autowired
-    IDisplayScheduleMapper iDisplayScheduleMapper;
-    @Autowired
-    IUploadScheduleMapper iUploadScheduleMapper ;
+
+
+
+
+//    @Autowired
+//    IDisplayScheduleMapper iDisplayScheduleMapper;
+//    @Autowired
+//    IUploadScheduleMapper iUploadScheduleMapper ;
 
 //    @Test
 //    public void testMapper(){
@@ -47,8 +49,8 @@ public class UploadScheduleMapperTest {
 //        System.out.println(configMapper);
 //    }
 
-    @Test
-    public void test() {
+//    @Test
+//    public void test() {
 //        Schedule schedule = new Schedule();
 ////        schedule.setId(500L);
 //        schedule.setUserId(20L);
@@ -70,11 +72,11 @@ public class UploadScheduleMapperTest {
 //        schedules.add(schedule);
 //        schedules.add(schedule1);
 //        iUploadScheduleMapper.insertSchedule(schedules);
-        List<Schedule> user = iDisplayScheduleMapper.selectScheduleList(10L);
-        for (Schedule schedule:user) {
-            System.out.println(schedule.getCourseTitle());
-        }
-    }
+//        List<Schedule> user = iDisplayScheduleMapper.selectScheduleList(10L);
+//        for (Schedule schedule:user) {
+//            System.out.println(schedule.getCourseTitle());
+//        }
+//    }
 
 //    @Test
 //    public void testSqlSessionFactory(@Autowired SqlSessionFactory sqlFactory){

@@ -1,47 +1,63 @@
 package tyut.selab.schedule.domain.vo;
 
+import tyut.selab.schedule.enums.Period;
+import tyut.selab.schedule.enums.Week;
+import tyut.selab.schedule.enums.WeekNo;
+
 /**
  * @author Big_bai on 2022/10/7
  */
 public class ScheduleDisplayResponse {
     /**
+     * 课程唯一id
+     */
+    private Long id;
+    /**
      * 第几节课
      */
-    int period;
+    private Period period;
     /**
      * 星期几
      */
-    int week;
+    private Week week;
     /**
      * 第几周
      */
-    int weekNo;
+    private WeekNo weekNo;
     /**
      * 课程名称
      */
-    String courseTitle;
+    private String courseTitle;
 
-    public int getPeriod() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Period getPeriod() {
         return period;
     }
 
-    public void setPeriod(int period) {
+    public void setPeriod(Period period) {
         this.period = period;
     }
 
-    public int getWeek() {
+    public Week getWeek() {
         return week;
     }
 
-    public void setWeek(int week) {
+    public void setWeek(Week week) {
         this.week = week;
     }
 
-    public int getWeekNo() {
+    public WeekNo getWeekNo() {
         return weekNo;
     }
 
-    public void setWeekNo(int weekNo) {
+    public void setWeekNo(WeekNo weekNo) {
         this.weekNo = weekNo;
     }
 

@@ -19,4 +19,12 @@ public interface IUploadScheduleService {
      * @param userId 用户id
      */
     public void insertSchedule(List<UploadScheduleRequest> uploadScheduleRequests, Long userId);
+
+    /**
+     * 通过cookie爬取课表并储存
+     * @param userId 请求的用户ID
+     * @param token certification token value
+     * @param sessionId sessionId value
+     */
+    void crawlScheduleIdentifiedByCookie(Long userId,String token, String sessionId);
 }

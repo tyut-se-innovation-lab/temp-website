@@ -24,7 +24,7 @@
                             </el-option>
                         </el-select>
                     </div>
-                    <template v-for="contect in params.timeFrames">
+                    <div v-for="(contect,index) in params.timeFrames" :key='index'>
                         <div class="checkbox">
 
                             <span>选择第几周</span>
@@ -48,14 +48,14 @@
 
                             <div class="del">
                                 <template>
-                                    <el-popconfirm title="确定删除吗？" @confirm="deletetime(contect.index)">
+                                    <el-popconfirm title="确定删除吗？" @confirm="deletetime(index)">
                                         <el-button slot="reference" style="background-color:#F56C6C  ; color:aliceblue">
                                             删除</el-button>
                                     </el-popconfirm>
                                 </template>
                             </div>
                         </div>
-                    </template>
+                    </div>
                     <br /><br />
                     <template v-if="show">
                         <el-table :data="tableData" style="width: 100%" :cell-style="{ textAlign: 'center' }"
@@ -108,7 +108,7 @@ export default {
             // 展示表格
             show: false,
             // 左右边框
-            border: true,           
+            border: true,
             // 角色称呼
             deptNum: [],
             // 发送的id组群
@@ -176,6 +176,7 @@ export default {
                 )
             }
         },
+
         // 添加查询时间
         addnewtime() {
             this.params.timeFrames.push(
@@ -191,11 +192,11 @@ export default {
         },
         // 删除元素
         deletetime(index) {
-            this.params.TimeFrame.splice(i, 1)
+            this.params.timeFrames.splice(index, 1)
         },
         // 查询空课
         check() {
-           
+
             // console.log(this.contect);
             this.weekgroups = [];
             this.daygroups = [];
@@ -214,25 +215,25 @@ export default {
                     this.params.timeFrames[i].period
                 )
             }
-            
+
             this.isnull()
         },
         // 获取空课人员
-        getmessage() {       
-            console.log(this.params.timeFrames);
+        getmessage() {
+            // console.log(this.params.timeFrames);
             this.show = true;
             listleisure(this.params).then((res) =>{
-                console.log(res); 
+                console.log(res);
                 this.tableData = [];
                 for(let i=0 ;i<res.data.length;i++){
-                   
+
                     this.tableData.push(
                         {
                             name:res.data[i].nickName,
                             root:res.data[i].roleNames.join(", "),
                             sex:this.checksex(res.data[i].sex),
                             username: res.data[i].userName,
-                            deptName: res.data[i].deptName      
+                            deptName: res.data[i].deptName
                         }
                     )
                 }
@@ -240,10 +241,10 @@ export default {
         },
         // 获取性别
         checksex(val){
-            if(val == 1){
+            if(val == 0){
                 return `男`
             }
-            else if(val == 0){
+            else if(val == 1){
                 return `女`
             }
         },
@@ -272,7 +273,7 @@ export default {
                         value: res.rows[i].roleId,
                         label: res.rows[i].roleName
 
-                    })   
+                    })
                 }
             })
         },
@@ -281,7 +282,7 @@ export default {
                 // console.log(this.params.TimeFrame[0].weekNo);
             if(this.judge( this.params.timeFrames))
             {
-                
+
                 this.$modal.msgError("时间不能为空！！！");
             }
             else{
@@ -289,22 +290,23 @@ export default {
             }
         },
         // 判断封装
-        judge(val){ 
+        judge(val){
              console.log(val);
             for(let i=0 ;i<val.length;i++){
                 if(val[i].weekNo == ''){
                     return true
-                } 
+                }
                 else if(val[i].week == ''){
                     return true
-                } 
+                }
                 else if(val[i].period == ''){
                     return true
-                } 
+                }
             }
             return false;
         }
     },
+
     filters: {
         fifweekday(val) {
             if (val == 1) {

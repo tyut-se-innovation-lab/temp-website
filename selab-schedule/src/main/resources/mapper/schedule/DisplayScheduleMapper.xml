@@ -47,4 +47,17 @@
             </if>
         </where>
     </select>
+
+    <update id="deleteScheduleById" parameterType="Long">
+    update selab_schedule_info
+        <set>
+            <if test="status != null and status != 1"> status = '1',</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--int deleteScheduleByUserId(Long userId);-->
+    <delete id="deleteScheduleByUserId">
+        delete from selab_schedule_info where user_id = #{userId}
+    </delete>
 </mapper>

@@ -18,6 +18,15 @@ public class TimeFrame {
      */
     private WeekNo weekNo;
 
+    public TimeFrame(Period period, Week week, WeekNo weekNo) {
+        this.period = period;
+        this.week = week;
+        this.weekNo = weekNo;
+    }
+
+    public TimeFrame() {
+    }
+
     public Period getPeriod() {
         return period;
     }

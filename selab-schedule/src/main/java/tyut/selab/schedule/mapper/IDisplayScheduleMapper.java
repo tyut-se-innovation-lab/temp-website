@@ -1,5 +1,6 @@
 package tyut.selab.schedule.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import tyut.selab.schedule.domain.po.Schedule;
 
 import java.util.List;
@@ -15,4 +16,18 @@ public interface IDisplayScheduleMapper {
      * @return 课程信息集合
      */
      public List<Schedule> selectScheduleList(Long userId);
+
+    /**
+     * 删除我的课表
+     * @param id 课表信息唯一标识
+     * @return 1
+     */
+    int deleteScheduleById(Long id);
+
+    /**
+     * 根据用户id删除所有本用户所上传的全部课表
+     * @param userId
+     * @return
+     */
+    int deleteScheduleByUserId(Long userId);
 }

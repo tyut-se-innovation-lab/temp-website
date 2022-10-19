@@ -1,17 +1,11 @@
 <template>
   <div :class="{ part: writable }">
     <!-- 插槽 -->
-    <slot
-      v-if="
-        !(
-          scheduleData[row].courseData[column - 1] &&
-          scheduleData[row].courseData[column - 1][dataIndex].courseName
-        )
-      "
-    ></slot>
+    <slot v-if="!scheduleData[row].courseData[column - 1]"></slot>
     <div
       v-if="
         scheduleData[row].courseData[column - 1] &&
+        scheduleData[row].courseData[column - 1].length !== 0 &&
         scheduleData[row].courseData[column - 1][dataIndex].courseName
       "
     >
@@ -53,13 +47,6 @@ export default {
   },
   computed: {
     ...mapState("scheduleupload", ["writable", "scheduleData"]),
-    // partData() {
-    //   let index = {
-    //     row: this.row,
-    //     column: this.column - 1,
-    //   };
-    //   return this.$store.getters["scheduleupload/getPartData"](index);
-    // },
   },
   methods: {
     ...mapMutations("scheduleupload", ["changeScale", "modifyScheduleData"]),
@@ -84,11 +71,6 @@ export default {
         this.scheduleData[this.row].courseData[this.column - 1].length
       );
     },
-  },
-  mounted() {
-    setTimeout(() => {
-      // console.log(this.partData);
-    }, 1000);
   },
 };
 </script>

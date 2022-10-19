@@ -17,6 +17,7 @@ import tyut.selab.schedule.enums.Week;
 import tyut.selab.schedule.enums.WeekNo;
 import tyut.selab.schedule.mapper.IDisplayScheduleMapper;
 import tyut.selab.schedule.mapper.IUploadScheduleMapper;
+import tyut.selab.schedule.service.IUploadScheduleService;
 
 import java.util.*;
 
@@ -26,76 +27,8 @@ import java.util.*;
 @SpringBootTest(classes = RuoYiApplication.class)
 public class UploadScheduleMapperTest {
 
-
-
-
-//    @Autowired
-//    IDisplayScheduleMapper iDisplayScheduleMapper;
-//    @Autowired
-//    IUploadScheduleMapper iUploadScheduleMapper ;
-
-//    @Test
-//    public void testMapper(){
-//        System.out.println(iUploadScheduleMapper);
-//    }
-//
-//    @Test
-//    public void testService(@Autowired ISysMenuService service){
-//        System.out.println(service);
-//    }
-
-//    @Test
-//    public void testSysMapper(@Autowired SysConfigMapper configMapper){
-//        System.out.println(configMapper);
-//    }
-
-//    @Test
-//    public void test() {
-//        Schedule schedule = new Schedule();
-////        schedule.setId(500L);
-//        schedule.setUserId(20L);
-//        schedule.setCourseTitle("xx");
-//        schedule.setCreateTime(new Date());
-//        schedule.setPeriod(Period.EIGHTH);
-//        schedule.setWeek(Week.WEDNESDAY);
-//        schedule.setWeekNo(WeekNo.EIGHTH_TERM);
-//        schedule.setStatus(Status.ENABLE);
-//        Schedule schedule1 = new Schedule();
-//        schedule1.setUserId(20L);
-//        schedule1.setCourseTitle("ggs");
-//        schedule1.setCreateTime(new Date());
-//        schedule1.setPeriod(Period.FIFTH);
-//        schedule1.setWeek(Week.THURSDAY);
-//        schedule1.setWeekNo(WeekNo.TENTH_TERM);
-//        schedule1.setStatus(Status.ENABLE);
-//        List<Schedule> schedules = new ArrayList<>();
-//        schedules.add(schedule);
-//        schedules.add(schedule1);
-//        iUploadScheduleMapper.insertSchedule(schedules);
-//        List<Schedule> user = iDisplayScheduleMapper.selectScheduleList(10L);
-//        for (Schedule schedule:user) {
-//            System.out.println(schedule.getCourseTitle());
-//        }
-//    }
-
-//    @Test
-//    public void testSqlSessionFactory(@Autowired SqlSessionFactory sqlFactory){
-//        SqlSession sqlSession = sqlFactory.openSession();
-//        IUploadScheduleMapper mapper = sqlSession.getMapper(IUploadScheduleMapper.class);
-//        System.out.println(mapper);
-//
-//        Schedule schedule = new Schedule();
-//        schedule.setId(500L);
-//        schedule.setUserId(10L);
-//        schedule.setCourseTitle("aaa");
-//        schedule.setCreateTime(new Date());
-//        schedule.setPeriod(Period.FIFTH);
-//        schedule.setWeek(Week.FRIDAY);
-//        schedule.setWeekNo(WeekNo.EIGHTH_TERM);
-//        schedule.setUpdateTime(new Date());
-//        schedule.setStatus(Status.ENABLE);
-//
-//        int i = mapper.insertSchedule(schedule);
-//        System.out.println(i);
-//    }
+    @Test
+    public void shouldShowAllSchedule(@Autowired IUploadScheduleService service){
+        service.crawlScheduleIdentifiedByCookie(1L,"uWVLVHT_G0ZQWup1yqT0qTP_qgmDQs-VdYdZjl9F82UUTZpKPBJZJLdYC8r4KA8a7UYf-9K5Ap6rnFIqvI-d3lSTd8ng_5vnyZWohZrGmqc1","nwqvn5ri0qrnxylsrqyghy2j");
+    }
 }

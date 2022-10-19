@@ -9,13 +9,16 @@
             <el-button type="primary" v-if="modifybutton" @click="writeData"
               >修改</el-button
             >
+             <temp_find/>
           </div>
         </el-col>
         <el-col :span="scale2">
           <schedule-input></schedule-input>
         </el-col>
       </el-row>
+      
     </el-main>
+   
   </el-container>
 </template>
 
@@ -24,11 +27,13 @@ import { uploadSchedule } from "@/api/schedule/upload";
 import { mapActions, mapMutations, mapState } from "vuex";
 import ScheduleInput from "./schedule-input.vue";
 import WriteSchedule from "./write-schedule.vue";
+import temp_find from "./temp_find.vue";
 export default {
   name: "upload",
   components: {
     WriteSchedule,
     ScheduleInput,
+    temp_find
   },
   data() {
     return {

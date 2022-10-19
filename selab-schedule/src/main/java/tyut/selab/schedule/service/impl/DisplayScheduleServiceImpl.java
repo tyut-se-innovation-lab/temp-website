@@ -1,5 +1,6 @@
 package tyut.selab.schedule.service.impl;
 
+import com.ruoyi.common.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import tyut.selab.schedule.service.IDisplayScheduleService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 课程信息  服务层实现
@@ -19,8 +21,7 @@ import java.util.List;
  * @Date: 2022/10/4 9:03
  */
 @Service
-public class DisplayScheduleServiceImpl implements IDisplayScheduleService
-{
+public class DisplayScheduleServiceImpl implements IDisplayScheduleService {
     private static Logger logger = LoggerFactory.getLogger(DisplayScheduleServiceImpl.class);
     @Autowired
     private IDisplayScheduleMapper scheduleMapper;
@@ -35,7 +36,7 @@ public class DisplayScheduleServiceImpl implements IDisplayScheduleService
     public List<ScheduleDisplayResponse> selectScheduleList(Long userId) {
         List<ScheduleDisplayResponse> scheduleDisplayResponses = new ArrayList<>();
         List<Schedule> schedules = scheduleMapper.selectScheduleList(userId);
-        for (Schedule sc:schedules) {
+        for (Schedule sc : schedules) {
             ScheduleDisplayResponse scheduleDisplayResponse = new ScheduleDisplayResponse();
             scheduleDisplayResponse.setId(sc.getId());
             scheduleDisplayResponse.setWeek(sc.getWeek());
@@ -45,21 +46,29 @@ public class DisplayScheduleServiceImpl implements IDisplayScheduleService
             logger.debug(scheduleDisplayResponses.toString());
             scheduleDisplayResponses.add(scheduleDisplayResponse);
         }
-        return  scheduleDisplayResponses;
+        return scheduleDisplayResponses.stream()
+                .sorted((a, b) -> {
+                    int var1 = a.getPeriod().getId() - b.getPeriod().getId();
+                    int var2 = a.getWeek().getId() - b.getWeek().getId();
+                    int var3 = StringUtils.compare(a.getCourseTitle(), b.getCourseTitle());
+                    return var1 * 100 + var2 * 10 + var3;
+                })
+                .collect(Collectors.toList());
     }
 
     /**
      * 删除我的课程信息
+     *
      * @param ids 课程唯一id集合
      * @return 删除成功条数
      */
     @Override
     public int deleteSchedule(List<Long> ids) {
-        if(!ids.isEmpty()){
+        if (!ids.isEmpty()) {
             int i = ids.size();
-            for(Long id:ids){
+            for (Long id : ids) {
                 int number = scheduleMapper.deleteScheduleById(id);
-                if(number == 0) i--;
+                if (number == 0) i--;
             }
             return i;
         }

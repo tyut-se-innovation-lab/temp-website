@@ -53,10 +53,12 @@
     </select>
 
     <select id="getUserIdByRoleId" parameterType="list" resultType="java.lang.Long">
-        select user_id from sys_user_role
+        select su.user_id from sys_user_role sur
+        left join sys_user su
+        on  su.user_id = sur.user_id and su.status = 0
         where
         <if test="roleIds != null and roleIds != ''">
-            role_id in
+            sur.role_id in
             <foreach collection="roleIds" item="roleIds" separator="," open="(" close=")">
                 #{roleIds}
             </foreach>

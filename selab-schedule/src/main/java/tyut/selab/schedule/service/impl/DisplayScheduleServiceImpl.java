@@ -34,6 +34,7 @@ public class DisplayScheduleServiceImpl implements IDisplayScheduleService {
      */
     @Override
     public List<ScheduleDisplayResponse> selectScheduleList(Long userId) {
+        long startMillis = System.currentTimeMillis();
         List<ScheduleDisplayResponse> scheduleDisplayResponses = new ArrayList<>();
         List<Schedule> schedules = scheduleMapper.selectScheduleList(userId);
         for (Schedule sc : schedules) {
@@ -46,7 +47,7 @@ public class DisplayScheduleServiceImpl implements IDisplayScheduleService {
             logger.debug(scheduleDisplayResponses.toString());
             scheduleDisplayResponses.add(scheduleDisplayResponse);
         }
-        return scheduleDisplayResponses.stream()
+        scheduleDisplayResponses = scheduleDisplayResponses.stream()
                 .sorted((a, b) -> {
                     int var1 = a.getPeriod().getId() - b.getPeriod().getId();
                     int var2 = a.getWeek().getId() - b.getWeek().getId();
@@ -54,6 +55,9 @@ public class DisplayScheduleServiceImpl implements IDisplayScheduleService {
                     return var1 * 100 + var2 * 10 + var3;
                 })
                 .collect(Collectors.toList());
+        long entMillis = System.currentTimeMillis();
+        logger.info("查询课表数据，总计时长为: {}毫秒", (entMillis - startMillis));
+        return scheduleDisplayResponses;
     }
 
     /**

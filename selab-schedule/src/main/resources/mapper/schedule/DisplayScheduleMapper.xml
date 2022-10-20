@@ -35,7 +35,7 @@
     </parameterMap>
 
     <sql id="selectScheduleVo">
-        select id,user_id,period,week,week_no,course_title,create_time,update_time
+        select id,user_id,`period`,week,week_no,course_title,create_time,update_time
         from selab_schedule_info
     </sql>
     

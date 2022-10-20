@@ -42,7 +42,7 @@
     <select id="selectScheduleList" resultMap="ScheduleResult" parameterMap="Schedule">
         <include refid="selectScheduleVo"/>
             <if test="userId != null ">
-                AND user_id = #{userId} AND status = 0
+                where user_id = #{userId} AND status = 0
             </if>
     </select>
 

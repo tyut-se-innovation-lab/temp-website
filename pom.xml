@@ -186,6 +186,19 @@
                 <version>${ruoyi.version}</version>
             </dependency>
 
+            <!-- 空课表系统 -->
+            <dependency>
+                <groupId>tyut.selab</groupId>
+                <artifactId>selab-schedule</artifactId>
+                <version>3.8.3</version>
+            </dependency>
+
+            <!-- 投票系统 -->
+            <dependency>
+                <groupId>tyut.selab</groupId>
+                <artifactId>selab-vote</artifactId>
+                <version>3.8.3</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -196,6 +209,8 @@
         <module>ruoyi-quartz</module>
         <module>ruoyi-generator</module>
         <module>ruoyi-common</module>
+        <module>selab-vote</module>
+        <module>selab-schedule</module>
     </modules>
     <packaging>pom</packaging>
 

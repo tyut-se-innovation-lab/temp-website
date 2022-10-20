@@ -61,6 +61,25 @@
             <artifactId>ruoyi-generator</artifactId>
         </dependency>
 
+        <!-- 空课表系统 -->
+        <dependency>
+            <groupId>tyut.selab</groupId>
+            <artifactId>selab-schedule</artifactId>
+        </dependency>
+
+        <!-- 投票系统 -->
+        <dependency>
+            <groupId>tyut.selab</groupId>
+            <artifactId>selab-vote</artifactId>
+        </dependency>
+
+        <!-- springboot测试 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

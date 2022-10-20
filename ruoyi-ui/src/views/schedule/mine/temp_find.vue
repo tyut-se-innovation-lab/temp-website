@@ -39,8 +39,8 @@ export default {
         // 发送请求获取数据
         getmessage() {
             console.log(this.mes);
-            tempfind(this.mes).then(function (res) {
-                this.$modal.alertSuccess(res.msg);
+            tempfind(this.mes).then((res) => {
+                this.$modal.msgSuccess(res.msg);
             })
         },
         // 判断是否为空

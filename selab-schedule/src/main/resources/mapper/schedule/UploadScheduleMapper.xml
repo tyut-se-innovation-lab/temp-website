@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tyut.selab.schedule.mapper.IUploadScheduleMapper">
+
+    <resultMap id="Schedule" type="tyut.selab.schedule.domain.po.Schedule">
+        <id property="id" column="id"/>
+        <id property="userId" column="user_id"/>
+        <id property="period" column="period"
+            typeHandler="tyut.selab.schedule.config.jdbc.handler.PeriodHandler"/>
+        <id property="week" column="week"
+            typeHandler="tyut.selab.schedule.config.jdbc.handler.WeekHandler"/>
+        <id property="weekNo" column="week_no"
+            typeHandler="tyut.selab.schedule.config.jdbc.handler.WeekNoHandler"/>
+        <id property="status"   column="status"
+            typeHandler="tyut.selab.schedule.config.jdbc.handler.StatusHandler"/>
+        <id property="courseTitle" column="course_title"/>
+        <id property="createTime" column="creat_time"/>
+        <id property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <parameterMap id="Schedule" type="tyut.selab.schedule.domain.po.Schedule">
+        <parameter property="id" javaType="Long"/>
+        <parameter property="user_id" javaType="Long"/>
+        <parameter property="period" javaType="tyut.selab.schedule.enums.Period"
+                   typeHandler="tyut.selab.schedule.config.jdbc.handler.PeriodHandler"/>
+        <parameter property="week" javaType="tyut.selab.schedule.enums.Week"
+                   typeHandler="tyut.selab.schedule.config.jdbc.handler.WeekHandler"/>
+        <parameter property="week_no" javaType="tyut.selab.schedule.enums.WeekNo"
+                   typeHandler="tyut.selab.schedule.config.jdbc.handler.WeekNoHandler"/>
+        <parameter property="status"    javaType="tyut.selab.schedule.enums.Status"
+                   typeHandler="tyut.selab.schedule.config.jdbc.handler.StatusHandler"/>
+        <parameter property="course_title" javaType="String"/>
+        <parameter property="create_time" javaType="Date"/>
+        <parameter property="update_time" javaType="Date"/>
+    </parameterMap>
+
+    <insert id="insertSchedule" parameterMap="Schedule" useGeneratedKeys="true" keyProperty="id">
+        insert into selab_schedule_info(
+            user_id,`period`,week,week_no,status,course_title,create_time
+        )value
+        <foreach collection="list" item="a" separator=",">
+            (
+            #{a.userId},
+            #{a.period,typeHandler=tyut.selab.schedule.config.jdbc.handler.PeriodHandler},
+            #{a.week,typeHandler=tyut.selab.schedule.config.jdbc.handler.WeekHandler},
+            #{a.weekNo,typeHandler=tyut.selab.schedule.config.jdbc.handler.WeekNoHandler},
+            #{a.status,typeHandler=tyut.selab.schedule.config.jdbc.handler.StatusHandler},
+            #{a.courseTitle},
+            #{a.createTime}
+            )
+        </foreach>
+    </insert>
+</mapper>

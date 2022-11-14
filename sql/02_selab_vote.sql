@@ -64,7 +64,7 @@ create table selab_vote_result
     user_id        varchar(100) not null comment '参与投票的用户ID（加密后）',
     content        text         not null comment '投票内容',
     isEnable       bool         not null comment '是否有效',
-    weight         int          not null default 1 comment '权重';
+    weight         int          not null default 1 comment '权重',
     create_time    datetime comment '创建时间',
     update_time    datetime comment '更新时间',
     primary key (id)

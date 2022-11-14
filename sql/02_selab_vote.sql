@@ -18,7 +18,7 @@ insert into sys_menu
 values ('2004', '我的提议', '2000', '4', 'mine', 'vote/mine/index', '', 1, 1, 'C', '0', '0', 'vote:mine',
         'search', 'admin', sysdate(), '', null, '管理我的提议');
 insert into sys_menu
-values ('2005', '设置投票策略', '2000', '5', 'strategy', 'vote/management/index', '', 1, 1, 'C', '0', '0', 'vote:management',
+values ('2011', '设置投票策略', '2000', '5', 'strategy', 'vote/management/index', '', 1, 1, 'C', '0', '0', 'vote:management',
         'search', 'admin', sysdate(), '', null, '设置投票策略');
 
 -- ----------------------------

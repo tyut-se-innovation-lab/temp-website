@@ -1,17 +1,16 @@
 package tyut.selab.vote.domain.po;
 
 import tyut.selab.vote.enums.VoteStatus;
-import tyut.selab.vote.enums.VoteType;
 
 import java.util.Date;
 
 public class VoteInfo {
     private Long id;
     private String userId;
-    private VoteType type;
     private String title;
     private String content;
     private VoteStatus status;
+    private Date deadline;
     private Date createTime;
     private Date updateTime;
 
@@ -29,14 +28,6 @@ public class VoteInfo {
 
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    public VoteType getType() {
-        return type;
-    }
-
-    public void setType(VoteType type) {
-        this.type = type;
     }
 
     public String getTitle() {
@@ -77,6 +68,14 @@ public class VoteInfo {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Date getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
     }
 }
 

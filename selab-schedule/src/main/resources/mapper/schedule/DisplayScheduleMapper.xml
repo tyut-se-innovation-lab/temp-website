@@ -35,23 +35,21 @@
     </parameterMap>
 
     <sql id="selectScheduleVo">
-        select id,user_id,period,week,week_no,course_title,create_time,update_time
+        select id,user_id,`period`,week,week_no,course_title,create_time,update_time
         from selab_schedule_info
     </sql>
     
     <select id="selectScheduleList" resultMap="ScheduleResult" parameterMap="Schedule">
         <include refid="selectScheduleVo"/>
-        <where>
             <if test="userId != null ">
-                AND user_id like concat('%',#{userId},'%') AND status = 0
+                where user_id = #{userId} AND status = 0
             </if>
-        </where>
     </select>
 
     <update id="deleteScheduleById" parameterType="Long">
     update selab_schedule_info
         <set>
-            <if test="status != null and status != 1"> status = '1',</if>
+            <if test="status != null and status != 1"> status = 1,</if>
         </set>
         where id = #{id}
     </update>

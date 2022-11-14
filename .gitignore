@@ -25,7 +25,11 @@ hs_err_pid*
 # Compile target directory
 out
 target/
+log/
 
 # IDEA Properties
 *.iml
 .idea/
+
+#Other
+dump.rdb

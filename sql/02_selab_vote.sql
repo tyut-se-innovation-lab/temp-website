@@ -17,6 +17,9 @@ values ('2003', '查看历史投票记录', '2000', '3', 'history', 'vote/histor
 insert into sys_menu
 values ('2004', '我的提议', '2000', '4', 'mine', 'vote/mine/index', '', 1, 1, 'C', '0', '0', 'vote:mine',
         'search', 'admin', sysdate(), '', null, '管理我的提议');
+insert into sys_menu
+values ('2005', '设置投票策略', '2000', '5', 'strategy', 'vote/management/index', '', 1, 1, 'C', '0', '0', 'vote:management',
+        'search', 'admin', sysdate(), '', null, '设置投票策略');
 
 -- ----------------------------
 -- 1、投票选项存储表
@@ -40,13 +43,13 @@ drop table if exists selab_vote_info;
 create table selab_vote_info
 (
     id           bigint       not null auto_increment comment '数据唯一标识',
-    user_id      varchar(100) not null comment '发起投票的用户ID',
-    vote_type_id int          not null comment '投票类型ID',
+    user_id      varchar(100) not null comment '发起投票的用户ID（加密后）',
     title        tinytext     not null comment '投票标题',
     content      text         not null comment '投票内容',
     status       int          not null comment '状态',
-    create_time  datetime comment '创建时间',
-    update_time  datetime comment '更新时间',
+    deadline     datetime     not null comment '截止时间',
+    create_time  datetime     not null comment '创建时间',
+    update_time  datetime              comment '更新时间',
     primary key (id)
 ) engine=innodb comment = '投票信息表';
 
@@ -61,6 +64,7 @@ create table selab_vote_result
     user_id        varchar(100) not null comment '参与投票的用户ID（加密后）',
     content        text         not null comment '投票内容',
     isEnable       bool         not null comment '是否有效',
+    weight         int          not null default 1 comment '权重';
     create_time    datetime comment '创建时间',
     update_time    datetime comment '更新时间',
     primary key (id)

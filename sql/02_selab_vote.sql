@@ -27,8 +27,8 @@ values ('2011', '设置投票策略', '2000', '5', 'strategy', 'vote/management/
 drop table if exists selab_vote_option;
 create table selab_vote_option
 (
-    id          bigint      not null auto_increment comment '投票选项ID',
-    parent_id   bigint      not null comment '父选项',
+    id          bigint      not null auto_increment comment '投票选项ID', -- 唯一id --
+    parent_id   bigint      not null comment '父选项',  -1
     vote_id     bigint      not null comment '所隶属于的投票id',
     option_type char(1)     not null comment '投票类型',
     content     varchar(30) not null comment '内容',
@@ -45,11 +45,11 @@ create table selab_vote_info
     id           bigint       not null auto_increment comment '数据唯一标识',
     user_id      varchar(100) not null comment '发起投票的用户ID（加密后）',
     title        tinytext     not null comment '投票标题',
-    content      text         not null comment '投票内容',
+    content      text         not null comment '投票简介',
     status       int          not null comment '状态',
     deadline     datetime     not null comment '截止时间',
     create_time  datetime     not null comment '创建时间',
-    update_time  datetime              comment '更新时间',
+    weight       int          not null comment '权重表',
     primary key (id)
 ) engine=innodb comment = '投票信息表';
 
@@ -62,10 +62,26 @@ create table selab_vote_result
     id             bigint       not null auto_increment comment '数据唯一标识',
     vote_option_id bigint       not null comment '投票选项ID',
     user_id        varchar(100) not null comment '参与投票的用户ID（加密后）',
-    content        text         not null comment '投票内容',
+    content        text         not null comment '投票内容',  -- 如果是文本框，就存文本框写的，不是的话就是本选项的内容 --
     isEnable       bool         not null comment '是否有效',
-    weight         int          not null default 1 comment '权重',
-    create_time    datetime comment '创建时间',
-    update_time    datetime comment '更新时间',
+    create_time    datetime comment '投票时间',
     primary key (id)
 ) engine=innodb comment = '投票结果表';
+
+-- ----------------------------
+-- 3、权重表
+-- ----------------------------
+drop table if exists selab_vote_weight;
+create table selab_vote_weight
+(
+    id              bigint          default 1   auto_increment comment '数据唯一标识',
+    vote_id         bigint          default 1   comment '所隶属于的投票id',
+    `100`           int             default 1   comment '投票管理员',
+    `101`           int             default 1   comment '开发组组长',
+    `102`           int             default 1   comment '开发组管理员',
+    `103`           int             default 1   comment '开发组管理员',
+    `104`           int             default 1   comment '开发组管理员',
+    `105`           int             default 1   comment '开发组管理员',
+    `106`           int             default 1   comment '开发组管理员',
+    primary key(id)
+)

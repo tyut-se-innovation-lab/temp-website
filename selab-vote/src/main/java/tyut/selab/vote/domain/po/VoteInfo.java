@@ -12,7 +12,7 @@ public class VoteInfo {
     private VoteStatus status;
     private Date deadline;
     private Date createTime;
-    private Date updateTime;
+    private int weight;
 
     public Long getId() {
         return id;
@@ -62,12 +62,12 @@ public class VoteInfo {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public int getWeight() {
+        return weight;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     public Date getDeadline() {

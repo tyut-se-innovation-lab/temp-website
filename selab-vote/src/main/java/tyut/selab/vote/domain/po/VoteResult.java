@@ -8,9 +8,7 @@ public class VoteResult {
     private String userId;
     private String content;
     private boolean isEnable;
-    private Integer weight;
     private Date createTime;
-    private Date updateTime;
 
     public Long getId() {
         return id;
@@ -60,19 +58,5 @@ public class VoteResult {
         this.createTime = createTime;
     }
 
-    public Integer getWeight() {
-        return weight;
-    }
 
-    public void setWeight(Integer weight) {
-        this.weight = weight;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }

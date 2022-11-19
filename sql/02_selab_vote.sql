@@ -69,7 +69,7 @@ create table selab_vote_result
 ) engine=innodb comment = '投票结果表';
 
 -- ----------------------------
--- 3、权重表
+-- 4、权重表
 -- ----------------------------
 drop table if exists selab_vote_weight;
 create table selab_vote_weight

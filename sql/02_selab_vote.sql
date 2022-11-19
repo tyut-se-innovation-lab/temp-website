@@ -28,7 +28,7 @@ drop table if exists selab_vote_option;
 create table selab_vote_option
 (
     id          bigint      not null auto_increment comment '投票选项ID', -- 唯一id --
-    parent_id   bigint      not null comment '父选项',  -1
+    parent_id   bigint      not null comment '父选项',  -- -1 --
     vote_id     bigint      not null comment '所隶属于的投票id',
     option_type char(1)     not null comment '投票类型',
     content     varchar(30) not null comment '内容',
@@ -74,8 +74,7 @@ create table selab_vote_result
 drop table if exists selab_vote_weight;
 create table selab_vote_weight
 (
-    id              bigint          default 1   auto_increment comment '数据唯一标识',
-    vote_id         bigint          default 1   comment '所隶属于的投票id',
+    id              bigint          not null    auto_increment comment '数据唯一标识',
     `100`           int             default 1   comment '投票管理员',
     `101`           int             default 1   comment '开发组组长',
     `102`           int             default 1   comment '开发组管理员',

@@ -6,7 +6,8 @@ import tyut.selab.vote.domain.po.VoteResult;
 import tyut.selab.vote.domain.vo.Questionnaire;
 
 /**
- * Vo和Po相互转换器
+ * Vo和Po相互转换器<br>
+ * VoPoConverter was added for colleagus in order to help you to convert Pos to Vos or Vos to Pos
  * @author Big_bai on 2022/11/19
  */
 public interface IVoPoConverterTool {

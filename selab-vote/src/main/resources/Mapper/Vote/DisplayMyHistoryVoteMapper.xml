@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tyut.selab.vote.mapper.DisplayMyHistoryVoteMapper">
+    <resultMap id="VoteResult" type="tyut.selab.vote.domain.po.VoteResult">
+        <id property="id" column="id"/>
+        <result property="voteOptionId" column="vote_option_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="content" column="content"/>
+        <result property="isEnable" column="isEnable"/>
+        <result property="weight" column="weight"/>
+        <result property="createTime" column="creat_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="displayMyHistory" resultType="VoteResult">
+        select * from selab_vote_result where id = 1
+    </select>
+</mapper>

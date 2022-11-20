@@ -9,12 +9,10 @@
         <result property="userId" column="user_id"/>
         <result property="content" column="content"/>
         <result property="isEnable" column="isEnable"/>
-        <result property="weight" column="weight"/>
         <result property="createTime" column="creat_time"/>
-        <result property="updateTime" column="update_time"/>
     </resultMap>
 
     <select id="displayMyHistory" resultType="VoteResult">
-        select * from selab_vote_result where id = 1
+        select * from selab_vote_result
     </select>
 </mapper>

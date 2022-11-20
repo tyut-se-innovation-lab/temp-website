@@ -16,7 +16,7 @@ public class DisplayMyHistoryVoteServiceImpl implements IDisplayMyHistoryVoteSer
     @Override
     public List<VoteResult> displayMyHistory() {
         List<VoteResult> list = myHistoryVoteMapper.displayMyHistory();
-        System.out.println(list.get(0).getId());
+
         return list;
     }
 }

@@ -8,6 +8,8 @@ import java.util.List;
  * @author Big_bai on 2022/11/19
  */
 public class Questionnaire {
+    //id
+
     //标题
     private String title;
     //简介

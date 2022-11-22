@@ -6,6 +6,9 @@ import tyut.selab.vote.domain.po.VoteResult;
 import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.enums.VoteStatus;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Vo和Po相互转换器<br>
  * VoPoConverter was added for colleagus in order to help you to convert Pos to Vos or Vos to Pos
@@ -14,29 +17,12 @@ import tyut.selab.vote.enums.VoteStatus;
 public interface IVoPoConverterTool {
     /**
      * 将Po转换为Vo
-     * @param voteInfo  VoteInfo对象
-     * @param voteOption po.VoteOption 对象
-     * @param voteResult VoteResult对象
+     * @param voteInfos  VoteInfo对象
+     * @param voteOptions po.VoteOption 对象
+     * @param voteResults VoteResult对象
      * @return questionnaire
      */
-    public Questionnaire poToVo(VoteInfo voteInfo,VoteOption voteOption,VoteResult voteResult);
+    Questionnaire poToVo(List<VoteInfo> voteInfos, List<VoteOption> voteOptions, List<VoteResult> voteResults);
 
-    /**
-     * 将vo转换为VoteInfo
-     * @param questionnaire  一个Vo对象
-     * @return voteInfo
-     */
-    public VoteInfo voToVoteInfo(Questionnaire questionnaire, Long userId);
-    /**
-     * 将vo转换为po.VoteOption
-     * @param questionnaire  一个Vo对象
-     * @return po.voteOption
-     */
-    public VoteOption voToVoteOption(Questionnaire questionnaire);
-    /**
-     * 将vo转换为VoteResult
-     * @param questionnaire  一个Vo对象
-     * @return voteResult
-     */
-    public VoteResult voToVoteResult(Questionnaire questionnaire);
+
 }

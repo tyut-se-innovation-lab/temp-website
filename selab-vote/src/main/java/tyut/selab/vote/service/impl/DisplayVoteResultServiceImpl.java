@@ -2,7 +2,6 @@ package tyut.selab.vote.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.vote.domain.po.VoteResult;
-import tyut.selab.vote.mapper.DisplayVoteResultMapper;
 import tyut.selab.vote.service.IDisplayVoteResultService;
 
 import java.util.List;

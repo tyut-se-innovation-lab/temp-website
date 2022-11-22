@@ -129,17 +129,30 @@
   ​	"msg": "OK"
 
   }
+- 发起投票: /selab/vote/launch {post}
+
 
 - 参与投票: /selab/vote/commit {post}
+- 获取可参与的（未过期）投票粗略信息: /selab/vote/commit/list {get}
+- 返回某次投票详细信息: /selab/vote/commit/allInfo/:voteId {get}
 
-- 返回历史投票信息列表: /selab/vote/voteinfo/list {get}
 
-- 返回某次投票信息: /selab/vote/voteInfo/:voteId {get}
+- 历史投票
+- 返回历史投票信息粗略列表: /selab/vote/commit/list {get}
+- 返回某次投票详细信息: /selab/vote/commit/allInfo/:voteId {get}
 
-- 返回我发起过的投票信息列表: /selab/vote/mine/voteInfo/list {get}
 
-- 返回我发起过的投票详细信息: /selab/vote/mine/voteInfo/:voteId {get}
+- 我的投票
+- 返回我发起过的投票信息列表: /selab/vote/mine/launched/list {get}
+- 返回我发起过的投票详细信息: /selab/vote/mine/launched/:voteId {get}
+- 我参与的投票信息列表: /selab/vote/mine/joined/list {get}
+- 我参与的投票详细信息: /selab/vote/mine/joined {get}
 
-- 撤回已发起的投票: /selab/vote/mine/voteInfo/:voteId {delete}
 
-- 提前结束已发起的投票: /selab/vote/mine/voteInfo/shutdown/:voteId {get}
+- 权重
+- 获取权重：/selab/vote/weight/get {get}
+- 修改权重:  /selab/vote/weight/modify {post}
+
+
+- 撤回
+- 撤回某一条投票: /selab/vote/delete/:voteId {delete}

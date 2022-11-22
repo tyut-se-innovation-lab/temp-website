@@ -4,6 +4,7 @@ import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteOption;
 import tyut.selab.vote.domain.po.VoteResult;
 import tyut.selab.vote.domain.vo.Questionnaire;
+import tyut.selab.vote.enums.VoteStatus;
 
 /**
  * Vo和Po相互转换器<br>
@@ -25,7 +26,7 @@ public interface IVoPoConverterTool {
      * @param questionnaire  一个Vo对象
      * @return voteInfo
      */
-    public VoteInfo voToVoteInfo(Questionnaire questionnaire);
+    public VoteInfo voToVoteInfo(Questionnaire questionnaire, Long userId);
     /**
      * 将vo转换为po.VoteOption
      * @param questionnaire  一个Vo对象

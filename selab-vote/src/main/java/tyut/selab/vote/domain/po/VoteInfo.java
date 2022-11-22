@@ -6,13 +6,13 @@ import java.util.Date;
 
 public class VoteInfo {
     private Long id;
-    private String userId;
+    private Long userId;
     private String title;
     private String content;
     private VoteStatus status;
     private Date deadline;
     private Date createTime;
-    private int weight;
+    private Long weight;
 
     public Long getId() {
         return id;
@@ -22,11 +22,11 @@ public class VoteInfo {
         this.id = id;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -62,11 +62,11 @@ public class VoteInfo {
         this.createTime = createTime;
     }
 
-    public int getWeight() {
+    public Long getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(Long weight) {
         this.weight = weight;
     }
 

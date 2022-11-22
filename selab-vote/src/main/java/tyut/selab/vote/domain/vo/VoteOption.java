@@ -14,7 +14,7 @@ public class VoteOption {
     //用户是否选择   上传时默认为0
     private int isSelect;
     //类型
-    private VoteOptionType type;
+    private String type;
     //文本框的值（有的话）
     private String other;
 
@@ -43,11 +43,11 @@ public class VoteOption {
         this.isSelect = isSelect;
     }
 
-    public VoteOptionType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(VoteOptionType type) {
+    public void setType (String type) {
         this.type = type;
     }
 

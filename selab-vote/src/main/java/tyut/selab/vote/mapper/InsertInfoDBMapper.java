@@ -12,7 +12,7 @@ import tyut.selab.vote.domain.vo.Weight;
 public interface InsertInfoDBMapper {
     Long writeWightInfoToDB(Weight w);
 
-    void writeVoteInfoToDB(VoteInfo voteInfo);
-    void writeVoteOptionToDB(VoteOption voteOption);
-    void writeVoteResultToDB(VoteResult voteResult);
+    int writeVoteInfoToDB(VoteInfo voteInfo);
+    int writeVoteOptionToDB(VoteOption voteOption);
+    int writeVoteResultToDB(VoteResult voteResult);
 }

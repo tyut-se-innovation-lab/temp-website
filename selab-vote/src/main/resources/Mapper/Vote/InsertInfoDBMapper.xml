@@ -12,5 +12,11 @@
             (#{voteManager},#{DEVManager},#{CSManager},#{DEVLeader},#{CSLeader},#{DEVMember},#{CSMember})
     </insert>
 
-
+<!--    void writeVoteInfoToDB(VoteInfo voteInfo);-->
+    <insert id="writeVoteInfoToDB">
+        INSERT INTO selab_vote_info
+            (user_id,title,content,`status`,deadline,creat_time,weight)
+        VALUE
+            (#{userId},#{title},#{content},#{status},#{deadline},#{creatTime},#{weight})
+    </insert>
 </mapper>

@@ -42,12 +42,12 @@ public class VoteResult {
         this.content = content;
     }
 
-    public int isEnable() {
+    public int getIsEnable() {
         return isEnable;
     }
 
-    public void setEnable(int enable) {
-        isEnable = enable;
+    public void setIsEnable(int isEnable) {
+        this.isEnable = isEnable;
     }
 
     public Date getCreateTime() {
@@ -57,6 +57,4 @@ public class VoteResult {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-
-
 }

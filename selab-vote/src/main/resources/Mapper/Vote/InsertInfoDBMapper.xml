@@ -3,11 +3,20 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="tyut.selab.vote.mapper.InsertInfoDBMapper">
+    
+    <parameterMap id="voteResult" type="tyut.selab.vote.domain.po.VoteResult">
+        <parameter property="id" javaType="Long"/>
+        <parameter property="vote_option_id" javaType="Long"/>
+        <parameter property="user_id" javaType="String"/>
+        <parameter property="content" javaType="String"/>
+        <parameter property="isEnable" javaType="int"/>
+        <parameter property="create_time" javaType="Date"/>
+    </parameterMap>
 
 <!--    Long writeWightInfoToDB(Weight w);-->
     <insert id="writeWightInfoToDB">
         INSERT INTO selab_vote_weight
-            (voteManager,DEVManager,CSManager,DEVLeader,CSLeader,DEVMember,CSMember)
+           /* (voteManager,DEVManager,CSManager,DEVLeader,CSLeader,DEVMember,CSMember)*/
             VALUE
             (#{voteManager},#{DEVManager},#{CSManager},#{DEVLeader},#{CSLeader},#{DEVMember},#{CSMember})
     </insert>
@@ -15,8 +24,24 @@
 <!--    void writeVoteInfoToDB(VoteInfo voteInfo);-->
     <insert id="writeVoteInfoToDB">
         INSERT INTO selab_vote_info
-            (user_id,title,content,`status`,deadline,creat_time,weight)
+            (user_id,title,content,`status`,deadline,weight)
         VALUE
             (#{userId},#{title},#{content},#{status},#{deadline},#{creatTime},#{weight})
+    </insert>
+
+    <!--    int writeVoteResultToDB(VoteResult voteResult)-->
+    <insert id="writeVoteResultToDB" parameterType="voteResult" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO selab_vote_result(
+    vote_option_id, user_id, content, isEnable, create_time
+    ) VALUE
+        <foreach collection="results" item="r" separator=",">
+        (
+        #{r.voteOptionId},
+        #{r.userId},
+        #{r.content},
+        #{r.isEnable},
+        #{r.createTime}
+        )
+        </foreach>
     </insert>
 </mapper>

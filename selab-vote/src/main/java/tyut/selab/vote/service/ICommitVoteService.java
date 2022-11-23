@@ -1,5 +1,6 @@
 package tyut.selab.vote.service;
 
+import org.apache.ibatis.annotations.Param;
 import tyut.selab.vote.domain.po.VoteResult;
 
 import java.util.List;
@@ -11,8 +12,8 @@ import java.util.List;
 public interface ICommitVoteService {
 
     /**
-     * 参与投票
+     * 提交投票结果信息
      * @param results
      */
-    public void commitVote(List<VoteResult> results);
+    public int commitVoteResult(List<VoteResult> results);
 }

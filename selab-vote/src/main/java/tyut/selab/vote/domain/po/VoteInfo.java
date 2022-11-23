@@ -9,7 +9,7 @@ public class VoteInfo {
     private Long userId;
     private String title;
     private String content;
-    private VoteStatus status;
+    private String status;
     private Date deadline;
     private Date createTime;
     private Long weight;
@@ -46,11 +46,11 @@ public class VoteInfo {
         this.content = content;
     }
 
-    public VoteStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(VoteStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

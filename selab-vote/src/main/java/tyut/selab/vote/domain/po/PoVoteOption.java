@@ -2,11 +2,11 @@ package tyut.selab.vote.domain.po;
 
 import tyut.selab.vote.enums.VoteOptionType;
 
-public class VoteOption {
+public class PoVoteOption {
     private Long id;
     private Long parentId;
     private Long voteId;
-    private VoteOptionType optionType;
+    private String optionType;
     private String content;
 
     public Long getId() {
@@ -33,11 +33,11 @@ public class VoteOption {
         this.voteId = voteId;
     }
 
-    public VoteOptionType getOptionType() {
+    public String getOptionType() {
         return optionType;
     }
 
-    public void setOptionType(VoteOptionType optionType) {
+    public void setOptionType(String optionType) {
         this.optionType = optionType;
     }
 

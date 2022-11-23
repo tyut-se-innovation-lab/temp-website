@@ -8,10 +8,10 @@ import java.util.List;
 
 @SpringBootTest(classes = RuoYiApplication.class)
 public class DisplayVoteResultMapperTest {
-    @Test
-    public void VoteTest(@Autowired IDisplayVoteResultService service){
-        List<VoteResult> list = service.displayVoteResult();
-        System.out.println(list.get(0).getId());
-    }
+//    @Test
+//    public void VoteTest(@Autowired IDisplayVoteResultService service){
+//        List<VoteResult> list = service.displayVoteResult();
+//        System.out.println(list.get(0).getId());
+//    }
 
 }

@@ -9,10 +9,10 @@ import java.util.List;
 
 @SpringBootTest(classes = RuoYiApplication.class)
 public class DisplayMyHistoryVoteMapperTest {
-    @Test
-    public void myVoteTest(@Autowired IDisplayMyHistoryVoteService service){
-        List<VoteResult> list = service.displayMyHistory();
-        System.out.println(list.get(0).getId());
-    }
+//    @Test
+//    public void myVoteTest(@Autowired IDisplayMyHistoryVoteService service){
+//        List<VoteResult> list = service.displayMyHistory();
+//        System.out.println(list.get(0).getId());
+//    }
 
 }

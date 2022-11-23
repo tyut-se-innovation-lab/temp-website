@@ -7,7 +7,7 @@ public class VoteResult {
     private Long voteOptionId;
     private String userId;
     private String content;
-    private boolean isEnable;
+    private int isEnable;
     private Date createTime;
 
     public Long getId() {
@@ -42,11 +42,11 @@ public class VoteResult {
         this.content = content;
     }
 
-    public boolean isEnable() {
+    public int isEnable() {
         return isEnable;
     }
 
-    public void setEnable(boolean enable) {
+    public void setEnable(int enable) {
         isEnable = enable;
     }
 

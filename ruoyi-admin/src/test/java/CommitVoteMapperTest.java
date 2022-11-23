@@ -13,16 +13,16 @@ import java.util.ArrayList;
  */
 @SpringBootTest(classes = RuoYiApplication.class)
 public class CommitVoteMapperTest {
-    @Test
-    public void commitVote(@Autowired ICommitVoteService service){
-        VoteResult voteResult = new VoteResult();
-        voteResult.setVoteOptionId(758437L);
-        voteResult.setUserId("hgjfdhg");
-        voteResult.setContent("hghjhfdgh");
-        voteResult.setEnable(false);
-        voteResult.setWeight(1);
-        ArrayList<VoteResult> voteResults = new ArrayList<>();
-        voteResults.add(voteResult);
-        service.commitVote(voteResults);
-    }
+//    @Test
+//    public void commitVote(@Autowired ICommitVoteService service){
+//        VoteResult voteResult = new VoteResult();
+//        voteResult.setVoteOptionId(758437L);
+//        voteResult.setUserId("hgjfdhg");
+//        voteResult.setContent("hghjhfdgh");
+//        voteResult.setEnable(false);
+//        voteResult.setWeight(1);
+//        ArrayList<VoteResult> voteResults = new ArrayList<>();
+//        voteResults.add(voteResult);
+//        service.commitVote(voteResults);
+//    }
 }

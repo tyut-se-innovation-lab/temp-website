@@ -1,6 +1,7 @@
 package tyut.selab.vote.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import tyut.selab.vote.domain.vo.Weight;
 import tyut.selab.vote.mapper.FindInfoDBMapper;
 import tyut.selab.vote.mapper.InsertInfoDBMapper;
@@ -10,6 +11,7 @@ import tyut.selab.vote.tools.WeightControl;
 /**
  * @author Big_bai on 2022/11/23
  */
+@Service
 public class WeightControlService implements IWeightControlService {
     @Autowired
     InsertInfoDBMapper insertInfoDBMapper ;

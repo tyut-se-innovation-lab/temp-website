@@ -21,6 +21,29 @@ public class Weight {
     //网安组成员
     private int CSMember;
 
+    @Override
+    public String toString() {
+        return "Weight{" +
+                "id=" + id +
+                ", voteManager=" + voteManager +
+                ", DEVLeader=" + DEVLeader +
+                ", CSLeader=" + CSLeader +
+                ", DEVManager=" + DEVManager +
+                ", CSManager=" + CSManager +
+                ", DEVMember=" + DEVMember +
+                ", CSMember=" + CSMember +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Weight weight = (Weight) o;
+        return voteManager == weight.voteManager && DEVLeader == weight.DEVLeader && CSLeader == weight.CSLeader && DEVManager == weight.DEVManager && CSManager == weight.CSManager && DEVMember == weight.DEVMember && CSMember == weight.CSMember;
+    }
+
+
     public Long getId() {
         return id;
     }

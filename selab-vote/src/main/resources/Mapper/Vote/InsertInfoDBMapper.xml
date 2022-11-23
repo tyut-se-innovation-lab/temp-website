@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tyut.selab.vote.mapper.InsertInfoDBMapper">
+
+<!--    Long writeWightInfoToDB(Weight w);-->
+    <insert id="writeWightInfoToDB">
+        INSERT INTO selab_vote_weight
+            (voteManager,DEVManager,CSManager,DEVLeader,CSLeader,DEVMember,CSMember)
+            VALUE
+            (#{voteManager},#{DEVManager},#{CSManager},#{DEVLeader},#{CSLeader},#{DEVMember},#{CSMember})
+    </insert>
+
+
+</mapper>

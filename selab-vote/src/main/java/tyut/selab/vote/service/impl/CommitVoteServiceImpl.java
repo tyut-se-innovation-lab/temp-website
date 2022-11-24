@@ -1,26 +1,29 @@
 package tyut.selab.vote.service.impl;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.vote.domain.po.VoteResult;
-import tyut.selab.vote.mapper.ICommitVoteMapper;
+import tyut.selab.vote.mapper.InsertInfoDBMapper;
 import tyut.selab.vote.service.ICommitVoteService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @Author: Gulu
- * @Date: 2022/11/15 14:07
+ * @Date: 2022/11/23 18:46
  */
 @Service
 public class CommitVoteServiceImpl implements ICommitVoteService {
-    //Mapper对象
     @Autowired
-    private ICommitVoteMapper commitVoteMapper;
+    InsertInfoDBMapper insertInfoDBMapper;
 
+    /**
+     * 提交用户投票结果
+     * @param results 用户投票结果集合
+     */
     @Override
-    public void commitVote(List<VoteResult> results) {
-        System.out.println(commitVoteMapper.commitVote(results));
+    public int commitVoteResult(List<VoteResult> results) {
+        return insertInfoDBMapper.writeVoteResultToDB(results);
     }
 }

@@ -7,10 +7,8 @@ public class VoteResult {
     private Long voteOptionId;
     private String userId;
     private String content;
-    private boolean isEnable;
-    private Integer weight;
+    private int isEnable;
     private Date createTime;
-    private Date updateTime;
 
     public Long getId() {
         return id;
@@ -44,12 +42,12 @@ public class VoteResult {
         this.content = content;
     }
 
-    public boolean isEnable() {
+    public int getIsEnable() {
         return isEnable;
     }
 
-    public void setEnable(boolean enable) {
-        isEnable = enable;
+    public void setIsEnable(int isEnable) {
+        this.isEnable = isEnable;
     }
 
     public Date getCreateTime() {
@@ -58,21 +56,5 @@ public class VoteResult {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    public Integer getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Integer weight) {
-        this.weight = weight;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 }

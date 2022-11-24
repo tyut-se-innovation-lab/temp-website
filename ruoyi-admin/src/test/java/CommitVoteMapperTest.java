@@ -6,6 +6,7 @@ import tyut.selab.vote.domain.po.VoteResult;
 import tyut.selab.vote.service.ICommitVoteService;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @Author: Gulu
@@ -13,16 +14,23 @@ import java.util.ArrayList;
  */
 @SpringBootTest(classes = RuoYiApplication.class)
 public class CommitVoteMapperTest {
-    @Test
-    public void commitVote(@Autowired ICommitVoteService service){
-        VoteResult voteResult = new VoteResult();
-        voteResult.setVoteOptionId(758437L);
-        voteResult.setUserId("hgjfdhg");
-        voteResult.setContent("hghjhfdgh");
-        voteResult.setEnable(false);
-        voteResult.setWeight(1);
-        ArrayList<VoteResult> voteResults = new ArrayList<>();
-        voteResults.add(voteResult);
-        service.commitVote(voteResults);
-    }
+@Test
+public void commitVote(@Autowired ICommitVoteService service){
+    VoteResult voteResult1 = new VoteResult();
+    voteResult1.setVoteOptionId(758437L);
+    voteResult1.setUserId("hgjfdhg");
+    voteResult1.setContent("hghjhfdgh");
+    voteResult1.setIsEnable(0);
+    voteResult1.setCreateTime(new Date());
+    VoteResult voteResult2 = new VoteResult();
+    voteResult2.setVoteOptionId(7556457L);
+    voteResult2.setUserId("6786");
+    voteResult2.setContent("hh6786");
+    voteResult2.setIsEnable(1);
+    voteResult2.setCreateTime(new Date());
+    ArrayList<VoteResult> voteResults = new ArrayList<>();
+    voteResults.add(voteResult1);
+    voteResults.add(voteResult2);
+    System.out.println(service.commitVoteResult(voteResults));
+}
 }

@@ -69,18 +69,18 @@ create table selab_vote_result
 ) engine=innodb comment = '投票结果表';
 
 -- ----------------------------
--- 3、权重表
+-- 4、投票权重表
 -- ----------------------------
 drop table if exists selab_vote_weight;
 create table selab_vote_weight
 (
     id              bigint          not null    auto_increment comment '数据唯一标识',
-    `100`           int             default 1   comment '投票管理员',
-    `101`           int             default 1   comment '开发组组长',
-    `102`           int             default 1   comment '开发组管理员',
-    `103`           int             default 1   comment '开发组管理员',
-    `104`           int             default 1   comment '开发组管理员',
-    `105`           int             default 1   comment '开发组管理员',
-    `106`           int             default 1   comment '开发组管理员',
+    voteManager     int             default 1   comment '投票管理员',
+    DEVManager      int             default 1   comment '开发组',
+    CSManager       int             default 1   comment '网安组',
+    DEVLeader       int             default 1   comment '开发组管理员',
+    CSLeader        int             default 1   comment '开发组管理员',
+    DEVMember       int             default 1   comment '开发组管理员',
+    CSMember        int             default 1   comment '开发组管理员',
     primary key(id)
 )

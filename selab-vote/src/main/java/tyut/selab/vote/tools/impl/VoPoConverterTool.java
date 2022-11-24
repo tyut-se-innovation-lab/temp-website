@@ -1,7 +1,6 @@
 package tyut.selab.vote.tools.impl;
 
 import tyut.selab.vote.domain.po.VoteInfo;
-import tyut.selab.vote.domain.po.VoteOption;
 import tyut.selab.vote.domain.po.VoteResult;
 import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.enums.VoteOptionType;

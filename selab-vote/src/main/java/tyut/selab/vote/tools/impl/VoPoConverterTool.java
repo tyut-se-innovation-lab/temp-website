@@ -13,9 +13,10 @@ import tyut.selab.vote.tools.WeightControl;
 import tyut.selab.vote.tools.getSysTime;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
+import tyut.selab.vote.tools.anonymousControl;
 /**
  * @author Big_bai on 2022/11/21
  */
@@ -36,7 +37,11 @@ public class VoPoConverterTool implements IVoPoConverterTool {
              for (VoteOption voteOption : options){
                  if (voteOption.getIsSelect() == 1){  //isSelect值为1时，证明该选项已选或者文本框已填写内容
                      result.setVoteOptionId(voteOption.getId());
-                     result.setUserId(userId);
+                     try {
+                         result.setUserId(Arrays.toString(anonymousControl.encrypt(userId)));
+                     } catch (Exception e) {
+                         throw new RuntimeException(e);
+                     }
                      result.setContent(voteOption.getContent());
                      result.setCreateTime(getSysTime.getNow());
                  }

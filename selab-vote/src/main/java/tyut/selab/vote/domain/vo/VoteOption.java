@@ -58,4 +58,15 @@ public class VoteOption {
     public void setOther(String other) {
         this.other = other;
     }
+
+    @Override
+    public String toString() {
+        return "VoteOption{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", isSelect=" + isSelect +
+                ", type='" + type + '\'' +
+                ", other='" + other + '\'' +
+                '}';
+    }
 }

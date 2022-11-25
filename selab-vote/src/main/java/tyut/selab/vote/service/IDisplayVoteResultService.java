@@ -11,5 +11,5 @@ public interface IDisplayVoteResultService {
      * @param userId 申请者id
      * @return 查询结果
      */
-    List<Questionnaire>displayHistoryVoteResult(Long userId);
+    Questionnaire displayVoteResult(Long voteId,String userId);
 }

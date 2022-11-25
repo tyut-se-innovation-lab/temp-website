@@ -9,15 +9,43 @@ import java.util.List;
  */
 public class Questionnaire {
     //id
-
+    private Long id;
     //标题
     private String title;
     //简介
     private String content;
+    //状态
+    private String status;
+    //开始时间
+    private Date creatTime;
     //截止时间
     private Date deadline;
     //内容
     private List<VoteQue> voteQues;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Date getCreatTime() {
+        return creatTime;
+    }
+
+    public void setCreatTime(Date creatTime) {
+        this.creatTime = creatTime;
+    }
 
     public String getTitle() {
         return title;
@@ -49,5 +77,18 @@ public class Questionnaire {
 
     public void setVoteQues(List<VoteQue> voteQues) {
         this.voteQues = voteQues;
+    }
+
+    @Override
+    public String toString() {
+        return "Questionnaire{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", status='" + status + '\'' +
+                ", creatTime=" + creatTime +
+                ", deadline=" + deadline +
+                ", voteQues=" + voteQues +
+                '}';
     }
 }

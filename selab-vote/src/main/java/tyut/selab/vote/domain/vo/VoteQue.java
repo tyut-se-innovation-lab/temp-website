@@ -12,9 +12,10 @@ public class VoteQue {
     //id
     private long id;
     //类型
-    private VoteOptionType type;
+    private String type;
     //问题内容
     private String queContent;
+    private Long parentId;
     //选项
     List<VoteOption> options;
 
@@ -26,11 +27,11 @@ public class VoteQue {
         this.id = id;
     }
 
-    public VoteOptionType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(VoteOptionType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -48,5 +49,24 @@ public class VoteQue {
 
     public void setOptions(List<VoteOption> options) {
         this.options = options;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    @Override
+    public String toString() {
+        return "VoteQue{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", queContent='" + queContent + '\'' +
+                ", parentId=" + parentId +
+                ", options=" + options +
+                '}';
     }
 }

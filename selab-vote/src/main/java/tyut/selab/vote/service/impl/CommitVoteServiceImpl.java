@@ -19,7 +19,7 @@ public class CommitVoteServiceImpl implements ICommitVoteService {
     InsertInfoDBMapper insertInfoDBMapper;
 
     /**
-     * 提交用户投票结果
+     * 上传用户投票结果
      * @param results 用户投票结果集合
      */
     @Override

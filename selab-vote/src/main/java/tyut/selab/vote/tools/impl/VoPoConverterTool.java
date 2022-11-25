@@ -21,6 +21,31 @@ import java.util.List;
  */
 public class VoPoConverterTool implements IVoPoConverterTool {
 
+    /**
+     * voteResult类型转换
+     * @param questionnaire 问卷
+     * @return 投票结果集合
+     */
+    @Override
+    public List<VoteResult> toVoteResult(Questionnaire questionnaire,String userId){
+        List<VoteResult> voteResults = new ArrayList<>();
+        VoteResult result = new VoteResult();
+        List<VoteQue> voteQues = questionnaire.getVoteQues();
+         for (VoteQue voteQue : voteQues){
+             List<VoteOption> options = voteQue.getOptions();
+             for (VoteOption voteOption : options){
+                 if (voteOption.getIsSelect() == 1){  //isSelect值为1时，证明该选项已选或者文本框已填写内容
+                     result.setVoteOptionId(voteOption.getId());
+                     result.setUserId(userId);
+                     result.setContent(voteOption.getContent());
+                     result.setCreateTime(getSysTime.getNow());
+                 }
+                 voteResults.add(result);
+             }
+         }
+         return voteResults;
+    }
+
     @Override
     public Questionnaire poToVo(VoteInfo voteInfo, List<PoVoteOption> voteOptions, List<VoteResult> voteResults) {
         return null;

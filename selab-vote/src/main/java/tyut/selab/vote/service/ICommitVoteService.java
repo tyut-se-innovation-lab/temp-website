@@ -12,7 +12,7 @@ import java.util.List;
 public interface ICommitVoteService {
 
     /**
-     * 提交投票结果信息
+     * 上传用户投票结果信息
      * @param results
      */
     public int commitVoteResult(List<VoteResult> results);

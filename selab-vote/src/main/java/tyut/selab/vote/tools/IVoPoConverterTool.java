@@ -16,6 +16,14 @@ import java.util.List;
  * @author Big_bai on 2022/11/19
  */
 public interface IVoPoConverterTool {
+
+    /**
+     * 投票结果类型转换
+     * @param questionnaire
+     * @return
+     */
+    List<VoteResult> toVoteResult(Questionnaire questionnaire,String userId);
+
     Questionnaire poToVo(VoteInfo voteInfo, List<PoVoteOption> voteOptions, List<VoteResult> voteResults);
     /**
      * 问卷转换

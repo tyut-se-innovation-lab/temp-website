@@ -1,5 +1,6 @@
 package tyut.selab.vote.tools.impl;
 
+
 import tyut.selab.vote.domain.po.PoVoteOption;
 import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteResult;
@@ -9,47 +10,19 @@ import tyut.selab.vote.domain.vo.VoteQue;
 import tyut.selab.vote.enums.VoteOptionType;
 import tyut.selab.vote.enums.VoteStatus;
 import tyut.selab.vote.tools.IVoPoConverterTool;
-import tyut.selab.vote.tools.WeightControl;
 import tyut.selab.vote.tools.getSysTime;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import tyut.selab.vote.tools.anonymousControl;
+
+
 /**
  * @author Big_bai on 2022/11/21
  */
-public class VoPoConverterTool implements IVoPoConverterTool {
 
-    /**
-     * voteResult类型转换
-     * @param questionnaire 问卷
-     * @return 投票结果集合
-     */
-    @Override
-    public List<VoteResult> toVoteResult(Questionnaire questionnaire,String userId){
-        List<VoteResult> voteResults = new ArrayList<>();
-        VoteResult result = new VoteResult();
-        List<VoteQue> voteQues = questionnaire.getVoteQues();
-         for (VoteQue voteQue : voteQues){
-             List<VoteOption> options = voteQue.getOptions();
-             for (VoteOption voteOption : options){
-                 if (voteOption.getIsSelect() == 1){  //isSelect值为1时，证明该选项已选或者文本框已填写内容
-                     result.setVoteOptionId(voteOption.getId());
-                     try {
-                         result.setUserId(Arrays.toString(anonymousControl.encrypt(userId)));
-                     } catch (Exception e) {
-                         throw new RuntimeException(e);
-                     }
-                     result.setContent(voteOption.getContent());
-                     result.setCreateTime(getSysTime.getNow());
-                 }
-                 voteResults.add(result);
-             }
-         }
-         return voteResults;
-    }
+
+public class VoPoConverterTool implements IVoPoConverterTool {
 
     @Override
     public Questionnaire poToVo(VoteInfo voteInfo, List<PoVoteOption> voteOptions, List<VoteResult> voteResults) {
@@ -86,7 +59,6 @@ public class VoPoConverterTool implements IVoPoConverterTool {
             voteQue.setId(option.getId());
             voteQue.setType(option.getOptionType());
             voteQue.setQueContent(option.getContent());
-            voteQue.setParentId(option.getParentId());
             voteQues.add(voteQue);
         }
         return voteQues;
@@ -144,6 +116,7 @@ public class VoPoConverterTool implements IVoPoConverterTool {
         }
         return null;
     }
+
 
 
 }

@@ -1,5 +1,6 @@
 package tyut.selab.vote.service.impl;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.vote.domain.po.VoteResult;
@@ -18,7 +19,7 @@ public class CommitVoteServiceImpl implements ICommitVoteService {
     InsertInfoDBMapper insertInfoDBMapper;
 
     /**
-     * 上传用户投票结果
+     * 提交用户投票结果
      * @param results 用户投票结果集合
      */
     @Override

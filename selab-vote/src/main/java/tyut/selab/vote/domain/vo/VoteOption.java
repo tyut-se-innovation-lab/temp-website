@@ -1,11 +1,13 @@
 package tyut.selab.vote.domain.vo;
 
+import lombok.Data;
 import tyut.selab.vote.enums.VoteOptionType;
 
 /**
  * 选项
  * @author Big_bai on 2022/11/19
  */
+@Data
 public class VoteOption {
     //id
     private long id;
@@ -19,45 +21,6 @@ public class VoteOption {
     private String other;
 
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public int getIsSelect() {
-        return isSelect;
-    }
-
-    public void setIsSelect(int isSelect) {
-        this.isSelect = isSelect;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType (String type) {
-        this.type = type;
-    }
-
-    public String getOther() {
-        return other;
-    }
-
-    public void setOther(String other) {
-        this.other = other;
-    }
 
     @Override
     public String toString() {

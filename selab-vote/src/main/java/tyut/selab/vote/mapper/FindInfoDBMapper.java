@@ -1,10 +1,10 @@
 package tyut.selab.vote.mapper;
 
+
 import org.apache.ibatis.annotations.Param;
 import tyut.selab.vote.domain.po.PoVoteOption;
 import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteResult;
-import tyut.selab.vote.domain.vo.VoteOption;
 import tyut.selab.vote.domain.vo.Weight;
 
 import java.util.List;
@@ -14,6 +14,20 @@ import java.util.List;
  * @author Big_bai on 2022/11/22
  */
 public interface FindInfoDBMapper {
+
+    /**
+     * 根据id查询权重
+     * @param id
+     * @return
+     */
+    Weight getWeightById(Long id);
+
+    /**
+     * 获取上一次使用的投票id
+     * @return
+     */
+    Long getLastUseWeightId();
+
     /**
      * 根据id查询投票信息
      * @param id
@@ -94,4 +108,5 @@ public interface FindInfoDBMapper {
      * @return
      */
     List<VoteResult>getResByUserIdAndOptionId(@Param("userId")String userId, @Param("optionIds")List<PoVoteOption>optionsId);
+
 }

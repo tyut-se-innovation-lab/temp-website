@@ -14,33 +14,45 @@
     </parameterMap>
 
 <!--    Long writeWightInfoToDB(Weight w);-->
-    <insert id="writeWightInfoToDB">
+    <insert id="writeWightInfoToDB" keyProperty="id">
         INSERT INTO selab_vote_weight
-           /* (voteManager,DEVManager,CSManager,DEVLeader,CSLeader,DEVMember,CSMember)*/
+            (voteManager,DEVManager,CSManager,DEVLeader,CSLeader,DEVMember,CSMember)
             VALUE
             (#{voteManager},#{DEVManager},#{CSManager},#{DEVLeader},#{CSLeader},#{DEVMember},#{CSMember})
     </insert>
 
 <!--    void writeVoteInfoToDB(VoteInfo voteInfo);-->
-    <insert id="writeVoteInfoToDB">
+    <insert id="writeVoteInfoToDB" keyProperty="id">
         INSERT INTO selab_vote_info
             (user_id,title,content,`status`,deadline,weight)
         VALUE
             (#{userId},#{title},#{content},#{status},#{deadline},#{creatTime},#{weight})
     </insert>
 
+
+<!--    void writeVoteOptionToDB(PoVoteOption voteOption);-->
+    <insert id="writeVoteOptionToDB" keyProperty="id">
+        INSERT INTO selab_vote_option
+            (parent_id,vote_id,option_type,content)
+        VALUE
+            (#{parentId},#{voteId},#{optionType},#{content})
+    </insert>
+
+
     <!--    int writeVoteResultToDB(VoteResult voteResult)-->
     <insert id="writeVoteResultToDB" parameterType="voteResult" useGeneratedKeys="true" keyProperty="id">
     INSERT INTO selab_vote_result(
-    vote_option_id, user_id, content, create_time
+    vote_option_id, user_id, content, isEnable, create_time
     ) VALUE
         <foreach collection="results" item="r" separator=",">
         (
         #{r.voteOptionId},
         #{r.userId},
         #{r.content},
+        #{r.isEnable},
         #{r.createTime}
         )
         </foreach>
     </insert>
+
 </mapper>

@@ -1,8 +1,10 @@
 package tyut.selab.vote.mapper;
 
-import org.apache.ibatis.annotations.Param;
-import tyut.selab.vote.domain.po.VoteInfo;
+
+
 import tyut.selab.vote.domain.po.PoVoteOption;
+import tyut.selab.vote.domain.po.VoteInfo;
+import org.apache.ibatis.annotations.Param;
 import tyut.selab.vote.domain.po.VoteResult;
 import tyut.selab.vote.domain.vo.Weight;
 
@@ -13,10 +15,14 @@ import java.util.List;
  * @author Big_bai on 2022/11/22
  */
 public interface InsertInfoDBMapper {
-    Long writeWightInfoToDB(Weight w);
+    void writeWightInfoToDB(Weight w);
 
-    int writeVoteInfoToDB(VoteInfo voteInfo);
-    int writeVoteOptionToDB(PoVoteOption voteOption);
+
+    void writeVoteInfoToDB(VoteInfo voteInfo);
+    void writeVoteOptionToDB(PoVoteOption voteOption);
+    void writeVoteResultToDB(VoteResult voteResult);
+
+
 
     /**
      * 添加用户投票结果
@@ -25,3 +31,4 @@ public interface InsertInfoDBMapper {
      */
     int writeVoteResultToDB(@Param("results") List<VoteResult> results);
 }
+

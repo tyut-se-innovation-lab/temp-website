@@ -3,33 +3,34 @@ package tyut.selab.vote.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.vote.domain.vo.Weight;
+import tyut.selab.vote.mapper.ChangeInfoDBMapper;
 import tyut.selab.vote.mapper.FindInfoDBMapper;
 import tyut.selab.vote.mapper.InsertInfoDBMapper;
 import tyut.selab.vote.service.IWeightControlService;
-import tyut.selab.vote.tools.WeightControl;
 
 /**
- * @author Big_bai on 2022/11/23
+ * @author Big_bai on 2022/11/25
  */
 @Service
 public class WeightControlService implements IWeightControlService {
     @Autowired
-    InsertInfoDBMapper insertInfoDBMapper ;
+    private FindInfoDBMapper findInfoDBMapper;
     @Autowired
-    FindInfoDBMapper findInfoDBMapper;
+    private InsertInfoDBMapper insertInfoDBMapper;
+    @Autowired
+    private ChangeInfoDBMapper changeInfoDBMapper;
     @Override
-    public int setVoteWeight(Weight w) {
-        Weight weight = getNowVoteWeight();
-        if(w.equals(weight)){
-            WeightControl.setWeight(weight.getId());
-        }else{
-            WeightControl.setWeight(insertInfoDBMapper.writeWightInfoToDB(w));
+    public void setVoteWeight(Weight w) {
+        if(w.equals(getNowVoteWeight())){
+            return;
         }
-        return 1;
+        insertInfoDBMapper.writeWightInfoToDB(w);
+        changeInfoDBMapper.writeLastUseWeightToDB(w.getId());
     }
 
     @Override
     public Weight getNowVoteWeight() {
-        return findInfoDBMapper.getWeightById(WeightControl.getWeight());
+        long a = findInfoDBMapper.getLastUseWeightId();
+        return findInfoDBMapper.getWeightById(findInfoDBMapper.getLastUseWeightId());
     }
 }

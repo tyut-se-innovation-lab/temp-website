@@ -3,5 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="tyut.selab.vote.mapper.ChangeInfoDBMapper">
-
+    <!--    void writeLastUseWeightToDB(int id);-->
+    <update id="writeLastUseWeightToDB">
+        UPDATE selab_vote_last_use SET weight_id = #{id} WHERE id = 1
+    </update>
 </mapper>

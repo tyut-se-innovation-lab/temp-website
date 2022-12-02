@@ -13,6 +13,7 @@
         <parameter property="create_time" javaType="Date"/>
     </parameterMap>
 
+
 <!--    Long writeWightInfoToDB(Weight w);-->
     <insert id="writeWightInfoToDB" keyProperty="id">
         INSERT INTO selab_vote_weight
@@ -24,9 +25,9 @@
 <!--    void writeVoteInfoToDB(VoteInfo voteInfo);-->
     <insert id="writeVoteInfoToDB" keyProperty="id">
         INSERT INTO selab_vote_info
-            (user_id,title,content,`status`,deadline,weight)
+            (user_id,title,content,`status`,deadline,create_time,weight)
         VALUE
-            (#{userId},#{title},#{content},#{status},#{deadline},#{creatTime},#{weight})
+            (#{userId},#{title},#{content},#{status},#{deadline},#{createTime},#{weight})
     </insert>
 
 
@@ -35,7 +36,13 @@
         INSERT INTO selab_vote_option
             (parent_id,vote_id,option_type,content)
         VALUE
-            (#{parentId},#{voteId},#{optionType},#{content})
+            <foreach collection="voteOptions" item="v" separator=",">
+                (
+            #{v.parentId},
+            #{v.voteId},
+            #{v.optionType},
+            #{v.content})
+            </foreach>
     </insert>
 
 

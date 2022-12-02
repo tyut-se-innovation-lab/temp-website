@@ -11,10 +11,10 @@ import java.util.Map;
  * @author Big_bai on 2022/11/19
  */
 public interface ILaunchVoteService {
-    //发起一个投票
-
-    public void LaunchVote(VoteInfo voteInfo, List<PoVoteOption> questions, Map<PoVoteOption,List<PoVoteOption>> options, Long userId);
-
-    public void LaunchVote(VoteInfo voteInfo, PoVoteOption voteOption, Long userId);
+    /**
+     * 上传一个新问卷
+     * @return 问卷的id
+     */
+    void launchVote(VoteInfo voteInfo, List<PoVoteOption> voteOptions);
 
 }

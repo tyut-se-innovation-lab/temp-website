@@ -10,7 +10,7 @@ import tyut.selab.vote.service.IWeightControlService;
  * @author Big_bai on 2022/11/22
  */
 @SpringBootTest(classes = RuoYiApplication.class)
-public class WeightTest {
+public class VoteWeightTest {
     @Autowired
     IWeightControlService weightControlService;
 

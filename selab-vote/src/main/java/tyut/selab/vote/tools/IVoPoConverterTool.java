@@ -17,6 +17,8 @@ import java.util.List;
  */
 public interface IVoPoConverterTool {
     Questionnaire poToVo(VoteInfo voteInfo, List<PoVoteOption> voteOptions, List<VoteResult> voteResults);
+
+    List<VoteResult> toVoteResult(Questionnaire questionnaire,String userId);
     /**
      * 问卷转换
      * @param voteInfo

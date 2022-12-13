@@ -20,7 +20,7 @@ public class DisplayAllVoteImpl implements IDisplayAllVoteService {
 
     /**
      * 查看所有投票列表
-     * @param userId 用户名
+     * @param userId 用户名  ？？？
      * @return 返回投票列表
      */
     @Override

@@ -16,15 +16,15 @@ public class WithdrowVoteServiceImpl implements IWithdrowVoteService {
     @Autowired
     private FindInfoDBMapper findInfoDBMapper;
     @Override
-    public List<VoteInfo> findVoteInfoById(long id) throws Exception{
+    public List<VoteInfo> delectVoteInfoById(long id){
         //根据id找出数据库的投票信息
         List<VoteInfo> voteInfoById = findInfoDBMapper.findVoteInfoById(id);
         //非空判断
-        if (voteInfoById.isEmpty())   throw new RuntimeException();
+        if (voteInfoById.isEmpty())   return null;
         //判断点击撤回的用户是否为该用户发起人或者为超级管理员
         Long userId = getUserId();
         if (userId != voteInfoById.get(0).getUserId()){
-            throw new RuntimeException("权限不足");
+            return null;
         }
         //撤回成功，将该投票选项的状态改为 2（被撤回的状态）
         voteInfoById.get(0).setStatus(String.valueOf(2));

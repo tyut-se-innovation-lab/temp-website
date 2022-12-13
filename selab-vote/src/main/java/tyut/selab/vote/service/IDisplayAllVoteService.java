@@ -11,6 +11,7 @@ public interface IDisplayAllVoteService {
      * @param userId 用户名
      */
     List<Questionnaire>displayAllVote(String userId);
+
     /**
      * c查看我参与的投票列表
      * @param userId

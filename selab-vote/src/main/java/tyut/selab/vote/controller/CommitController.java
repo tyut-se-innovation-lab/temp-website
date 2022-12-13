@@ -9,6 +9,7 @@ import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.service.impl.CommitVoteServiceImpl;
 import tyut.selab.vote.service.impl.DisplayAllVoteImpl;
 import tyut.selab.vote.service.impl.DisplayVoteResultServiceImpl;
+import tyut.selab.vote.service.impl.WithdrowVoteServiceImpl;
 import tyut.selab.vote.tools.impl.VoPoConverterTool;
 
 import java.util.List;
@@ -30,6 +31,9 @@ public class CommitController {
 
     @Autowired
     DisplayVoteResultServiceImpl displayVoteResultService;
+
+    @Autowired
+    WithdrowVoteServiceImpl withdrowVoteService;
 
     /**
      * 参与投票展示当前用户所有投票粗略信息
@@ -63,4 +67,5 @@ public class CommitController {
         commitVoteService.commitVoteResult(voteResults);
         return AjaxResult.success("上传成功");
     }
+
 }

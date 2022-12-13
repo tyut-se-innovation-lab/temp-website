@@ -64,6 +64,7 @@
     <select id="displayAllVote" resultType="VoteInfo" resultMap="VoteInfo">
         select * from selab_vote_info
     </select>
+
         <select id="displayMyHistoryVote" resultType="VoteInfo" resultMap="VoteInfo">
         select * from selab_vote_info
         where id in

@@ -1,19 +1,16 @@
 package tyut.selab.vote.tools.impl;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import tyut.selab.vote.domain.po.PoVoteOption;
 import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteResult;
 import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.domain.vo.VoteOption;
 import tyut.selab.vote.domain.vo.VoteQue;
-import tyut.selab.vote.tools.AnonymousControl;
 import tyut.selab.vote.tools.IVoPoConverterTool;
-import tyut.selab.vote.tools.getSysTime;
+import tyut.selab.vote.tools.AnonymousControl;
+import tyut.selab.vote.tools.GetSysTime;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +20,7 @@ import java.util.List;
  * @author Big_bai on 2022/11/21
  */
 
-@Component
+
 public class VoPoConverterTool implements IVoPoConverterTool {
 
     /**
@@ -47,7 +44,7 @@ public class VoPoConverterTool implements IVoPoConverterTool {
                         throw new RuntimeException(e);
                     }
                     result.setContent(voteOption.getContent());
-                    result.setCreateTime(getSysTime.getNow());
+                    result.setCreateTime(GetSysTime.getNow());
                 }
                 voteResults.add(result);
             }
@@ -149,40 +146,5 @@ public class VoPoConverterTool implements IVoPoConverterTool {
     }
 
 
-
-
-    /**
-     * vo转为voteInfo
-     * @param questionnaire 一个问卷
-     * @return VoteInfo
-     */
-    public static VoteInfo voToVoteInfo(Questionnaire questionnaire,Long userId){
-        VoteInfo voteInfo = new VoteInfo();
-        voteInfo.setUserId(userId);
-        voteInfo.setContent(questionnaire.getContent());
-        voteInfo.setCreateTime(getSysTime.getNow());
-        voteInfo.setDeadline(questionnaire.getDeadline());
-        voteInfo.setTitle(questionnaire.getTitle());
-        return voteInfo;
-    }
-
-    public static List<PoVoteOption> voToPoVoteOptions(Questionnaire questionnaire){
-        List<PoVoteOption> voteOptions = new ArrayList<>();
-        List<VoteQue> ques = questionnaire.getVoteQues();
-        for(int i = 0;i<ques.size();i++){
-            PoVoteOption que = new PoVoteOption();
-            que.setOptionType(ques.get(i).getType());
-            que.setContent(ques.get(i).getQueContent());
-            voteOptions.add(que);
-            for(VoteOption v:ques.get(i).getOptions()){
-                PoVoteOption p = new PoVoteOption();
-                p.setContent(v.getContent());
-                p.setOptionType(v.getType());
-                voteOptions.add(p);
-            }
-
-        }
-        return voteOptions;
-    }
 
 }

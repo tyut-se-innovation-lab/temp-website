@@ -93,4 +93,5 @@ create table selab_vote_last_use
 (
     weight_id int default 1 ,
     id  bigint default 1
-)
+);
+    INSERT INTO selab_vote_last_use (weight_id, id)  VALUE (1,1);

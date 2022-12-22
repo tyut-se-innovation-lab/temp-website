@@ -9,12 +9,8 @@ import tyut.selab.vote.domain.po.VoteResult;
 import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.domain.vo.VoteOption;
 import tyut.selab.vote.domain.vo.VoteQue;
-import tyut.selab.vote.enums.VoteOptionType;
-import tyut.selab.vote.enums.VoteStatus;
-import tyut.selab.vote.service.IWeightControlService;
-import tyut.selab.vote.service.impl.WeightControlService;
+import tyut.selab.vote.tools.AnonymousControl;
 import tyut.selab.vote.tools.IVoPoConverterTool;
-import tyut.selab.vote.tools.anonymousControl;
 import tyut.selab.vote.tools.getSysTime;
 
 import javax.annotation.PostConstruct;
@@ -46,7 +42,7 @@ public class VoPoConverterTool implements IVoPoConverterTool {
                 if (voteOption.getIsSelect() == 1){  //isSelect值为1时，证明该选项已选或者文本框已填写内容
                     result.setVoteOptionId(voteOption.getId());
                     try {
-                        result.setUserId(Arrays.toString(anonymousControl.encrypt(userId)));
+                        result.setUserId(Arrays.toString(AnonymousControl.encrypt(userId)));
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }

@@ -8,6 +8,7 @@ import tyut.selab.vote.domain.po.PoVoteOption;
 
 import tyut.selab.vote.mapper.InsertInfoDBMapper;
 import tyut.selab.vote.service.ILaunchVoteService;
+import tyut.selab.vote.service.IWeightControlService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +24,8 @@ public class LaunchVoteService implements ILaunchVoteService {
 
     @Autowired
     private InsertInfoDBMapper insertInfoDBMapper;
+    @Autowired
+    IWeightControlService weightControlService;
 
     /**
      * 上传课表<br>
@@ -34,7 +37,9 @@ public class LaunchVoteService implements ILaunchVoteService {
     public void launchVote(VoteInfo voteInfo, List<PoVoteOption> voteOptions) {
         List<PoVoteOption> questions = new ArrayList<>();
         Map<PoVoteOption, List<PoVoteOption>> questionsToOptions = new HashMap<>();
+        voteInfo.setWeight(weightControlService.getNowVoteWeight().getId());
         //将问卷存入，获取问卷的唯一id
+        voteInfo.setStatus("1");
         insertInfoDBMapper.writeVoteInfoToDB(voteInfo);
         //将问题和答案拼装
         for(int i=0;i<voteOptions.size();i++){

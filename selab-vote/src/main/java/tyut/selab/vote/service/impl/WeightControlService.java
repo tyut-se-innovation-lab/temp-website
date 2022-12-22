@@ -8,6 +8,8 @@ import tyut.selab.vote.mapper.FindInfoDBMapper;
 import tyut.selab.vote.mapper.InsertInfoDBMapper;
 import tyut.selab.vote.service.IWeightControlService;
 
+import javax.annotation.PostConstruct;
+
 /**
  * @author Big_bai on 2022/11/25
  */

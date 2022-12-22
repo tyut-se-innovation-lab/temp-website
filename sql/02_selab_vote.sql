@@ -83,4 +83,14 @@ create table selab_vote_weight
     DEVMember       int             default 1   comment '开发组管理员',
     CSMember        int             default 1   comment '开发组管理员',
     primary key(id)
+);
+INSERT INTO selab_vote_weight (voteManager,DEVManager,CSManager,DEVLeader,CSLeader,DEVMember,CSMember) VALUE (1,1,1,1,1,1,1);
+-- ----------------------------
+-- 5、最后一次使用的权重id
+-- ----------------------------
+drop table if exists selab_vote_last_use;
+create table selab_vote_last_use
+(
+    weight_id int default 1 ,
+    id  bigint default 1
 )

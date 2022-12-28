@@ -19,7 +19,7 @@ public interface InsertInfoDBMapper {
 
 
     void writeVoteInfoToDB(VoteInfo voteInfo);
-    void writeVoteOptionToDB(@Param("voteOptions") List<PoVoteOption> voteOptions);
+    void writeVoteOptionToDB(List<PoVoteOption> voteOptions);
 
 
 

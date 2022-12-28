@@ -58,7 +58,9 @@ public class LaunchVoteService implements ILaunchVoteService {
                 }
             }
         }
-        insertInfoDBMapper.writeVoteOptionToDB(questions);
+        if(!questions.isEmpty()){
+            insertInfoDBMapper.writeVoteOptionToDB(questions);
+        }
         //问卷的id和问题的id赋予选项,然后存入
         for (PoVoteOption p:questions) {
             for(PoVoteOption v:questionsToOptions.get(p)){

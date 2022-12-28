@@ -31,17 +31,13 @@
     </insert>
 
 
-<!--    void writeVoteOptionToDB(PoVoteOption voteOption);-->
+<!--    void writeVoteOptionToDB(PoVoteOption voteOptions);-->
     <insert id="writeVoteOptionToDB" keyProperty="id">
-        INSERT INTO selab_vote_option
+        INSERT INTO  selab_vote_option
             (parent_id,vote_id,option_type,content)
         VALUE
-            <foreach collection="voteOptions" item="v" separator=",">
-                (
-            #{v.parentId},
-            #{v.voteId},
-            #{v.optionType},
-            #{v.content})
+            <foreach collection="list" item="v" separator=",">
+                (#{v.parentId},#{v.voteId},#{v.optionType},#{v.content})
             </foreach>
     </insert>
 

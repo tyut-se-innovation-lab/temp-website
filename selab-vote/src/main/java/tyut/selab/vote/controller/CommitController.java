@@ -21,7 +21,7 @@ import static com.ruoyi.common.utils.SecurityUtils.getUserId;
  * @Date: 2022/11/24 20:42
  */
 @RestController
-@RequestMapping("/selab/vote")
+@RequestMapping("/selab/vote/commit")
 public class CommitController {
     @Autowired
     CommitVoteServiceImpl commitVoteService;
@@ -40,7 +40,7 @@ public class CommitController {
      * @return
      */
     @PreAuthorize("@ss.hasPermi('vote:join')")
-    @PostMapping("/commit/list")
+    @PostMapping("/list")
     @ResponseBody
     public AjaxResult listRoughInformation(){
         return AjaxResult.success(displayAllVote.displayAllVote(getUserId().toString()));
@@ -51,7 +51,7 @@ public class CommitController {
      * @return
      */
     @PreAuthorize("@ss.hasPermi('vote:join')")
-    @PostMapping("/commit/allInfo")
+    @PostMapping("/allInfo")
     public AjaxResult listDetails(@RequestBody Questionnaire questionnaire){
         return AjaxResult.success(displayVoteResultService.displayVoteResult(questionnaire.getId(),getUserId().toString()));
     }
@@ -61,7 +61,7 @@ public class CommitController {
      * @return
      */
     @PreAuthorize("@ss.hasPermi('vote:join')")
-    @PostMapping("/commit")
+    @PostMapping("")
     public AjaxResult commitVoteResult(@RequestBody Questionnaire questionnaire){
         List<VoteResult> voteResults = new VoPoConverterTool().toVoteResult(questionnaire, getUserId().toString());
         commitVoteService.commitVoteResult(voteResults);

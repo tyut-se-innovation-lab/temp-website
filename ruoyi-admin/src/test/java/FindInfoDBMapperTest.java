@@ -1,5 +1,4 @@
 import com.ruoyi.RuoYiApplication;
-import com.ruoyi.system.service.ISysConfigService;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,16 +6,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import tyut.selab.vote.domain.po.PoVoteOption;
 import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteResult;
-import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.mapper.FindInfoDBMapper;
-import tyut.selab.vote.service.IDisplayVoteResultService;
 import tyut.selab.vote.service.IWithdrowVoteService;
-import tyut.selab.vote.service.impl.DisplayAllVoteImpl;
-import tyut.selab.vote.service.impl.DisplayVoteResultServiceImpl;
-import tyut.selab.vote.service.impl.WithdrowVoteServiceImpl;
 import tyut.selab.vote.tools.impl.VoPoConverterTool;
 
-import javax.validation.constraints.Size;
 import java.util.List;
 
 
@@ -24,7 +17,7 @@ import java.util.List;
 public class FindInfoDBMapperTest {
     @Test
     public void FindInfoDBMapper(@Autowired IWithdrowVoteService iWithdrowVoteService) throws Exception {
-        List<VoteInfo> voteInfoById = iWithdrowVoteService.findVoteInfoById(1);
+        List<VoteInfo> voteInfoById = iWithdrowVoteService.delectVoteInfoById(1);
     }
     @Test
     public void esByUserIdAndOptionIdTest(@Autowired FindInfoDBMapper findInfoDBMapper){

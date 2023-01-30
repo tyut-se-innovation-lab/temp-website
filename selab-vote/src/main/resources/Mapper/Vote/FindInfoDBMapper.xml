@@ -38,6 +38,10 @@
         </set>
         where id = #{id}
     </update>
+    <update id="finishVote">
+        update selab_vote_info set deadline = #{nowDate} where id = #{id}
+    </update>
+    <!--    <update id="displayVoteRes"></update>-->
     <!--    Weight getWeightById(Long id);-->
 <!--    <select id="getWeightById" resultMap = "tyut.selab.vote.domain.po.Weight">-->
 <!--        SELECT * FROM selab_vote_weight WHERE id = #{id}-->

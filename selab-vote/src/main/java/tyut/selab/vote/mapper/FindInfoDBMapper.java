@@ -7,6 +7,7 @@ import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteResult;
 import tyut.selab.vote.domain.vo.Weight;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -109,4 +110,11 @@ public interface FindInfoDBMapper {
      */
     List<VoteResult>getResByUserIdAndOptionId(@Param("userId")String userId, @Param("optionIds")List<PoVoteOption>optionsId);
 
+    /**
+     * 提前结束 vote
+     * @param nowDate
+     * @param id
+     * @return
+     */
+    int finishVote(@Param("nowDate")String nowDate,@Param("id")String id);
 }

@@ -8,9 +8,11 @@ import tyut.selab.vote.domain.po.VoteResult;
 import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.mapper.FindInfoDBMapper;
 import tyut.selab.vote.service.IDisplayAllVoteService;
+import tyut.selab.vote.tools.GetSysTime;
 import tyut.selab.vote.tools.impl.VoPoConverterTool;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -43,7 +45,9 @@ public class DisplayAllVoteImpl implements IDisplayAllVoteService {
     @Override
     public List<Questionnaire> displayMyJoinVote(String userId) {
         List<VoteResult> optionId = displayAllVoteMapper.getOptionId(userId);
+        if (optionId.isEmpty()) return null;
         List<PoVoteOption> voteId = displayAllVoteMapper.getVoteId(optionId);
+        if (voteId.isEmpty()) return null;
         List<VoteInfo> voteInfos = displayAllVoteMapper.displayMyHistoryVote(voteId);
         VoPoConverterTool tool = new VoPoConverterTool();
         List<Questionnaire>questionnaireList = new ArrayList<>();
@@ -69,6 +73,18 @@ public class DisplayAllVoteImpl implements IDisplayAllVoteService {
             questionnaireList.add(info);
         }
         return questionnaireList;
+    }
+
+    /**
+     * 提前结束投票
+     *
+     * @param voteId
+     * @return
+     */
+    @Override
+    public int finishVote(String voteId) {
+        String nowDate = GetSysTime.getNowDate();
+        return displayAllVoteMapper.finishVote(nowDate,voteId);
     }
 }
 

@@ -6,7 +6,7 @@ import tyut.selab.vote.tools.impl.RSATool;
  * @Author: Gulu
  * @Date: 2022/11/22 22:10
  */
-public class anonymousControl {
+public class AnonymousControl {
     /**
      * 加密
      * @param data 要加密数据

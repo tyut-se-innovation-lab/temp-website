@@ -10,11 +10,12 @@ public interface IWeightControlService {
      * 修改权重
      * @return
      */
-    int setVoteWeight(Weight w);
+    void setVoteWeight(Weight w);
 
     /**
      * 获取权重
      * @return
      */
     Weight getNowVoteWeight();
+
 }

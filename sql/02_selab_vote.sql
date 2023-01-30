@@ -63,7 +63,7 @@ create table selab_vote_result
     vote_option_id bigint       not null comment '投票选项ID',
     user_id        varchar(100) not null comment '参与投票的用户ID（加密后）',
     content        text         not null comment '投票内容',  -- 如果是文本框，就存文本框写的，不是的话就是本选项的内容 --
-    isEnable       bool         not null comment '是否有效',
+    isEnable       bool         default TRUE comment '是否有效',
     create_time    datetime comment '投票时间',
     primary key (id)
 ) engine=innodb comment = '投票结果表';
@@ -83,4 +83,15 @@ create table selab_vote_weight
     DEVMember       int             default 1   comment '开发组管理员',
     CSMember        int             default 1   comment '开发组管理员',
     primary key(id)
-)
+);
+INSERT INTO selab_vote_weight (voteManager,DEVManager,CSManager,DEVLeader,CSLeader,DEVMember,CSMember) VALUE (1,1,1,1,1,1,1);
+-- ----------------------------
+-- 5、最后一次使用的权重id
+-- ----------------------------
+drop table if exists selab_vote_last_use;
+create table selab_vote_last_use
+(
+    weight_id int default 1 ,
+    id  bigint default 1
+);
+    INSERT INTO selab_vote_last_use (weight_id, id)  VALUE (1,1);

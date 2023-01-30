@@ -13,21 +13,34 @@
         <parameter property="create_time" javaType="Date"/>
     </parameterMap>
 
+
 <!--    Long writeWightInfoToDB(Weight w);-->
-    <insert id="writeWightInfoToDB">
+    <insert id="writeWightInfoToDB" keyProperty="id">
         INSERT INTO selab_vote_weight
-           /* (voteManager,DEVManager,CSManager,DEVLeader,CSLeader,DEVMember,CSMember)*/
+            (voteManager,DEVManager,CSManager,DEVLeader,CSLeader,DEVMember,CSMember)
             VALUE
             (#{voteManager},#{DEVManager},#{CSManager},#{DEVLeader},#{CSLeader},#{DEVMember},#{CSMember})
     </insert>
 
 <!--    void writeVoteInfoToDB(VoteInfo voteInfo);-->
-    <insert id="writeVoteInfoToDB">
+    <insert id="writeVoteInfoToDB" keyProperty="id">
         INSERT INTO selab_vote_info
-            (user_id,title,content,`status`,deadline,weight)
+            (user_id,title,content,`status`,deadline,create_time,weight)
         VALUE
-            (#{userId},#{title},#{content},#{status},#{deadline},#{creatTime},#{weight})
+            (#{userId},#{title},#{content},#{status},#{deadline},#{createTime},#{weight})
     </insert>
+
+
+<!--    void writeVoteOptionToDB(PoVoteOption voteOptions);-->
+    <insert id="writeVoteOptionToDB" keyProperty="id">
+        INSERT INTO  selab_vote_option
+            (parent_id,vote_id,option_type,content)
+        VALUE
+            <foreach collection="list" item="v" separator=",">
+                (#{v.parentId},#{v.voteId},#{v.optionType},#{v.content})
+            </foreach>
+    </insert>
+
 
     <!--    int writeVoteResultToDB(VoteResult voteResult)-->
     <insert id="writeVoteResultToDB" parameterType="voteResult" useGeneratedKeys="true" keyProperty="id">
@@ -44,4 +57,5 @@
         )
         </foreach>
     </insert>
+
 </mapper>

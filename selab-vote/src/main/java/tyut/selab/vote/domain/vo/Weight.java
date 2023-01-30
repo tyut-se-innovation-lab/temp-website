@@ -1,8 +1,11 @@
 package tyut.selab.vote.domain.vo;
 
+import lombok.Data;
+
 /**
  * @author Big_bai on 2022/11/22
  */
+@Data
 public class Weight {
     //数据库中的id
     private Long id;
@@ -21,19 +24,6 @@ public class Weight {
     //网安组成员
     private int CSMember;
 
-    @Override
-    public String toString() {
-        return "Weight{" +
-                "id=" + id +
-                ", voteManager=" + voteManager +
-                ", DEVLeader=" + DEVLeader +
-                ", CSLeader=" + CSLeader +
-                ", DEVManager=" + DEVManager +
-                ", CSManager=" + CSManager +
-                ", DEVMember=" + DEVMember +
-                ", CSMember=" + CSMember +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -44,67 +34,18 @@ public class Weight {
     }
 
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setWeightId(Long id) {
+    public Weight(Long id,int voteManager, int DEVLeader, int CSLeader, int DEVManager, int CSManager, int DEVMember, int CSMember) {
         this.id = id;
-    }
-
-    public int getVoteManager() {
-        return voteManager;
-    }
-
-    public void setVoteManager(int voteManager) {
         this.voteManager = voteManager;
-    }
-
-    public int getDEVManager() {
-        return DEVManager;
-    }
-
-    public void setDEVManager(int DEVManager) {
-        this.DEVManager = DEVManager;
-    }
-
-    public int getCSManager() {
-        return CSManager;
-    }
-
-    public void setCSManager(int CSManager) {
-        this.CSManager = CSManager;
-    }
-
-    public int getDEVLeader() {
-        return DEVLeader;
-    }
-
-    public void setDEVLeader(int DEVLeader) {
         this.DEVLeader = DEVLeader;
-    }
-
-    public int getCSLeader() {
-        return CSLeader;
-    }
-
-    public void setCSLeader(int CSLeader) {
         this.CSLeader = CSLeader;
-    }
-
-    public int getDEVMember() {
-        return DEVMember;
-    }
-
-    public void setDEVMember(int DEVMember) {
+        this.DEVManager = DEVManager;
+        this.CSManager = CSManager;
         this.DEVMember = DEVMember;
-    }
-
-    public int getCSMember() {
-        return CSMember;
-    }
-
-    public void setCSMember(int CSMember) {
         this.CSMember = CSMember;
+    }
+
+    public Weight() {
     }
 }

@@ -20,13 +20,11 @@ public void commitVote(@Autowired ICommitVoteService service){
     voteResult1.setVoteOptionId(758437L);
     voteResult1.setUserId("hgjfdhg");
     voteResult1.setContent("hghjhfdgh");
-    voteResult1.setIsEnable(0);
     voteResult1.setCreateTime(new Date());
     VoteResult voteResult2 = new VoteResult();
     voteResult2.setVoteOptionId(7556457L);
     voteResult2.setUserId("6786");
     voteResult2.setContent("hh6786");
-    voteResult2.setIsEnable(1);
     voteResult2.setCreateTime(new Date());
     ArrayList<VoteResult> voteResults = new ArrayList<>();
     voteResults.add(voteResult1);

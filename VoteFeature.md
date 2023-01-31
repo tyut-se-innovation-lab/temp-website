@@ -133,7 +133,25 @@
 
 
 - 参与投票: /selab/vote/commit {post}
+
 - 获取可参与的（未过期）投票粗略信息: /selab/vote/commit/list {get}
+
+
+  - ```
+    [
+    	{
+    		id:"",	//投票id
+    		title:"",//title,
+    		state:0	//0,1,2状态
+    		start:"",	//开始时间
+    		end:"",	//结束时间
+    		content:"",	//简介
+    	}
+    ]
+    ```
+
+  - 
+
 - 返回某次投票详细信息: /selab/vote/commit/allInfo/:voteId {get}
 
 

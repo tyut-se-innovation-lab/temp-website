@@ -5,6 +5,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
+import { component } from 'vue/types/umd'
 
 /**
  * Note: 路由配置项
@@ -85,6 +86,17 @@ export const constantRoutes = [
         component: () => import('@/views/system/user/profile/index'),
         name: 'Profile',
         meta: { title: '个人中心', icon: 'user' }
+      }
+    ]
+  },
+  {
+    path: '/vote/join',
+    component: () => import('@/views/vote/join/index'),
+    hidden: true,
+    children: [
+      {
+        path: "details",
+        component: () => import('@/views/vote/join/details_display/details')
       }
     ]
   }

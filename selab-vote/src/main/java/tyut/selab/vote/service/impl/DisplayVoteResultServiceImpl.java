@@ -20,7 +20,9 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
     FindInfoDBMapper findInfoDBMapper;
 
     /**
-     * 查看投票结果
+     * 返回某次投票详细信息
+     * 返回我发起过的投票详细信息
+     * 我参与的投票详细信息
      * @param voteId 投票ID
      * @param userId 申请者id
      * @return
@@ -41,5 +43,16 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
         }
         info.setVoteQues(que);
         return info;
+    }
+
+    /**
+     * 查看详细（百分比）
+     * @param voteId 投票ID
+     * @param userId 申请者ID
+     * @return
+     */
+    @Override
+    public Questionnaire displayNumOfResult(Long voteId, String userId) {
+        return null;
     }
 }

@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface IDisplayAllVoteService {
     /**
-     * 查看全部投票
+     * 查看所有投票列表
      * @param userId 用户名
      */
     List<Questionnaire>displayAllVote(String userId);
-
+    List<Questionnaire>displayAllUsefulVotes(String usrId);
     /**
-     * 查看我参与的投票列表
+     * c查看我参与的投票列表
      * @param userId
      */
     List<Questionnaire>displayMyJoinVote(String userId);
@@ -22,7 +22,6 @@ public interface IDisplayAllVoteService {
      * @param userId 用户名
      */
     List<Questionnaire>displayMyStartVote(String userId);
-
     /**
      * 提前结束投票
      * @param voteId
@@ -30,3 +29,5 @@ public interface IDisplayAllVoteService {
      */
     int finishVote(String voteId);
 }
+
+

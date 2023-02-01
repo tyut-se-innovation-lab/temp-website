@@ -13,9 +13,14 @@ public interface IWeightControlService {
     void setVoteWeight(Weight w);
 
     /**
-     * 获取权重
+     * 获取权重列表
      * @return
      */
     Weight getNowVoteWeight();
 
+    /**
+     * 通过用户id获取该用户的权重
+     * @return
+     */
+    int getWeightByUserId(Long id);
 }

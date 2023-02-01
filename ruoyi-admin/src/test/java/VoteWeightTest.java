@@ -15,6 +15,11 @@ public class VoteWeightTest {
     IWeightControlService weightControlService;
 
     @Test
+    public void getWeightByIdTest(){
+        int i = weightControlService.getWeightByUserId(2L);
+        System.err.println(i);
+    }
+    @Test
     public void setGetWeightTest(){
         Weight w = new Weight();
         w.setVoteManager(1);

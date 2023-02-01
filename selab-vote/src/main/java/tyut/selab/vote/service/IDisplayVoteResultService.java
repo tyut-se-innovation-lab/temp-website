@@ -12,5 +12,5 @@ public interface IDisplayVoteResultService {
      * @return 查询结果
      */
     Questionnaire displayVoteResult(Long voteId,String userId);
-    Questionnaire displayNumOfResult(Long voteId,String userId);
+    int displayNumOfResult(Long voteId,String userId);
 }

@@ -46,13 +46,14 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
     }
 
     /**
-     * 查看详细（百分比）
+     * 参与投票的总人数
      * @param voteId 投票ID
      * @param userId 申请者ID
      * @return
      */
     @Override
-    public Questionnaire displayNumOfResult(Long voteId, String userId) {
-        return null;
+    public int displayNumOfResult(Long voteId, String userId) {
+        int peoples = findInfoDBMapper.theNumOfJoinVote(voteId);
+        return peoples;
     }
 }

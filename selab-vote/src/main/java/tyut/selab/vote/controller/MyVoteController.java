@@ -34,20 +34,7 @@ public class MyVoteController {
     @PreAuthorize("@ss.hasPermi('vote:mine')")
     public AjaxResult displayMyALLVote(@RequestBody Long userId) {
         // 获取用户自己的历史投票信息
-        List<Questionnaire> questionnaires = iDisplayAllVoteService.displayMyJoinVote(userId.toString());
-        // 转换 status  数字->String
-        Iterator<Questionnaire> iterator = questionnaires.iterator();
-        while(iterator.hasNext()){
-            Questionnaire next = iterator.next();
-            if ("0".equals(next.getStatus())){
-                next.setStatus("进行中");
-            }else if ("1".equals(next.getStatus())){
-                next.setStatus("结束");
-            }else if ("2".equals(next.getStatus())){
-                next.setStatus("被撤回");
-            }else next.setStatus("转换失败，请手动改信息~");
-        }
-        return AjaxResult.success(questionnaires);
+        return AjaxResult.success(iDisplayAllVoteService.displayMyJoinVote(userId.toString()));
     }
 
     /**

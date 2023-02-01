@@ -98,10 +98,10 @@
   ```
 
 
-- 参与投票: /selab/vote/commit {post}
+- 参与投票: /selab/vote/join {post}
 
 
-  - 获取可参与的（未过期）投票粗略信息: /selab/vote/commit/list {get}
+  - 获取可参与的（未过期）投票粗略信息: /selab/vote/join/list {get}
 
 
     - ```
@@ -119,7 +119,7 @@
       ```
 
 
-  - 返回某次投票详细信息: /selab/vote/commit/allInfo/:voteId {get}
+  - 返回某次投票详细信息: /selab/vote/join/allInfo/:voteId {get}
 
     - ```json
       {
@@ -157,7 +157,7 @@
 
     - 
 
-  - 返回某次投票详细信息: /selab/vote/commit/allInfo/:voteId {get}
+  - 返回某次投票详细信息: /selab/vote/join/allInfo/:voteId {get}
 
 
     - ```

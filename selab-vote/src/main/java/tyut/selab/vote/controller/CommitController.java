@@ -36,7 +36,7 @@ public class CommitController {
      * @return
      */
     @PreAuthorize("@ss.hasPermi('vote:join')")
-    @PostMapping("/join/list")
+    @GetMapping("/join/list")
     @ResponseBody
     public AjaxResult listRoughInformation(){
         return AjaxResult.success(displayAllVote.displayAllVote(getUserId().toString()));
@@ -47,7 +47,7 @@ public class CommitController {
      * @return
      */
     @PreAuthorize("@ss.hasPermi('vote:join')")
-    @PostMapping("/join/allInfo")
+    @GetMapping("/join/allInfo")
     public AjaxResult listDetails(@RequestBody Questionnaire questionnaire){
         return AjaxResult.success(displayVoteResultService.displayVoteResult(questionnaire.getId(),getUserId().toString()));
     }
@@ -60,7 +60,8 @@ public class CommitController {
     @PostMapping("/join")
     public AjaxResult commitVoteResult(@RequestBody Questionnaire questionnaire){
         List<VoteResult> voteResults = new VoPoConverterTool().toVoteResult(questionnaire, getUserId().toString());
-        commitVoteService.commitVoteResult(voteResults);
-        return AjaxResult.success("上传成功");
+        return commitVoteService.commitVoteResult(voteResults) != 0?
+                AjaxResult.success("提交成功"):
+                AjaxResult.error("提交失败");
     }
 }

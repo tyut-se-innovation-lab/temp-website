@@ -43,7 +43,7 @@ drop table if exists selab_vote_info;
 create table selab_vote_info
 (
     id           bigint       not null auto_increment comment '数据唯一标识',
-    user_id      varchar(100) not null comment '发起投票的用户ID（加密后）',
+    user_id      bigint       not null comment '发起投票的用户ID（加密后）',
     title        tinytext     not null comment '投票标题',
     content      text         not null comment '投票简介',
     status       int          not null comment '状态',
@@ -61,7 +61,7 @@ create table selab_vote_result
 (
     id             bigint       not null auto_increment comment '数据唯一标识',
     vote_option_id bigint       not null comment '投票选项ID',
-    user_id        varchar(100) not null comment '参与投票的用户ID（加密后）',
+    user_id        bigint       not null comment '参与投票的用户ID（加密后）',
     content        text         not null comment '投票内容',  -- 如果是文本框，就存文本框写的，不是的话就是本选项的内容 --
     isEnable       bool         default TRUE comment '是否有效',
     create_time    datetime comment '投票时间',

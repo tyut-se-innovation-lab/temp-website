@@ -56,34 +56,34 @@
 
     * ```json
       {
-        "id": 0,
-      "title": "",
-        "content": "",
-      "createdTime": "",
-        "deadline": "",
-      "voteQues": [
+        	"id": 0,
+      	"title": "",
+        	"content": "",
+      	"createdTime": "",
+        	"deadline": "",
+      	"voteQues": [
           {
-          "id": 0,
-            "type": "",	//类型，S表示单选，M表示多选，T表示文本框
-          "queContent": "",
-            "options": [
-            //单选，多选
-              {
-              "id": 0,
-                "content": "",
-              "percentage":"", //小数，比如0.66
-                "type": "",
-              "other": ""
-              },
-            //文本题
-      		{
-    			question:""
-      			id:""//题号
-    			type:""// 类型 ----文本框
-      			content:''//文本内容
-    		}	
-            ]
-        }
+          	"id": 0,
+            	"type": "",	//类型，S表示单选，M表示多选，T表示文本框
+          	"queContent": "",
+            	"options": [
+            		//单选，多选
+              	{
+              		"id": 0,
+                		"content": "",
+              		"percentage":"", //小数，比如0.66
+                		"type": "",
+              		"other": ""
+              	},
+            		//文本题
+      			{
+    					question:""
+      				id:""//题号
+    					type:""// 类型 ----文本框
+      				content:''//文本内容
+    				}	
+            	]
+        	}
         ]
       }
       ```
@@ -93,9 +93,63 @@
   * ```json
     {
     	"code": 200,
-  	"msg": "OK"
+  		"msg": "OK"
     }
-  ```
+    ```
+
+
+
+- 历史投票
+
+
+  - 返回历史投票信息粗略列表: /selab/vote/commit/list {get}
+
+
+    [
+        	{
+        		id:"",	//投票id
+        		title:"",//title,
+        		state:0	//0,1,2状态
+        		start:"",	//开始时间
+              	isjoin:"",	//是否已经参与
+        		end:"",	//结束时间
+        		content:"",	//简介
+        	}
+    ]
+
+  - 返回某次投票详细信息: /selab/vote/commit/allInfo/:voteId {get}
+
+
+```json
+{
+    "id": 0,
+    "title": "",
+    "content": "",
+    "createdTime": "",
+    "deadline": "",
+    "persons":"",
+    "voteQues": [
+      {
+        "id": 0,
+        "type": "",	//类型，S表示单选，M表示多选，T表示文本框
+        "queContent": "",
+        "options": [
+          //单选，多选
+          {
+            "id": 0,
+            "content": "",
+            "percentage":"", //小数，比如0.66
+            "type": "",
+            "other": ""
+          },
+          //先不考虑文本题
+        ]
+      }
+    ]
+}
+```
+
+
 
 
 - 参与投票: /selab/vote/join {post}
@@ -104,19 +158,19 @@
   - 获取可参与的（未过期）投票粗略信息: /selab/vote/join/list {get}
 
 
-    - ```
-      [
-        	{
-        		id:"",	//投票id
-        		title:"",//title,
-        		state:0	//0,1,2状态
-        		start:"",	//开始时间
-              isjoin:"",	//是否已经参与
-        		end:"",	//结束时间
-        		content:"",	//简介
-        	}
-      ]
-      ```
+```json
+[
+    	{
+    		id:"",	//投票id
+    		title:"",//title,
+    		state:0	//0,1,2状态
+    		start:"",	//开始时间
+          	isjoin:"",	//是否已经参与
+    		end:"",	//结束时间
+    		content:"",	//简介
+    	}
+ ]
+```
 
 
   - 返回某次投票详细信息: /selab/vote/join/allInfo/:voteId {get}
@@ -155,38 +209,7 @@
       }
       ```
 
-    - 
-
-  - 返回某次投票详细信息: /selab/vote/join/allInfo/:voteId {get}
-
-
-    - ```
-      {
-        "id": 0,
-        "title": "",
-        "content": "",
-        "createdTime": "",
-        "deadline": "",
-        "voteQues": [
-          {
-            "id": 0,
-            "type": "",	//类型，S表示单选，M表示多选，T表示文本框
-            "queContent": "",
-            "options": [
-              //单选，多选
-              {
-                "id": 0,
-                "content": "",
-                "percentage":"", //小数，比如0.66
-                "type": "",
-                "other": ""
-              },
-              //先不考虑文本题
-            ]
-          }
-        ]
-      }
-      ```
+      
 
 
 
@@ -258,27 +281,43 @@
 }
 ```
 
-- 1 返回我的历史投票信息粗略列表: /selab/vote/mine/joined/lists {get}
+* 详细信息：/selab/vote/join/allInfo/:voteId {get}
 
-```
-{
-    msg=操作成功, 
-    code=200, 
-    data=[
-    	Questionnaire{
-            id=1,
-            title='hhh', 
-            content='hhh', 
-            status='1', 
-            creatTime=Tue Nov 15 09:52:46 CST 2022, 
-            deadline=Mon Jan 30 16:12:07 CST 2023, 
-            voteQues=null
-        }
-	]
-}
-```
+  ```
+  {
+    "id": 0,
+    "title": "",
+    "content": "",
+    "createdTime": "",
+    "deadline": "",
+    "voteQues": [
+      {
+        "id": 0,
+        "type": "",	//类型，S表示单选，M表示多选，T表示文本框
+        "queContent": "",
+        "options": [
+          //单选，多选
+          {
+            "id": 0,
+            "content": "",
+            "isSelect": 0,
+            "type": "",
+            "other": ""
+          },
+          //文本题
+  		{
+  			question:""
+  			id:""//题号
+  			type:""// 类型 ----文本框
+  			content:''//文本内容
+  		}	
+        ]
+      }
+    ]
+  }
+  ```
 
-
+  
 
 
 

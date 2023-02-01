@@ -8,7 +8,7 @@ import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.domain.vo.VoteOption;
 import tyut.selab.vote.domain.vo.VoteQue;
 import tyut.selab.vote.service.ILaunchVoteService;
-import tyut.selab.vote.tools.getSysTime;
+import tyut.selab.vote.tools.GetSysTime;
 import tyut.selab.vote.tools.impl.VoPoConverterTool;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class LaunchVoteTest {
 
         Questionnaire  q = new Questionnaire();
         q.setContent("嘿嘿嘿");
-        q.setDeadline(getSysTime.getNow());
+        q.setDeadline(GetSysTime.getNow());
         q.setTitle("傻儿子吉吉嘿嘿嘿嘿嘿嘿嘿嘿");
         q.setVoteQues(voteQues);
 

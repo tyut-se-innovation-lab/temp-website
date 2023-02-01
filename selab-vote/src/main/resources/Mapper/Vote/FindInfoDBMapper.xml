@@ -38,6 +38,10 @@
         </set>
         where id = #{id}
     </update>
+    <update id="finishVote">
+        update selab_vote_info set deadline = #{nowDate} where id = #{id}
+    </update>
+    <!--    <update id="displayVoteRes"></update>-->
     <!--    Weight getWeightById(Long id);-->
 <!--    <select id="getWeightById" resultMap = "tyut.selab.vote.domain.po.Weight">-->
 <!--        SELECT * FROM selab_vote_weight WHERE id = #{id}-->
@@ -64,6 +68,7 @@
     <select id="displayAllVote" resultType="VoteInfo" resultMap="VoteInfo">
         select * from selab_vote_info
     </select>
+
         <select id="displayMyHistoryVote" resultType="VoteInfo" resultMap="VoteInfo">
         select * from selab_vote_info
         where id in
@@ -96,6 +101,10 @@
     <select id="getVoteOptionByVoteId" resultType="PoVoteOption" resultMap="PoVoteOption">
         select * from selab_vote_option where vote_id = #{voteId} AND parent_id != -1
     </select>
+<!--    List<VoteInfo>displayAllUsefulVote(@Param("userId")String userId);-->
+    <select id="displayAllUsefulVote" resultType="VoteInfo" resultMap="VoteInfo">
+        select * from selab_vote_info where status = 0
+    </select>
 
 <!--    int getLastUseWeightId();-->
     <select id="getLastUseWeightId" resultType="Long">
@@ -104,5 +113,15 @@
     <!--    Weight getWeightById(Long id);-->
     <select id="getWeightById" resultType="tyut.selab.vote.domain.vo.Weight">
         SELECT * FROM selab_vote_weight WHERE id = #{id}
+    </select>
+<!--    int theNumOfJoinVote(@Param("voteId")Long voteId);-->
+    <select id="theNumOfJoinVote" resultType="int" >
+        select count(*) from (
+            select user_id from selab_vote_result where vote_option_id in(
+                select id from selab_vote_option where parent_id = (
+                    select id from selab_vote_option where vote_id = #{voteId} AND parent_id = -1 limit 1
+                    )
+            )group by user_id
+        )as total
     </select>
 </mapper>

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 上传课表相关
+ * 上传问卷相关
  * @author Big_bai on 2022/11/19
  */
 @Service

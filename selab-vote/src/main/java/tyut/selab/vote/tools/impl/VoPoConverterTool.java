@@ -10,8 +10,8 @@ import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.domain.vo.VoteOption;
 import tyut.selab.vote.domain.vo.VoteQue;
 import tyut.selab.vote.tools.AnonymousControl;
+import tyut.selab.vote.tools.GetSysTime;
 import tyut.selab.vote.tools.IVoPoConverterTool;
-import tyut.selab.vote.tools.getSysTime;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class VoPoConverterTool implements IVoPoConverterTool {
                         throw new RuntimeException(e);
                     }
                     result.setContent(voteOption.getContent());
-                    result.setCreateTime(getSysTime.getNow());
+                    result.setCreateTime(GetSysTime.getNow());
                 }
                 voteResults.add(result);
             }
@@ -160,7 +160,7 @@ public class VoPoConverterTool implements IVoPoConverterTool {
         VoteInfo voteInfo = new VoteInfo();
         voteInfo.setUserId(userId);
         voteInfo.setContent(questionnaire.getContent());
-        voteInfo.setCreateTime(getSysTime.getNow());
+        voteInfo.setCreateTime(GetSysTime.getNow());
         voteInfo.setDeadline(questionnaire.getDeadline());
         voteInfo.setTitle(questionnaire.getTitle());
         return voteInfo;

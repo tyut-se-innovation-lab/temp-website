@@ -11,6 +11,7 @@ public interface IDisplayAllVoteService {
      * @param userId 用户名
      */
     List<Questionnaire>displayAllVote(String userId);
+    List<Questionnaire>displayAllUsefulVotes(String usrId);
     /**
      * c查看我参与的投票列表
      * @param userId
@@ -21,5 +22,12 @@ public interface IDisplayAllVoteService {
      * @param userId 用户名
      */
     List<Questionnaire>displayMyStartVote(String userId);
-
+    /**
+     * 提前结束投票
+     * @param voteId
+     * @return
+     */
+    int finishVote(String voteId);
 }
+
+

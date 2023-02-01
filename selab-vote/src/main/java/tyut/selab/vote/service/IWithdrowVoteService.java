@@ -10,5 +10,5 @@ public interface IWithdrowVoteService {
      * @param id  voteId
      * @return
      */
-    public List<VoteInfo> findVoteInfoById(long id) throws Exception;
+    public List<VoteInfo> delectVoteInfoById(long id);
 }

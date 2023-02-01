@@ -1,7 +1,6 @@
 package tyut.selab.vote.domain.vo;
 
 import lombok.Data;
-import tyut.selab.vote.enums.VoteOptionType;
 
 /**
  * 选项
@@ -19,8 +18,6 @@ public class VoteOption {
     private String type;
     //文本框的值（有的话）
     private String other;
-
-
 
     @Override
     public String toString() {

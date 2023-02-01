@@ -6,7 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class getSysTime {
+public class GetSysTime {
     /**
      * 得到当前时间
      * 示例：Tue Nov 15 08:37:40 CST 2022

@@ -7,6 +7,7 @@ import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteResult;
 import tyut.selab.vote.domain.vo.Weight;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,6 +62,13 @@ public interface FindInfoDBMapper {
     List<VoteInfo>displayMyHistoryVote(@Param("voteId")List<PoVoteOption>voteId);
 
     /**
+     * 获取可参与的（未过期）投票粗略信息
+     * @param userId
+     * @return
+     */
+    List<VoteInfo>displayAllUsefulVote(@Param("userId")String userId);
+
+    /**
      * 查看我发起的投票
      * @param userId
      */
@@ -109,4 +117,18 @@ public interface FindInfoDBMapper {
      */
     List<VoteResult>getResByUserIdAndOptionId(@Param("userId")String userId, @Param("optionIds")List<PoVoteOption>optionsId);
 
+    /**
+     * 查看参与该投票的人数
+     * @param voteId
+     * @return
+     */
+    int theNumOfJoinVote(@Param("voteId")Long voteId);
+
+    /**
+     * 提前结束 vote
+     * @param nowDate
+     * @param id
+     * @return
+     */
+    int finishVote(@Param("nowDate")String nowDate,@Param("id")String id);
 }

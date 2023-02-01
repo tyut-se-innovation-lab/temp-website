@@ -9,7 +9,6 @@ import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.service.impl.CommitVoteServiceImpl;
 import tyut.selab.vote.service.impl.DisplayAllVoteImpl;
 import tyut.selab.vote.service.impl.DisplayVoteResultServiceImpl;
-import tyut.selab.vote.service.impl.WithdrowVoteServiceImpl;
 import tyut.selab.vote.tools.impl.VoPoConverterTool;
 
 import java.util.List;
@@ -21,7 +20,7 @@ import static com.ruoyi.common.utils.SecurityUtils.getUserId;
  * @Date: 2022/11/24 20:42
  */
 @RestController
-@RequestMapping("/selab/vote/commit")
+@RequestMapping("/selab/vote")
 public class CommitController {
     @Autowired
     CommitVoteServiceImpl commitVoteService;
@@ -32,15 +31,12 @@ public class CommitController {
     @Autowired
     DisplayVoteResultServiceImpl displayVoteResultService;
 
-    @Autowired
-    WithdrowVoteServiceImpl withdrowVoteService;
-
     /**
      * 参与投票展示当前用户所有投票粗略信息
      * @return
      */
     @PreAuthorize("@ss.hasPermi('vote:join')")
-    @PostMapping("/list")
+    @GetMapping("/join/list")
     @ResponseBody
     public AjaxResult listRoughInformation(){
         return AjaxResult.success(displayAllVote.displayAllVote(getUserId().toString()));
@@ -51,7 +47,7 @@ public class CommitController {
      * @return
      */
     @PreAuthorize("@ss.hasPermi('vote:join')")
-    @PostMapping("/allInfo")
+    @GetMapping("/join/allInfo")
     public AjaxResult listDetails(@RequestBody Questionnaire questionnaire){
         return AjaxResult.success(displayVoteResultService.displayVoteResult(questionnaire.getId(),getUserId().toString()));
     }
@@ -61,11 +57,11 @@ public class CommitController {
      * @return
      */
     @PreAuthorize("@ss.hasPermi('vote:join')")
-    @PostMapping("")
+    @PostMapping("/join")
     public AjaxResult commitVoteResult(@RequestBody Questionnaire questionnaire){
         List<VoteResult> voteResults = new VoPoConverterTool().toVoteResult(questionnaire, getUserId().toString());
-        commitVoteService.commitVoteResult(voteResults);
-        return AjaxResult.success("上传成功");
+        return commitVoteService.commitVoteResult(voteResults) != 0?
+                AjaxResult.success("提交成功"):
+                AjaxResult.error("提交失败");
     }
-
 }

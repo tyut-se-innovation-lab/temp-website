@@ -27,13 +27,7 @@ public class WithdrowVoteServiceImpl implements IWithdrowVoteService {
         List<VoteInfo> voteInfoById = findInfoDBMapper.findVoteInfoById(id);
         //非空判断
         if (voteInfoById.isEmpty())   return null;
-        //判断用户是否为该用户发起人或者为超级管理员，是->撤回成功，否则失败
-        Long userId = getUserId();
-        log.info(String.valueOf(userId));
-        if (userId != voteInfoById.get(0).getUserId()){
-            return null;
-        }
-        //撤回成功，将该投票选项的状态改为 2（被撤回的状态）
+        //改变状态
         voteInfoById.get(0).setStatus(String.valueOf(2));
         findInfoDBMapper.updateVoteInfoById(voteInfoById.get(0).getStatus(),voteInfoById.get(0).getId());
         return voteInfoById;

@@ -8,7 +8,7 @@ import java.util.Date;
 public class VoteResult {
     private Long id;
     private Long voteOptionId;
-    private String userId;
+    private Long userId;
     private String content;
     private int isEnable;
     private Date createTime;

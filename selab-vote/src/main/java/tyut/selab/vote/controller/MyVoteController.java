@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.service.IDisplayAllVoteService;
+import tyut.selab.vote.service.IDisplayVoteResultService;
 import tyut.selab.vote.service.IWithdrowVoteService;
 
 import java.util.Iterator;
@@ -23,35 +24,38 @@ public class MyVoteController {
     private IDisplayAllVoteService iDisplayAllVoteService;
     @Autowired
     private IWithdrowVoteService withdrowVoteService;
+    @Autowired
+    private IDisplayVoteResultService iDisplayVoteResultService;
 
     /**
-     * 显示用户自己的历史投票内容
+     * 用户自己的历史投票信息(粗略)
      *
-     * @param userId
+     * @param userId 用户id
      * @return 返回我参与的投票列表
      */
-    @GetMapping("/joined/list")
+    @GetMapping("/joined/lists")
     @PreAuthorize("@ss.hasPermi('vote:mine')")
     public AjaxResult displayMyALLVote(@RequestBody Long userId) {
-        // 获取用户自己的历史投票信息
         return AjaxResult.success(iDisplayAllVoteService.displayMyJoinVote(userId.toString()));
     }
 
+
     /**
-     * 查看我创建的投票列表
-     * @param userId 用户名
-     * @return 返回我创建的投票列表
+     * 查看我创建的投票列表（粗略）
+     *
+     * @param userId 用户id
+     * @return 我创建的投票列表（粗略）
      */
-    @GetMapping("/launched/list")
+    @GetMapping("/launched/lists")
     @PreAuthorize("@ss.hasPermi('vote:mine')")
     public AjaxResult myLaunchVote(@RequestBody Long userId){
         return AjaxResult.success(iDisplayAllVoteService.displayMyStartVote(userId.toString()));
     }
 
     /**
-     * 根据voteid对发起的投票进行撤回
-     * @param voteId
-     * @return
+     * 对发起的投票进行撤回
+     * @param voteId 问卷id
+     * @return 撤回成功与否
      */
     @DeleteMapping("/delete")
     @PreAuthorize("@ss.hasPermi('vote:mine')")
@@ -63,6 +67,8 @@ public class MyVoteController {
 
     /**
      * 提前结束功能
+     * @param voteId 问卷id
+     * @return 操作成功与否
      */
     @PutMapping("/finish")
     @PreAuthorize("@ss.hasPermi('vote:mine')")

@@ -18,6 +18,8 @@ import java.util.List;
 public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
     @Autowired
     FindInfoDBMapper findInfoDBMapper;
+    @Autowired
+    FindInfoDBMapper displayAllVoteMapper;
 
     /**
      * 返回某次投票详细信息
@@ -30,8 +32,11 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
     @Override
     public Questionnaire displayVoteResult(Long voteId,String userId) {
         VoPoConverterTool tool = new VoPoConverterTool();
+        // 根据投票id获取到 info（问卷）
         VoteInfo voteByVoteId = findInfoDBMapper.getVoteByVoteId(voteId);
+        //转换
         Questionnaire info = tool.info(voteByVoteId);
+        //根据infoId找到option
         List<PoVoteOption> voteOptions = findInfoDBMapper.getVoteOptions(voteByVoteId.getId());
         List<VoteQue> que = tool.que(voteOptions);
         for (VoteQue voteQue : que) {

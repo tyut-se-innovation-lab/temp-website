@@ -36,7 +36,7 @@ public interface FindInfoDBMapper {
      */
     public List<VoteInfo> findVoteInfoById(long id);
 
-    public int updateVoteInfoById(String status,long id);
+    public int updateVoteInfoById(@Param("status")String status,@Param("id")long id);
     /**
      * 查看所有列表
      * @param userId

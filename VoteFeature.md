@@ -55,7 +55,7 @@
   * 访问参数
 
     * ```json
-    {
+      {
         "id": 0,
       "title": "",
         "content": "",
@@ -85,13 +85,13 @@
             ]
         }
         ]
-    }
+      }
       ```
 
   > 返回数据
 
   * ```json
-  {
+    {
     	"code": 200,
   	"msg": "OK"
     }
@@ -157,28 +157,6 @@
 
     - 
 
-
-
-- 历史投票
-
-
-  - 返回历史投票信息粗略列表: /selab/vote/commit/list {get}
-
-
-    - ```
-      [
-        	{
-        		id:"",	//投票id
-        		title:"",//title,
-        		state:0	//0,1,2状态
-        		start:"",	//开始时间
-              isjoin:"",	//是否已经参与
-        		end:"",	//结束时间
-        		content:"",	//简介
-        	}
-      ]
-      ```
-
   - 返回某次投票详细信息: /selab/vote/commit/allInfo/:voteId {get}
 
 
@@ -215,64 +193,94 @@
 - 我的投票
 
 
-  - 我发起的投票简略列表: /selab/vote/mine/launched/list {get}
+  - 1 我发起的投票简略列表: /selab/vote/mine/launched/lists{get}
 
 
-    - ```
-      [
-        	{
-        		id:"",	//投票id
-        		title:"",//title,
-        		state:0	//0,1,2状态
-        		start:"",	//开始时间
-              isjoin:"",	//是否已经参与
-        		end:"",	//结束时间
-        		content:"",	//简介
-        	}
-      ]
-      ```
+    {
+        msg=操作成功, 
+        code=200, 
+        data=[
+        	Questionnaire{
+                id=1,
+                title='hhh', 
+                content='hhh', 
+                status='1', 
+                creatTime=Tue Nov 15 09:52:46 CST 2022, 
+                deadline=Mon Jan 30 16:12:07 CST 2023, 
+                voteQues=null
+            }
+    	]
+    }
 
-  -  我发起的投票详细信息: /selab/vote/mine/launched/:voteId {get}
+  - 1 我参与的投票信息列表: /selab/vote/mine/joined/lists {get}
+
+```
+{
+    msg=操作成功, 
+    code=200, 
+    data=[
+    	Questionnaire{
+            id=1,
+            title='hhh', 
+            content='hhh', 
+            status='1', 
+            creatTime=Tue Nov 15 09:52:46 CST 2022, 
+            deadline=Mon Jan 30 16:12:07 CST 2023, 
+            voteQues=null
+        }
+	]
+}
+```
+
+- 1 对发起的投票进行撤回：/selab/vote/mine/delete{delete}
+
+```
+{
+    msg=撤回失败,
+    code=500
+}
+{
+    msg=撤回成功,
+    code=200
+}
+```
+
+- 1 提前结束功能：/selab/vote/mine/finish{PUT}
+
+```
+{
+    msg=撤回失败,
+    code=500
+}
+{
+    msg=撤回成功,
+    code=200
+}
+```
+
+- 1 返回我的历史投票信息粗略列表: /selab/vote/mine/joined/lists {get}
+
+```
+{
+    msg=操作成功, 
+    code=200, 
+    data=[
+    	Questionnaire{
+            id=1,
+            title='hhh', 
+            content='hhh', 
+            status='1', 
+            creatTime=Tue Nov 15 09:52:46 CST 2022, 
+            deadline=Mon Jan 30 16:12:07 CST 2023, 
+            voteQues=null
+        }
+	]
+}
+```
 
 
-    - ```
-      {
-        "id": 0,
-        "title": "",
-        "content": "",
-        "authority":"",	//是否可以执行撤回，提前结束等操作
-        "createdTime": "",
-        "deadline": "",
-        "voteQues": [
-          {
-            "id": 0,
-            "type": "",	//类型，S表示单选，M表示多选，T表示文本框
-            "queContent": "",
-            "options": [
-              //单选，多选
-              {
-                "id": 0,
-                "content": "",
-                "percentage":"", //小数，比如0.66
-                "type": "",
-                "other": ""
-              },
-              //文本题
-      		{
-      			question:""
-      			id:""//题号
-      			type:""// 类型 ----文本框
-      			content:''//文本内容
-      		}	
-            ]
-          }
-        ]
-      }
-      ```
 
-  - 我参与的投票信息列表: /selab/vote/mine/joined/list {get}
 
-  - 我参与的投票详细信息: /selab/vote/mine/joined {get}
 
 
 
@@ -295,7 +303,3 @@
     	CSMember: " "   	//网安组成员
     }
     ```
-
-
-- 撤回
-  - 撤回某一条投票: /selab/vote/delete/:voteId {delete}

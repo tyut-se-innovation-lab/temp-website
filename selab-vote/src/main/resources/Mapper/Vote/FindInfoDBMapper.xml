@@ -124,4 +124,9 @@
             )group by user_id
         )as total
     </select>
+
+<!--    int getRoleById(int id);-->
+    <select id="getRoleById" resultType="int">
+        select role_id from sys_user_role where user_id = #{id}
+    </select>
 </mapper>

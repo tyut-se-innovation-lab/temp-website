@@ -42,7 +42,7 @@ public class VoPoConverterTool implements IVoPoConverterTool {
                 if (voteOption.getIsSelect() == 1){  //isSelect值为1时，证明该选项已选或者文本框已填写内容
                     result.setVoteOptionId(voteOption.getId());
                     try {
-                        result.setUserId(Arrays.toString(AnonymousControl.encrypt(userId)));
+//                        result.setUserId(Arrays.toString(AnonymousControl.encrypt(userId)));
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -74,6 +74,7 @@ public class VoPoConverterTool implements IVoPoConverterTool {
         questionnaire.setId(voteInfo.getId());
         questionnaire.setCreatTime(voteInfo.getCreateTime());
         questionnaire.setStatus(voteInfo.getStatus());
+        questionnaire.setPeoples(voteInfo.getPeoples());
         return questionnaire;
     }
 
@@ -109,8 +110,28 @@ public class VoPoConverterTool implements IVoPoConverterTool {
             voteOption.setId(option.getId());
             voteOption.setContent(option.getContent());
             voteOption.setType(option.getContent());
+            voteOption.setPercentage(option.getPercentage());
             voteOption.setIsSelect(isSelect(option,voteResults));
             voteOption.setOther(getOther(option,voteResults));
+            voteOptions.add(voteOption);
+        }
+        return voteOptions;
+    }
+
+    /**
+     * 选项转换(无是否选中，无文本框）
+     * @param options
+     * @return
+     */
+    @Override
+    public List<VoteOption> option(List<PoVoteOption> options) {
+        ArrayList<VoteOption> voteOptions = new ArrayList<>();
+        for (PoVoteOption option : options) {
+            VoteOption voteOption = new VoteOption();
+            voteOption.setId(option.getId());
+            voteOption.setContent(option.getContent());
+            voteOption.setType(option.getContent());
+            voteOption.setPercentage(option.getPercentage());
             voteOptions.add(voteOption);
         }
         return voteOptions;

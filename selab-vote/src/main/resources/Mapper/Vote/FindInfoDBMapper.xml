@@ -3,8 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="tyut.selab.vote.mapper.FindInfoDBMapper">
-
-
     <resultMap id="VoteInfo" type="tyut.selab.vote.domain.po.VoteInfo">
         <id property="id" column="id"/>
         <result property="userId" column="user_id"/>
@@ -41,16 +39,23 @@
     <update id="finishVote">
         update selab_vote_info set deadline = #{nowDate} where id = #{id}
     </update>
-    <!--    <update id="displayVoteRes"></update>-->
-    <!--    Weight getWeightById(Long id);-->
-<!--    <select id="getWeightById" resultMap = "tyut.selab.vote.domain.po.Weight">-->
-<!--        SELECT * FROM selab_vote_weight WHERE id = #{id}-->
-<!--    </select>-->
     <select id="findVoteInfoById" resultType="tyut.selab.vote.domain.po.VoteInfo">
         select * from selab_vote_info where id = #{id}
     </select>
     <select id="getOptionId" resultType="VoteResult" resultMap="VoteResult">
         select vote_option_id from selab_vote_result where user_id = #{userId}
+    </select>
+    <!--    List<VoteResult>displayVoteUser(@Param("optionId")List<PoVoteOption> optionId);-->
+    <select id="displayVoteUser" resultType="VoteResult" resultMap="VoteResult">
+        select user_id from selab_vote_result
+        where vote_option_id in
+        <foreach collection="optiond" item="op" open="(" separator="," close=")">
+            #{op.voteOptionId}
+        </foreach>
+    </select>
+    <!--    List<VoteResult>displayVoteUsers(@Param("optionId")Long optionId);-->
+    <select id="displayVoteUsers" resultType="VoteResult" resultMap="VoteResult">
+        select user_id from selab_vote_result where vote_option_id = #{optionId}
     </select>
     <select id="getVoteId" resultType="VoteOption" resultMap="PoVoteOption">
         select vote_id from selab_vote_option
@@ -60,7 +65,7 @@
         </foreach>
         group by vote_id
     </select>
-<!--List<PoVoteOption>getVoteOptionByParentId(@Param("parentId")Long parentId);-->
+    <!--List<PoVoteOption>getVoteOptionByParentId(@Param("parentId")Long parentId);-->
     <select id="getVoteOptionByParentId" resultType="PoVoteOption" resultMap="PoVoteOption">
         select * from selab_vote_option where parent_id = #{parentId}
     </select>
@@ -68,8 +73,7 @@
     <select id="displayAllVote" resultType="VoteInfo" resultMap="VoteInfo">
         select * from selab_vote_info
     </select>
-
-        <select id="displayMyHistoryVote" resultType="VoteInfo" resultMap="VoteInfo">
+    <select id="displayMyHistoryVote" resultType="VoteInfo" resultMap="VoteInfo">
         select * from selab_vote_info
         where id in
         <foreach collection="voteId" item="vote" open="(" separator="," close=")">
@@ -79,34 +83,33 @@
     <select id="displayMyStartVote" resultType="VoteInfo" resultMap="VoteInfo">
         select * from selab_vote_info where user_id = #{userId}
     </select>
-<!--     List<PoVoteOption>getVoteOptions(@Param("voteId")Long voteTd);-->
+    <!--     List<PoVoteOption>getVoteOptions(@Param("voteId")Long voteTd);-->
     <select id="getVoteOptions" resultType="PoVoteOption" resultMap="PoVoteOption">
         select * from  selab_vote_option where vote_id = #{voteId} AND parent_id = -1
     </select>
-<!--    VoteInfo getVoteByVoteId(@Param("voteId")Long voteTd);-->
+    <!--    VoteInfo getVoteByVoteId(@Param("voteId")Long voteTd);-->
     <select id="getVoteByVoteId" resultType="VoteInfo" resultMap="VoteInfo">
         select * from selab_vote_info where id = #{voteId} AND status != -1
     </select>
-<!--    List<VoteResult>getResByUserIdAndOptionId(@Param("userId")String userId, @Param("optionIds")List<PoVoteOption>optionsId);-->
+    <!--    List<VoteResult>getResByUserIdAndOptionId(@Param("userId")String userId, @Param("optionIds")List<PoVoteOption>optionsId);-->
     <select id="getResByUserIdAndOptionId" resultType="VoteResult" resultMap="VoteResult">
         select * from (
-            select * from selab_vote_result where vote_option_id in
-            <foreach collection="optionIds" item="optionId" open="(" separator="," close=")">
-                #{optionId.id}
-            </foreach>
+        select * from selab_vote_result where vote_option_id in
+        <foreach collection="optionIds" item="optionId" open="(" separator="," close=")">
+            #{optionId.id}
+        </foreach>
         )as total
         where user_id = #{userId}
     </select>
-<!--    List<PoVoteOption>getVoteOptionByVoteId(@Param("voteId")Long voteTd);-->
+    <!--    List<PoVoteOption>getVoteOptionByVoteId(@Param("voteId")Long voteTd);-->
     <select id="getVoteOptionByVoteId" resultType="PoVoteOption" resultMap="PoVoteOption">
         select * from selab_vote_option where vote_id = #{voteId} AND parent_id != -1
     </select>
-<!--    List<VoteInfo>displayAllUsefulVote(@Param("userId")String userId);-->
+    <!--    List<VoteInfo>displayAllUsefulVote(@Param("userId")String userId);-->
     <select id="displayAllUsefulVote" resultType="VoteInfo" resultMap="VoteInfo">
         select * from selab_vote_info where status = 0
     </select>
-
-<!--    int getLastUseWeightId();-->
+    <!--    int getLastUseWeightId();-->
     <select id="getLastUseWeightId" resultType="Long">
         SELECT weight_id FROM selab_vote_last_use WHERE id = 1
     </select>
@@ -114,18 +117,17 @@
     <select id="getWeightById" resultType="tyut.selab.vote.domain.vo.Weight">
         SELECT * FROM selab_vote_weight WHERE id = #{id}
     </select>
-<!--    int theNumOfJoinVote(@Param("voteId")Long voteId);-->
+    <!--    int theNumOfJoinVote(@Param("voteId")Long voteId);-->
     <select id="theNumOfJoinVote" resultType="int" >
         select count(*) from (
             select user_id from selab_vote_result where vote_option_id in(
-                select id from selab_vote_option where parent_id = (
-                    select id from selab_vote_option where vote_id = #{voteId} AND parent_id = -1 limit 1
-                    )
+            select id from selab_vote_option where parent_id = (
+            select id from selab_vote_option where vote_id = #{voteId} AND parent_id = -1 limit 1
+            )
             )group by user_id
-        )as total
+            )as total
     </select>
-
-<!--    int getRoleById(int id);-->
+    <!--    int getRoleById(int id);-->
     <select id="getRoleById" resultType="int">
         select role_id from sys_user_role where user_id = #{id}
     </select>

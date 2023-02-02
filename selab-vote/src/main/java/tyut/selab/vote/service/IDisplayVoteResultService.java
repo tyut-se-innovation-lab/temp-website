@@ -11,6 +11,29 @@ public interface IDisplayVoteResultService {
      * @param userId 申请者id
      * @return 查询结果
      */
-    Questionnaire displayVoteResult(Long voteId,String userId);
-    int displayNumOfResult(Long voteId,String userId);
+    Questionnaire displayVoteResult(Long voteId,Long userId);
+
+    /**
+     * 显示参与该投票的总人数
+     * @param voteId 投票ID
+     * @param userId 使用者ID
+     * @return
+     */
+    int displayNumOfResult(Long voteId,Long userId);
+
+    /**
+     * 显示正在进行的投票的详细信息
+     * @param voteId 投票ID
+     * @param userId 使用者ID
+     * @return
+     */
+    Questionnaire displayVoteGoing(Long voteId,Long userId);
+
+    /**
+     *显示历史投票的详细信息
+     * @param voteId 投票ID
+     * @param userId 使用者ID
+     * @return
+     */
+    Questionnaire displayVoteHistory(Long voteId,Long userId);
 }

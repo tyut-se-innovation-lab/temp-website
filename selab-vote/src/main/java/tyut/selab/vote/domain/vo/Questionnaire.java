@@ -23,8 +23,12 @@ public class Questionnaire {
     private Date creatTime;
     //截止时间
     private Date deadline;
+    //总人数
+    private int peoples;
     //内容
     private List<VoteQue> voteQues;
+    //是否支持撤回
+    private int isWithdraw;
 
     @Override
     public String toString() {
@@ -35,6 +39,7 @@ public class Questionnaire {
                 ", status='" + status + '\'' +
                 ", creatTime=" + creatTime +
                 ", deadline=" + deadline +
+                ", peoples=" + peoples +
                 ", voteQues=" + voteQues +
                 '}';
     }

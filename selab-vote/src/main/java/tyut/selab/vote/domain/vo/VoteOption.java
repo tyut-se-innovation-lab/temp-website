@@ -18,6 +18,8 @@ public class VoteOption {
     private String type;
     //文本框的值（有的话）
     private String other;
+    //百分比
+    private String percentage;
 
     @Override
     public String toString() {
@@ -27,6 +29,7 @@ public class VoteOption {
                 ", isSelect=" + isSelect +
                 ", type='" + type + '\'' +
                 ", other='" + other + '\'' +
+                ", percentage='" + percentage + '\'' +
                 '}';
     }
 }

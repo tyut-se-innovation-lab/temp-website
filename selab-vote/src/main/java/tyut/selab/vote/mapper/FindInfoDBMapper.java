@@ -41,13 +41,13 @@ public interface FindInfoDBMapper {
      * 查看所有列表
      * @param userId
      */
-    List<VoteInfo> displayAllVote(@Param("userId")String userId);
+    List<VoteInfo> displayAllVote(@Param("userId")Long userId);
 
     /**
      * 根据用户ID查找所选选项ID
      * @param userId
      */
-    List<VoteResult>getOptionId(@Param("userId")String userId);
+    List<VoteResult>getOptionId(@Param("userId")Long userId);
 
     /**
      * 根据选项ID查找投票ID
@@ -66,20 +66,21 @@ public interface FindInfoDBMapper {
      * @param userId
      * @return
      */
-    List<VoteInfo>displayAllUsefulVote(@Param("userId")String userId);
+    List<VoteInfo>displayAllUsefulVote(@Param("userId")Long userId);
 
     /**
      * 查看我发起的投票
      * @param userId
      */
-    List<VoteInfo>displayMyStartVote(@Param("userId")String userId);
+    List<VoteInfo>displayMyStartVote(@Param("userId")Long userId);
 
     /**
-     * 根据选项ID查找投票结果
+     * 根据选项ID查找投票者ID
      * @param optionId
      * @return
      */
-    List<VoteResult>displayVoteRes(@Param("optionId")List<PoVoteOption> optionId);
+    List<VoteResult>displayVoteUser(@Param("optionId")List<PoVoteOption> optionId);
+    List<VoteResult>displayVoteUsers(@Param("optionId")Long optionId);
 
     /**
      * 根据投票ID查找投票问题
@@ -115,7 +116,7 @@ public interface FindInfoDBMapper {
      * @param optionsId
      * @return
      */
-    List<VoteResult>getResByUserIdAndOptionId(@Param("userId")String userId, @Param("optionIds")List<PoVoteOption>optionsId);
+    List<VoteResult>getResByUserIdAndOptionId(@Param("userId")Long userId, @Param("optionIds")List<PoVoteOption>optionsId);
 
     /**
      * 查看参与该投票的人数

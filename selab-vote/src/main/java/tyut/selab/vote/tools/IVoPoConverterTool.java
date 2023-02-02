@@ -44,6 +44,13 @@ public interface IVoPoConverterTool {
      * @return
      */
     List<VoteOption>options(List<PoVoteOption> options, List<VoteResult> voteResults);
+
+    /**
+     * 选项转换（无需判断是否被选中）
+     * @param options
+     * @return
+     */
+    List<VoteOption>option(List<PoVoteOption> options);
     /**
      * 判断选项是否被选中
      * @param option 选项

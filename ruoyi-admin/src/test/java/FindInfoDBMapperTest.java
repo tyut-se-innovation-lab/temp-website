@@ -22,13 +22,13 @@ public class FindInfoDBMapperTest {
     @Test
     public void esByUserIdAndOptionIdTest(@Autowired FindInfoDBMapper findInfoDBMapper){
         List<PoVoteOption> voteOptions = findInfoDBMapper.getVoteOptionByVoteId(1L);
-        List<VoteResult> resByUserIdAndOptionId = findInfoDBMapper.getResByUserIdAndOptionId("2021001111", voteOptions);
+        List<VoteResult> resByUserIdAndOptionId = findInfoDBMapper.getResByUserIdAndOptionId(1L, voteOptions);
         resByUserIdAndOptionId.forEach(System.out::println);
     }
     @Test
     public void isSelectTest(@Autowired FindInfoDBMapper mapper){
         List<PoVoteOption> voteOption = mapper.getVoteOptionByVoteId(1L);
-        List<VoteResult> resByUserIdAndOptionId = mapper.getResByUserIdAndOptionId("2021001111", voteOption);
+        List<VoteResult> resByUserIdAndOptionId = mapper.getResByUserIdAndOptionId(1L, voteOption);
         VoPoConverterTool tool = new VoPoConverterTool();
         System.out.println(voteOption.get(0));
         resByUserIdAndOptionId.forEach(System.out::println);

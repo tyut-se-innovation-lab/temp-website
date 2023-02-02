@@ -131,7 +131,7 @@ public interface FindInfoDBMapper {
      * @param id
      * @return
      */
-    int finishVote(@Param("nowDate")String nowDate,@Param("id")String id);
+    int finishVote(@Param("nowDate")String nowDate,@Param("id")Long id);
 
     int getRoleById(long id);
 }

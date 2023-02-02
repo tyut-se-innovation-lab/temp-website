@@ -99,7 +99,7 @@ public class DisplayAllVoteImpl implements IDisplayAllVoteService {
      * @return
      */
     @Override
-    public int finishVote(String voteId) {
+    public int finishVote(Long voteId) {
         String nowDate = GetSysTime.getNowDate();
         return displayAllVoteMapper.finishVote(nowDate,voteId);
     }

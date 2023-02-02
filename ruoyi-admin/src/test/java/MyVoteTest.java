@@ -24,8 +24,8 @@ public class MyVoteTest {
     @Test
     public void displayMyALLVote(){
         System.out.println("===========================================");
-        System.out.println(iDisplayAllVoteService.displayMyJoinVote("1"));
-        System.out.println(AjaxResult.success(iDisplayAllVoteService.displayMyJoinVote("1")));
+        System.out.println(iDisplayAllVoteService.displayMyJoinVote(1L));
+        System.out.println(AjaxResult.success(iDisplayAllVoteService.displayMyJoinVote(1L)));
         System.out.println("===========================================");
     }
 
@@ -33,8 +33,8 @@ public class MyVoteTest {
     @Test
     public void myLaunchVote(){
         System.out.println("===========================================");
-        System.out.println(iDisplayAllVoteService.displayMyStartVote("1"));
-        System.out.println(AjaxResult.success(iDisplayAllVoteService.displayMyStartVote("1")));
+        System.out.println(iDisplayAllVoteService.displayMyStartVote(1L));
+        System.out.println(AjaxResult.success(iDisplayAllVoteService.displayMyStartVote(1L)));
         System.out.println("===========================================");
     }
 
@@ -42,8 +42,8 @@ public class MyVoteTest {
     @Test
     public void deleteVote(){
         System.out.println("===========================================");
-        System.out.println(withdrowVoteService.delectVoteInfoById(Long.valueOf("1")));
-        System.out.println(withdrowVoteService.delectVoteInfoById(Long.valueOf("1")) == null ?
+        System.out.println(withdrowVoteService.delectVoteInfoById(Long.valueOf(1L)));
+        System.out.println(withdrowVoteService.delectVoteInfoById(Long.valueOf(1L)) == null ?
                 AjaxResult.success("撤回成功") :
                 AjaxResult.error("撤回失败"));
         System.out.println("===========================================");
@@ -51,7 +51,7 @@ public class MyVoteTest {
 
     @Test
     public void displayMyJoinVoteService() {
-        List<Questionnaire> questionnaires = iDisplayAllVoteService.displayMyJoinVote("1");
+        List<Questionnaire> questionnaires = iDisplayAllVoteService.displayMyJoinVote(1L);
         Iterator<Questionnaire> iterator = questionnaires.iterator();
         System.out.println("===========================================");
         while (iterator.hasNext()) {
@@ -67,7 +67,7 @@ public class MyVoteTest {
     @Test
     public void finishVote(){
         System.out.println("===========================================");
-        System.out.println(iDisplayAllVoteService.finishVote(String.valueOf(1)));
+        System.out.println(iDisplayAllVoteService.finishVote(1L));
         System.out.println("===========================================");
     }
 
@@ -77,7 +77,7 @@ public class MyVoteTest {
     @Test
     public void test(){
         System.out.println("===========================================");
-        System.out.println(iDisplayVoteResultService.displayVoteResult(1L, "1"));
+        System.out.println(iDisplayVoteResultService.displayVoteResult(1L, 1L));
         System.out.println("===========================================");
     }
 

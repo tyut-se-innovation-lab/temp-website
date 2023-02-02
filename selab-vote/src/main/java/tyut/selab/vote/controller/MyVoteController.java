@@ -24,8 +24,6 @@ public class MyVoteController {
     private IDisplayAllVoteService iDisplayAllVoteService;
     @Autowired
     private IWithdrowVoteService withdrowVoteService;
-    @Autowired
-    private IDisplayVoteResultService iDisplayVoteResultService;
 
     /**
      * 用户自己的历史投票信息(粗略)
@@ -36,7 +34,7 @@ public class MyVoteController {
     @GetMapping("/joined/lists")
     @PreAuthorize("@ss.hasPermi('vote:mine')")
     public AjaxResult displayMyALLVote(@RequestBody Long userId) {
-        return AjaxResult.success(iDisplayAllVoteService.displayMyJoinVote(userId.toString()));
+        return AjaxResult.success(iDisplayAllVoteService.displayMyJoinVote(userId));
     }
 
 
@@ -49,7 +47,7 @@ public class MyVoteController {
     @GetMapping("/launched/lists")
     @PreAuthorize("@ss.hasPermi('vote:mine')")
     public AjaxResult myLaunchVote(@RequestBody Long userId){
-        return AjaxResult.success(iDisplayAllVoteService.displayMyStartVote(userId.toString()));
+        return AjaxResult.success(iDisplayAllVoteService.displayMyStartVote(userId));
     }
 
     /**
@@ -73,7 +71,7 @@ public class MyVoteController {
     @PutMapping("/finish")
     @PreAuthorize("@ss.hasPermi('vote:mine')")
     public AjaxResult finishVote(@RequestBody Long voteId){
-        return iDisplayAllVoteService.finishVote(String.valueOf(voteId)) != 0?
+        return iDisplayAllVoteService.finishVote(voteId) != 0?
                 AjaxResult.success("操作成功"):
                 AjaxResult.error("操作失败");
     }

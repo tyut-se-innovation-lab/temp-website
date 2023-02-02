@@ -33,7 +33,7 @@ public interface IDisplayAllVoteService {
      * @param voteId
      * @return
      */
-    int finishVote(String voteId);
+    int finishVote(Long voteId);
 }
 
 

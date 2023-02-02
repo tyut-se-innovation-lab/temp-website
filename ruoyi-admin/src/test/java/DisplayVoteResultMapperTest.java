@@ -20,7 +20,7 @@ public class DisplayVoteResultMapperTest {
     }
     @Test
     public void displayVoteResultTest(@Autowired DisplayVoteResultServiceImpl service){
-        Questionnaire questionnaire = service.displayVoteResult(1L,"2021001111");
+        Questionnaire questionnaire = service.displayVoteResult(1L,1L);
         System.out.println(questionnaire);
     }
 

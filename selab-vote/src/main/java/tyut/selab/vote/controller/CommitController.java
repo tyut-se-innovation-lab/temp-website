@@ -39,17 +39,17 @@ public class CommitController {
     @GetMapping("/join/list")
     @ResponseBody
     public AjaxResult listRoughInformation(){
-        return AjaxResult.success(displayAllVote.displayAllVote(getUserId().toString()));
+        return AjaxResult.success(displayAllVote.displayAllUsefulVotes(getUserId()));
     }
 
     /**
-     * 查询返回投票的详细结果
+     * 查询返回投票的详细信息
      * @return
      */
     @PreAuthorize("@ss.hasPermi('vote:join')")
     @GetMapping("/join/allInfo")
     public AjaxResult listDetails(@RequestBody Questionnaire questionnaire){
-        return AjaxResult.success(displayVoteResultService.displayVoteResult(questionnaire.getId(),getUserId().toString()));
+        return AjaxResult.success(displayVoteResultService.displayVoteGoing(questionnaire.getId(),getUserId()));
     }
 
     /**

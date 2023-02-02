@@ -163,11 +163,11 @@
     	{
     		id:"",	//投票id
     		title:"",//title,
-    		state:0	//0,1,2状态
+    		state:0	,//0,1,2状态
     		start:"",	//开始时间
-          	isjoin:"",	//是否已经参与
     		end:"",	//结束时间
     		content:"",	//简介
+            isjoin:true	//是否已经参与
     	}
  ]
 ```

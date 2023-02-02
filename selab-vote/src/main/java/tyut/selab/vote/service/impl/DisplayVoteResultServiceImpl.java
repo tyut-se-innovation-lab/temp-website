@@ -12,6 +12,7 @@ import tyut.selab.vote.mapper.FindInfoDBMapper;
 import tyut.selab.vote.service.IDisplayVoteResultService;
 import tyut.selab.vote.tools.impl.VoPoConverterTool;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 @Service
@@ -21,7 +22,7 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
     @Autowired
     FindInfoDBMapper displayAllVoteMapper;
 
-    /**
+    /**（暂时弃用）（查看某人投票的详细信息）
      * 返回某次投票详细信息
      * 返回我发起过的投票详细信息
      * 我参与的投票详细信息
@@ -30,7 +31,7 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
      * @return
      */
     @Override
-    public Questionnaire displayVoteResult(Long voteId,String userId) {
+    public Questionnaire displayVoteResult(Long voteId,Long userId) {
         VoPoConverterTool tool = new VoPoConverterTool();
         // 根据投票id获取到 info（问卷）
         VoteInfo voteByVoteId = findInfoDBMapper.getVoteByVoteId(voteId);
@@ -51,13 +52,134 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
     }
 
     /**
-     * 查看详细（百分比）
+     * 参与投票的总人数
      * @param voteId 投票ID
      * @param userId 申请者ID
      * @return
      */
     @Override
-    public Questionnaire displayNumOfResult(Long voteId, String userId) {
-        return null;
+    public int displayNumOfResult(Long voteId, Long userId) {
+        int peoples = findInfoDBMapper.theNumOfJoinVote(voteId);
+        return peoples;
     }
+
+    /**
+     * 查看正在进行投票的详细信息(未测试）
+     * @param voteId 投票ID
+     * @param userId 使用者ID
+     * @return
+     */
+    @Override
+    public Questionnaire displayVoteGoing(Long voteId, Long userId) {
+        VoPoConverterTool tool = new VoPoConverterTool();
+        VoteInfo voteByVoteId = findInfoDBMapper.getVoteByVoteId(voteId);
+        Questionnaire info = tool.info(voteByVoteId);
+        info.setIsWithdraw(isWithdraw(voteId,userId));
+        List<PoVoteOption> voteOptions = findInfoDBMapper.getVoteOptions(voteByVoteId.getId());
+        List<VoteQue> que = tool.que(voteOptions);
+        for (VoteQue voteQue : que) {
+            List<PoVoteOption> voteOption = findInfoDBMapper.getVoteOptionByParentId(voteQue.getId());
+            for (PoVoteOption poVoteOption : voteOption) {
+                poVoteOption.setPercentage(getPercentage(getVotesByVoteId(poVoteOption.getId()),getTotalVotes(voteOption)));
+            }
+            List<VoteResult> resByUserIdAndOptionId = findInfoDBMapper.getResByUserIdAndOptionId(userId, voteOption);
+            List<VoteOption> options = tool.options(voteOption,resByUserIdAndOptionId);
+            voteOption.forEach(System.out::println);
+            voteQue.setOptions(options);
+        }
+        info.setVoteQues(que);
+        return info;
+    }
+
+    /**
+     * 查看历史投票的详细信息(未测试)
+     * @param voteId 投票ID
+     * @param userId 使用者ID
+     * @return
+     */
+    @Override
+    public Questionnaire displayVoteHistory(Long voteId, Long userId) {
+        VoPoConverterTool tool = new VoPoConverterTool();
+        VoteInfo voteByVoteId = findInfoDBMapper.getVoteByVoteId(voteId);
+        Questionnaire info = tool.info(voteByVoteId);
+        info.setIsWithdraw(isWithdraw(voteId,userId));
+        List<PoVoteOption> voteOptions = findInfoDBMapper.getVoteOptions(voteByVoteId.getId());
+        List<VoteQue> que = tool.que(voteOptions);
+        for (VoteQue voteQue : que) {
+            List<PoVoteOption> voteOption = findInfoDBMapper.getVoteOptionByParentId(voteQue.getId());
+            for (PoVoteOption poVoteOption : voteOption) {
+                poVoteOption.setPercentage(getPercentage(getVotesByVoteId(poVoteOption.getId()),getTotalVotes(voteOption)));
+            }
+            List<VoteOption> options = tool.option(voteOption);
+            voteOption.forEach(System.out::println);
+            voteQue.setOptions(options);
+        }
+        info.setVoteQues(que);
+        return info;
+    }
+
+    /**
+     * 获取百分比
+     * @param optionNum
+     * @param allVoteNum
+     * @return
+     */
+    private String getPercentage(int optionNum,int allVoteNum){
+        double optionNum1 = optionNum*1.0;
+        double allVoteNum1 = allVoteNum*1.0;
+        NumberFormat numberFormat = NumberFormat.getPercentInstance();
+        numberFormat.setMaximumFractionDigits(2);
+        String format = numberFormat.format(optionNum1 / allVoteNum1);
+        return format;
+    }
+
+    /**
+     * 获取某个问题全部的票数
+     * @param optionId
+     * @return
+     */
+    private int getTotalVotes(List<PoVoteOption>optionId){
+        WeightControlService weight = new WeightControlService();
+        int totalVote = 0;
+        List<VoteResult> user = findInfoDBMapper.displayVoteUser(optionId);
+        for (VoteResult userId : user) {
+            totalVote+=weight.getWeightByUserId(userId.getUserId());
+        }
+        return totalVote;
+    }
+
+    /**
+     * 获取某个选项获得的票数
+     * @param optionId
+     * @return
+     */
+    private int getVotesByVoteId(long optionId){
+        WeightControlService weight = new WeightControlService();
+        int num = 0;
+        List<VoteResult> users = findInfoDBMapper.displayVoteUsers(optionId);
+        for (VoteResult user : users) {
+            num+= weight.getWeightByUserId(user.getUserId());
+        }
+        return num;
+    }
+
+    /**
+     * 是否支持撤回
+     * @param voteid
+     * @param userId
+     * @return
+     */
+    private int isWithdraw(long voteid,long userId){
+        int role = findInfoDBMapper.getRoleById(userId);
+        VoteInfo vote = findInfoDBMapper.getVoteByVoteId(voteid);
+        if(role==1||role==100){
+            return 1;
+        }else {
+            if(vote.getUserId().equals(userId)){
+                return 1;
+            }else return 0;
+        }
+    }
+
+
 }

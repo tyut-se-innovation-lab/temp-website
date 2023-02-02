@@ -35,4 +35,13 @@ public class WeightControlService implements IWeightControlService {
         long a = findInfoDBMapper.getLastUseWeightId();
         return findInfoDBMapper.getWeightById(findInfoDBMapper.getLastUseWeightId());
     }
+
+    @Override
+    public int getWeightByUserId(Long id) {
+        return getNowVoteWeight().getWeightMap().get(getRoleThisId(id));
+    }
+
+    private int getRoleThisId(long id){
+        return findInfoDBMapper.getRoleById(id);
+    }
 }

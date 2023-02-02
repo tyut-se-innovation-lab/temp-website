@@ -10,18 +10,24 @@ public interface IDisplayAllVoteService {
      * 查看所有投票列表
      * @param userId 用户名
      */
-    List<Questionnaire>displayAllVote(String userId);
-    List<Questionnaire>displayAllUsefulVotes(String usrId);
+    List<Questionnaire>displayAllVote(Long userId);
+
+    /**
+     * 未过期的投票列表
+     * @param usrId
+     * @return
+     */
+    List<Questionnaire>displayAllUsefulVotes(Long usrId);
     /**
      * c查看我参与的投票列表
      * @param userId
      */
-    List<Questionnaire>displayMyJoinVote(String userId);
+    List<Questionnaire>displayMyJoinVote(Long userId);
     /**
      * 查看我创建的投票列表
      * @param userId 用户名
      */
-    List<Questionnaire>displayMyStartVote(String userId);
+    List<Questionnaire>displayMyStartVote(Long userId);
     /**
      * 提前结束投票
      * @param voteId

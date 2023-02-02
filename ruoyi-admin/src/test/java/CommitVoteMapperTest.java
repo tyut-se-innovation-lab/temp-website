@@ -18,12 +18,12 @@ public class CommitVoteMapperTest {
 public void commitVote(@Autowired ICommitVoteService service){
     VoteResult voteResult1 = new VoteResult();
     voteResult1.setVoteOptionId(758437L);
-    voteResult1.setUserId("hgjfdhg");
+    voteResult1.setUserId(45645L);
     voteResult1.setContent("hghjhfdgh");
     voteResult1.setCreateTime(new Date());
     VoteResult voteResult2 = new VoteResult();
     voteResult2.setVoteOptionId(7556457L);
-    voteResult2.setUserId("6786");
+    voteResult2.setUserId(6787L);
     voteResult2.setContent("hh6786");
     voteResult2.setCreateTime(new Date());
     ArrayList<VoteResult> voteResults = new ArrayList<>();

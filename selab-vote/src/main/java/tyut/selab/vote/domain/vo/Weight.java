@@ -2,6 +2,9 @@ package tyut.selab.vote.domain.vo;
 
 import lombok.Data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Big_bai on 2022/11/22
  */
@@ -47,5 +50,17 @@ public class Weight {
     }
 
     public Weight() {
+    }
+
+    public Map<Integer,Integer> getWeightMap(){
+        Map<Integer,Integer> weightMap = new HashMap<>();
+        weightMap.put(100,voteManager);
+        weightMap.put(101,DEVLeader);
+        weightMap.put(102,DEVManager);
+        weightMap.put(103,CSLeader);
+        weightMap.put(104,CSManager);
+        weightMap.put(105,DEVMember);
+        weightMap.put(106,CSMember);
+        return weightMap;
     }
 }

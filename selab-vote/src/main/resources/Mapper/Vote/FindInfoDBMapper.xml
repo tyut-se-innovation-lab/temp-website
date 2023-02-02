@@ -49,8 +49,8 @@
     <select id="displayVoteUser" resultType="VoteResult" resultMap="VoteResult">
         select user_id from selab_vote_result
         where vote_option_id in
-        <foreach collection="optiond" item="op" open="(" separator="," close=")">
-            #{op.voteOptionId}
+        <foreach collection="optionId" item="op" open="(" separator="," close=")">
+            #{op.id}
         </foreach>
     </select>
     <!--    List<VoteResult>displayVoteUsers(@Param("optionId")Long optionId);-->

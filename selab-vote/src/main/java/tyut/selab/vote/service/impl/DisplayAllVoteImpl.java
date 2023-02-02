@@ -37,14 +37,14 @@ public class DisplayAllVoteImpl implements IDisplayAllVoteService {
         return questionnaireList;
     }
 
-    /**
+     /**
      * 获取可参与的（未过期）投票粗略信息
-     * @param usrId
+     * @param userId
      * @return
      */
     @Override
-    public List<Questionnaire> displayAllUsefulVotes(Long usrId) {
-        List<VoteInfo> voteInfos = displayAllVoteMapper.displayAllUsefulVote(usrId);
+    public List<Questionnaire> displayAllUsefulVotes(Long userId) {
+        List<VoteInfo> voteInfos = displayAllVoteMapper.displayAllUsefulVote(userId);
         VoPoConverterTool tool = new VoPoConverterTool();
         List<Questionnaire>questionnaireList = new ArrayList<>();
         for (VoteInfo voteInfo : voteInfos) {

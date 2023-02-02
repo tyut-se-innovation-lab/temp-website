@@ -21,6 +21,8 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
     FindInfoDBMapper findInfoDBMapper;
     @Autowired
     FindInfoDBMapper displayAllVoteMapper;
+    @Autowired
+    WeightControlService weight;
 
     /**（暂时弃用）（查看某人投票的详细信息）
      * 返回某次投票详细信息
@@ -75,6 +77,7 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
         VoteInfo voteByVoteId = findInfoDBMapper.getVoteByVoteId(voteId);
         Questionnaire info = tool.info(voteByVoteId);
         info.setIsWithdraw(isWithdraw(voteId,userId));
+        info.setPeoples(findInfoDBMapper.theNumOfJoinVote(voteId));
         List<PoVoteOption> voteOptions = findInfoDBMapper.getVoteOptions(voteByVoteId.getId());
         List<VoteQue> que = tool.que(voteOptions);
         for (VoteQue voteQue : que) {
@@ -103,6 +106,7 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
         VoteInfo voteByVoteId = findInfoDBMapper.getVoteByVoteId(voteId);
         Questionnaire info = tool.info(voteByVoteId);
         info.setIsWithdraw(isWithdraw(voteId,userId));
+        info.setPeoples(findInfoDBMapper.theNumOfJoinVote(voteId));
         List<PoVoteOption> voteOptions = findInfoDBMapper.getVoteOptions(voteByVoteId.getId());
         List<VoteQue> que = tool.que(voteOptions);
         for (VoteQue voteQue : que) {
@@ -124,7 +128,7 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
      * @param allVoteNum
      * @return
      */
-    private String getPercentage(int optionNum,int allVoteNum){
+    private String getPercentage(Long optionNum,Long allVoteNum){
         double optionNum1 = optionNum*1.0;
         double allVoteNum1 = allVoteNum*1.0;
         NumberFormat numberFormat = NumberFormat.getPercentInstance();
@@ -138,9 +142,8 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
      * @param optionId
      * @return
      */
-    private int getTotalVotes(List<PoVoteOption>optionId){
-        WeightControlService weight = new WeightControlService();
-        int totalVote = 0;
+    private Long getTotalVotes(List<PoVoteOption>optionId){
+        Long totalVote = 0L;
         List<VoteResult> user = findInfoDBMapper.displayVoteUser(optionId);
         for (VoteResult userId : user) {
             totalVote+=weight.getWeightByUserId(userId.getUserId());
@@ -153,9 +156,8 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
      * @param optionId
      * @return
      */
-    private int getVotesByVoteId(long optionId){
-        WeightControlService weight = new WeightControlService();
-        int num = 0;
+    private Long getVotesByVoteId(long optionId){
+        Long num = 0L;
         List<VoteResult> users = findInfoDBMapper.displayVoteUsers(optionId);
         for (VoteResult user : users) {
             num+= weight.getWeightByUserId(user.getUserId());

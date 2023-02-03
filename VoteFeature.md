@@ -173,7 +173,42 @@
 ```
 
 
-  - 返回某次投票详细信息: /selab/vote/join/allInfo/:voteId {get}
+  - 返回某次投票详细信息: /selab/vote/display:voteId {get}
+
+    - ```json
+      {
+        "id": 0,
+        "title": "",
+        "content": "",
+        "createdTime": "",
+        "deadline": "",
+        "voteQues": [
+          {
+            "id": 0,
+            "type": "",	//类型，S表示单选，M表示多选，T表示文本框
+            "queContent": "",
+            "options": [
+              //单选，多选
+              {
+                "id": 0,
+                "content": "",
+                "type": "",
+                "other": ""
+              },
+              //文本题
+      		{
+      			question:""
+      			id:""//题号
+      			type:""// 类型 ----文本框
+      			content:''//文本内容
+      		}	
+            ]
+          }
+        ]
+      }
+      ```
+      
+- 返回历史投票的详细信息: /selab/vote/display/history:voteId {get}
 
     - ```json
       {
@@ -208,8 +243,6 @@
         ]
       }
       ```
-
-      
 
 
 
@@ -255,7 +288,7 @@
 }
 ```
 
-- 1 对发起的投票进行撤回：/selab/vote/mine/delete{delete}
+- 1 对发起的投票进行撤回：/selab/vote/mine/delete/:voteId{delete}
 
 ```
 {
@@ -272,11 +305,11 @@
 
 ```
 {
-    msg=撤回失败,
+    msg=操作失败,
     code=500
 }
 {
-    msg=撤回成功,
+    msg=操作成功,
     code=200
 }
 ```

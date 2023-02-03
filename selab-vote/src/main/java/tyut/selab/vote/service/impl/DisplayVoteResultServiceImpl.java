@@ -85,7 +85,7 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
             voteByVoteId.setStatus("1");
         }
         Questionnaire info = tool.info(voteByVoteId);
-        info.setIsWithdraw(isWithdraw(voteId,userId));
+        info.setAuthority(isWithdraw(voteId,userId));
         info.setPeoples(findInfoDBMapper.theNumOfJoinVote(voteId));
         info.setJoin(isJoin(userId,voteId));
         List<PoVoteOption> voteOptions = findInfoDBMapper.getVoteOptions(voteByVoteId.getId());
@@ -118,7 +118,7 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
             voteByVoteId.setStatus("1");
         }
         Questionnaire info = tool.info(voteByVoteId);
-        info.setIsWithdraw(isWithdraw(voteId,userId));
+        info.setAuthority(isWithdraw(voteId,userId));
         info.setPeoples(findInfoDBMapper.theNumOfJoinVote(voteId));
         info.setJoin(isJoin(userId,voteId));
         List<PoVoteOption> voteOptions = findInfoDBMapper.getVoteOptions(voteByVoteId.getId());

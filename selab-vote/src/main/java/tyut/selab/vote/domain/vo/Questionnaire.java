@@ -28,7 +28,7 @@ public class Questionnaire {
     //内容
     private List<VoteQue> voteQues;
     //是否支持撤回
-    private int isWithdraw;
+    private int authority;
     //是否参与
     private boolean isJoin;
 
@@ -42,7 +42,7 @@ public class Questionnaire {
                 ", creatTime=" + creatTime +
                 ", deadline=" + deadline +
                 ", peoples=" + peoples +
-                ", isWithdraw=" + isWithdraw +
+                ", authority=" + authority +
                 ", isJoin=" + isJoin +
                 ", voteQues=" + voteQues +
                 '}';

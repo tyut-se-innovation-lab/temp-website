@@ -4,6 +4,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import java.nio.ByteBuffer;
 import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
@@ -53,8 +54,8 @@ public class RSATool {
      * @return 解密所得数据
      * @throws Exception
      */
-    public static String decrypt(byte[] data) throws Exception {
-        return new String(decryptByPrivateKey(data,privateKey));
+    public static byte[] decrypt(byte[] data) throws Exception {
+        return decryptByPrivateKey(data,privateKey);
     }
     /**
      * 用私钥对信息生成数字签名

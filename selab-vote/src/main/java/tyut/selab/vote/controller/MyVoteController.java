@@ -13,6 +13,8 @@ import tyut.selab.vote.service.IWithdrowVoteService;
 import java.util.Iterator;
 import java.util.List;
 
+import static com.ruoyi.common.utils.SecurityUtils.getUserId;
+
 /**
  * @author lv
  */
@@ -24,31 +26,31 @@ public class MyVoteController {
     private IDisplayAllVoteService iDisplayAllVoteService;
     @Autowired
     private IWithdrowVoteService withdrowVoteService;
+    @Autowired
+    private IDisplayVoteResultService iDisplayVoteResultService;
 
     /**
-     * 用户自己的历史投票信息(粗略)
+     * 用户参与的历史投票信息(粗略)
      *
-     * @param userId 用户id
      * @return 返回我参与的投票列表
      */
     @GetMapping("/joined/lists")
     @PreAuthorize("@ss.hasPermi('vote:mine')")
-    public AjaxResult displayMyALLVote(@RequestBody Long userId) {
-        return AjaxResult.success(iDisplayAllVoteService.displayMyJoinVote(userId));
+    public AjaxResult displayMyALLVote() {
+        return AjaxResult.success(iDisplayAllVoteService.displayMyJoinVote(getUserId()));
     }
-
 
     /**
      * 查看我创建的投票列表（粗略）
      *
-     * @param userId 用户id
      * @return 我创建的投票列表（粗略）
      */
     @GetMapping("/launched/lists")
     @PreAuthorize("@ss.hasPermi('vote:mine')")
-    public AjaxResult myLaunchVote(@RequestBody Long userId){
-        return AjaxResult.success(iDisplayAllVoteService.displayMyStartVote(userId));
+    public AjaxResult myLaunchVote(){
+        return AjaxResult.success(iDisplayAllVoteService.displayMyStartVote(getUserId()));
     }
+
 
     /**
      * 对发起的投票进行撤回

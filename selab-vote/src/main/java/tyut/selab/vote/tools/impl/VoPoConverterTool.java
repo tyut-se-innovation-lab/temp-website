@@ -16,6 +16,7 @@ import tyut.selab.vote.tools.IVoPoConverterTool;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 
@@ -169,7 +170,13 @@ public class VoPoConverterTool implements IVoPoConverterTool {
         return null;
     }
 
-
+    @Override
+    public Boolean updateTime(VoteInfo voteInfo) {
+        Date date = new Date();
+        if(voteInfo.getDeadline().before(date)){
+            return true;
+        }else return false;
+    }
 
 
     /**

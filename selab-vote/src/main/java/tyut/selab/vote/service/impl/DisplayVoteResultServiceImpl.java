@@ -38,6 +38,10 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
         VoPoConverterTool tool = new VoPoConverterTool();
         // 根据投票id获取到 info（问卷）
         VoteInfo voteByVoteId = findInfoDBMapper.getVoteByVoteId(voteId);
+        if(voteByVoteId.getStatus().equals("0")&&tool.updateTime(voteByVoteId)){
+            displayAllVoteMapper.updateStatus(voteId);
+            voteByVoteId.setStatus("1");
+        }
         //转换
         Questionnaire info = tool.info(voteByVoteId);
         //根据infoId找到option
@@ -76,9 +80,14 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
     public Questionnaire displayVoteGoing(Long voteId, Long userId) {
         VoPoConverterTool tool = new VoPoConverterTool();
         VoteInfo voteByVoteId = findInfoDBMapper.getVoteByVoteId(voteId);
+        if(voteByVoteId.getStatus().equals("0")&&tool.updateTime(voteByVoteId)){
+            displayAllVoteMapper.updateStatus(voteId);
+            voteByVoteId.setStatus("1");
+        }
         Questionnaire info = tool.info(voteByVoteId);
         info.setIsWithdraw(isWithdraw(voteId,userId));
         info.setPeoples(findInfoDBMapper.theNumOfJoinVote(voteId));
+        info.setJoin(isJoin(userId,voteId));
         List<PoVoteOption> voteOptions = findInfoDBMapper.getVoteOptions(voteByVoteId.getId());
         List<VoteQue> que = tool.que(voteOptions);
         for (VoteQue voteQue : que) {
@@ -88,7 +97,6 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
             }
             List<VoteResult> resByUserIdAndOptionId = findInfoDBMapper.getResByUserIdAndOptionId(userId, voteOption);
             List<VoteOption> options = tool.options(voteOption,resByUserIdAndOptionId);
-            voteOption.forEach(System.out::println);
             voteQue.setOptions(options);
         }
         info.setVoteQues(que);
@@ -105,9 +113,14 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
     public Questionnaire displayVoteHistory(Long voteId, Long userId) {
         VoPoConverterTool tool = new VoPoConverterTool();
         VoteInfo voteByVoteId = findInfoDBMapper.getVoteByVoteId(voteId);
+        if(voteByVoteId.getStatus().equals("0")&&tool.updateTime(voteByVoteId)){
+            displayAllVoteMapper.updateStatus(voteId);
+            voteByVoteId.setStatus("1");
+        }
         Questionnaire info = tool.info(voteByVoteId);
         info.setIsWithdraw(isWithdraw(voteId,userId));
         info.setPeoples(findInfoDBMapper.theNumOfJoinVote(voteId));
+        info.setJoin(isJoin(userId,voteId));
         List<PoVoteOption> voteOptions = findInfoDBMapper.getVoteOptions(voteByVoteId.getId());
         List<VoteQue> que = tool.que(voteOptions);
         for (VoteQue voteQue : que) {
@@ -116,7 +129,6 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
                 poVoteOption.setPercentage(getPercentage(getVotesByVoteId(poVoteOption.getId()),getTotalVotes(voteOption)));
             }
             List<VoteOption> options = tool.option(voteOption);
-            voteOption.forEach(System.out::println);
             voteQue.setOptions(options);
         }
         info.setVoteQues(que);
@@ -192,12 +204,11 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
      */
     @Override
     public Boolean isJoin(Long userId, Long voteId) {
-        Long Id = null;
         try {
             //Id = AnonymousControl.encrypt(voteId);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return findInfoDBMapper.isJoin(userId,Id) != 0 ? true:false;
+        return findInfoDBMapper.isJoin(userId,voteId) != 0 ? true:false;
     }
 }

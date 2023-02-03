@@ -124,6 +124,7 @@ public interface FindInfoDBMapper {
      * @return
      */
     int theNumOfJoinVote(@Param("voteId")Long voteId);
+    void updateStatus(@Param("voteId")Long voteId);
 
     /**
      * 提前结束 vote

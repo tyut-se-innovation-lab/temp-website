@@ -127,12 +127,22 @@
             )group by user_id
             )as total
     </select>
+<!--    void updateStatus(@Param("voteId")Long voteId);-->
+    <update id="updateStatus">
+        update selab_vote_info set status = 1 where id = #{voteId}
+    </update>
     <!--    int getRoleById(int id);-->
     <select id="getRoleById" resultType="int">
         select role_id from sys_user_role where user_id = #{id}
     </select>
     
     <select id="isJoin" resultType="int">
-        select * from selab_vote_info where user_id = #{userId} AND id = #{voteId}
+        select count(*) from (
+            select user_id from selab_vote_result where vote_option_id in(
+                select id from selab_vote_option where vote_id = #{voteId} AND parent_id != -1
+                )
+            )as total
+        where user_id = #{userId}
+
     </select>
 </mapper>

@@ -10,6 +10,7 @@ import tyut.selab.vote.domain.vo.VoteOption;
 import tyut.selab.vote.domain.vo.VoteQue;
 import tyut.selab.vote.mapper.FindInfoDBMapper;
 import tyut.selab.vote.service.IDisplayVoteResultService;
+import tyut.selab.vote.tools.AnonymousControl;
 import tyut.selab.vote.tools.impl.VoPoConverterTool;
 
 import java.text.NumberFormat;
@@ -183,5 +184,20 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
         }
     }
 
-
+    /**
+     * 根据voteId判断用户是否参与投票
+     * @param userId
+     * @param voteId
+     * @return
+     */
+    @Override
+    public Boolean isJoin(Long userId, Long voteId) {
+        Long Id = null;
+        try {
+            //Id = AnonymousControl.encrypt(voteId);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return findInfoDBMapper.isJoin(userId,Id) != 0 ? true:false;
+    }
 }

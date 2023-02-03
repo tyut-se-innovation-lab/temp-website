@@ -36,4 +36,12 @@ public interface IDisplayVoteResultService {
      * @return
      */
     Questionnaire displayVoteHistory(Long voteId,Long userId);
+
+    /**
+     * 根据voteId判断用户是否参与投票
+     * @param userId
+     * @param voteId
+     * @return
+     */
+    Boolean isJoin(Long userId,Long voteId);
 }

@@ -59,7 +59,7 @@ public class CommitController {
     @PreAuthorize("@ss.hasPermi('vote:join')")
     @PostMapping("/join")
     public AjaxResult commitVoteResult(@RequestBody Questionnaire questionnaire){
-        List<VoteResult> voteResults = new VoPoConverterTool().toVoteResult(questionnaire, getUserId().toString());
+        List<VoteResult> voteResults = new VoPoConverterTool().toVoteResult(questionnaire, getUserId());
         return commitVoteService.commitVoteResult(voteResults) != 0?
                 AjaxResult.success("提交成功"):
                 AjaxResult.error("提交失败");

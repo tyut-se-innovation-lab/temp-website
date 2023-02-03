@@ -131,4 +131,8 @@
     <select id="getRoleById" resultType="int">
         select role_id from sys_user_role where user_id = #{id}
     </select>
+    
+    <select id="isJoin" resultType="int">
+        select * from selab_vote_info where user_id = #{userId} AND id = #{voteId}
+    </select>
 </mapper>

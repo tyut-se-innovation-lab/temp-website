@@ -134,4 +134,12 @@ public interface FindInfoDBMapper {
     int finishVote(@Param("nowDate")String nowDate,@Param("id")Long id);
 
     int getRoleById(long id);
+
+    /**
+     * 根据voteId判断用户是否参与投票
+     * @param userId
+     * @param voteId
+     * @return
+     */
+    int isJoin(@Param("userId")Long userId,@Param("voteId")Long voteId);
 }

@@ -29,6 +29,8 @@ public class Questionnaire {
     private List<VoteQue> voteQues;
     //是否支持撤回
     private int isWithdraw;
+    //是否参与
+    private boolean isJoin;
 
     @Override
     public String toString() {

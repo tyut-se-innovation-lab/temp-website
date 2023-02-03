@@ -32,7 +32,7 @@ public class VoPoConverterTool implements IVoPoConverterTool {
      * @return 投票结果集合
      */
     @Override
-    public List<VoteResult> toVoteResult(Questionnaire questionnaire,String userId){
+    public List<VoteResult> toVoteResult(Questionnaire questionnaire,Long userId){
         List<VoteResult> voteResults = new ArrayList<>();
         VoteResult result = new VoteResult();
         List<VoteQue> voteQues = questionnaire.getVoteQues();

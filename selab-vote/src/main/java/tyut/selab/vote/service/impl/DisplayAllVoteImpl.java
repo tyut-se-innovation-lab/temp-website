@@ -47,8 +47,11 @@ public class DisplayAllVoteImpl implements IDisplayAllVoteService {
         List<VoteInfo> voteInfos = displayAllVoteMapper.displayAllUsefulVote(userId);
         VoPoConverterTool tool = new VoPoConverterTool();
         List<Questionnaire>questionnaireList = new ArrayList<>();
+        DisplayVoteResultServiceImpl displayVoteResultService = new DisplayVoteResultServiceImpl();
         for (VoteInfo voteInfo : voteInfos) {
             Questionnaire info = tool.info(voteInfo);
+            if (displayVoteResultService.isJoin(userId,voteInfo.getId())) info.setJoin(true);
+            else info.setJoin(false);
             questionnaireList.add(info);
         }
         return questionnaireList;

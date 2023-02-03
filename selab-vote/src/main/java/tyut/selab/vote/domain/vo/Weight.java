@@ -54,6 +54,7 @@ public class Weight {
 
     public Map<Integer,Integer> getWeightMap(){
         Map<Integer,Integer> weightMap = new HashMap<>();
+        weightMap.put(1,voteManager);
         weightMap.put(100,voteManager);
         weightMap.put(101,DEVLeader);
         weightMap.put(102,DEVManager);

@@ -42,6 +42,8 @@ public class Questionnaire {
                 ", creatTime=" + creatTime +
                 ", deadline=" + deadline +
                 ", peoples=" + peoples +
+                ", isWithdraw=" + isWithdraw +
+                ", isJoin=" + isJoin +
                 ", voteQues=" + voteQues +
                 '}';
     }

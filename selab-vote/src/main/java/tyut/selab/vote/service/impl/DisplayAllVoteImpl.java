@@ -19,6 +19,8 @@ import java.util.List;
 public class DisplayAllVoteImpl implements IDisplayAllVoteService {
     @Autowired
     FindInfoDBMapper displayAllVoteMapper;
+    @Autowired
+    DisplayVoteResultServiceImpl service;
 
     /**
      * 返回历史投票信息粗略列表
@@ -31,7 +33,12 @@ public class DisplayAllVoteImpl implements IDisplayAllVoteService {
         VoPoConverterTool tool = new VoPoConverterTool();
         List<Questionnaire>questionnaireList = new ArrayList<>();
         for (VoteInfo voteInfo : voteInfos) {
+            if(voteInfo.getStatus().equals("0")&&tool.updateTime(voteInfo)){
+                displayAllVoteMapper.updateStatus(voteInfo.getId());
+                voteInfo.setStatus("1");
+            }
             Questionnaire info = tool.info(voteInfo);
+            info.setJoin(service.isJoin(userId, voteInfo.getId()));
             questionnaireList.add(info);
         }
         return questionnaireList;
@@ -47,11 +54,13 @@ public class DisplayAllVoteImpl implements IDisplayAllVoteService {
         List<VoteInfo> voteInfos = displayAllVoteMapper.displayAllUsefulVote(userId);
         VoPoConverterTool tool = new VoPoConverterTool();
         List<Questionnaire>questionnaireList = new ArrayList<>();
-        DisplayVoteResultServiceImpl displayVoteResultService = new DisplayVoteResultServiceImpl();
         for (VoteInfo voteInfo : voteInfos) {
+            if(voteInfo.getStatus().equals("0")&&tool.updateTime(voteInfo)){
+                displayAllVoteMapper.updateStatus(voteInfo.getId());
+                voteInfo.setStatus("1");
+            }
             Questionnaire info = tool.info(voteInfo);
-            if (displayVoteResultService.isJoin(userId,voteInfo.getId())) info.setJoin(true);
-            else info.setJoin(false);
+            info.setJoin(service.isJoin(userId, voteInfo.getId()));
             questionnaireList.add(info);
         }
         return questionnaireList;
@@ -72,7 +81,12 @@ public class DisplayAllVoteImpl implements IDisplayAllVoteService {
         VoPoConverterTool tool = new VoPoConverterTool();
         List<Questionnaire>questionnaireList = new ArrayList<>();
         for (VoteInfo voteInfo : voteInfos) {
+            if(voteInfo.getStatus().equals("0")&&tool.updateTime(voteInfo)){
+                displayAllVoteMapper.updateStatus(voteInfo.getId());
+                voteInfo.setStatus("1");
+            }
             Questionnaire info = tool.info(voteInfo);
+            info.setJoin(service.isJoin(userId, voteInfo.getId()));
             questionnaireList.add(info);
         }
         return questionnaireList;
@@ -85,11 +99,16 @@ public class DisplayAllVoteImpl implements IDisplayAllVoteService {
      */
     @Override
     public List<Questionnaire> displayMyStartVote(Long userId) {
-        List<VoteInfo> voteInfos = displayAllVoteMapper.displayMyStartVote(userId);
         VoPoConverterTool tool = new VoPoConverterTool();
         List<Questionnaire>questionnaireList = new ArrayList<>();
+        List<VoteInfo> voteInfos = displayAllVoteMapper.displayMyStartVote(userId);
         for (VoteInfo voteInfo : voteInfos) {
+            if(voteInfo.getStatus().equals("0")&&tool.updateTime(voteInfo)){
+                displayAllVoteMapper.updateStatus(voteInfo.getId());
+                voteInfo.setStatus("1");
+            }
             Questionnaire info = tool.info(voteInfo);
+            info.setJoin(service.isJoin(userId, voteInfo.getId()));
             questionnaireList.add(info);
         }
         return questionnaireList;

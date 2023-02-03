@@ -66,4 +66,5 @@ public interface IVoPoConverterTool {
      * @return
      */
     String getOther(PoVoteOption option,List<VoteResult>voteResults);
+    Boolean updateTime(VoteInfo voteInfo);
 }

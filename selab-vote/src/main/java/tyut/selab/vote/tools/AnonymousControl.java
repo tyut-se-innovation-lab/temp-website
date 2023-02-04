@@ -13,7 +13,7 @@ public class AnonymousControl {
      * @return 加密数据串
      * @throws Exception
      */
-    public static String encrypt(Long data) throws Exception {
+    public static String encrypt(Long data){
         return RSATool.encrypt(data.toString());
     }
 
@@ -23,7 +23,7 @@ public class AnonymousControl {
      * @return 解密所得数据
      * @throws Exception
      */
-    public static Long decrypt(String data) throws Exception {
+    public static Long decrypt(String data){
         return Long.parseLong(RSATool.decrypt(data));
     }
 

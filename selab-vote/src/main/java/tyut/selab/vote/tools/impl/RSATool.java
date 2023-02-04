@@ -7,12 +7,16 @@ import org.springframework.stereotype.Component;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 /**
  * RSA算法工具类
@@ -45,7 +49,7 @@ public class RSATool {
      * @return 加密数据串
      * @throws Exception
      */
-    public static String encrypt(String data) throws Exception {
+    public static String encrypt(String data){
         return encryptByPublicKey(data,publicKey);
     }
 
@@ -55,7 +59,7 @@ public class RSATool {
      * @return 解密所得数据
      * @throws Exception
      */
-    public static String decrypt(String data) throws Exception {
+    public static String decrypt(String data){
         return new String(decryptByPrivateKey(data,privateKey));
     }
     /**
@@ -106,17 +110,44 @@ public class RSATool {
     }
 
 
-    public static byte[] decryptByPrivateKey(byte[] data, String key) throws Exception {
+    public static byte[] decryptByPrivateKey(byte[] data, String key){
         // 对密钥解密
         byte[] keyBytes = decryptBASE64(key);
         // 取得私钥
         PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(keyBytes);
-        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
-        Key privateKey = keyFactory.generatePrivate(pkcs8KeySpec);
+        KeyFactory keyFactory = null;
+        try {
+            keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        Key privateKey = null;
+        try {
+            privateKey = keyFactory.generatePrivate(pkcs8KeySpec);
+        } catch (InvalidKeySpecException e) {
+            throw new RuntimeException(e);
+        }
         // 对数据解密
-        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
-        cipher.init(Cipher.DECRYPT_MODE, privateKey);
-        return cipher.doFinal(data);
+        Cipher cipher = null;
+        try {
+            cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchPaddingException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            cipher.init(Cipher.DECRYPT_MODE, privateKey);
+        } catch (InvalidKeyException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            return cipher.doFinal(data);
+        } catch (IllegalBlockSizeException e) {
+            throw new RuntimeException(e);
+        } catch (BadPaddingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -127,7 +158,7 @@ public class RSATool {
      * @return
      * @throws Exception
      */
-    public static byte[] decryptByPrivateKey(String data, String key) throws Exception {
+    public static byte[] decryptByPrivateKey(String data, String key){
         return decryptByPrivateKey(decryptBASE64(data), key);
     }
 
@@ -160,17 +191,45 @@ public class RSATool {
      * @return
      * @throws Exception
      */
-    public static String encryptByPublicKey(String data, String key) throws Exception {
+    public static String encryptByPublicKey(String data, String key){
         // 对公钥解密
         byte[] keyBytes = decryptBASE64(key);
         // 取得公钥
         X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
-        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
-        Key publicKey = keyFactory.generatePublic(x509KeySpec);
+        KeyFactory keyFactory = null;
+        try {
+            keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        Key publicKey = null;
+        try {
+            publicKey = keyFactory.generatePublic(x509KeySpec);
+        } catch (InvalidKeySpecException e) {
+            throw new RuntimeException(e);
+        }
         // 对数据加密
-        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
-        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-        return encryptBASE64(cipher.doFinal(data.getBytes(StandardCharsets.UTF_8)));
+        Cipher cipher = null;
+        try {
+            cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchPaddingException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+        } catch (InvalidKeyException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            return encryptBASE64(cipher.doFinal(data.getBytes(StandardCharsets.UTF_8)));
+        } catch (IllegalBlockSizeException e) {
+            throw new RuntimeException(e);
+        } catch (BadPaddingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

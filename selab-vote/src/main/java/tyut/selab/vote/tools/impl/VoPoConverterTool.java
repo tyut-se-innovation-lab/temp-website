@@ -42,11 +42,7 @@ public class VoPoConverterTool implements IVoPoConverterTool {
             for (VoteOption voteOption : options){
                 if (voteOption.getIsSelect() == 1){  //isSelect值为1时，证明该选项已选或者文本框已填写内容
                     result.setVoteOptionId(voteOption.getId());
-                    try {
-//                        result.setUserId(Arrays.toString(AnonymousControl.encrypt(userId)));
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
+//                    result.setUserId(AnonymousControl.encrypt(userId));
                     result.setContent(voteOption.getContent());
                     result.setCreateTime(GetSysTime.getNow());
                 }

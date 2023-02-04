@@ -9,8 +9,11 @@ import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.service.impl.CommitVoteServiceImpl;
 import tyut.selab.vote.service.impl.DisplayAllVoteImpl;
 import tyut.selab.vote.service.impl.DisplayVoteResultServiceImpl;
+import tyut.selab.vote.tools.GetSysTime;
 import tyut.selab.vote.tools.impl.VoPoConverterTool;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static com.ruoyi.common.utils.SecurityUtils.getUserId;
@@ -60,8 +63,10 @@ public class CommitController {
     @PostMapping("/join")
     public AjaxResult commitVoteResult(@RequestBody Questionnaire questionnaire){
         List<VoteResult> voteResults = new VoPoConverterTool().toVoteResult(questionnaire, getUserId());
-        return commitVoteService.commitVoteResult(voteResults) != 0?
-                AjaxResult.success("提交成功"):
-                AjaxResult.error("提交失败");
+        if (commitVoteService.getDeadLineById(questionnaire.getId()).compareTo(GetSysTime.getNow()) > 0){ //创建时间在现在时间之前，，可以参与投票
+            return commitVoteService.commitVoteResult(voteResults) != 0?
+                    AjaxResult.success("提交成功"):
+                    AjaxResult.error("提交失败");
+        }else return AjaxResult.error("投票已截止");
     }
 }

@@ -16,6 +16,7 @@ import java.util.Date;
 public class CommitVoteMapperTest {
 @Test
 public void commitVote(@Autowired ICommitVoteService service){
+    //添加投票结果测试
     VoteResult voteResult1 = new VoteResult();
     voteResult1.setVoteOptionId(758437L);
     voteResult1.setUserId(45645L);
@@ -30,5 +31,7 @@ public void commitVote(@Autowired ICommitVoteService service){
     voteResults.add(voteResult1);
     voteResults.add(voteResult2);
     System.out.println(service.commitVoteResult(voteResults));
+    //获取时间测试
+    System.out.println(service.getDeadLineById(1L));
 }
 }

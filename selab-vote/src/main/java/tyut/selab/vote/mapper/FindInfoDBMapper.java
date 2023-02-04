@@ -143,4 +143,11 @@ public interface FindInfoDBMapper {
      * @return
      */
     int isJoin(@Param("userId")Long userId,@Param("voteId")Long voteId);
+
+    /**
+     * 根据voteId查询投票开始时间
+     * @param voteId
+     * @return
+     */
+    Date getDeadLineById(@Param("voteId")Long voteId);
 }

@@ -145,4 +145,9 @@
         where user_id = #{userId}
 
     </select>
+
+    <!-- Date getCreateTimeById(@Param("voteId")Long voteId)-->
+    <select id="getDeadLineById" resultType="Date">
+        select deadline from selab_vote_info where id = #{voteId}
+    </select>
 </mapper>

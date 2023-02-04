@@ -122,30 +122,39 @@
 
 ```json
 {
-    "id": 0,
-    "title": "",
-    "content": "",
-    "createdTime": "",
-    "deadline": "",
-    "persons":"",
-    "voteQues": [
-      {
-        "id": 0,
-        "type": "",	//类型，S表示单选，M表示多选，T表示文本框
-        "queContent": "",
-        "options": [
-          //单选，多选
-          {
-            "id": 0,
-            "content": "",
-            "percentage":"", //小数，比如0.66
-            "type": "",
-            "other": ""
-          },
-          //先不考虑文本题
-        ]
-      }
-    ]
+  "id": 0,
+  "title": "",
+  "content": "",
+  "createdTime": "",
+  "deadline": "",
+  "authority":"",
+  "status":"",
+  "voteQues": [
+    {
+      "id": 0,
+      "type": "",	//类型，S表示单选，M表示多选，T表示文本框
+      "queContent": "",
+      "options": [
+        //单选，多选
+        {
+          "id": 0,
+          "content": "",
+          "isSelect": 0,
+          "percentage":""
+          "type": "",
+          "other": ""
+        },
+        
+			
+      ]
+    },
+    {//文本题
+		question:""
+		id:""//题号
+		type:""// 类型 ----文本框
+		content:''//文本内容
+	}
+  ]
 }
 ```
 
@@ -173,7 +182,7 @@
 ```
 
 
-  - 返回某次投票详细信息: /selab/vote/display:voteId {get}
+  - **返回某次投票详细信息: /selab/vote/display:voteId {get}**
 
     - ```json
       {
@@ -182,41 +191,8 @@
         "content": "",
         "createdTime": "",
         "deadline": "",
-        "voteQues": [
-          {
-            "id": 0,
-            "type": "",	//类型，S表示单选，M表示多选，T表示文本框
-            "queContent": "",
-            "options": [
-              //单选，多选
-              {
-                "id": 0,
-                "content": "",
-                "type": "",
-                "other": ""
-              },
-              //文本题
-      		{
-      			question:""
-      			id:""//题号
-      			type:""// 类型 ----文本框
-      			content:''//文本内容
-      		}	
-            ]
-          }
-        ]
-      }
-      ```
-      
-- 返回历史投票的详细信息: /selab/vote/display/history:voteId {get}
-
-    - ```json
-      {
-        "id": 0,
-        "title": "",
-        "content": "",
-        "createdTime": "",
-        "deadline": "",
+        "authority":"",
+        "status":"",
         "voteQues": [
           {
             "id": 0,
@@ -228,21 +204,25 @@
                 "id": 0,
                 "content": "",
                 "isSelect": 0,
+                "percentage":""
                 "type": "",
                 "other": ""
               },
-              //文本题
-      		{
-      			question:""
-      			id:""//题号
-      			type:""// 类型 ----文本框
-      			content:''//文本内容
-      		}	
+              
+      			
             ]
-          }
+          },
+          {//文本题
+      		question:""
+      		id:""//题号
+      		type:""// 类型 ----文本框
+      		content:''//文本内容
+      	}
         ]
       }
       ```
+
+
 
 
 

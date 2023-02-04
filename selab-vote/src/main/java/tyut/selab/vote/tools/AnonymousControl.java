@@ -14,8 +14,7 @@ public class AnonymousControl {
      * @throws Exception
      */
     public static String encrypt(Long data) throws Exception {
-        String encrypt = RSATool.encrypt(data.toString());
-        return encrypt;
+        return RSATool.encrypt(data.toString());
     }
 
     /**

@@ -216,7 +216,7 @@
       
 - 返回历史投票的详细信息: /selab/vote/display/history:voteId {get}
 
-    - ```json
+    ```json
        {
         "id": 0,
         "title": "",

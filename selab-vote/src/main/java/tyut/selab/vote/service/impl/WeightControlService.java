@@ -2,6 +2,7 @@ package tyut.selab.vote.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tyut.selab.vote.domain.po.WeightPo;
 import tyut.selab.vote.domain.vo.Weight;
 import tyut.selab.vote.mapper.ChangeInfoDBMapper;
 import tyut.selab.vote.mapper.FindInfoDBMapper;
@@ -22,7 +23,7 @@ public class WeightControlService implements IWeightControlService {
     @Autowired
     private ChangeInfoDBMapper changeInfoDBMapper;
     @Override
-    public void setVoteWeight(Weight w) {
+    public void setVoteWeight(WeightPo w) {
         if(w.equals(getNowVoteWeight())){
             return;
         }
@@ -31,7 +32,7 @@ public class WeightControlService implements IWeightControlService {
     }
 
     @Override
-    public Weight getNowVoteWeight() {
+    public WeightPo getNowVoteWeight() {
         long a = findInfoDBMapper.getLastUseWeightId();
         return findInfoDBMapper.getWeightById(findInfoDBMapper.getLastUseWeightId());
     }

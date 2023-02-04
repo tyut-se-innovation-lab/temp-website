@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import tyut.selab.vote.domain.po.PoVoteOption;
 import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteResult;
+import tyut.selab.vote.domain.po.WeightPo;
 import tyut.selab.vote.domain.vo.Weight;
 
 import java.util.Date;
@@ -21,7 +22,7 @@ public interface FindInfoDBMapper {
      * @param id
      * @return
      */
-    Weight getWeightById(Long id);
+    WeightPo getWeightById(Long id);
 
     /**
      * 获取上一次使用的投票id

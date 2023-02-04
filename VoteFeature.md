@@ -340,7 +340,6 @@
 
     ```
     {
-    	id: " "   			//权重id 默认为1
     	voteManager: " "  	//投票管理员
     	DEVLeader: " "  	//开发组组长
     	CSLeader: " "  		//网安组组长

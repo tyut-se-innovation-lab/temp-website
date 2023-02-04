@@ -13,8 +13,9 @@ public class AnonymousControl {
      * @return 加密数据串
      * @throws Exception
      */
-    public static Long encrypt(Long data) throws Exception {
-        return longFrom8Bytes(RSATool.encrypt(data.toString()),0,false);
+    public static String encrypt(Long data) throws Exception {
+        String encrypt = RSATool.encrypt(data.toString());
+        return encrypt;
     }
 
     /**
@@ -23,25 +24,15 @@ public class AnonymousControl {
      * @return 解密所得数据
      * @throws Exception
      */
-    public static Long decrypt(Long data) throws Exception {
-        return longFrom8Bytes(RSATool.decrypt(RSATool.decryptBASE64(data.toString())),0,false);
-    }
-
-    public static long longFrom8Bytes(byte[] input, int offset, boolean littleEndian){
-        long value=0;
-        // 循环读取每个字节通过移位运算完成long的8个字节拼装
-        for(int  count=0;count<8;++count){
-            int shift=(littleEndian?count:(7-count))<<3;
-            value |=((long)0xff<< shift) & ((long)input[offset+count] << shift);
-        }
-        return value;
+    public static Long decrypt(String data) throws Exception {
+        return Long.parseLong(RSATool.decrypt(data));
     }
 
     public static void main(String[] args) {
         try {
-            Long hhh = encrypt(7787L);
-            System.out.println(encrypt(7787L));
-            System.out.println(decrypt(hhh));
+            String encrypt = encrypt(7787L);
+            System.out.println(encrypt);
+            System.out.println(decrypt(encrypt));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

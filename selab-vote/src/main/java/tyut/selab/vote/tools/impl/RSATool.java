@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
@@ -44,7 +45,7 @@ public class RSATool {
      * @return 加密数据串
      * @throws Exception
      */
-    public static byte[] encrypt(String data) throws Exception {
+    public static String encrypt(String data) throws Exception {
         return encryptByPublicKey(data,publicKey);
     }
 
@@ -54,8 +55,8 @@ public class RSATool {
      * @return 解密所得数据
      * @throws Exception
      */
-    public static byte[] decrypt(byte[] data) throws Exception {
-        return decryptByPrivateKey(data,privateKey);
+    public static String decrypt(String data) throws Exception {
+        return new String(decryptByPrivateKey(data,privateKey));
     }
     /**
      * 用私钥对信息生成数字签名
@@ -159,7 +160,7 @@ public class RSATool {
      * @return
      * @throws Exception
      */
-    public static byte[] encryptByPublicKey(String data, String key) throws Exception {
+    public static String encryptByPublicKey(String data, String key) throws Exception {
         // 对公钥解密
         byte[] keyBytes = decryptBASE64(key);
         // 取得公钥
@@ -169,7 +170,7 @@ public class RSATool {
         // 对数据加密
         Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
         cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-        return cipher.doFinal(data.getBytes());
+        return encryptBASE64(cipher.doFinal(data.getBytes(StandardCharsets.UTF_8)));
     }
 
     /**

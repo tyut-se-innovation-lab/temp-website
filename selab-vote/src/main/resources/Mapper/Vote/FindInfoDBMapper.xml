@@ -114,7 +114,7 @@
         SELECT weight_id FROM selab_vote_last_use WHERE id = 1
     </select>
     <!--    Weight getWeightById(Long id);-->
-    <select id="getWeightById" resultType="tyut.selab.vote.domain.vo.Weight">
+    <select id="getWeightById" resultType="tyut.selab.vote.domain.po.WeightPo">
         SELECT * FROM selab_vote_weight WHERE id = #{id}
     </select>
     <!--    int theNumOfJoinVote(@Param("voteId")Long voteId);-->

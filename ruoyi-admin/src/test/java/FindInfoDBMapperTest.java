@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import tyut.selab.vote.domain.po.PoVoteOption;
 import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteResult;
+import tyut.selab.vote.domain.po.WeightPo;
 import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.domain.vo.Weight;
 import tyut.selab.vote.mapper.FindInfoDBMapper;
@@ -51,7 +52,7 @@ public class FindInfoDBMapperTest {
     }
     @Test
     public void weightTest(@Autowired WeightControlService service){
-        Weight nowVoteWeight = service.getNowVoteWeight();
+        WeightPo nowVoteWeight = service.getNowVoteWeight();
         int weightByUserId = service.getWeightByUserId(2021001111L);
         System.out.println(nowVoteWeight);
     }

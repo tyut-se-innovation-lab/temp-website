@@ -62,28 +62,28 @@
       	"createdTime": "",
         	"deadline": "",
       	"voteQues": [
-          {
-          	"id": 0,
-            	"type": "",	//类型，S表示单选，M表示多选，T表示文本框
-          	"queContent": "",
-            	"options": [
-            		//单选，多选
-              	{
-              		"id": 0,
-                		"content": "",
-              		"percentage":"", //小数，比如0.66
-                		"type": "",
-              		"other": ""
-              	},
-            		//文本题
-      			{
-    					question:""
-      				id:""//题号
-    					type:""// 类型 ----文本框
-      				content:''//文本内容
-    				}	
-            	]
-        	}
+              {//单选，多选
+                  "id": 0,
+                  "type": "",	//类型，S表示单选，M表示多选，T表示文本框
+                  "queContent": "",
+                  "options": [
+                      //单选，多选
+                      {
+                          "id": 0,
+                          "content": "",
+                          "isSelect":"",
+                          "type": "",
+                          "other": ""
+                      },
+                  ]
+              },
+    	        //文本题
+              {
+    	            question:""
+                  id:""//题号
+    	            type:""// 类型 ----文本框
+                  content:''//文本内容
+              }	
         ]
       }
       ```
@@ -102,9 +102,9 @@
 - 历史投票
 
 
-  - 返回历史投票信息粗略列表: /selab/vote/commit/list {get}
+  - 返回历史投票信息粗略列表: /selab/vote/join/list {get}
 
-
+```json
     [
         	{
         		id:"",	//投票id
@@ -116,36 +116,44 @@
         		content:"",	//简介
         	}
     ]
+```
 
-  - 返回某次投票详细信息: /selab/vote/commit/allInfo/:voteId {get}
-
+  - 返回某次投票详细信息: /selab/vote/join/allInfo/:voteId {get}
 
 ```json
 {
-    "id": 0,
-    "title": "",
-    "content": "",
-    "createdTime": "",
-    "deadline": "",
-    "persons":"",
-    "voteQues": [
-      {
-        "id": 0,
-        "type": "",	//类型，S表示单选，M表示多选，T表示文本框
-        "queContent": "",
-        "options": [
-          //单选，多选
-          {
-            "id": 0,
-            "content": "",
-            "percentage":"", //小数，比如0.66
-            "type": "",
-            "other": ""
-          },
-          //先不考虑文本题
-        ]
-      }
-    ]
+  "id": 0,
+  "title": "",
+  "content": "",
+  "createdTime": "",
+  "deadline": "",
+  "authority":"",
+  "isWithdraw": "",
+  "status":"",
+  "voteQues": [
+    {
+      "id": 0,
+      "type": "",	//类型，S表示单选，M表示多选，T表示文本框
+      "queContent": "",
+      "options": [
+        //单选，多选
+        {
+          "id": 0,
+          "content": "",
+          "isSelect": 0,
+          "percentage":""
+          "type": "",
+          "other": ""
+        },	
+      ]
+    },
+    {//文本题
+		question:""
+		id:""//题号
+		type:""// 类型 ----文本框
+		content:''//文本内容
+	}
+  ]
 }
 ```
 
@@ -160,55 +168,19 @@
 
 ```json
 [
-    	{
-    		id:"",	//投票id
-    		title:"",//title,
-    		state:0	,//0,1,2状态
-    		start:"",	//开始时间
-    		end:"",	//结束时间
-    		content:"",	//简介
-            isjoin:true	//是否已经参与
-    	}
+    {
+    	id:"",	//投票id
+    	title:"",//title,
+    	state:0	,//0,1,2状态
+    	start:"",	//开始时间
+    	end:"",	//结束时间
+    	content:"",	//简介
+        isjoin:true	//是否已经参与
+    }
  ]
 ```
 
-
-  - 返回某次投票详细信息: /selab/vote/display:voteId {get}
-
-    - ```json
-      {
-        "id": 0,
-        "title": "",
-        "content": "",
-        "createdTime": "",
-        "deadline": "",
-        "voteQues": [
-          {
-            "id": 0,
-            "type": "",	//类型，S表示单选，M表示多选，T表示文本框
-            "queContent": "",
-            "options": [
-              //单选，多选
-              {
-                "id": 0,
-                "content": "",
-                "type": "",
-                "other": ""
-              },
-              //文本题
-      		{
-      			question:""
-      			id:""//题号
-      			type:""// 类型 ----文本框
-      			content:''//文本内容
-      		}	
-            ]
-          }
-        ]
-      }
-      ```
-      
-- 返回历史投票的详细信息: /selab/vote/display/history:voteId {get}
+  - 返回某次投票详细信息: /selab/vote/join/allInfo/:voteId {get}
 
     - ```json
       {
@@ -217,41 +189,41 @@
         "content": "",
         "createdTime": "",
         "deadline": "",
+        "authority":"",
+        "status":"",
+        "isWithdraw": "",
         "voteQues": [
-          {
+          { //单选，多选
             "id": 0,
             "type": "",	//类型，S表示单选，M表示多选，T表示文本框
             "queContent": "",
             "options": [
-              //单选，多选
               {
                 "id": 0,
                 "content": "",
                 "isSelect": 0,
+                "percentage":""
                 "type": "",
                 "other": ""
-              },
-              //文本题
-      		{
-      			question:""
-      			id:""//题号
-      			type:""// 类型 ----文本框
-      			content:''//文本内容
-      		}	
+              },	
             ]
-          }
+          },
+          {//文本题
+      		question:""
+      		id:""//题号
+      		type:""// 类型 ----文本框
+    			content:''//文本内容
+    		}
         ]
       }
       ```
-
 
 
 - 我的投票
 
 
   - 1 我发起的投票简略列表: /selab/vote/mine/launched/lists{get}
-
-
+ ```
     {
         msg=操作成功, 
         code=200, 
@@ -267,6 +239,7 @@
             }
     	]
     }
+ ```
 
   - 1 我参与的投票信息列表: /selab/vote/mine/joined/lists {get}
 
@@ -316,39 +289,41 @@
 
 * 详细信息：/selab/vote/join/allInfo/:voteId {get}
 
-  ```
-  {
-    "id": 0,
-    "title": "",
-    "content": "",
-    "createdTime": "",
-    "deadline": "",
-    "voteQues": [
-      {
-        "id": 0,
-        "type": "",	//类型，S表示单选，M表示多选，T表示文本框
-        "queContent": "",
-        "options": [
-          //单选，多选
-          {
-            "id": 0,
-            "content": "",
-            "isSelect": 0,
-            "type": "",
-            "other": ""
-          },
-          //文本题
-  		{
-  			question:""
-  			id:""//题号
-  			type:""// 类型 ----文本框
-  			content:''//文本内容
-  		}	
-        ]
-      }
-    ]
-  }
-  ```
+```json
+{
+  "id": 0,
+  "title": "",
+  "content": "",
+  "createdTime": "",
+  "deadline": "",
+  "authority":"",
+  "status":"",
+  "isWithdraw": "",
+  "voteQues": [
+    { //单选，多选
+      "id": 0,
+      "type": "",	//类型，S表示单选，M表示多选，T表示文本框
+      "queContent": "",
+      "options": [
+        {
+          "id": 0,
+          "content": "",
+          "isSelect": 0,
+          "percentage":""
+          "type": "",
+          "other": ""
+        },	
+      ]
+    },
+    {//文本题
+		question:""
+		id:""//题号
+		type:""// 类型 ----文本框
+		content:''//文本内容
+	}
+  ]
+}
+```
 
   
 
@@ -363,7 +338,7 @@
 
   - 修改权重:  /selab/vote/weight/modify {post}
 
-  - ```
+    ```
     {
     	id: " "   			//权重id 默认为1
     	voteManager: " "  	//投票管理员
@@ -374,4 +349,3 @@
     	DEVMember: " "  	//开发组成员
     	CSMember: " "   	//网安组成员
     }
-    ```

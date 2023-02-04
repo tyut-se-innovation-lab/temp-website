@@ -104,7 +104,7 @@
 
   - 返回历史投票信息粗略列表: /selab/vote/commit/list {get}
 
-
+```json
     [
         	{
         		id:"",	//投票id
@@ -116,38 +116,9 @@
         		content:"",	//简介
         	}
     ]
+```
 
   - 返回某次投票详细信息: /selab/vote/commit/allInfo/:voteId {get}
-
-
-```json
-{
-    "id": 0,
-    "title": "",
-    "content": "",
-    "createdTime": "",
-    "deadline": "",
-    "persons":"",
-    "voteQues": [
-      {
-        "id": 0,
-        "type": "",	//类型，S表示单选，M表示多选，T表示文本框
-        "queContent": "",
-        "options": [
-          //单选，多选
-          {
-            "id": 0,
-            "content": "",
-            "percentage":"", //小数，比如0.66
-            "type": "",
-            "other": ""
-          },
-          //先不考虑文本题
-        ]
-      }
-    ]
-}
-```
 
 
 
@@ -185,7 +156,7 @@
 	"status"= "",
 	"authority"= "",
 	"peoples"= "",
-	"isWithdraw"= "",
+	"authority"= "",
         "voteQues": [
           {
             "id": 0,
@@ -253,7 +224,7 @@
           }
         ]
       }
-      ```
+ ```
 
 
 
@@ -261,8 +232,7 @@
 
 
   - 1 我发起的投票简略列表: /selab/vote/mine/launched/lists{get}
-
-
+```
     {
         msg=操作成功, 
         code=200, 
@@ -278,6 +248,7 @@
             }
     	]
     }
+```
 
   - 1 我参与的投票信息列表: /selab/vote/mine/joined/lists {get}
 

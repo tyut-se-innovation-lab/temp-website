@@ -180,8 +180,12 @@
         "id": 0,
         "title": "",
         "content": "",
-        "createdTime": "",
+        "createdTime": "", 
         "deadline": "",
+	"status"= "",
+	"authority"= "",
+	"peoples"= "",
+	"isWithdraw"= "",
         "voteQues": [
           {
             "id": 0,
@@ -201,6 +205,8 @@
       			id:""//题号
       			type:""// 类型 ----文本框
       			content:''//文本内容
+			isSelect= "", 
+			percentage= "",
       		}	
             ]
           }
@@ -211,12 +217,16 @@
 - 返回历史投票的详细信息: /selab/vote/display/history:voteId {get}
 
     - ```json
-      {
+       {
         "id": 0,
         "title": "",
         "content": "",
-        "createdTime": "",
+        "createdTime": "", 
         "deadline": "",
+	"status"= "",
+	"authority"= "",
+	"peoples"= "",
+	"isWithdraw"= "",
         "voteQues": [
           {
             "id": 0,
@@ -227,7 +237,6 @@
               {
                 "id": 0,
                 "content": "",
-                "isSelect": 0,
                 "type": "",
                 "other": ""
               },
@@ -237,6 +246,8 @@
       			id:""//题号
       			type:""// 类型 ----文本框
       			content:''//文本内容
+			isSelect= "", 
+			percentage= "",
       		}	
             ]
           }
@@ -317,37 +328,42 @@
 * 详细信息：/selab/vote/join/allInfo/:voteId {get}
 
   ```
-  {
-    "id": 0,
-    "title": "",
-    "content": "",
-    "createdTime": "",
-    "deadline": "",
-    "voteQues": [
-      {
+   {
         "id": 0,
-        "type": "",	//类型，S表示单选，M表示多选，T表示文本框
-        "queContent": "",
-        "options": [
-          //单选，多选
+        "title": "",
+        "content": "",
+        "createdTime": "", 
+        "deadline": "",
+	"status"= "",
+	"authority"= "",
+	"peoples"= "",
+	"isWithdraw"= "",
+        "voteQues": [
           {
             "id": 0,
-            "content": "",
-            "isSelect": 0,
-            "type": "",
-            "other": ""
-          },
-          //文本题
-  		{
-  			question:""
-  			id:""//题号
-  			type:""// 类型 ----文本框
-  			content:''//文本内容
-  		}	
+            "type": "",	//类型，S表示单选，M表示多选，T表示文本框
+            "queContent": "",
+            "options": [
+              //单选，多选
+              {
+                "id": 0,
+                "content": "",
+                "type": "",
+                "other": ""
+              },
+              //文本题
+      		{
+      			question:""
+      			id:""//题号
+      			type:""// 类型 ----文本框
+      			content:''//文本内容
+			isSelect= "", 
+			percentage= "",
+      		}	
+            ]
+          }
         ]
       }
-    ]
-  }
   ```
 
   

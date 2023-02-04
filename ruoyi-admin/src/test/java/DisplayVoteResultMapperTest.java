@@ -27,11 +27,15 @@ public class DisplayVoteResultMapperTest {
         List<Questionnaire> list2 = displayAllVote.displayAllUsefulVotes(2021001111L);
         List<Questionnaire> list3 = displayAllVote.displayMyJoinVote(2021001111L);
         List<Questionnaire> list4 = displayAllVote.displayMyStartVote(2021001111L);
-//        list1.forEach(System.out::println);
+        list1.forEach(System.out::println);
+        list2.forEach(System.out::println);
+        list3.forEach(System.out::println);
+        list4.forEach(System.out::println);
         //详细
         Questionnaire questionnaire1 = service.displayVoteGoing(1L, 2021001111L);
         Questionnaire questionnaire2 = service.displayVoteHistory(1L, 2021001111L);
         System.out.println(questionnaire1);
+        System.out.println(questionnaire2);
     }
     @Test
     public void displayVoteResultTest1(@Autowired DisplayAllVoteImpl service){

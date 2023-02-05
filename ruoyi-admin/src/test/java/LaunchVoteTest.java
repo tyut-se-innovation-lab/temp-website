@@ -1,3 +1,4 @@
+import ch.qos.logback.classic.pattern.SyslogStartConverter;
 import com.ruoyi.RuoYiApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.domain.vo.VoteOption;
 import tyut.selab.vote.domain.vo.VoteQue;
+import tyut.selab.vote.mapper.InsertInfoDBMapper;
 import tyut.selab.vote.service.ILaunchVoteService;
 import tyut.selab.vote.tools.GetSysTime;
 import tyut.selab.vote.tools.impl.VoPoConverterTool;
@@ -24,34 +26,66 @@ public class LaunchVoteTest {
     @Autowired
     ILaunchVoteService launchVoteService;
 
+    @Autowired
+    InsertInfoDBMapper insertInfoDBMapper;
+
     @Test
-    public void launchVoteTest(){
-
-
-
-        VoteOption v = new VoteOption();
-        VoteOption v1 = new VoteOption();
-        List<VoteOption> voteOptions = new ArrayList<>();
-        v.setType("M");
-        v.setContent("M");
-        v1.setType("M");
-        v1.setContent("M");
-        voteOptions.add(v);
-        voteOptions.add(v1);
-
+    public void launchVoteTest() {
+        Questionnaire questionnaire = new Questionnaire();
+        questionnaire.setContent("傻儿子吉吉");
+        questionnaire.setDeadline(new Date());
+        questionnaire.setCreatTime(new Date());
+        questionnaire.setTitle("嘿嘿嘿");
+        setVoteQue(questionnaire);
+        launchVoteService.launchVote(questionnaire,3L);
+    }
+    private void setVoteQue(Questionnaire questionnaire){
         List<VoteQue> voteQues = new ArrayList<>();
-        VoteQue vq = new VoteQue();
-        vq.setOptions(voteOptions);
-        vq.setType("Q");
-        vq.setQueContent("红红火火恍恍惚惚");
-        voteQues.add(vq);
 
-        Questionnaire  q = new Questionnaire();
-        q.setContent("嘿嘿嘿");
-        q.setDeadline(GetSysTime.getNow());
-        q.setTitle("傻儿子吉吉嘿嘿嘿嘿嘿嘿嘿嘿");
-        q.setVoteQues(voteQues);
+        VoteQue v1 = new VoteQue();
+        v1.setType("Q");
+        v1.setQueContent("我是不是吉吉的父亲");
+        setVoteOpt(v1);
+        voteQues.add(v1);
 
-        launchVoteService.launchVote(VoPoConverterTool.voToVoteInfo(q,10L),VoPoConverterTool.voToPoVoteOptions(q));
+        questionnaire.setVoteQues(voteQues);
+
+    }
+    private void setVoteOpt(VoteQue voteQue){
+        List<VoteOption> options = new ArrayList<>();
+
+        VoteOption v1 = new VoteOption();
+        v1.setContent("是的");
+        v1.setType("S");
+        options.add(v1);
+
+        VoteOption v2 = new VoteOption();
+        v2.setContent("必须");
+        v2.setType("S");
+        options.add(v2);
+
+        voteQue.setOptions(options);
+    }
+
+    @Test
+    public void test(){
+//        List<PoVoteOption> l = new ArrayList<>();
+//        PoVoteOption p1 = new PoVoteOption();
+//        p1.setVoteId(1L);
+//        p1.setParentId(-1L);
+//        p1.setContent("xxx");
+//        p1.setOptionType("Q");
+//        l.add(p1);
+//        insertInfoDBMapper.writeVoteOptionToDB(l);
+        VoteInfo voteInfo = new VoteInfo();
+        voteInfo.setWeight(4L);
+        voteInfo.setStatus("1");
+        voteInfo.setTitle("xxxx");
+        voteInfo.setUserId(4L);
+        voteInfo.setContent("dsadasdsadas");
+        voteInfo.setDeadline(new Date());
+        voteInfo.setCreateTime(new Date());
+        insertInfoDBMapper.writeVoteInfoToDB(voteInfo);
+        System.err.println(voteInfo.getId());
     }
 }

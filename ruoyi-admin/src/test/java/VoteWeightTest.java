@@ -22,7 +22,7 @@ public class VoteWeightTest {
     }
     @Test
     public void setGetWeightTest(){
-        WeightPo w = new WeightPo(new Weight(1,2,2,2,2,2,2));
+        WeightPo w = new WeightPo(new Weight(5,2,2,2,2,2,2));
         weightControlService.setVoteWeight(w);
         w = weightControlService.getNowVoteWeight();
         System.err.println(1+w.toString());

@@ -14,6 +14,7 @@ import tyut.selab.vote.mapper.InsertInfoDBMapper;
 import tyut.selab.vote.service.ILaunchVoteService;
 import tyut.selab.vote.service.IWeightControlService;
 import tyut.selab.vote.tools.GetSysTime;
+import tyut.selab.vote.tools.impl.RSATool;
 
 import java.util.*;
 
@@ -56,7 +57,7 @@ public class LaunchVoteService implements ILaunchVoteService,Runnable {
 
     private VoteInfo getVoteInfoFromQuestionnaire(){
         VoteInfo voteInfo = new VoteInfo();
-        voteInfo.setUserId(this.userId);
+        voteInfo.setUserId(RSATool.encrypt(this.userId.toString()));
         voteInfo.setTitle(questionnaire.getTitle());
         voteInfo.setContent(questionnaire.getContent());
         voteInfo.setStatus("1");

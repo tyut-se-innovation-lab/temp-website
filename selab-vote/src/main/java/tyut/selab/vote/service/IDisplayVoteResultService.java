@@ -11,7 +11,7 @@ public interface IDisplayVoteResultService {
      * @param userId 申请者id
      * @return 查询结果
      */
-    Questionnaire displayVoteResult(Long voteId,Long userId);
+    Questionnaire displayVoteResult(Long voteId,String userId);
 
     /**
      * 显示参与该投票的总人数
@@ -19,7 +19,7 @@ public interface IDisplayVoteResultService {
      * @param userId 使用者ID
      * @return
      */
-    int displayNumOfResult(Long voteId,Long userId);
+    int displayNumOfResult(Long voteId,String userId);
 
     /**
      * 显示正在进行的投票的详细信息
@@ -27,7 +27,7 @@ public interface IDisplayVoteResultService {
      * @param userId 使用者ID
      * @return
      */
-    Questionnaire displayVoteGoing(Long voteId,Long userId);
+    Questionnaire displayVoteGoing(Long voteId,String userId);
 
     /**
      *显示历史投票的详细信息
@@ -35,7 +35,7 @@ public interface IDisplayVoteResultService {
      * @param userId 使用者ID
      * @return
      */
-    Questionnaire displayVoteHistory(Long voteId,Long userId);
+    Questionnaire displayVoteHistory(Long voteId,String userId);
 
     /**
      * 根据voteId判断用户是否参与投票
@@ -43,5 +43,5 @@ public interface IDisplayVoteResultService {
      * @param voteId
      * @return
      */
-    Boolean isJoin(Long userId,Long voteId);
+    Boolean isJoin(String userId,Long voteId);
 }

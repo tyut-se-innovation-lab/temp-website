@@ -42,13 +42,13 @@ public interface FindInfoDBMapper {
      * 查看所有列表
      * @param userId
      */
-    List<VoteInfo> displayAllVote(@Param("userId")Long userId);
+    List<VoteInfo> displayAllVote(@Param("userId")String userId);
 
     /**
      * 根据用户ID查找所选选项ID
      * @param userId
      */
-    List<VoteResult>getOptionId(@Param("userId")Long userId);
+    List<VoteResult>getOptionId(@Param("userId")String userId);
 
     /**
      * 根据选项ID查找投票ID
@@ -67,13 +67,13 @@ public interface FindInfoDBMapper {
      * @param userId
      * @return
      */
-    List<VoteInfo>displayAllUsefulVote(@Param("userId")Long userId);
+    List<VoteInfo>displayAllUsefulVote(@Param("userId")String userId);
 
     /**
      * 查看我发起的投票
      * @param userId
      */
-    List<VoteInfo>displayMyStartVote(@Param("userId")Long userId);
+    List<VoteInfo>displayMyStartVote(@Param("userId")String userId);
 
     /**
      * 根据选项ID查找投票者ID
@@ -117,7 +117,7 @@ public interface FindInfoDBMapper {
      * @param optionsId
      * @return
      */
-    List<VoteResult>getResByUserIdAndOptionId(@Param("userId")Long userId, @Param("optionIds")List<PoVoteOption>optionsId);
+    List<VoteResult>getResByUserIdAndOptionId(@Param("userId")String userId, @Param("optionIds")List<PoVoteOption>optionsId);
 
     /**
      * 查看参与该投票的人数
@@ -135,7 +135,7 @@ public interface FindInfoDBMapper {
      */
     int finishVote(@Param("nowDate")String nowDate,@Param("id")Long id);
 
-    int getRoleById(long id);
+    int getRoleById(String id);
 
     /**
      * 根据voteId判断用户是否参与投票
@@ -143,7 +143,7 @@ public interface FindInfoDBMapper {
      * @param voteId
      * @return
      */
-    int isJoin(@Param("userId")Long userId,@Param("voteId")Long voteId);
+    int isJoin(@Param("userId")String userId,@Param("voteId")Long voteId);
 
     /**
      * 根据voteId查询投票开始时间

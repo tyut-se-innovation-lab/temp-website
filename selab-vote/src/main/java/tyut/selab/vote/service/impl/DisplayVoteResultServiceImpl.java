@@ -34,7 +34,7 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
      * @return
      */
     @Override
-    public Questionnaire displayVoteResult(Long voteId,Long userId) {
+    public Questionnaire displayVoteResult(Long voteId,String userId) {
         VoPoConverterTool tool = new VoPoConverterTool();
         // 根据投票id获取到 info（问卷）
         VoteInfo voteByVoteId = findInfoDBMapper.getVoteByVoteId(voteId);
@@ -65,7 +65,7 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
      * @return
      */
     @Override
-    public int displayNumOfResult(Long voteId, Long userId) {
+    public int displayNumOfResult(Long voteId, String userId) {
         int peoples = findInfoDBMapper.theNumOfJoinVote(voteId);
         return peoples;
     }
@@ -77,7 +77,7 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
      * @return
      */
     @Override
-    public Questionnaire displayVoteGoing(Long voteId, Long userId) {
+    public Questionnaire displayVoteGoing(Long voteId, String userId) {
         VoPoConverterTool tool = new VoPoConverterTool();
         VoteInfo voteByVoteId = findInfoDBMapper.getVoteByVoteId(voteId);
         if(voteByVoteId.getStatus().equals("0")&&tool.updateTime(voteByVoteId)){
@@ -110,7 +110,7 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
      * @return
      */
     @Override
-    public Questionnaire displayVoteHistory(Long voteId, Long userId) {
+    public Questionnaire displayVoteHistory(Long voteId, String userId) {
         VoPoConverterTool tool = new VoPoConverterTool();
         VoteInfo voteByVoteId = findInfoDBMapper.getVoteByVoteId(voteId);
         if(voteByVoteId.getStatus().equals("0")&&tool.updateTime(voteByVoteId)){
@@ -184,7 +184,7 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
      * @param userId
      * @return
      */
-    private int isWithdraw(long voteid,long userId){
+    private int isWithdraw(long voteid,String userId){
         int role = findInfoDBMapper.getRoleById(userId);
         VoteInfo vote = findInfoDBMapper.getVoteByVoteId(voteid);
         if(role==1||role==100){
@@ -203,7 +203,7 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
      * @return
      */
     @Override
-    public Boolean isJoin(Long userId, Long voteId) {
+    public Boolean isJoin(String userId, Long voteId) {
         try {
             //Id = AnonymousControl.encrypt(voteId);
         } catch (Exception e) {

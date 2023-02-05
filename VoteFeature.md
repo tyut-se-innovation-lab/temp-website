@@ -50,7 +50,7 @@
 
 ## 接口约束
 
-- 发起投票: /selab/vote/initiate {post}
+- 发起投票:  
 
   * 访问参数
 

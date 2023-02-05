@@ -23,23 +23,23 @@ public class DisplayVoteResultMapperTest {
     @Test
     public void displayVoteResultTest(@Autowired DisplayVoteResultServiceImpl service, @Autowired FindInfoDBMapper findInfoDBMapper, @Autowired WeightControlService weightControlService,@Autowired DisplayAllVoteImpl displayAllVote){
         //历史粗略
-        List<Questionnaire> list1 = displayAllVote.displayAllVote(2021001111L);
-        List<Questionnaire> list2 = displayAllVote.displayAllUsefulVotes(2021001111L);
-        List<Questionnaire> list3 = displayAllVote.displayMyJoinVote(2021001111L);
-        List<Questionnaire> list4 = displayAllVote.displayMyStartVote(2021001111L);
+        List<Questionnaire> list1 = displayAllVote.displayAllVote("2021001111");
+        List<Questionnaire> list2 = displayAllVote.displayAllUsefulVotes("2021001111");
+        List<Questionnaire> list3 = displayAllVote.displayMyJoinVote("2021001111");
+        List<Questionnaire> list4 = displayAllVote.displayMyStartVote("2021001111");
         list1.forEach(System.out::println);
         list2.forEach(System.out::println);
         list3.forEach(System.out::println);
         list4.forEach(System.out::println);
         //详细
-        Questionnaire questionnaire1 = service.displayVoteGoing(1L, 2021001111L);
-        Questionnaire questionnaire2 = service.displayVoteHistory(1L, 2021001111L);
+        Questionnaire questionnaire1 = service.displayVoteGoing(1L, "2021001111");
+        Questionnaire questionnaire2 = service.displayVoteHistory(1L, "2021001111");
         System.out.println(questionnaire1);
         System.out.println(questionnaire2);
     }
     @Test
     public void displayVoteResultTest1(@Autowired DisplayAllVoteImpl service){
-        List<Questionnaire> questionnaireList = service.displayMyJoinVote(2021001111L);
+        List<Questionnaire> questionnaireList = service.displayMyJoinVote("2021001111");
         System.out.println(questionnaireList);
     }
 

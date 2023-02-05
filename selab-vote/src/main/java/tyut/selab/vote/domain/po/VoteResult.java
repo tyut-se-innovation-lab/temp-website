@@ -5,7 +5,7 @@ import java.util.Date;
 public class VoteResult {
     private Long id;
     private Long voteOptionId;
-    private Long userId;
+    private String userId;
     private String content;
     private int isEnable;
     private Date createTime;
@@ -27,11 +27,11 @@ public class VoteResult {
         this.voteOptionId = voteOptionId;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

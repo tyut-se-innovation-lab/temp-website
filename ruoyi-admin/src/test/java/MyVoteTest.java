@@ -24,8 +24,8 @@ public class MyVoteTest {
     @Test
     public void displayMyALLVote(){
         System.out.println("===========================================");
-        System.out.println(iDisplayAllVoteService.displayMyJoinVote(1L));
-        System.out.println(AjaxResult.success(iDisplayAllVoteService.displayMyJoinVote(1L)));
+        System.out.println(iDisplayAllVoteService.displayMyJoinVote("1"));
+        System.out.println(AjaxResult.success(iDisplayAllVoteService.displayMyJoinVote("1")));
         System.out.println("===========================================");
     }
 
@@ -33,8 +33,8 @@ public class MyVoteTest {
     @Test
     public void myLaunchVote(){
         System.out.println("===========================================");
-        System.out.println(iDisplayAllVoteService.displayMyStartVote(1L));
-        System.out.println(AjaxResult.success(iDisplayAllVoteService.displayMyStartVote(1L)));
+        System.out.println(iDisplayAllVoteService.displayMyStartVote("1"));
+        System.out.println(AjaxResult.success(iDisplayAllVoteService.displayMyStartVote("1")));
         System.out.println("===========================================");
     }
 
@@ -51,7 +51,7 @@ public class MyVoteTest {
 
     @Test
     public void displayMyJoinVoteService() {
-        List<Questionnaire> questionnaires = iDisplayAllVoteService.displayMyJoinVote(1L);
+        List<Questionnaire> questionnaires = iDisplayAllVoteService.displayMyJoinVote("1");
         Iterator<Questionnaire> iterator = questionnaires.iterator();
         System.out.println("===========================================");
         while (iterator.hasNext()) {
@@ -77,7 +77,7 @@ public class MyVoteTest {
     @Test
     public void test(){
         System.out.println("===========================================");
-        System.out.println(iDisplayVoteResultService.displayVoteResult(1L, 1L));
+        System.out.println(iDisplayVoteResultService.displayVoteResult(1L, "1"));
         System.out.println("===========================================");
     }
 

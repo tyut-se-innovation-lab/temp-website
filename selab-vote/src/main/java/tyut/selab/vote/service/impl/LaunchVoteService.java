@@ -6,68 +6,106 @@ import tyut.selab.vote.domain.po.PoVoteOption;
 import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.PoVoteOption;
 
+import tyut.selab.vote.domain.vo.Questionnaire;
+import tyut.selab.vote.domain.vo.VoteOption;
+import tyut.selab.vote.domain.vo.VoteQue;
+import tyut.selab.vote.domain.vo.Weight;
 import tyut.selab.vote.mapper.InsertInfoDBMapper;
 import tyut.selab.vote.service.ILaunchVoteService;
 import tyut.selab.vote.service.IWeightControlService;
+import tyut.selab.vote.tools.GetSysTime;
+import tyut.selab.vote.tools.impl.RSATool;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 上传问卷相关
  * @author Big_bai on 2022/11/19
  */
 @Service
-public class LaunchVoteService implements ILaunchVoteService {
-
+public class LaunchVoteService implements ILaunchVoteService,Runnable {
     @Autowired
     private InsertInfoDBMapper insertInfoDBMapper;
     @Autowired
     IWeightControlService weightControlService;
 
-    /**
-     * 上传课表<br>
-     * 需要加一个线程
-     * @param voteInfo 问卷
-     * @param voteOptions 选项和问题
-     */
+    private Questionnaire questionnaire;
+    private Long userId;
+    private Long voteInfoId;
+
     @Override
-    public void launchVote(VoteInfo voteInfo, List<PoVoteOption> voteOptions) {
-        List<PoVoteOption> questions = new ArrayList<>();
-        Map<PoVoteOption, List<PoVoteOption>> questionsToOptions = new HashMap<>();
-        voteInfo.setWeight(weightControlService.getNowVoteWeight().getId());
-        //将问卷存入，获取问卷的唯一id
+    public void launchVote(Questionnaire questionnaire,long userId) {
+        this.questionnaire = questionnaire;
+        this.userId = userId;
+        Thread t = new Thread(this);
+        t.start();
+    }
+
+    @Override
+    public void run() {
+        VoteInfo voteInfo = getVoteInfoFromQuestionnaire();
+        this.voteInfoId = memoryVoteInfoAndGetVoteInfoId(voteInfo);
+        Map<PoVoteOption,List<PoVoteOption>> qAMap = mapQuesToOptions();
+        Set<PoVoteOption> ques = qAMap.keySet();
+
+
+        for(PoVoteOption que:ques){
+            long queId = memoryQuesAndGetId(que);
+            memoryOption(queId,qAMap.get(que));
+        }
+    }
+
+    private VoteInfo getVoteInfoFromQuestionnaire(){
+        VoteInfo voteInfo = new VoteInfo();
+        voteInfo.setUserId(RSATool.encrypt(this.userId.toString()));
+        voteInfo.setTitle(questionnaire.getTitle());
+        voteInfo.setContent(questionnaire.getContent());
         voteInfo.setStatus("1");
+        voteInfo.setDeadline(questionnaire.getDeadline());
+        voteInfo.setCreateTime(GetSysTime.getNow());
+        voteInfo.setWeight(weightControlService.getNowVoteWeight().getId());
+        return voteInfo;
+    }
+    private Map<PoVoteOption,List<PoVoteOption>> mapQuesToOptions(){
+        Map<PoVoteOption,List<PoVoteOption>> queToOpt = new HashMap<>();
+        for (VoteQue vq: questionnaire.getVoteQues()) {
+            PoVoteOption que = voteQueToPoVoteOption(vq);
+            List<PoVoteOption> poVoteOptions = voteOptionToPoVoteOption(vq.getOptions());
+            queToOpt.put(que,poVoteOptions);
+        }
+        return queToOpt;
+    }
+    private Long memoryVoteInfoAndGetVoteInfoId(VoteInfo voteInfo){
         insertInfoDBMapper.writeVoteInfoToDB(voteInfo);
-        //将问题和答案拼装
-        for(int i=0;i<voteOptions.size();i++){
-            if(voteOptions.get(i).getOptionType().equals("Q")){
-                voteOptions.get(i).setVoteId(voteInfo.getId());
-                voteOptions.get(i).setParentId(-1L);
-                questions.add(voteOptions.get(i));
-                List<PoVoteOption> voteOptionsForEachQue = new ArrayList<>();
-                for(int j=i+1;;j++){
-                    if(j==voteOptions.size()||voteOptions.get(j).getOptionType().equals("Q")){
-                        questionsToOptions.put(voteOptions.get(i),voteOptionsForEachQue);
-                        i=j-1;
-                        break;
-                    }
-                    voteOptionsForEachQue.add(voteOptions.get(j));
-                }
-            }
+        return voteInfo.getId();
+    }
+    private Long memoryQuesAndGetId(PoVoteOption que){
+        insertInfoDBMapper.writeVoteOptionToDB(List.of(que));
+        return que.getId();
+    }
+    private void memoryOption(long queId,List<PoVoteOption> options){
+        options.forEach(option -> {option.setParentId(queId);});
+        insertInfoDBMapper.writeVoteOptionToDB(options);
+    }
+
+    private PoVoteOption voteQueToPoVoteOption(VoteQue voteQues){
+            PoVoteOption p = new PoVoteOption();
+            p.setVoteId(voteInfoId);
+            p.setParentId(-1L);
+            p.setOptionType(voteQues.getType());
+            p.setContent(voteQues.getQueContent());
+        return p;
+    }
+    private List<PoVoteOption> voteOptionToPoVoteOption(List<VoteOption> options){
+        List<PoVoteOption> poVoteOptions = new ArrayList<>();
+        for (VoteOption vo:options) {
+            PoVoteOption poVoteOption = new PoVoteOption();
+            poVoteOption.setVoteId(voteInfoId);
+            poVoteOption.setOptionType(vo.getType());
+            poVoteOption.setContent(vo.getContent());
+            poVoteOption.setPercentage(vo.getPercentage());
+            poVoteOptions.add(poVoteOption);
         }
-        if(!questions.isEmpty()){
-            insertInfoDBMapper.writeVoteOptionToDB(questions);
-        }
-        //问卷的id和问题的id赋予选项,然后存入
-        for (PoVoteOption p:questions) {
-            for(PoVoteOption v:questionsToOptions.get(p)){
-                v.setVoteId(voteInfo.getId());
-                v.setParentId(p.getId());
-            }
-            insertInfoDBMapper.writeVoteOptionToDB(questionsToOptions.get(p));
-        }
+        return poVoteOptions;
     }
 }

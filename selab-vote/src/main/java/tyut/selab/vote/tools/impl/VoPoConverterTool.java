@@ -33,7 +33,7 @@ public class VoPoConverterTool implements IVoPoConverterTool {
      * @return 投票结果集合
      */
     @Override
-    public List<VoteResult> toVoteResult(Questionnaire questionnaire,Long userId){
+    public List<VoteResult> toVoteResult(Questionnaire questionnaire,String userId){
         List<VoteResult> voteResults = new ArrayList<>();
         VoteResult result = new VoteResult();
         List<VoteQue> voteQues = questionnaire.getVoteQues();
@@ -42,11 +42,7 @@ public class VoPoConverterTool implements IVoPoConverterTool {
             for (VoteOption voteOption : options){
                 if (voteOption.getIsSelect() == 1){  //isSelect值为1时，证明该选项已选或者文本框已填写内容
                     result.setVoteOptionId(voteOption.getId());
-                    try {
-//                        result.setUserId(Arrays.toString(AnonymousControl.encrypt(userId)));
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
+                    result.setUserId(AnonymousControl.encrypt(userId));
                     result.setContent(voteOption.getContent());
                     result.setCreateTime(GetSysTime.getNow());
                 }
@@ -184,7 +180,7 @@ public class VoPoConverterTool implements IVoPoConverterTool {
      * @param questionnaire 一个问卷
      * @return VoteInfo
      */
-    public static VoteInfo voToVoteInfo(Questionnaire questionnaire,Long userId){
+    public static VoteInfo voToVoteInfo(Questionnaire questionnaire,String userId){
         VoteInfo voteInfo = new VoteInfo();
         voteInfo.setUserId(userId);
         voteInfo.setContent(questionnaire.getContent());

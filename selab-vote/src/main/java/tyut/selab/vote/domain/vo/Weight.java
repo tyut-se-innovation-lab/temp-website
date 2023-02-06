@@ -10,10 +10,8 @@ import java.util.Map;
  */
 @Data
 public class Weight {
-    //数据库中的id
-    private Long id;
     //投票管理员100
-    private int voteManager;
+    private int VoteManager;
     //开发组组长
     private int DEVLeader;
     //网安组组长
@@ -28,19 +26,10 @@ public class Weight {
     private int CSMember;
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Weight weight = (Weight) o;
-        return voteManager == weight.voteManager && DEVLeader == weight.DEVLeader && CSLeader == weight.CSLeader && DEVManager == weight.DEVManager && CSManager == weight.CSManager && DEVMember == weight.DEVMember && CSMember == weight.CSMember;
-    }
 
 
-
-    public Weight(Long id,int voteManager, int DEVLeader, int CSLeader, int DEVManager, int CSManager, int DEVMember, int CSMember) {
-        this.id = id;
-        this.voteManager = voteManager;
+    public Weight(int VoteManager, int DEVLeader, int CSLeader, int DEVManager, int CSManager, int DEVMember, int CSMember) {
+        this.VoteManager = VoteManager;
         this.DEVLeader = DEVLeader;
         this.CSLeader = CSLeader;
         this.DEVManager = DEVManager;
@@ -52,16 +41,16 @@ public class Weight {
     public Weight() {
     }
 
-    public Map<Integer,Integer> getWeightMap(){
-        Map<Integer,Integer> weightMap = new HashMap<>();
-        weightMap.put(1,voteManager);
-        weightMap.put(100,voteManager);
-        weightMap.put(101,DEVLeader);
-        weightMap.put(102,DEVManager);
-        weightMap.put(103,CSLeader);
-        weightMap.put(104,CSManager);
-        weightMap.put(105,DEVMember);
-        weightMap.put(106,CSMember);
-        return weightMap;
+    @Override
+    public String toString() {
+        return "Weight{" +
+                "VoteManager=" + VoteManager +
+                ", DEVLeader=" + DEVLeader +
+                ", CSLeader=" + CSLeader +
+                ", DEVManager=" + DEVManager +
+                ", CSManager=" + CSManager +
+                ", DEVMember=" + DEVMember +
+                ", CSMember=" + CSMember +
+                '}';
     }
 }

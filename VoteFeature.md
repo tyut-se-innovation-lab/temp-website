@@ -50,16 +50,15 @@
 
 ## 接口约束
 
-- 发起投票: /selab/vote/initiate {post}
+- 发起投票:  
 
   * 访问参数
 
     * ```json
       {
-        	"id": 0,
       	"title": "",
         	"content": "",
-      	"createdTime": "",
+      	
         	"deadline": "",
       	"voteQues": [
               {//单选，多选
@@ -77,19 +76,19 @@
                       },
                   ]
               },
-    	        //文本题
-              {
-    	            question:""
-                  id:""//题号
-    	            type:""// 类型 ----文本框
-                  content:''//文本内容
+              //文本题
+    	        {
+                  question:""
+    	            id:""//题号
+                  type:""// 类型 ----文本框
+    	            content:''//文本内容
               }	
         ]
       }
       ```
-
+  
   > 返回数据
-
+  
   * ```json
     {
     	"code": 200,
@@ -340,7 +339,6 @@
 
     ```
     {
-    	id: " "   			//权重id 默认为1
     	voteManager: " "  	//投票管理员
     	DEVLeader: " "  	//开发组组长
     	CSLeader: " "  		//网安组组长

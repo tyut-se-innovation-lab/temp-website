@@ -1,16 +1,23 @@
 package tyut.selab.vote.tools.impl;
 
+import lombok.SneakyThrows;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.security.*;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 /**
  * RSA算法工具类
@@ -43,7 +50,7 @@ public class RSATool {
      * @return 加密数据串
      * @throws Exception
      */
-    public static byte[] encrypt(String data) throws Exception {
+    public static String encrypt(String data){
         return encryptByPublicKey(data,publicKey);
     }
 
@@ -53,7 +60,7 @@ public class RSATool {
      * @return 解密所得数据
      * @throws Exception
      */
-    public static String decrypt(byte[] data) throws Exception {
+    public static String decrypt(String data){
         return new String(decryptByPrivateKey(data,privateKey));
     }
     /**
@@ -104,15 +111,19 @@ public class RSATool {
     }
 
 
-    public static byte[] decryptByPrivateKey(byte[] data, String key) throws Exception {
+    @SneakyThrows
+    public static byte[] decryptByPrivateKey(byte[] data, String key){
         // 对密钥解密
         byte[] keyBytes = decryptBASE64(key);
         // 取得私钥
         PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(keyBytes);
-        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
-        Key privateKey = keyFactory.generatePrivate(pkcs8KeySpec);
+        KeyFactory keyFactory = null;
+        keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+        Key privateKey = null;
+        privateKey = keyFactory.generatePrivate(pkcs8KeySpec);
         // 对数据解密
-        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        Cipher cipher = null;
+        cipher = Cipher.getInstance(keyFactory.getAlgorithm());
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
         return cipher.doFinal(data);
     }
@@ -125,7 +136,7 @@ public class RSATool {
      * @return
      * @throws Exception
      */
-    public static byte[] decryptByPrivateKey(String data, String key) throws Exception {
+    public static byte[] decryptByPrivateKey(String data, String key){
         return decryptByPrivateKey(decryptBASE64(data), key);
     }
 
@@ -158,17 +169,23 @@ public class RSATool {
      * @return
      * @throws Exception
      */
-    public static byte[] encryptByPublicKey(String data, String key) throws Exception {
+    @SneakyThrows
+    public static String encryptByPublicKey(String data, String key){
         // 对公钥解密
         byte[] keyBytes = decryptBASE64(key);
         // 取得公钥
         X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
-        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
-        Key publicKey = keyFactory.generatePublic(x509KeySpec);
+        KeyFactory keyFactory = null;
+        keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+        Key publicKey = null;
+        publicKey = keyFactory.generatePublic(x509KeySpec);
         // 对数据加密
-        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        Cipher cipher = null;
+        cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+
         cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-        return cipher.doFinal(data.getBytes());
+
+        return encryptBASE64(cipher.doFinal(data.getBytes(StandardCharsets.UTF_8)));
     }
 
     /**

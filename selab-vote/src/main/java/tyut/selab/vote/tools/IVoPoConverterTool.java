@@ -24,7 +24,7 @@ public interface IVoPoConverterTool {
      * @param userId 用户id
      * @return
      */
-    List<VoteResult> toVoteResult(Questionnaire questionnaire,Long userId);
+    List<VoteResult> toVoteResult(Questionnaire questionnaire,String userId);
     /**
      * 问卷转换
      * @param voteInfo

@@ -37,7 +37,7 @@ public class MyVoteController {
     @GetMapping("/joined/lists")
     @PreAuthorize("@ss.hasPermi('vote:mine')")
     public AjaxResult displayMyALLVote() {
-        return AjaxResult.success(iDisplayAllVoteService.displayMyJoinVote(getUserId()));
+        return AjaxResult.success(iDisplayAllVoteService.displayMyJoinVote(getUserId().toString()));
     }
 
     /**
@@ -48,7 +48,7 @@ public class MyVoteController {
     @GetMapping("/launched/lists")
     @PreAuthorize("@ss.hasPermi('vote:mine')")
     public AjaxResult myLaunchVote(){
-        return AjaxResult.success(iDisplayAllVoteService.displayMyStartVote(getUserId()));
+        return AjaxResult.success(iDisplayAllVoteService.displayMyStartVote(getUserId().toString()));
     }
 
 

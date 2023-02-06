@@ -26,7 +26,7 @@ public class DisplayController {
     @GetMapping("")
     @PreAuthorize("@ss.hasPermi('vote:history')")
     public AjaxResult displayVote(@RequestBody Long voteId) {
-        return AjaxResult.success(displayVoteResultService.displayVoteResult(voteId,getUserId()));
+        return AjaxResult.success(displayVoteResultService.displayVoteResult(voteId,getUserId().toString()));
     }
     /**
      * 查看历史投票的详细信息(未测试)
@@ -37,6 +37,6 @@ public class DisplayController {
     @GetMapping("/history")
     @PreAuthorize("@ss.hasPermi('vote:history')")
     public AjaxResult displayHisVote(@RequestBody Long voteId) {
-        return AjaxResult.success(displayVoteResultService.displayVoteHistory(voteId,getUserId()));
+        return AjaxResult.success(displayVoteResultService.displayVoteHistory(voteId,getUserId().toString()));
     }
 }

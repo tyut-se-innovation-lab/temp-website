@@ -28,7 +28,7 @@ public class DisplayAllVoteImpl implements IDisplayAllVoteService {
      * @return 返回投票列表
      */
     @Override
-    public List<Questionnaire> displayAllVote(Long userId) {
+    public List<Questionnaire> displayAllVote(String userId) {
         List<VoteInfo> voteInfos = displayAllVoteMapper.displayAllVote(userId);
         VoPoConverterTool tool = new VoPoConverterTool();
         List<Questionnaire>questionnaireList = new ArrayList<>();
@@ -50,7 +50,7 @@ public class DisplayAllVoteImpl implements IDisplayAllVoteService {
      * @return
      */
     @Override
-    public List<Questionnaire> displayAllUsefulVotes(Long userId) {
+    public List<Questionnaire> displayAllUsefulVotes(String userId) {
         List<VoteInfo> voteInfos = displayAllVoteMapper.displayAllUsefulVote(userId);
         VoPoConverterTool tool = new VoPoConverterTool();
         List<Questionnaire>questionnaireList = new ArrayList<>();
@@ -72,7 +72,7 @@ public class DisplayAllVoteImpl implements IDisplayAllVoteService {
      * @return 返回我参与的投票列表
      */
     @Override
-    public List<Questionnaire> displayMyJoinVote(Long userId) {
+    public List<Questionnaire> displayMyJoinVote(String userId) {
         List<VoteResult> optionId = displayAllVoteMapper.getOptionId(userId);
         if (optionId.isEmpty()) return null;
         List<PoVoteOption> voteId = displayAllVoteMapper.getVoteId(optionId);
@@ -98,7 +98,7 @@ public class DisplayAllVoteImpl implements IDisplayAllVoteService {
      * @return 返回我创建的投票列表
      */
     @Override
-    public List<Questionnaire> displayMyStartVote(Long userId) {
+    public List<Questionnaire> displayMyStartVote(String userId) {
         VoPoConverterTool tool = new VoPoConverterTool();
         List<Questionnaire>questionnaireList = new ArrayList<>();
         List<VoteInfo> voteInfos = displayAllVoteMapper.displayMyStartVote(userId);

@@ -26,7 +26,7 @@ public class LunchVoteController {
     @PreAuthorize("@ss.hasPermi('vote:initiate')")
     @PostMapping("/launch")
     public AjaxResult lunchVote(@RequestBody Questionnaire questionnaire){
-        launchVoteService.launchVote(VoPoConverterTool.voToVoteInfo(questionnaire,getUserId()),VoPoConverterTool.voToPoVoteOptions(questionnaire));
-        return new AjaxResult(200,"投票上传中，请稍后");
+        launchVoteService.launchVote(questionnaire,getUserId());
+        return new AjaxResult(200,"投票正在上传,请稍后(⌓‿⌓)");
     }
 }

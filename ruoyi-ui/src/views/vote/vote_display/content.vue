@@ -2,15 +2,15 @@
   <div class="content">
     <h2>投票简介</h2>
     <div>
-      <h3>{{ content }}</h3>
+      <h3>{{ contenttext }}</h3>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "content",
-  props: ["content"],
+  name: "quecontent",
+  props: ["contenttext"],
   data() {
     return {};
   },

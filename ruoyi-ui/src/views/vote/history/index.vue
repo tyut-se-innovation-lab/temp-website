@@ -1,3 +1,17 @@
 <template>
-  <h1>history page</h1>
+  <div>
+    <History></History>
+  </div>
 </template>
+
+<script>
+import History from "@/views/vote/history/biref/index.vue";
+export default {
+  components: {
+    History,
+  },
+};
+</script>
+
+<style>
+</style>

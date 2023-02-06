@@ -1,16 +1,17 @@
 <template>
   <div>
-    <router-view />
+    <Join></Join>
   </div>
 </template>
 
 <script>
-export default {};
+import Join from "@/views/vote/join/biref/index.vue";
+export default {
+  components: {
+    Join,
+  },
+};
 </script>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-}
 </style>

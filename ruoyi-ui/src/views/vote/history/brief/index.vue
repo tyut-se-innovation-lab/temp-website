@@ -1,65 +1,65 @@
 <template>
   <div class="brief">
-    <BriefPart
-      v-for="item in brief_data"
+    <HistoryPart
+      v-for="item in historyData"
       :key="item.id"
       :brief="item"
-    ></BriefPart>
+    ></HistoryPart>
   </div>
 </template>
 
 <script>
-import BriefPart from "./brief_part.vue";
-import { getVoteList } from "@/api/vote/join/brief.js";
+import HistoryPart from "../brief/part.vue";
 export default {
-  name: "brief",
+  name: "history",
   data() {
     return {
       type: [],
-      brief_data: [
+      historyData: [
         {
           id: "", //投票id
           title: "开始投票", //title
-          start: "2022.2.3", //开始时间
-          end: "2022.3.2", //截止时间
+          start: "2022-04-05", //开始时间
+          end: "2022-03-01", //截止时间
           content:
             "什么，额流量费拉拉肥就覅房价反免费咖啡1积分卡积分卡看风景放假啊较为开放假按揭开发放假啊开发酒啊就放假啊积分卡咖啡机卡卡放假啊开发金卡金卡放假咯放假啊开发框架放假咯我发卡机开发接口啦啦啦", //简介
         },
         {
           id: "", //投票id
           title: "开始投票", //title
-          start: "2022.2.3", //开始时间
-          end: "2022.3.2", //截止时间
+          start: "2022-01-02", //开始时间
+          end: "2022-03-02", //截止时间
+          isJoin: true,
           content:
             "什么，额流量费拉拉肥就覅房价反免费咖啡1积分卡积分卡看风景放假啊较为开放假按揭开发放假啊开发酒啊就放假啊积分卡咖啡机卡卡放假啊开发金卡金卡放假咯放假啊开发框架放假咯我发卡机开发接口啦啦啦", //简介
         },
         {
           id: "", //投票id
           title: "开始投票", //title
-          start: "2022.2.3", //开始时间
-          end: "2022.3.2", //截止时间
+          start: "2022-02-03", //开始时间
+          end: "2022-02-12", //截止时间
           content:
             "什么，额流量费拉拉肥就覅房价反免费咖啡1积分卡积分卡看风景放假啊较为开放假按揭开发放假啊开发酒啊就放假啊积分卡咖啡机卡卡放假啊开发金卡金卡放假咯放假啊开发框架放假咯我发卡机开发接口啦啦啦", //简介
         },
       ],
-      state: "进行中",
-      stateType: ["进行中", "已截止"],
     };
   },
   components: {
-    BriefPart,
+    HistoryPart,
   },
   methods: {
-    //通过比对事件来得到当前投票的状态
-    getVoteState() {
-      let time = new Date();
+    sortbriefDataByDate() {
+      this.historyData.sort((a, b) => {
+        let date1 = new Date(a.start);
+        let date2 = new Date(b.start);
+        console.log(a, b);
+        return date1 - date2;
+      });
     },
   },
-  // beforeCreate() {
-  //   getVoteList().then((response) => {
-  //     this.brief_data = response;
-  //   });
-  // },
+  created() {
+    this.sortbriefDataByDate();
+  },
 };
 </script>
 

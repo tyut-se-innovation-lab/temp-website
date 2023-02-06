@@ -91,14 +91,34 @@ export const constantRoutes = [
   },
   {
     path: '/vote/join',
-    component: () => import('@/views/vote/join/index'),
+    component: () => import('@/views/vote/join/brief/index'),
     hidden: true,
     children: [
       {
         path: "details",
-        component: () => import('@/views/vote/join/details_display/details')
+        component: () => import('@/views/vote/join/details/index')
+      },
+      {
+        path: "success",
+        component: () => import('@/views/vote/join/success/index')
       }
     ]
+  },
+  {
+    path: '/vote/history',
+    component: () => import('@/views/vote/history/brief/index'),
+    hidden: true,
+    children: [
+      {
+        path: "details",
+        component: () => import('@/views/vote/history/details/index')
+      }
+    ]
+  },
+  {
+    path: '/vote/management',
+    component: () => import('@/views/vote/management/index'),
+    hidden: true,
   }
 ]
 

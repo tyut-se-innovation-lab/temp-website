@@ -3,7 +3,7 @@
     <h3>{{ id + 1 }}.{{ question }}</h3>
     <el-radio-group v-model="select" class="radio">
       <el-radio
-        v-for="(item, index) in answer"
+        v-for="(item, index) in options"
         :key="index"
         :label="index"
         border
@@ -16,7 +16,7 @@
 <script>
 export default {
   name: "single",
-  props: ["answer", "question", "id"],
+  props: ["options", "question", "id"],
   data() {
     return {
       select: -1,

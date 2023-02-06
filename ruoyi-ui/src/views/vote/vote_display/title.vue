@@ -1,14 +1,14 @@
 <template>
   <div>
-    <h1>{{ title }}</h1>
+    <h1>{{ titletext }}</h1>
     <hr />
   </div>
 </template>
 
 <script>
 export default {
-  name: "title",
-  props: ["title"],
+  name: "quetitle",
+  props: ["titletext"],
   data() {
     return {};
   },

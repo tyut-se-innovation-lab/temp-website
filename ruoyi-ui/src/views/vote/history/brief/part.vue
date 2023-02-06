@@ -32,14 +32,18 @@
 </template>
 
 <script>
-import { withdrawVote } from "@/api/vote/join/brief.js";
 export default {
   props: ["brief"],
+  data() {
+    return {
+      state: "进行中",
+      stateType: ["进行中", "已截止", "弃用"],
+    };
+  },
   methods: {
-    //跳转到投票详细信息页面
     goToDetails() {
       let routeData = this.$router.push({
-        path: "/vote/join/details",
+        path: "/historydetails",
         query: {
           id: this.brief.id,
         },
@@ -47,9 +51,13 @@ export default {
       //   window.open(routeData.href);
     },
     withdraw() {
-      withdrawVote(brief.id).then((response) => {
-        console.log(response);
-      });
+      // withdrawVote(brief.id).then((response) => {
+      //   console.log(response);
+      // });
+    },
+    updateState() {
+      //缺少字段
+      // this.state=this.stateType[]
     },
   },
 };

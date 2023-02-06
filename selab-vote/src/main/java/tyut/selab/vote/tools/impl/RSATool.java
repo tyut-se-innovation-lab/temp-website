@@ -1,5 +1,6 @@
 package tyut.selab.vote.tools.impl;
 
+import lombok.SneakyThrows;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -110,44 +111,21 @@ public class RSATool {
     }
 
 
+    @SneakyThrows
     public static byte[] decryptByPrivateKey(byte[] data, String key){
         // 对密钥解密
         byte[] keyBytes = decryptBASE64(key);
         // 取得私钥
         PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = null;
-        try {
-            keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
+        keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         Key privateKey = null;
-        try {
-            privateKey = keyFactory.generatePrivate(pkcs8KeySpec);
-        } catch (InvalidKeySpecException e) {
-            throw new RuntimeException(e);
-        }
+        privateKey = keyFactory.generatePrivate(pkcs8KeySpec);
         // 对数据解密
         Cipher cipher = null;
-        try {
-            cipher = Cipher.getInstance(keyFactory.getAlgorithm());
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchPaddingException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            cipher.init(Cipher.DECRYPT_MODE, privateKey);
-        } catch (InvalidKeyException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            return cipher.doFinal(data);
-        } catch (IllegalBlockSizeException e) {
-            throw new RuntimeException(e);
-        } catch (BadPaddingException e) {
-            throw new RuntimeException(e);
-        }
+        cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        cipher.init(Cipher.DECRYPT_MODE, privateKey);
+        return cipher.doFinal(data);
     }
 
     /**
@@ -191,45 +169,23 @@ public class RSATool {
      * @return
      * @throws Exception
      */
+    @SneakyThrows
     public static String encryptByPublicKey(String data, String key){
         // 对公钥解密
         byte[] keyBytes = decryptBASE64(key);
         // 取得公钥
         X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = null;
-        try {
-            keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
-
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
+        keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         Key publicKey = null;
-        try {
-            publicKey = keyFactory.generatePublic(x509KeySpec);
-        } catch (InvalidKeySpecException e) {
-            throw new RuntimeException(e);
-        }
+        publicKey = keyFactory.generatePublic(x509KeySpec);
         // 对数据加密
         Cipher cipher = null;
-        try {
-            cipher = Cipher.getInstance(keyFactory.getAlgorithm());
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchPaddingException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-        } catch (InvalidKeyException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            return encryptBASE64(cipher.doFinal(data.getBytes(StandardCharsets.UTF_8)));
-        } catch (IllegalBlockSizeException e) {
-            throw new RuntimeException(e);
-        } catch (BadPaddingException e) {
-            throw new RuntimeException(e);
-        }
+        cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+
+        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+
+        return encryptBASE64(cipher.doFinal(data.getBytes(StandardCharsets.UTF_8)));
     }
 
     /**

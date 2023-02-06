@@ -42,7 +42,7 @@ public class CommitController {
     @GetMapping("/join/list")
     @ResponseBody
     public AjaxResult listRoughInformation(){
-        return AjaxResult.success(displayAllVote.displayAllUsefulVotes(getUserId()));
+        return AjaxResult.success(displayAllVote.displayAllUsefulVotes(getUserId().toString()));
     }
 
     /**
@@ -52,7 +52,7 @@ public class CommitController {
     @PreAuthorize("@ss.hasPermi('vote:join')")
     @GetMapping("/join/allInfo")
     public AjaxResult listDetails(@RequestBody Questionnaire questionnaire){
-        return AjaxResult.success(displayVoteResultService.displayVoteGoing(questionnaire.getId(),getUserId()));
+        return AjaxResult.success(displayVoteResultService.displayVoteGoing(questionnaire.getId(),getUserId().toString()));
     }
 
     /**

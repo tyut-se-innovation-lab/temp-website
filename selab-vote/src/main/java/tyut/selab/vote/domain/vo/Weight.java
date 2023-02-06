@@ -11,7 +11,7 @@ import java.util.Map;
 @Data
 public class Weight {
     //投票管理员100
-    private int voteManager;
+    private int VoteManager;
     //开发组组长
     private int DEVLeader;
     //网安组组长
@@ -28,8 +28,8 @@ public class Weight {
 
 
 
-    public Weight(int voteManager, int DEVLeader, int CSLeader, int DEVManager, int CSManager, int DEVMember, int CSMember) {
-        this.voteManager = voteManager;
+    public Weight(int VoteManager, int DEVLeader, int CSLeader, int DEVManager, int CSManager, int DEVMember, int CSMember) {
+        this.VoteManager = VoteManager;
         this.DEVLeader = DEVLeader;
         this.CSLeader = CSLeader;
         this.DEVManager = DEVManager;
@@ -44,7 +44,7 @@ public class Weight {
     @Override
     public String toString() {
         return "Weight{" +
-                "voteManager=" + voteManager +
+                "VoteManager=" + VoteManager +
                 ", DEVLeader=" + DEVLeader +
                 ", CSLeader=" + CSLeader +
                 ", DEVManager=" + DEVManager +

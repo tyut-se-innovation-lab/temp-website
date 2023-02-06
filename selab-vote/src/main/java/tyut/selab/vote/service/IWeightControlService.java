@@ -23,5 +23,5 @@ public interface IWeightControlService {
      * 通过用户id获取该用户的权重
      * @return
      */
-    int getWeightByUserId(Long id);
+    int getWeightByUserId(String id);
 }

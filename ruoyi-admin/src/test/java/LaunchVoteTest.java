@@ -81,7 +81,7 @@ public class LaunchVoteTest {
         voteInfo.setWeight(4L);
         voteInfo.setStatus("1");
         voteInfo.setTitle("xxxx");
-        voteInfo.setUserId(4L);
+        voteInfo.setUserId("4");
         voteInfo.setContent("dsadasdsadas");
         voteInfo.setDeadline(new Date());
         voteInfo.setCreateTime(new Date());

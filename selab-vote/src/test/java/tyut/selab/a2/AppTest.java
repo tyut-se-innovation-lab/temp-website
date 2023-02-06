@@ -30,7 +30,7 @@ public class AppTest {
     public void DisplayHisVote (){
         int userID = 1;
         int voteID =1;
-        displayVoteResultService.displayVoteResult((long) voteID, (long) userID);
+//        displayVoteResultService.displayVoteResult((long) voteID, (long) userID);
 
 
     }
@@ -40,7 +40,7 @@ public class AppTest {
         int voteId=02;
 
         DisplayVoteResultServiceImpl displayVoteResultService = new DisplayVoteResultServiceImpl();
-        System.out.println(displayVoteResultService.displayVoteResult((long) userID, (long) voteId));
+//        System.out.println(displayVoteResultService.displayVoteResult((long) userID, (long) voteId));
     }
     @Autowired
     FindInfoDBMapper findInfoDBMapper;
@@ -59,7 +59,7 @@ public class AppTest {
         questionnaire.getId();
 
         IDisplayVoteResultService iDisplayVoteResultService= new DisplayVoteResultServiceImpl();
-        iDisplayVoteResultService.displayVoteGoing((long) userID, (long) voteID);
+//        iDisplayVoteResultService.displayVoteGoing((long) userID, (long) voteID);
 
     }
 }

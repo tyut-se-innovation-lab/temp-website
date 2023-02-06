@@ -62,7 +62,7 @@ public class CommitController {
     @PreAuthorize("@ss.hasPermi('vote:join')")
     @PostMapping("/join")
     public AjaxResult commitVoteResult(@RequestBody Questionnaire questionnaire){
-        List<VoteResult> voteResults = new VoPoConverterTool().toVoteResult(questionnaire, getUserId());
+        List<VoteResult> voteResults = new VoPoConverterTool().toVoteResult(questionnaire, getUserId().toString());
         if (commitVoteService.getDeadLineById(questionnaire.getId()).compareTo(GetSysTime.getNow()) > 0){ //创建时间在现在时间之前，，可以参与投票
             return commitVoteService.commitVoteResult(voteResults) != 0?
                     AjaxResult.success("提交成功"):

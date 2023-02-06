@@ -38,11 +38,11 @@ public class WeightControlService implements IWeightControlService {
     }
 
     @Override
-    public int getWeightByUserId(Long id) {
+    public int getWeightByUserId(String id) {
         return getNowVoteWeight().getWeightMap().get(getRoleThisId(id));
     }
 
-    private int getRoleThisId(long id){
+    private int getRoleThisId(String id){
         return findInfoDBMapper.getRoleById(id);
     }
 }

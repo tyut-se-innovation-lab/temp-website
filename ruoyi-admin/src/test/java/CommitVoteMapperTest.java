@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import tyut.selab.vote.domain.po.VoteResult;
 import tyut.selab.vote.service.ICommitVoteService;
+import tyut.selab.vote.tools.impl.RSATool;
 
 import java.util.ArrayList;
 import java.util.Date;

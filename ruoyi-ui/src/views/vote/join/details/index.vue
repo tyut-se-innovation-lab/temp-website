@@ -23,15 +23,15 @@
 
 <script>
 // import { getVoteDetails } from "@/api/vote/join/detail.js";
-import Title from "@/views/vote_display/title.vue";
-import Content from "@/views/vote_display/content.vue";
-import Deadline from "@/views/vote_display/deadline.vue";
-import Submit from "@/views/vote_display/submit.vue";
-import Dropdown from "@/views/vote_display/dropdown.vue";
-import Fill from "@/views/vote_display/fill.vue";
-import Multiple from "@/views/vote_display/multiple.vue";
-import Single from "@/views/vote_display/single.vue";
-import Progress from "@/views/vote_display/progress.vue";
+import Title from "@/views/vote/vote_display/title.vue";
+import Content from "@/views/vote/vote_display/content.vue";
+import Deadline from "@/views/vote/vote_display/deadline.vue";
+import Submit from "@/views/vote/vote_display/submit.vue";
+import Dropdown from "@/views/vote/vote_display/dropdown.vue";
+import Fill from "@/views/vote/vote_display/fill.vue";
+import Multiple from "@/views/vote/vote_display/multiple.vue";
+import Single from "@/views/vote/vote_display/single.vue";
+import Progress from "@/views/vote/vote_display/progress.vue";
 export default {
   name: "",
   data() {

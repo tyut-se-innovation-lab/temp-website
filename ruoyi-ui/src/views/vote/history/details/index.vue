@@ -14,11 +14,11 @@
 
 <script>
 // import { getVoteDetails } from "@/api/vote/join/detail.js";
-import Title from "@/views/vote_display/title.vue";
-import Content from "@/views/vote_display/content.vue";
-import Deadline from "@/views/vote_display/deadline.vue";
-import fill from "@/views/vote_display/fill.vue";
-import Progress from "@/views/vote_display/progress.vue";
+import Title from "@/views/vote/vote_display/title.vue";
+import Content from "@/views/vote/vote_display/content.vue";
+import Deadline from "@/views/vote/vote_display/deadline.vue";
+import fill from "@/views/vote/vote_display/fill.vue";
+import Progress from "@/views/vote/vote_display/progress.vue";
 
 export default {
   name: "",

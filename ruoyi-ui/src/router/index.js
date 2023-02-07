@@ -5,7 +5,6 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
-import { component } from 'vue/types/umd'
 
 /**
  * Note: 路由配置项

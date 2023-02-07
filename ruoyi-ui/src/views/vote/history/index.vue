@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import History from "@/views/vote/history/biref/index.vue";
+import History from "@/views/vote/history/brief/index.vue";
 export default {
   components: {
     History,

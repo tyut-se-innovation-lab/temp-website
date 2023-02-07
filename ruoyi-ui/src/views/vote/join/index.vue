@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Join from "@/views/vote/join/biref/index.vue";
+import Join from "@/views/vote/join/brief/index.vue";
 export default {
   components: {
     Join,

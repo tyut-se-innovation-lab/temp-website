@@ -37,8 +37,10 @@ public class LaunchVoteService implements ILaunchVoteService,Runnable {
     public void launchVote(Questionnaire questionnaire,long userId) {
         this.questionnaire = questionnaire;
         this.userId = userId;
-        Thread t = new Thread(this);
-        t.start();
+        //不知道为什么加上线程就不能跑
+//        Thread t = new Thread(this);
+//        t.start();
+        run();
     }
 
     @Override

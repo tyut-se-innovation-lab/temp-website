@@ -1,3 +1,18 @@
 <template>
-  <h1>initiate page</h1>
+  <div>
+    <option></option>
+  </div>
 </template>
+
+<script>
+import option from "./option.vue";
+export default {
+  components:{
+    option
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

@@ -34,6 +34,10 @@
             <groupId>com.ruoyi</groupId>
             <artifactId>ruoyi-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>tyut.selab</groupId>
+            <artifactId>selab-vote</artifactId>
+        </dependency>
 
     </dependencies>
 

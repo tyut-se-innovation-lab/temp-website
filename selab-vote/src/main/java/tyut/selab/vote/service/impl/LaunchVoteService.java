@@ -62,7 +62,7 @@ public class LaunchVoteService implements ILaunchVoteService,Runnable {
         voteInfo.setUserId(RSATool.encrypt(this.userId.toString()));
         voteInfo.setTitle(questionnaire.getTitle());
         voteInfo.setContent(questionnaire.getContent());
-        voteInfo.setStatus("1");
+        voteInfo.setStatus("0");
         voteInfo.setDeadline(questionnaire.getDeadline());
         voteInfo.setCreateTime(GetSysTime.getNow());
         voteInfo.setWeight(weightControlService.getNowVoteWeight().getId());

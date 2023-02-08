@@ -47,7 +47,7 @@ export default {
   methods: {
     goToDetails() {
       let routeData = this.$router.push({
-        path: "/joindetails",
+        path: "vote/join/details",
         query: {
           id: this.brief.id,
         },

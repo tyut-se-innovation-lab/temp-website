@@ -44,11 +44,19 @@ export default {
     Submit,
   },
   methods: {
+    getManagData() {
+      this.management.getManageValue().then((res) => {
+        console.log(res);
+      });
+    },
     submitManagData() {
       this.management.modifManageValue(this.data).then((res) => {
         console.log(res);
       });
     },
+  },
+  created() {
+    this.getManagData();
   },
 };
 </script>

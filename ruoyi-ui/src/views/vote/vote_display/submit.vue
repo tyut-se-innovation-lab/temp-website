@@ -21,11 +21,11 @@ export default {
     callSubmitMethod() {
       this.$emit("submitMethod");
     },
-    goToSuccess() {
-      this.$router.push({
-        path: "/vote/join/success",
-      });
-    },
+    // goToSuccess() {
+    //   this.$router.push({
+    //     path: "/vote/join/success",
+    //   });
+    // },
   },
 };
 </script>

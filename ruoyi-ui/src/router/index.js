@@ -125,7 +125,7 @@ export const constantRoutes = [
   },
   {
     path: '/vote/initiate',
-    component: () => import('../views/vote/initiate/index.vue'),
+    component: () => import('../views/vote/initiate/index'),
   }
 ]
 

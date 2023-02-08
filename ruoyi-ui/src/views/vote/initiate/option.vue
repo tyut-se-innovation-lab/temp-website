@@ -27,7 +27,7 @@ import submit from "./option_modules/submit.vue";
 import deadlineVue from "./option_modules/deadline.vue"
 import contentVue from "./option_modules/content.vue";
 import optionType from "./option_type.vue";
-import {initiate} from "../../../api/vote/initiate/initiate";
+import {getInitiate} from "../../../api/vote/initiate/initiate";
 export default {
     name:'voteOption',
     components:{
@@ -73,7 +73,7 @@ export default {
       // 发布投票
       async sendVote() {
          console.log(this.data)
-         let info = await initiate.getInitiate(this.data);
+         let info = await getInitiate(this.data);
          if(info.msg === "OK"){
            this.$modal.alertSuccess("提交成功啦");
            this.$router.go(0)

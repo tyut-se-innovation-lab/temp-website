@@ -19,7 +19,7 @@ public class WeightController {
     IWeightControlService weightControlService;
 
     @PreAuthorize("@ss.hasPermi('vote:management')")
-    @GetMapping("/modify")
+    @PostMapping("/modify")
     public AjaxResult setWeight(@RequestBody Weight weight){
         weightControlService.setVoteWeight(new WeightPo(weight));
         return new AjaxResult(200,"权重已上传，请稍后");
@@ -28,7 +28,7 @@ public class WeightController {
     @PreAuthorize("@ss.hasPermi('vote:management')")
     @GetMapping("/get")
     public AjaxResult getNowWeight(){
-        return  AjaxResult.success(weightControlService.getNowVoteWeight().toString());
+        return  AjaxResult.success(new Weight(weightControlService.getNowVoteWeight()));
     }
 
 }

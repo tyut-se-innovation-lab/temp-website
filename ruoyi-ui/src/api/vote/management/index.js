@@ -15,10 +15,11 @@ export default class Management {
 
     //修改权值
     modifManageValue(data) {
+        console.log(data);
         return request({
             url: '/selab/vote/weight/modify',
             method: 'post',
-            param: data
+            data: data
         })
     }
 }

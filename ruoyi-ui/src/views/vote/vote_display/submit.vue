@@ -16,16 +16,16 @@ export default {
      */
     submit() {
       this.callSubmitMethod();
-      this.goToSuccess();
+      // this.goToSuccess();
     },
     callSubmitMethod() {
       this.$emit("submitMethod");
     },
-    goToSuccess() {
-      this.$router.push({
-        path: "/vote/join/success",
-      });
-    },
+    // goToSuccess() {
+    //   this.$router.push({
+    //     path: "/vote/join/success",
+    //   });
+    // },
   },
 };
 </script>

@@ -68,7 +68,8 @@ export default {
       },
 
       getOption(val){
-        this.data.voteQues = (Object.values(val)).reverse()
+        this.data.voteQues =[]
+        this.data.voteQues =[...val.tempSingle,...val.tempMultiple,...val.tempFill,]
       },
       // 发布投票
       async sendVote() {

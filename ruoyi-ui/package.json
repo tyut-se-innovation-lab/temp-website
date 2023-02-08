@@ -16,6 +16,7 @@
       "pre-commit": "lint-staged"
     }
   },
+
   "lint-staged": {
     "src/**/*.{js,vue}": [
       "eslint --fix",

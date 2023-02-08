@@ -39,7 +39,7 @@ public class WeightPo {
         this.DEVManager=w.getDEVManager();
         this.CSMember=w.getCSMember();
         this.DEVMember=w.getDEVMember();
-        this.voteManager=w.getVoteManager();
+        this.voteManager=w.getVotemanager();
     }
 
     public Map<Integer,Integer> getWeightMap(){

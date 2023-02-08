@@ -28,7 +28,7 @@ public class WeightController {
     @PreAuthorize("@ss.hasPermi('vote:management')")
     @GetMapping("/get")
     public AjaxResult getNowWeight(){
-        return  AjaxResult.success(weightControlService.getNowVoteWeight().toString());
+        return  AjaxResult.success(new Weight(weightControlService.getNowVoteWeight()));
     }
 
 }

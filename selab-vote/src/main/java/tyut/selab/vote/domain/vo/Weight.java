@@ -1,6 +1,7 @@
 package tyut.selab.vote.domain.vo;
 
 import lombok.Data;
+import tyut.selab.vote.domain.po.WeightPo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.Map;
 @Data
 public class Weight {
     //投票管理员100
-    private int VoteManager;
+    private int Votemanager;
     //开发组组长
     private int DEVLeader;
     //网安组组长
@@ -29,7 +30,7 @@ public class Weight {
 
 
     public Weight(int VoteManager, int DEVLeader, int CSLeader, int DEVManager, int CSManager, int DEVMember, int CSMember) {
-        this.VoteManager = VoteManager;
+        this.Votemanager = VoteManager;
         this.DEVLeader = DEVLeader;
         this.CSLeader = CSLeader;
         this.DEVManager = DEVManager;
@@ -41,10 +42,20 @@ public class Weight {
     public Weight() {
     }
 
+    public Weight(WeightPo weightPo){
+        this.Votemanager = weightPo.getVoteManager();
+        this.DEVLeader = weightPo.getDEVLeader();
+        this.CSLeader = weightPo.getCSLeader();
+        this.DEVManager = weightPo.getDEVManager();
+        this.CSManager = weightPo.getCSManager();
+        this.DEVMember = weightPo.getDEVMember();
+        this.CSMember = weightPo.getCSMember();
+    }
+
     @Override
     public String toString() {
-        return "Weight{" +
-                "VoteManager=" + VoteManager +
+        return "{" +
+                "VoteManager=" + Votemanager +
                 ", DEVLeader=" + DEVLeader +
                 ", CSLeader=" + CSLeader +
                 ", DEVManager=" + DEVManager +

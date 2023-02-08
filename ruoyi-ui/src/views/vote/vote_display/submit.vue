@@ -16,7 +16,7 @@ export default {
      */
     submit() {
       this.callSubmitMethod();
-      this.goToSuccess();
+      // this.goToSuccess();
     },
     callSubmitMethod() {
       this.$emit("submitMethod");

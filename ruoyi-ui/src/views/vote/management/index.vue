@@ -20,23 +20,15 @@ export default {
   data() {
     return {
       nameType: {
-        VoteManager: "投票管理员",
-        DEVLeader: "开发组组长",
-        CSLeader: "网安组组长",
-        DEVManager: "开发组管理员",
-        CSManager: "网安组管理员",
-        DEVMember: "开发组成员",
-        CSMember: "网安组成员",
+        votemanager: "投票管理员",
+        devleader: "开发组组长",
+        csleader: "网安组组长",
+        devmanager: "开发组管理员",
+        csmanager: "网安组管理员",
+        devmember: "开发组成员",
+        csmember: "网安组成员",
       },
-      nameValue: {
-        VoteManager: "1",
-        DEVLeader: "1",
-        CSLeader: "1",
-        DEVManager: "1",
-        CSManager: "1",
-        DEVMember: "1",
-        CSMember: "1",
-      },
+      nameValue: {},
       management: new Management(),
     };
   },
@@ -46,11 +38,11 @@ export default {
   methods: {
     getManagData() {
       this.management.getManageValue().then((res) => {
-        console.log(res);
+        this.nameValue = res.data;
       });
     },
     submitManagData() {
-      this.management.modifManageValue(this.data).then((res) => {
+      this.management.modifManageValue(this.nameValue).then((res) => {
         console.log(res);
       });
     },

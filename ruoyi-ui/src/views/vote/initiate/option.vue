@@ -89,6 +89,17 @@ export default {
   margin: 0;
   padding: 0;
 }
+.el-header, .el-footer {
+  background-color: #B3C0D1;
+  color: #333;
+  text-align: center;
+  line-height: 12vh;
+  height: 12vh !important;
+  font-size: x-large;
+  font-weight:bolder;
+  letter-spacing: 10px;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
 
 
 .el-main {

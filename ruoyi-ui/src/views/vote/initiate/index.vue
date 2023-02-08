@@ -1,12 +1,12 @@
 <template>
-    <option></option>
+    <options></options>
 </template>
 
 <script>
-import option from "./option.vue";
+import options from "./option.vue";
 export default {
   components:{
-    option
+    options
   }
 }
 </script>

@@ -11,10 +11,12 @@
       :key="index"
       :brief="item"
     ></BriefPart>
+    <router-view />
   </div>
 </template>
 
 <script>
+import Join from "@/api/vote/join/index.js";
 import Switcher from "./switch.vue";
 import BriefPart from "./part.vue";
 export default {
@@ -22,34 +24,35 @@ export default {
   data() {
     return {
       type: [],
+      join: new Join(),
       tmpData: [],
       briefData: [
         {
-          id: "", //投票id
+          id: "1", //投票id
           title: "开始投票", //title
           state: 0,
-          start: "Tue Nov 15 09:52:46 CST 2022", //开始时间
-          end: "Tue Nov 15 09:52:46 CST 2022", //截止时间
+          createdTime: "Tue Nov 15 09:52:46 CST 2022", //开始时间
+          deadline: "Tue Nov 15 09:52:46 CST 2022", //截止时间
           isjoin: true,
           content:
             "什么，额流量费拉拉肥就覅房价反免费咖啡1积分卡积分卡看风景放假啊较为开放假按揭开发放假啊开发酒啊就放假啊积分卡咖啡机卡卡放假啊开发金卡金卡放假咯放假啊开发框架放假咯我发卡机开发接口啦啦啦", //简介
         },
         {
-          id: "", //投票id
+          id: "2", //投票id
           title: "开始投票", //title
           state: 1,
-          start: "2022.2.3", //开始时间
-          end: "2022.3.2", //截止时间
+          createdTime: "2022.2.3", //开始时间
+          deadline: "2022.3.24", //截止时间
           isjoin: true,
           content:
             "什么，额流量费拉拉肥就覅房价反免费咖啡1积分卡积分卡看风景放假啊较为开放假按揭开发放假啊开发酒啊就放假啊积分卡咖啡机卡卡放假啊开发金卡金卡放假咯放假啊开发框架放假咯我发卡机开发接口啦啦啦", //简介
         },
         {
-          id: "", //投票id
+          id: "3", //投票id
           title: "开始投票", //title
           state: 2,
-          start: "2022.2.3", //开始时间
-          end: "2022.3.2", //截止时间
+          createdTime: "2022.2.3", //开始时间
+          deadline: "2022.3.2", //截止时间
           isjoin: false,
           content:
             "什么，额流量费拉拉肥就覅房价反免费咖啡1积分卡积分卡看风景放假啊较为开放假按揭开发放假啊开发酒啊就放假啊积分卡咖啡机卡卡放假啊开发金卡金卡放假咯放假啊开发框架放假咯我发卡机开发接口啦啦啦", //简介
@@ -93,9 +96,17 @@ export default {
       });
       return this.tmpData;
     },
+    getBriefList() {
+      this.join.getBriefList().then((res) => {
+        console.log(res);
+      });
+    },
   },
   mounted() {
     this.sortbriefDataByJoined();
+  },
+  created() {
+    this.getBriefList();
   },
 };
 </script>

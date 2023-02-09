@@ -88,27 +88,39 @@ export const constantRoutes = [
       }
     ]
   },
-  // {
-  //   path: '/vote',
-  //   component: Layout,
-  //   hiddden: true,
-  //   children: [
-  //     {
-  //       path: 'join',
-  //       component: () => import('@/views/vote/join/brief/index'),
-  //       name: 'JoinBrief',
-  //       meta: { title: '参与投票', icon: 'user' }
-  //     },
-  //     {
-  //       path: "details",
-  //       component: () => import('@/views/vote/join/details/index')
-  //     },
-  //     {
-  //       path: "success",
-  //       component: () => import('@/views/vote/join/success/index')
-  //     }
-  //   ]
-  // },
+  {
+    path: '/vote',
+    component: Layout,
+    hidden: true,
+    // permissions: ['vote'],
+    meta: { title: '投票系统' },
+    redirect: 'noRedirect',
+    children: [
+      {
+        name: "join",
+        path: "join",
+        component: () => import('@/views/vote/join/index'),
+        meta: { title: '参与投票' },
+        children: [
+
+
+          {
+            name: "success",
+            path: "success",
+            component: () => import('@/views/vote/join/success/index')
+          }
+        ]
+      },
+      {
+        name: "joindetails",
+        path: "joindetails",
+        component: () => import('@/views/vote/join/details/index'),
+        meta: { title: '参与投票细节' },
+      },
+
+
+    ]
+  },
   {
     path: '/vote/history',
     component: () => import('@/views/vote/history/brief/index'),

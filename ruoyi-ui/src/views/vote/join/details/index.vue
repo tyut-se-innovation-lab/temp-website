@@ -1,23 +1,25 @@
 <template>
-  <div class="page">
-    <Title :titletext="vote_data.title"></Title>
-    <Deadline :deadline="vote_data.deadline"></Deadline>
-    <span></span>
-    <Content :contenttext="vote_data.content"></Content>
-    <div v-for="item in vote_data.voteQues" :key="item.id">
-      <component
-        :is="type[item.type]"
-        :options="item.options"
-        :content="item.content"
-        @sendSingleAnswer="sendSingleAnswer"
-        @sendContent="sendContent"
-        @sendMultipleAnswer="sendMultipleAnswer"
-        :question="item.queContent"
-        :id="Number(item.id)"
-        :isSend="isSend"
-      ></component>
+  <div class="box">
+    <Success v-if="isSuccess"></Success>
+    <div class="page">
+      <Title :titletext="vote_data.title"></Title>
+      <Deadline :deadline="vote_data.deadline"></Deadline>
+      <Content :contenttext="vote_data.content"></Content>
+      <div v-for="item in vote_data.voteQues" :key="item.id">
+        <component
+          :is="type[item.type]"
+          :options="item.options"
+          :content="item.content"
+          @sendSingleAnswer="sendSingleAnswer"
+          @sendContent="sendContent"
+          @sendMultipleAnswer="sendMultipleAnswer"
+          :question="item.queContent"
+          :id="Number(item.id)"
+          :isSend="isSend"
+        ></component>
+      </div>
+      <Submit @submitMethod="submitDataSuccessly"></Submit>
     </div>
-    <Submit></Submit>
   </div>
 </template>
 
@@ -32,6 +34,7 @@ import Fill from "@/views/vote/vote_display/fill.vue";
 import Multiple from "@/views/vote/vote_display/multiple.vue";
 import Single from "@/views/vote/vote_display/single.vue";
 import Progress from "@/views/vote/vote_display/progress.vue";
+import Success from "@/views/vote/join/success/index.vue";
 export default {
   name: "",
   data() {
@@ -106,6 +109,7 @@ export default {
         T: "Fill",
       },
       isSend: false,
+      isSuccess: false,
     };
   },
   components: {
@@ -118,6 +122,7 @@ export default {
     Single,
     Multiple,
     Progress,
+    Success,
   },
   methods: {
     //获取当前投票详细信息
@@ -142,6 +147,9 @@ export default {
     sendContent(content, id) {
       this.vote_data.options[id].content = content;
     },
+    submitDataSuccessly() {
+      this.isSuccess = true;
+    },
   },
   beforeCreate() {
     // getDetails();
@@ -155,9 +163,13 @@ export default {
   padding: 0;
   list-style: none;
 }
+.box {
+  /* margin: 20px 0; */
+  position: relative;
+}
 .page {
   width: 72vw;
-  margin: 50px auto;
+  margin: 0px auto;
   position: relative;
 }
 </style>

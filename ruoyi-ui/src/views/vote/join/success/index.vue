@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="box">
     <div class="success">
       <svg width="200" height="200">
         <circle
@@ -35,13 +35,26 @@ export default {};
 <style scoped>
 * {
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
+.box {
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.235);
+  position: absolute;
+  z-index: 2;
+}
+
 .success {
-  margin-top: 30vh;
+  width: 600px;
+  height: 300px;
+  border-radius: 15px;
+  background-color: white;
+  position: absolute;
+  justify-content: center;
+  margin-top: 20vh;
 }
 
 h2 {

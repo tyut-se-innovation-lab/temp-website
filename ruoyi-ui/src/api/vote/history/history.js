@@ -25,7 +25,7 @@ export default class History {
         return request({
             url: '/selab/vote/join/allInfo',
             method: 'get',
-            data: id
+            params: id
         })
     }
 }

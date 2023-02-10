@@ -61,28 +61,22 @@
       	
         	"deadline": "",
       	"voteQues": [
-              {//单选，多选
+              {//单选，多选，文本框
                   "id": 0,
                   "type": "",	//类型，S表示单选，M表示多选，T表示文本框
-                  "queContent": "",
+                  "queContent": "", //文本框时传文本内容
                   "options": [
-                      //单选，多选
+                      //单选，多选    文本框传一个空数组
                       {
                           "id": 0,
-                          "content": "",
+                          "content": "",  
                           "isSelect":"",
                           "type": "",
                           "other": ""
                       },
                   ]
               },
-              //文本题
-    	        {
-                  question:""
-    	            id:""//题号
-                  type:""// 类型 ----文本框
-    	            content:''//文本内容
-              }	
+              
         ]
       }
       ```

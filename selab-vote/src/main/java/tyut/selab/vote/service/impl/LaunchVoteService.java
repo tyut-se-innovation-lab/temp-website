@@ -70,9 +70,12 @@ public class LaunchVoteService implements ILaunchVoteService,Runnable {
     }
     private Map<PoVoteOption,List<PoVoteOption>> mapQuesToOptions(){
         Map<PoVoteOption,List<PoVoteOption>> queToOpt = new HashMap<>();
+        List<PoVoteOption> poVoteOptions = new ArrayList<>();
         for (VoteQue vq: questionnaire.getVoteQues()) {
             PoVoteOption que = voteQueToPoVoteOption(vq);
-            List<PoVoteOption> poVoteOptions = voteOptionToPoVoteOption(vq.getOptions());
+            if(!que.getOptionType().equals("T")){
+                poVoteOptions = voteOptionToPoVoteOption(vq.getOptions());
+            }
             queToOpt.put(que,poVoteOptions);
         }
         return queToOpt;

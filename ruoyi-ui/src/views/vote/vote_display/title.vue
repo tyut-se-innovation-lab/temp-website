@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ titletext }}</h1>
+    <p>{{ titletext }}</p>
     <hr />
   </div>
 </template>
@@ -19,5 +19,9 @@ export default {
 <style scoped>
 h1 {
   margin: 20px 0;
+}
+p {
+  font-size: 30px;
+  font-weight: 600;
 }
 </style>

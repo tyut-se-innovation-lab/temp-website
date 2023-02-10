@@ -27,7 +27,7 @@
     <span class="state"
       ><b>{{ state }}</b></span
     >
-    <span class="time">{{ brief.start }}--{{ brief.end }}</span>
+    <span class="time">{{ brief.createdTime }}--{{ brief.deadline }}</span>
   </div>
 </template>
 
@@ -46,8 +46,8 @@ export default {
   },
   methods: {
     goToDetails() {
-      let routeData = this.$router.push({
-        path: "vote/join/details",
+      this.$router.push({
+        name: "joindetails",
         query: {
           id: this.brief.id,
         },

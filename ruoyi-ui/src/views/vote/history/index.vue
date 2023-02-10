@@ -1,6 +1,6 @@
 <template>
   <div>
-    <History></History>
+    <router-view />
   </div>
 </template>
 
@@ -9,6 +9,11 @@ import History from "@/views/vote/history/brief/index.vue";
 export default {
   components: {
     History,
+  },
+  methods: {
+    gotoHistory() {
+      this.$router.push("/vote/join");
+    },
   },
 };
 </script>

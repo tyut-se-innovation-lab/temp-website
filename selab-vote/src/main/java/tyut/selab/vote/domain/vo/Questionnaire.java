@@ -34,6 +34,11 @@ public class Questionnaire {
     //是否参与
     private boolean isJoin;
 
+    @JsonSetter("context")
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     @JsonSetter("deadline")
     public void setDeadline(String deadline) {
         this.deadline= GetSysTime.stringToDate(deadline);

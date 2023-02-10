@@ -16,33 +16,19 @@ import javax.annotation.PostConstruct;
  */
 @Service
 public class WeightControlService implements IWeightControlService {
-    @Autowired
-    private FindInfoDBMapper findInfoDBMapper;
-    @Autowired
-    private InsertInfoDBMapper insertInfoDBMapper;
-    @Autowired
-    private ChangeInfoDBMapper changeInfoDBMapper;
+
     @Override
     public void setVoteWeight(WeightPo w) {
-        if(w.equals(getNowVoteWeight())){
-            return;
-        }
-        insertInfoDBMapper.writeWightInfoToDB(w);
-        changeInfoDBMapper.writeLastUseWeightToDB(w.getId());
+
     }
 
     @Override
     public WeightPo getNowVoteWeight() {
-        long a = findInfoDBMapper.getLastUseWeightId();
-        return findInfoDBMapper.getWeightById(findInfoDBMapper.getLastUseWeightId());
+        return null;
     }
 
     @Override
     public int getWeightByUserId(String id) {
-        return getNowVoteWeight().getWeightMap().get(getRoleThisId(id));
-    }
-
-    private int getRoleThisId(String id){
-        return findInfoDBMapper.getRoleById(id);
+        return 0;
     }
 }

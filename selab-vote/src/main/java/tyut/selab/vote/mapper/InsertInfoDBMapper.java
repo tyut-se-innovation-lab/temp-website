@@ -16,7 +16,6 @@ import java.util.List;
  * @author Big_bai on 2022/11/22
  */
 public interface InsertInfoDBMapper {
-    void writeWightInfoToDB(WeightPo w);
 
 
     void writeVoteInfoToDB(VoteInfo voteInfo);

@@ -18,19 +18,6 @@ import java.util.List;
 public interface FindInfoDBMapper {
 
     /**
-     * 根据id查询权重
-     * @param id
-     * @return
-     */
-    WeightPo getWeightById(Long id);
-
-    /**
-     * 获取上一次使用的投票id
-     * @return
-     */
-    Long getLastUseWeightId();
-
-    /**
      * 根据id查询投票信息
      * @param id
      * @return

@@ -19,7 +19,7 @@ export default {
   props: ["options", "question", "id"],
   data() {
     return {
-      select: -1,
+      select: -1, //选中的选项下标
     };
   },
   watch: {

@@ -31,7 +31,7 @@ export default {
     },
   },
   mounted() {
-    this.options_data = this.answer;
+    this.options_data = this.options;
   },
 };
 </script>

@@ -5,7 +5,7 @@
 <mapper namespace="tyut.selab.vote.mapper.FindInfoDBMapper">
     <resultMap id="VoteInfo" type="tyut.selab.vote.domain.po.VoteInfo">
         <id property="id" column="id"/>
-        <result property="userId" column="user_id"/>
+        <result property="userIds" column="user_id" typeHandler="tyut.selab.vote.config.jdbc.handler.userIdJandler"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="status" column="status"/>
@@ -15,7 +15,7 @@
     <resultMap id="VoteResult" type="tyut.selab.vote.domain.po.VoteResult">
         <id property="id" column="id"/>
         <result property="voteOptionId" column="vote_option_id"/>
-        <result property="userId" column="user_id"/>
+        <result property="userIds" column="user_id" typeHandler="tyut.selab.vote.config.jdbc.handler.userIdJandler"/>
         <result property="content" column="content"/>
         <result property="isEnable" column="isEnable"/>
         <result property="weight" column="weight"/>
@@ -43,8 +43,10 @@
         select * from selab_vote_info where id = #{id}
     </select>
     <select id="getOptionId" resultType="VoteResult" resultMap="VoteResult">
-        select vote_option_id from selab_vote_result where user_id = #{userId}
+        select * from selab_vote_result
     </select>
+<!--    where user_id = #{userId}-->
+
     <!--    List<VoteResult>displayVoteUser(@Param("optionId")List<PoVoteOption> optionId);-->
     <select id="displayVoteUser" resultType="VoteResult" resultMap="VoteResult">
         select user_id from selab_vote_result
@@ -81,7 +83,7 @@
         </foreach>
     </select>
     <select id="displayMyStartVote" resultType="VoteInfo" resultMap="VoteInfo">
-        select * from selab_vote_info where user_id = #{userId}
+        select * from selab_vote_info
     </select>
     <!--     List<PoVoteOption>getVoteOptions(@Param("voteId")Long voteTd);-->
     <select id="getVoteOptions" resultType="PoVoteOption" resultMap="PoVoteOption">
@@ -93,14 +95,13 @@
     </select>
     <!--    List<VoteResult>getResByUserIdAndOptionId(@Param("userId")String userId, @Param("optionIds")List<PoVoteOption>optionsId);-->
     <select id="getResByUserIdAndOptionId" resultType="VoteResult" resultMap="VoteResult">
-        select * from (
         select * from selab_vote_result where vote_option_id in
         <foreach collection="optionIds" item="optionId" open="(" separator="," close=")">
             #{optionId.id}
         </foreach>
-        )as total
-        where user_id = #{userId}
     </select>
+<!--    select * from ()as total where user_id = #{userId}-->
+
     <!--    List<PoVoteOption>getVoteOptionByVoteId(@Param("voteId")Long voteTd);-->
     <select id="getVoteOptionByVoteId" resultType="PoVoteOption" resultMap="PoVoteOption">
         select * from selab_vote_option where vote_id = #{voteId} AND parent_id != -1
@@ -135,16 +136,13 @@
     <select id="getRoleById" resultType="int">
         select role_id from sys_user_role where user_id = #{id}
     </select>
-    
-    <select id="isJoin" resultType="int">
-        select count(*) from (
+
+    <select id="isJoin" resultMap="VoteResult">
             select user_id from selab_vote_result where vote_option_id in(
                 select id from selab_vote_option where vote_id = #{voteId} AND parent_id != -1
                 )
-            )as total
-        where user_id = #{userId}
-
     </select>
+<!-- select count(*) from ()as total where user_id = #{userId}  -->
 
     <!-- Date getCreateTimeById(@Param("voteId")Long voteId)-->
     <select id="getDeadLineById" resultType="Date">

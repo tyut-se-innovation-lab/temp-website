@@ -1,12 +1,13 @@
 package tyut.selab.vote.domain.po;
 
-import tyut.selab.vote.enums.VoteStatus;
+import tyut.selab.vote.enums.User;
 
 import java.util.Date;
 
 public class VoteInfo {
     private Long id;
     private String userId;
+    private User userIds;
     private String title;
     private String content;
     private String status;
@@ -14,6 +15,14 @@ public class VoteInfo {
     private Date createTime;
     private Long weight;
     private int peoples;
+
+    public User getUserIds() {
+        return userIds;
+    }
+
+    public void setUserIds(User userIds) {
+        this.userIds = userIds;
+    }
 
     public Long getId() {
         return id;
@@ -91,13 +100,15 @@ public class VoteInfo {
     public String toString() {
         return "VoteInfo{" +
                 "id=" + id +
-                ", userId=" + userId +
+                ", userId='" + userId + '\'' +
+                ", userIds=" + userIds +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", status='" + status + '\'' +
                 ", deadline=" + deadline +
                 ", createTime=" + createTime +
                 ", weight=" + weight +
+                ", peoples=" + peoples +
                 '}';
     }
 }

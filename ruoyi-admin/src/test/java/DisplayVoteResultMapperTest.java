@@ -2,11 +2,10 @@ import com.ruoyi.RuoYiApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import tyut.selab.vote.domain.po.PoVoteOption;
-import tyut.selab.vote.domain.po.VoteResult;
 import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.mapper.FindInfoDBMapper;
-import tyut.selab.vote.service.IDisplayVoteResultService;
 import tyut.selab.vote.service.impl.DisplayAllVoteImpl;
 import tyut.selab.vote.service.impl.DisplayVoteResultServiceImpl;
 import tyut.selab.vote.service.impl.WeightControlService;

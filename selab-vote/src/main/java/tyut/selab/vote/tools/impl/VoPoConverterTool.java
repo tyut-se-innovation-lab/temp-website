@@ -40,7 +40,7 @@ public class VoPoConverterTool implements IVoPoConverterTool {
         for (VoteQue voteQue : voteQues){
             List<VoteOption> options = voteQue.getOptions();
             for (VoteOption voteOption : options){
-                if (voteOption.getIsSelect() == 1){  //isSelect值为1时，证明该选项已选或者文本框已填写内容
+                if (voteOption.getIsSelect() == true){  //isSelect值为1时，证明该选项已选或者文本框已填写内容
                     result.setVoteOptionId(voteOption.getId());
                     result.setUserId(AnonymousControl.encrypt(userId));
                     result.setContent(voteOption.getContent());
@@ -141,13 +141,13 @@ public class VoPoConverterTool implements IVoPoConverterTool {
      * @return
      */
     @Override
-    public int isSelect(PoVoteOption option, List<VoteResult> voteResults) {
+    public Boolean isSelect(PoVoteOption option, List<VoteResult> voteResults) {
         for (VoteResult voteResult : voteResults) {
             if(voteResult.getVoteOptionId()== option.getId()){
-                return 1;
+                return true;
             }
         }
-        return 0;
+        return false;
     }
 
     /**

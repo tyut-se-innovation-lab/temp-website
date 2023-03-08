@@ -51,7 +51,7 @@ public class CommitController {
      */
     @PreAuthorize("@ss.hasPermi('vote:join')")
     @GetMapping("/join/allInfo")
-    public AjaxResult listDetails(@RequestBody Questionnaire questionnaire){
+    public AjaxResult listDetails(Questionnaire questionnaire){
         return AjaxResult.success(displayVoteResultService.displayVoteGoing(questionnaire.getId(),getUserId().toString()));
     }
 

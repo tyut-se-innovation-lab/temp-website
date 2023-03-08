@@ -6,6 +6,7 @@ import tyut.selab.vote.domain.po.PoVoteOption;
 import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteResult;
 
+
 import java.util.Date;
 import java.util.List;
 
@@ -128,7 +129,7 @@ public interface FindInfoDBMapper {
      * @param voteId
      * @return
      */
-    int isJoin(@Param("userId")String userId,@Param("voteId")Long voteId);
+    List<VoteResult> isJoin(@Param("userId")String userId, @Param("voteId")Long voteId);
 
     /**
      * 根据voteId查询投票开始时间

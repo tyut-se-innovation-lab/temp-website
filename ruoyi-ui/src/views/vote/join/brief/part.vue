@@ -1,7 +1,7 @@
 <template>
   <div class="data">
     <h2 class="title" @click="goToDetails">{{ brief.title }}</h2>
-    <p class="content" @click="goToDetails">{{ brief.content }}</p>
+    <p class="content" @click="goToDetails">{{ brief.context }}</p>
     <el-dropdown class="icon" trigger="click">
       <span class="el-dropdown-link">
         <svg
@@ -27,7 +27,7 @@
     <span class="state"
       ><b>{{ state }}</b></span
     >
-    <span class="time">{{ brief.createdTime }}--{{ brief.deadline }}</span>
+    <span class="time">{{ brief.creatTime }}--{{ brief.deadline }}</span>
   </div>
 </template>
 

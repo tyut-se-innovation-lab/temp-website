@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.vote.domain.po.PoVoteOption;
 import tyut.selab.vote.domain.po.VoteInfo;
-import tyut.selab.vote.domain.po.PoVoteOption;
 
 import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.domain.vo.VoteOption;
 import tyut.selab.vote.domain.vo.VoteQue;
-import tyut.selab.vote.domain.vo.Weight;
 import tyut.selab.vote.mapper.InsertInfoDBMapper;
 import tyut.selab.vote.service.ILaunchVoteService;
 import tyut.selab.vote.service.IWeightControlService;
@@ -65,7 +63,7 @@ public class LaunchVoteService implements ILaunchVoteService,Runnable {
         voteInfo.setStatus("0");
         voteInfo.setDeadline(questionnaire.getDeadline());
         voteInfo.setCreateTime(GetSysTime.getNow());
-        voteInfo.setWeight(weightControlService.getNowVoteWeight().getId());
+//        voteInfo.setWeight(weightControlService.getNowVoteWeight().getId());
         return voteInfo;
     }
     private Map<PoVoteOption,List<PoVoteOption>> mapQuesToOptions(){

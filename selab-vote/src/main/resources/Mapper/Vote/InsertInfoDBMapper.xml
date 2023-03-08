@@ -14,13 +14,6 @@
     </parameterMap>
 
 
-<!--    Long writeWightInfoToDB(Weight w);-->
-    <insert id="writeWightInfoToDB" keyProperty="id">
-        INSERT INTO selab_vote_weight
-            (voteManager,DEVManager,CSManager,DEVLeader,CSLeader,DEVMember,CSMember)
-            VALUE
-            (#{voteManager},#{DEVManager},#{CSManager},#{DEVLeader},#{CSLeader},#{DEVMember},#{CSMember})
-    </insert>
 
 <!--    void writeVoteInfoToDB(VoteInfo voteInfo);-->
     <insert id="writeVoteInfoToDB" keyProperty="id">

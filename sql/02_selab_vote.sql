@@ -84,6 +84,6 @@ create table selab_vote_weight
 drop table if exists selab_vote_last_use;
 create table selab_vote_last_use
 (
-    weight_id int default 1 ,
+    weight_id bigint default 1 ,
     id  bigint default 1
 );

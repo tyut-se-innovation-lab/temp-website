@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import tyut.selab.vote.domain.po.Weight;
 import tyut.selab.vote.mapper.WeightMapper;
 import tyut.selab.vote.service.IWeightControlService;
+import tyut.selab.vote.tools.AnonymousControl;
 
 import java.util.*;
 
@@ -25,6 +26,20 @@ public class WeightControlService implements IWeightControlService {
     @Override
     public void setVoteWeight(Map<String, Integer> roleWeightMap) {
         Map<Long,String> roleMap = getRoleIdMap();
+        List<Weight> weightToDB = new ArrayList<>();
+        Long maxWeightId = weightMapper.getMaxWeightId();
+        roleWeightMap.keySet().forEach((x)->{
+            roleMap.keySet().forEach((y)->{
+                if(roleMap.get(y).equals(x)){
+                    Weight w = new Weight();
+                    w.setRoleId(y);
+                    w.setWeight(roleWeightMap.get(x));
+                    w.setWeightId(maxWeightId+1);
+                    weightToDB.add(w);
+                }
+            });
+        });
+        weightMapper.writeWeight(weightToDB);
     }
 
     @Override
@@ -39,7 +54,13 @@ public class WeightControlService implements IWeightControlService {
 
     @Override
     public int getWeightByUserId(String id) {
-
+        Long roleId = iSysRoleService.selectRoleById(Long.getLong(AnonymousControl.decrypt(id))).getRoleId();
+        List<Weight> weights =  getWeightList(getLastUseWeightId());
+        for (Weight w:weights) {
+            if(w.getRoleId()==roleId){
+                return w.getWeight();
+            }
+        }
         return 0;
     }
 
@@ -57,7 +78,9 @@ public class WeightControlService implements IWeightControlService {
     private List<Weight> getWeightList(long weightId){
          return weightMapper.getWeightList(weightId);
     }
-    private Long getLastUseWeightId(){
+
+    @Override
+    public Long getLastUseWeightId(){
         Long last = weightMapper.getLastUseWeightId();
         if(last==null){
             List<Weight> weights = new ArrayList<>();

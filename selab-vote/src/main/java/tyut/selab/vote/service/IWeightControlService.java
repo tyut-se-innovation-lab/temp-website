@@ -22,4 +22,6 @@ public interface IWeightControlService {
      * @return 权限数值
      */
     int getWeightByUserId(String id);
+
+    Long getLastUseWeightId();
 }

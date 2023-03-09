@@ -14,8 +14,7 @@ public class VoteWeightTest {
 
     @Test
     public void getWeightByIdTest(){
-        int i = weightControlService.getWeightByUserId("1");
-        System.err.println(i);
+        weightControlService.getWeightByUserId("2");
     }
     @Test
     public void setGetWeightTest(){

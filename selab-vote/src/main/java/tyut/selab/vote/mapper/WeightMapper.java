@@ -13,4 +13,7 @@ public interface WeightMapper {
     void initLastUse();
 
     List<Weight> getWeightList(Long weightId);
+
+    Long getMaxWeightId();
+
 }

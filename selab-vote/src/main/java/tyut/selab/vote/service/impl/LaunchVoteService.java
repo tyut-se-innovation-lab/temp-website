@@ -63,7 +63,7 @@ public class LaunchVoteService implements ILaunchVoteService,Runnable {
         voteInfo.setStatus("0");
         voteInfo.setDeadline(questionnaire.getDeadline());
         voteInfo.setCreateTime(GetSysTime.getNow());
-//        voteInfo.setWeight(weightControlService.getNowVoteWeight().getId());
+        voteInfo.setWeight(weightControlService.getLastUseWeightId());
         return voteInfo;
     }
     private Map<PoVoteOption,List<PoVoteOption>> mapQuesToOptions(){

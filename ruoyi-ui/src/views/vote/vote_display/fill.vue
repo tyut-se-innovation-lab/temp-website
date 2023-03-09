@@ -1,6 +1,6 @@
 <template>
   <div class="fill">
-    <h3>{{ id + 1 }}.{{ question }}</h3>
+    <h3>{{ index + 1 }}.{{ question }}</h3>
     <textarea
       v-model="content_data"
       class="textarea"
@@ -12,7 +12,7 @@
 <script>
 export default {
   name: "fill",
-  props: ["question", "content", "id"],
+  props: ["question", "content", "index"],
   data() {
     return {
       content_data: "",
@@ -20,7 +20,7 @@ export default {
   },
   watch: {
     content_data(newValue, oldValue) {
-      this.$emit("sendContent", newValue, this.id);
+      this.$emit("sendContent", newValue, this.index);
     },
   },
   mounted() {

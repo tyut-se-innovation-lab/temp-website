@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-view />
+    <History></History>
   </div>
 </template>
 
@@ -10,11 +10,7 @@ export default {
   components: {
     History,
   },
-  methods: {
-    gotoHistory() {
-      this.$router.push("/vote/join");
-    },
-  },
+  methods: {},
 };
 </script>
 

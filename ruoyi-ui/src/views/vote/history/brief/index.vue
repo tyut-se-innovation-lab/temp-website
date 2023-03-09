@@ -1,19 +1,21 @@
 <template>
   <div class="brief">
     <HistoryPart
-      v-for="item in historyData"
-      :key="item.id"
+      v-for="(item, index) in historyData"
+      :key="index"
       :brief="item"
     ></HistoryPart>
   </div>
 </template>
 
 <script>
+import History from "@/api/vote/history/index.js";
 import HistoryPart from "../brief/part.vue";
 export default {
   name: "history",
   data() {
     return {
+      history: new History(),
       type: [],
       historyData: [
         {
@@ -48,17 +50,18 @@ export default {
     HistoryPart,
   },
   methods: {
-    sortbriefDataByDate() {
-      this.historyData.sort((a, b) => {
-        let date1 = new Date(a.start);
-        let date2 = new Date(b.start);
-        console.log(a, b);
-        return date1 - date2;
+    init(data) {
+      this.historyData = this.history.initHistory(data);
+    },
+
+    getHistoryList() {
+      this.history.getHistoryList().then((res) => {
+        this.init(res.data);
       });
     },
   },
   created() {
-    this.sortbriefDataByDate();
+    this.getHistoryList();
   },
 };
 </script>

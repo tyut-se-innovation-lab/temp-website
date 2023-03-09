@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export default class Join {
+export default class History {
     constructor() {
 
     }
@@ -9,25 +9,24 @@ export default class Join {
     * 获取投票列表
     * @returns 
     */
-    getBriefList() {
+    getHistoryList() {
         return request({
             url: '/selab/vote/join/list',
             method: 'get',
         })
     }
 
+
     /**
      * 初始化参与投票
      * @param {Object} data 
      * @returns 
      */
-    initJoin(data) {
+    initHistory(data) {
         let tmpdata1 = this.sortbriefDataByDate(data);
         let tmpdata2 = this.fixDateData(tmpdata1);
         return this.sortbriefDataByIsjoin(tmpdata2);
     }
-
-    /** 修正数据 */
 
     /**
      * 根据是否已经参与进行排序

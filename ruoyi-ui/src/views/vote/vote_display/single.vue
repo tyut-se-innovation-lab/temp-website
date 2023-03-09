@@ -1,6 +1,6 @@
 <template>
   <div class="single">
-    <h3>{{ id + 1 }}.{{ question }}</h3>
+    <h3>{{ index + 1 }}.{{ question }}</h3>
     <el-radio-group v-model="select" class="radio">
       <el-radio
         v-for="(item, index) in options"
@@ -16,7 +16,7 @@
 <script>
 export default {
   name: "single",
-  props: ["options", "question", "id"],
+  props: ["options", "question", "index"],
   data() {
     return {
       select: -1, //选中的选项下标
@@ -24,7 +24,7 @@ export default {
   },
   watch: {
     select(newValue, oldValue) {
-      this.$emit("sendSingleAnswer", newValue, this.id);
+      this.$emit("sendSingleAnswer", newValue, this.index);
     },
   },
   mounted() {},

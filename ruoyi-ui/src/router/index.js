@@ -101,15 +101,6 @@ export const constantRoutes = [
         path: "join",
         component: () => import('@/views/vote/join/index'),
         meta: { title: '参与投票' },
-        children: [
-
-
-          {
-            name: "success",
-            path: "success",
-            component: () => import('@/views/vote/join/success/index')
-          }
-        ]
       },
       {
         name: "joindetails",
@@ -117,6 +108,18 @@ export const constantRoutes = [
         component: () => import('@/views/vote/join/details/index'),
         meta: { title: '参与投票细节' },
       },
+      {
+        name: "history",
+        path: "history",
+        component: () => import('@/views/vote/history/index'),
+        meta: { title: '查看历史投票' },
+      },
+      {
+        name: "historydetails",
+        path: "historydetails",
+        component: () => import('@/views/vote/history/details/index'),
+        meta: { title: '历史投票细节' },
+      }
 
 
     ]

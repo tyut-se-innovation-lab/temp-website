@@ -1,5 +1,5 @@
 import request from '@/utils/request';
-import Join from './index';
+import History from './index';
 
 export default class JoinDetails {
 
@@ -52,8 +52,8 @@ export default class JoinDetails {
      * @param {String} string 
      */
     dateToString(string) {
-        let join = new Join();
-        return join.dateToString(string);
+        let history = new History();
+        return history.dateToString(string);
     }
 
 }

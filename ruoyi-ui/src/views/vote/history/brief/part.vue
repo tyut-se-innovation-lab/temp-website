@@ -1,7 +1,7 @@
 <template>
   <div class="data">
     <h2 class="title" @click="goToDetails">{{ brief.title }}</h2>
-    <p class="content" @click="goToDetails">{{ brief.content }}</p>
+    <p class="content" @click="goToDetails">{{ brief.context }}</p>
     <el-dropdown class="icon" trigger="click">
       <span class="el-dropdown-link">
         <svg
@@ -27,7 +27,7 @@
       </el-dropdown-menu>
     </el-dropdown>
     <span class="state">{{ state }}</span>
-    <span class="time">{{ brief.start }}--{{ brief.end }}</span>
+    <span class="time">{{ brief.creatTime }}--{{ brief.deadline }}</span>
   </div>
 </template>
 
@@ -42,8 +42,8 @@ export default {
   },
   methods: {
     goToDetails() {
-      let routeData = this.$router.push({
-        path: "/historydetails",
+      this.$router.push({
+        name: "historydetails",
         query: {
           id: this.brief.id,
         },

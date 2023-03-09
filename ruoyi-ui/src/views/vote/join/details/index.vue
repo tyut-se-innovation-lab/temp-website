@@ -5,7 +5,7 @@
       <Title :titletext="vote_data.title"></Title>
       <Deadline :deadline="vote_data.deadline"></Deadline>
       <Content :contenttext="vote_data.content"></Content>
-      <div v-for="item in vote_data.voteQues" :key="item.id">
+      <div v-for="(item, index) in vote_data.voteQues" :key="index">
         <component
           :is="type[item.type]"
           :options="item.options"
@@ -14,7 +14,7 @@
           @sendContent="sendContent"
           @sendMultipleAnswer="sendMultipleAnswer"
           :question="item.queContent"
-          :id="Number(item.id)"
+          :index="Number(index)"
           :isSend="isSend"
         ></component>
       </div>
@@ -138,36 +138,36 @@ export default {
 
     /**
      * 传递单项选择答案
-     * @param {Number} select 选中的选项下标
-     * @param {String} id 题目id
+     * @param {Number} selindex 选中的选项下标
+     * @param {String} index 题目下标
      */
-    sendSingleAnswer(select, id) {
-      let voteQues = this.vote_data.voteQues;
+    sendSingleAnswer(selindex, index) {
+      let voteQues = this.vote_data.voteQues[index];
       //清空
       for (let i = 0; i < voteQues.options.length; i++) {
-        voteQues[id].options[i].select = "0";
+        voteQues.options[i].isSelect = "0";
       }
       //赋值选项
-      voteQues[id].options[select].select = "1";
+      voteQues.options[selindex].isSelect = "1";
     },
 
     /**
      * 传递多选选择答案
      * @param {Object} option 多选题对象
-     * @param {String} id 题目id
+     * @param {String} index 题目下标
      */
-    sendMultipleAnswer(option, id) {
+    sendMultipleAnswer(option, index) {
       //赋值选项
-      this.vote_data.voteQues[id] = option;
+      this.vote_data.voteQues[index] = option;
     },
 
     /**
      * 传递文本题答案
      * @param {Number} content 内容
-     * @param {String} id 题目id
+     * @param {String} index 题目下标
      */
-    sendContent(content, id) {
-      this.vote_data.voteQues[id].content = content;
+    sendContent(content, index) {
+      this.vote_data.voteQues[index].content = content;
     },
 
     /**

@@ -84,6 +84,12 @@
             <artifactId>lombok</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>selab-attendance</artifactId>
+            <version>3.8.3</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 

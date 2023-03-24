@@ -145,6 +145,14 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils
     }
 
     /**
+     * 计算相差小时数
+     */
+    public static int differentHoursByMillisecond(Date date1, Date date2)
+    {
+        return Math.abs((int) ((date2.getTime() - date1.getTime()) / (1000 * 3600)));
+    }
+
+    /**
      * 计算两个时间差
      */
     public static String getDatePoor(Date endDate, Date nowDate)

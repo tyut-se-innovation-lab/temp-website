@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tyut.selab.attendance.mapper.AttendanceMapper">
+
+    <resultMap id="Attendance" type="tyut.selab.attendance.domain.po.Attendance">
+        <result property="id" column="id"/>
+        <result property="userName" column="att_user"/>
+        <result property="attStartTime" column="att_start_time"/>
+        <result property="attEndTime" column="att_end_time"/>
+        <result property="signTime" column="interval"/>
+    </resultMap>
+
+    <!--public int signIn(Long userId, Date attStartTime);-->
+    <insert id="signIn">
+        INSERT INTO selab_attendance_log(
+               att_user, att_start_time
+        ) VALUE
+          (#{userName},#{attStartTime})
+    </insert>
+
+    <!--public Attendance couleSignOut(Long userId,Date attEndTime);-->
+    <select id="couleSignOut" resultMap="Attendance">
+        select MAX(id) AS id, att_user, att_start_time, att_end_time, `interval` from selab_attendance_log where att_user = #{userName};
+    </select>
+
+<!--    public int signOut(String  userName,Date attEndTime,int interval);-->
+    <update id="signOut">
+        UPDATE
+            selab_attendance_log AS a,
+            (SELECT
+                 MAX(id) AS id,
+                 att_user,
+                 att_start_time,
+                 att_end_time,
+                 `interval`
+             FROM
+                 selab_attendance_log
+             WHERE att_user = #{userName}) AS b
+        SET
+            a.att_end_time = #{attEndTime},a.interval = #{interval}
+        WHERE a.id = b.id
+    </update>
+
+    <!--public Date selectAttendance(String  userId);-->
+    <select id="selectAttendance">
+        select MAX(id) AS id, att_user, att_start_time, att_end_time, `interval` from selab_attendance_log where att_user = #{userName};
+    </select>
+
+</mapper>

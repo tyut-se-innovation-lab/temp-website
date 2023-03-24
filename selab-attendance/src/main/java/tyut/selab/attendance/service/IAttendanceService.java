@@ -8,23 +8,20 @@ import java.util.Date;
 public interface IAttendanceService {
     /**
      * 签到
-     * @param userId 用户id
-     * @return 当前签到时间
+     * @return
      */
-    Date signIn(Long userId);
+    Boolean signIn();
 
     /**
      * 是否允许签退
-     * @param userId 用户id
-     * @return 是否允许
+     * @return
      */
-    Boolean couleSignOut(Long userId);
+    Boolean couleSignOut();
 
     /**
      * 签退
-     * @param userId 用户id
-     * @return 签退时间
+     * @return
      */
-    Boolean signOut(Long userId);
+    Boolean signOut();
 
 }

@@ -17,13 +17,18 @@ values ('2014', '查看记录', '2012', '2', 'join', 'attendance/log', '', 1, 0,
 -- 1、签到信息存储表
 -- ----------------------------
 drop table if exists selab_attendance_log;
-create table selab_attendance_log(
-    att_user bigint not null comment '签到发起人',
-    att_start_time date comment '签到时间',
-    att_end_time date comment '签退时间',
-    `interval` float comment '本次打卡时间(单位：h)'
+create table `selab_attendance_log` (
+        `id` bigint (20) not null AUTO_INCREMENT,
+        `att_user` bigint (20) not null ,
+        `att_start_time` datetime ,
+        `att_end_time` datetime ,
+        `interval` int (11),
+        primary key (id)
 );
-insert into selab_attendance_log values
-(1,'2023-03-23 20:47:19','2023-03-23 22:47:19',2),
-(1,'2023-03-24 20:47:19','2023-03-24 22:47:19',2),
-(1,'2023-03-25 20:47:19','2023-03-25 22:47:19',2);
+insert into `selab_attendance_log` (`id`, `att_user`, `att_start_time`, `att_end_time`, `interval`) values('7','2','2023-03-26 14:40:35','2023-03-26 16:40:37','2');
+insert into `selab_attendance_log` (`id`, `att_user`, `att_start_time`, `att_end_time`, `interval`) values('6','2','2023-03-25 14:40:19','2023-03-25 16:40:22','2');
+insert into `selab_attendance_log` (`id`, `att_user`, `att_start_time`, `att_end_time`, `interval`) values('5','2','2023-03-24 14:40:10','2023-03-24 17:40:13','3');
+insert into `selab_attendance_log` (`id`, `att_user`, `att_start_time`, `att_end_time`, `interval`) values('4','1','2023-03-18 14:39:58','2023-03-18 15:40:01','2');
+insert into `selab_attendance_log` (`id`, `att_user`, `att_start_time`, `att_end_time`, `interval`) values('3','1','2023-03-17 14:39:47','2023-03-17 15:39:50','1');
+insert into `selab_attendance_log` (`id`, `att_user`, `att_start_time`, `att_end_time`, `interval`) values('2','1','2023-03-16 09:39:33','2023-03-16 12:39:39','2');
+

@@ -20,7 +20,7 @@ public class AttendanceLog {
      * 这里的数组长度为2
      * 签到时间-签退时间
      */
-    List<Date[]> signTimes;
+    List<Date> signTimes;
 
     /**
      * 今日签到总时长

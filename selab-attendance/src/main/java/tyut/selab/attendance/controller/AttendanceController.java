@@ -1,14 +1,21 @@
 package tyut.selab.attendance.controller;
 
 import com.ruoyi.common.core.domain.AjaxResult;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import tyut.selab.attendance.service.Impl.AttendanceServiceImpl;
 
 import java.util.Date;
+
+import static com.ruoyi.common.utils.SecurityUtils.getUserId;
+import static com.ruoyi.common.utils.SecurityUtils.getUsername;
 
 @RestController
 @RequestMapping("/selab/attendance")
 public class AttendanceController {
+    @Autowired
+    AttendanceServiceImpl attendanceService;
 
     /**
      * 签到
@@ -18,7 +25,9 @@ public class AttendanceController {
     @PostMapping("/sign")
     @ResponseBody
     public AjaxResult signIn(){
-        return AjaxResult.success(new Date()+"成功签到");
+        return attendanceService.signIn()?
+                AjaxResult.success("签到成功"):
+                AjaxResult.error("请勿重复签到");
     }
 
     /**
@@ -27,7 +36,9 @@ public class AttendanceController {
     @GetMapping("/could")
     @ResponseBody
     public AjaxResult couldSignOut(){
-        return AjaxResult.success(true);
+        return attendanceService.couleSignOut()?
+                AjaxResult.success("允许签退"):
+                AjaxResult.error("时间未达一小时，不允许签退");
     }
 
     /**
@@ -37,6 +48,8 @@ public class AttendanceController {
     @PreAuthorize("@ss.hasPermi('attendance:sign')")
     @ResponseBody
     public AjaxResult signOut(){
-        return AjaxResult.success(new Date()+"成功签退");
+        return attendanceService.signOut()?
+                AjaxResult.success("签退成功"):
+                AjaxResult.error("签退失败");
     }
 }

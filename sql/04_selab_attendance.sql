@@ -21,7 +21,7 @@ create table selab_attendance_log(
     att_user bigint not null comment '签到发起人',
     att_start_time date comment '签到时间',
     att_end_time date comment '签退时间',
-    `interval` int comment '本次打卡时间(单位：h)'
+    `interval` float comment '本次打卡时间(单位：h)'
 );
 insert into selab_attendance_log values
 (1,'2023-03-23 20:47:19','2023-03-23 22:47:19',2),

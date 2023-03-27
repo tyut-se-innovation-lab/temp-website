@@ -33,12 +33,13 @@ public class AttendanceController {
     /**
      * 是否允许签退
      */
+    @PreAuthorize("@ss.hasPermi('attendance:sign')")
     @GetMapping("/could")
     @ResponseBody
     public AjaxResult couldSignOut(){
         return attendanceService.couleSignOut()?
-                AjaxResult.success("允许签退"):
-                AjaxResult.error("时间未达一小时，不允许签退");
+                AjaxResult.success("允许签退",true):
+                AjaxResult.error("时间未达一小时，不允许签退",false);
     }
 
     /**

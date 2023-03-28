@@ -45,7 +45,6 @@ public class AttendanceServiceImpl implements IAttendanceService {
                 if (date1 != date2){
                     attendanceMapper.signIn(getUsername(),attStartTime);
                     return true;
-                    //记得插一条删除废记录！！！！！！！！！！！！！！！！！！！！！！！！！！
                 }else return false;
             }else {
                 attendanceMapper.signIn(getUsername(),attStartTime);
@@ -85,7 +84,7 @@ public class AttendanceServiceImpl implements IAttendanceService {
             int date2 = cal2.get(Calendar.DATE);
             if (date1 == date2){
                 int minute = differentHoursByMillisecond(attEndTime, attStartTime);
-                String interval = String.format("%4.2f",minute/60);
+                String interval = String.format("%4.2f",minute/60.0);
                 if (minute >= 60){
                     return attendanceMapper.signOut(getUsername(), attEndTime,interval) > 0;
                 }else return false;

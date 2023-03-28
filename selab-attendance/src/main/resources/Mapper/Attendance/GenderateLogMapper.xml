@@ -7,4 +7,14 @@
     <delete id="deleteThisWeekLog">
             delete from selab_attendance_log;
     </delete>
+
+    <!--  public void deleteThisWeekLogStatistics();-->
+    <delete id="deleteThisWeekLogStatistics">
+        delete from selab_attendance_log_statistics;
+    </delete>
+
+    <!--  public void deleteInvalidData();-->
+    <delete id="deleteInvalidData">
+        delete from selab_attendance_log where att_end_time IS NULL
+    </delete>
 </mapper>

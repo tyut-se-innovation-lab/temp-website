@@ -145,5 +145,11 @@ public class GenerateLogServiceImpl implements IGenerateLogService {
     @Override
     public void deleteThisWeekLog() {
         generateLogMapper.deleteThisWeekLog();
+        generateLogMapper.deleteThisWeekLogStatistics();
+    }
+
+    @Override
+    public void deleteInvalidData() {
+        generateLogMapper.deleteInvalidData();
     }
 }

@@ -36,7 +36,7 @@ public class AttendanceLogController {
     @GetMapping("/log")
     @ResponseBody
     public AjaxResult getLogList(){
-        return AjaxResult.success();
+        return AjaxResult.success(attendanceLogService.getLogFileList());
     }
 
     /**

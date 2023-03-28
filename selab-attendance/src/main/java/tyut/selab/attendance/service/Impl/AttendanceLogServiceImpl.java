@@ -25,7 +25,7 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
     }
 
     @Override
-    public List<AttendanceLog> couleSignOut(Long userId) {
+    public List<AttendanceLog> couleSignOut() {
         List<Attendance> attendances = attendanceLogMapper.couleSignOut();
         List<AttendanceLog> attendanceLogs = new ArrayList<>();
         if (attendances != null){

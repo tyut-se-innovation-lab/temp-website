@@ -19,7 +19,7 @@ public interface IAttendanceLogService {
      * 查看本周日志
      * @return 日志信息
      */
-    List<AttendanceLog> couleSignOut(Long userId);
+    List<AttendanceLog> couleSignOut();
 
     /**
      * 获取日志文件列表

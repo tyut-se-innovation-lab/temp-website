@@ -22,7 +22,7 @@
 
     <!--public Attendance couleSignOut(Long userId,Date attEndTime);-->
     <select id="couleSignOut" resultMap="Attendance">
-        select MAX(id) AS id, att_user, att_start_time, att_end_time, `interval` from selab_attendance_log where att_user = #{userName};
+        select id, att_user, att_start_time, att_end_time, `interval` from selab_attendance_log where att_user = #{userName} and id = (select MAX(id) From selab_attendance_log);
     </select>
 
 <!--    public int signOut(String  userName,Date attEndTime,int interval);-->
@@ -42,10 +42,5 @@
             a.att_end_time = #{attEndTime},a.interval = #{interval}
         WHERE a.id = b.id
     </update>
-
-    <!--public Date selectAttendance(String  userId);-->
-    <select id="selectAttendance">
-        select MAX(id) AS id, att_user, att_start_time, att_end_time, `interval` from selab_attendance_log where att_user = #{userName};
-    </select>
 
 </mapper>

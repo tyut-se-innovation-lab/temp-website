@@ -27,18 +27,19 @@ public class AttendanceController {
     public AjaxResult signIn(){
         return attendanceService.signIn()?
                 AjaxResult.success("签到成功"):
-                AjaxResult.error("请勿重复签到");
+                AjaxResult.error("签到失败");
     }
 
     /**
      * 是否允许签退
      */
+    @PreAuthorize("@ss.hasPermi('attendance:sign')")
     @GetMapping("/could")
     @ResponseBody
     public AjaxResult couldSignOut(){
         return attendanceService.couleSignOut()?
-                AjaxResult.success("允许签退"):
-                AjaxResult.error("时间未达一小时，不允许签退");
+                AjaxResult.success("允许签退",true):
+                AjaxResult.error("不允许签退",false);
     }
 
     /**

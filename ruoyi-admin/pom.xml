@@ -67,6 +67,13 @@
             <artifactId>selab-schedule</artifactId>
         </dependency>
 
+        <!-- 签到系统-->
+        <dependency>
+            <groupId>tyut.selab</groupId>
+            <artifactId>selab-attendance</artifactId>
+            <version>3.8.3</version>
+        </dependency>
+
         <!-- 投票系统 -->
         <dependency>
             <groupId>tyut.selab</groupId>

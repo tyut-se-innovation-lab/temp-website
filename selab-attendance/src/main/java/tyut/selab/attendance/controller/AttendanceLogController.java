@@ -1,14 +1,21 @@
 package tyut.selab.attendance.controller;
 
 import com.ruoyi.common.core.domain.AjaxResult;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import tyut.selab.attendance.service.Impl.AttendanceLogServiceImpl;
 
 import java.util.Date;
+
+import static org.apache.commons.lang3.SystemUtils.getUserName;
 
 @RestController
 @RequestMapping("/selab/attendance/log")
 public class AttendanceLogController {
+
+    @Autowired
+    AttendanceLogServiceImpl attendanceLogService;
 
     /**
      * 查看本周日志
@@ -18,7 +25,7 @@ public class AttendanceLogController {
     @GetMapping("/week")
     @ResponseBody
     public AjaxResult getThisWeekLog(){
-        return AjaxResult.success();
+        return AjaxResult.success(attendanceLogService.couleSignOut());
     }
 
     /**

@@ -80,6 +80,13 @@
             <artifactId>selab-vote</artifactId>
         </dependency>
 
+        <!-- 签到系统 -->
+        <dependency>
+            <groupId>tyut.selab</groupId>
+            <artifactId>selab-attendance</artifactId>
+            <version>3.8.3</version>
+        </dependency>
+
         <!-- springboot测试 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

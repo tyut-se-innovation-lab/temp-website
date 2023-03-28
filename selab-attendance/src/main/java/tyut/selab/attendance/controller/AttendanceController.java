@@ -27,7 +27,7 @@ public class AttendanceController {
     public AjaxResult signIn(){
         return attendanceService.signIn()?
                 AjaxResult.success("签到成功"):
-                AjaxResult.error("请勿重复签到");
+                AjaxResult.error("签到失败");
     }
 
     /**
@@ -39,7 +39,7 @@ public class AttendanceController {
     public AjaxResult couldSignOut(){
         return attendanceService.couleSignOut()?
                 AjaxResult.success("允许签退",true):
-                AjaxResult.error("时间未达一小时，不允许签退",false);
+                AjaxResult.error("不允许签退",false);
     }
 
     /**

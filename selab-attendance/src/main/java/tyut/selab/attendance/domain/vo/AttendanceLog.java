@@ -25,5 +25,5 @@ public class AttendanceLog {
     /**
      * 今日签到总时长
      */
-    int signTime;
+    String signTime;
 }

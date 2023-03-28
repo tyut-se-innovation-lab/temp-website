@@ -9,11 +9,17 @@ import java.util.List;
  * 查看记录相关
  */
 public interface IAttendanceLogService {
+
+    /**
+     * 统计本周日志
+     */
+    void statisticsLogs();
+
     /**
      * 查看本周日志
      * @return 日志信息
      */
-    AttendanceLog couleSignOut(Long userId);
+    List<AttendanceLog> couleSignOut(Long userId);
 
     /**
      * 获取日志文件列表

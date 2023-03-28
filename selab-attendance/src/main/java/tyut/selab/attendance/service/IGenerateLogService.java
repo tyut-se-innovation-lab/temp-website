@@ -11,7 +11,7 @@ public interface IGenerateLogService {
     void writeLogFileThisWeek();
 
     /**
-     * 删除数据库中的本周信息
+     * 删除数据库中的本周信息(清空)
      */
     void deleteThisWeekLog();
 }

@@ -145,11 +145,11 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils
     }
 
     /**
-     * 计算相差小时数
+     * 计算相差分钟数
      */
     public static int differentHoursByMillisecond(Date date1, Date date2)
     {
-        return Math.abs((int) ((date2.getTime() - date1.getTime()) / (1000 * 3600)));
+        return Math.abs((int) ((date2.getTime() - date1.getTime()) / (1000 * 60)));
     }
 
     /**

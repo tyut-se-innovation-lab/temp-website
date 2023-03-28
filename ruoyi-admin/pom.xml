@@ -67,6 +67,13 @@
             <artifactId>selab-schedule</artifactId>
         </dependency>
 
+        <!-- 签到系统-->
+        <dependency>
+            <groupId>tyut.selab</groupId>
+            <artifactId>selab-attendance</artifactId>
+            <version>3.8.3</version>
+        </dependency>
+
         <!-- 投票系统 -->
         <dependency>
             <groupId>tyut.selab</groupId>
@@ -82,12 +89,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>selab-attendance</artifactId>
-            <version>3.8.3</version>
             <scope>test</scope>
         </dependency>
 

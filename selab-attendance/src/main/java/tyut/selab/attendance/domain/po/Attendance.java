@@ -1,7 +1,10 @@
 package tyut.selab.attendance.domain.po;
 
-import lombok.Data;
 
+import lombok.Data;
+import tyut.selab.attendance.domain.vo.AttendanceLog;
+
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -35,5 +38,17 @@ public class Attendance {
     /**
      * 今日签到总时长
      */
-    int signTime;
+    String signTime;
+
+    /**
+     * Attendance类向AttendanceLog类转换
+     * @return
+     */
+    public AttendanceLog change(){
+        AttendanceLog attendanceLog = new AttendanceLog();
+        attendanceLog.setUserName(this.getUserName());
+        attendanceLog.setSignTimes(Arrays.asList(this.getAttStartTime(),this.getAttEndTime()));
+        attendanceLog.setSignTime(this.getSignTime());
+        return attendanceLog;
+    }
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tyut.selab.attendance.mapper.AttendanceLogMapper">
+    <resultMap id="Attendance" type="tyut.selab.attendance.domain.po.Attendance">
+        <result property="id" column="id"/>
+        <result property="userName" column="att_user"/>
+        <result property="attStartTime" column="att_start_time"/>
+        <result property="attEndTime" column="att_end_time"/>
+        <result property="signTime" column="interval"/>
+    </resultMap>
+    
+    <!--  public List<Attendance> couleSignOut();-->
+    <select id="couleSignOut" resultMap="Attendance">
+        select * from selab_attendance_log;
+    </select>
+
+    <!--  public void statisticsLogs();-->
+    <insert id="statisticsLogs">
+        INSERT INTO `selab_attendance_log_statistics` (`att_user`, `interval`)
+        SELECT att_user, SUM(`interval`)
+        FROM `selab_attendance_log`
+        GROUP BY `att_user`
+        ON DUPLICATE KEY UPDATE `interval` = VALUES(`interval`)
+    </insert>
+</mapper>

@@ -32,12 +32,5 @@ public interface AttendanceMapper {
      * @param attEndTime 签退时间
      * @return
      */
-    public int signOut(@Param("userName")String  userName,@Param("attEndTime")Date attEndTime,@Param("interval")int interval);
-
-    /**
-     * 查询某人的最近签到时间
-     * @param userName 用户名
-     * @return
-     */
-    public Date selectAttendance(String  userName);
+    public int signOut(@Param("userName")String  userName,@Param("attEndTime")Date attEndTime,@Param("interval")String interval);
 }

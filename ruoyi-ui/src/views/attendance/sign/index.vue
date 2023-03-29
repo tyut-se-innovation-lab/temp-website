@@ -25,7 +25,7 @@ export default {
   computed: {
     signOutText() {
       console.log(this.disabled);
-      return !this.disabled ? "签退" : "未满一个小时不许签退";
+      return this.disabled ? "未满一个小时不许签退" : "签退";
     },
   },
 

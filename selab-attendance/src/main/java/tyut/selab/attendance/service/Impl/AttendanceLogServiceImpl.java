@@ -3,10 +3,6 @@ package tyut.selab.attendance.service.Impl;
 import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-<<<<<<< HEAD
-=======
-import org.springframework.web.bind.annotation.PathVariable;
->>>>>>> 96810596c3b482025d2af25dbb50d487f9450ac5
 import tyut.selab.attendance.domain.po.Attendance;
 import tyut.selab.attendance.domain.vo.AttendanceLog;
 import tyut.selab.attendance.mapper.AttendanceLogMapper;

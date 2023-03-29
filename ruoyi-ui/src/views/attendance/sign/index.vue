@@ -25,7 +25,7 @@ export default {
   computed: {
     signOutText() {
       console.log(this.disabled);
-      return this.disabled ? "未满一个小时不许签退" : "签退";
+      return this.disabled ? "不允许签退(^_^)" : "签退";
     },
   },
 
@@ -37,7 +37,7 @@ export default {
     },
     signOut() {
       this.sign.signOut().then((res) => {
-        console.log(res);
+        this.$modal.msgSuccess(res.msg);
         // $.modal.msgSuccess("签退成功");
       });
     },

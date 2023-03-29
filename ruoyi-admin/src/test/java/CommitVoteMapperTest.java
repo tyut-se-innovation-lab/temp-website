@@ -2,6 +2,7 @@ import com.ruoyi.RuoYiApplication;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,6 +114,9 @@ public void commitVote(@Autowired ICommitVoteService service, @Autowired Attenda
             Row dataRow = sheet1.createRow(rowNum++);
             for (int i = 1; i <= numColumns; i++) {
                 Cell cell = dataRow.createCell(i - 1);
+                XSSFFont font = new XSSFFont();
+                font.setColor(Font.COLOR_RED);
+                cell.getCellStyle().setFont(font);
                 cell.setCellValue(resultSet.getString(i));
             }
         }
@@ -152,7 +156,10 @@ public void commitVote(@Autowired ICommitVoteService service, @Autowired Attenda
             Row dataRow = sheet2.createRow(rowNum2++);
             for (int i = 1; i <= numColumns2; i++) {
                 Cell cell = dataRow.createCell(i - 1);
-                cell.setCellValue(resultSet2.getString(i));
+                    XSSFFont font = new XSSFFont();
+                    font.setColor(Font.COLOR_RED);
+                    cell.getCellStyle().setFont(font);
+                    cell.setCellValue(resultSet2.getString(i));
             }
         }
 
@@ -164,7 +171,7 @@ public void commitVote(@Autowired ICommitVoteService service, @Autowired Attenda
         e.printStackTrace();
     }*/
 
-    File folder = new File("../selab-attendance/src/main/resources/signlog/");
+    /*File folder = new File("../selab-attendance/src/main/resources/signlog/");
     List<String> fileLists = new ArrayList<>();
     String[] fileNames = folder.list();
     if (fileNames != null){
@@ -172,6 +179,6 @@ public void commitVote(@Autowired ICommitVoteService service, @Autowired Attenda
     }
     for (String file:fileLists) {
         System.out.println(file);
-    }
+    }*/
 }
 }

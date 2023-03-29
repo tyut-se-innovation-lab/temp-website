@@ -1,14 +1,24 @@
 package tyut.selab.attendance.service.Impl;
 
+import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+<<<<<<< HEAD
+=======
+import org.springframework.web.bind.annotation.PathVariable;
+>>>>>>> 96810596c3b482025d2af25dbb50d487f9450ac5
 import tyut.selab.attendance.domain.po.Attendance;
 import tyut.selab.attendance.domain.vo.AttendanceLog;
 import tyut.selab.attendance.mapper.AttendanceLogMapper;
 import tyut.selab.attendance.service.IAttendanceLogService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,11 +50,27 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
 
     @Override
     public List<String> getLogFileList() {
-        return null;
+        File folder = new File("../selab-attendance/src/main/resources/signlog/");
+        List<String> fileLists = new ArrayList<>();
+        String[] fileNames = folder.list();
+        if (fileNames != null){
+            fileLists.addAll(Arrays.asList(fileNames));
+        }
+        return fileLists;
     }
 
     @Override
-    public File getFileByName(String fileName) {
-        return null;
-    }
+    public void getFileByName(HttpServletRequest request, HttpServletResponse response, String filePath, String fileName) throws IOException {
+        File file = new File(filePath + fileName);
+        if (!file.exists()) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+        FileInputStream inputStream = new FileInputStream(file);
+        response.setContentType("application/octet-stream");
+        response.setContentLength((int) file.length());
+        response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+        IOUtils.copy(inputStream, response.getOutputStream());
+        response.flushBuffer();
+        }
 }

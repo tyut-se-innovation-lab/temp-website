@@ -14,4 +14,9 @@ public interface IGenerateLogService {
      * 删除数据库中的本周信息(清空)
      */
     void deleteThisWeekLog();
+
+    /**
+     * 删除数据库中无效数据
+     */
+    void deleteInvalidData();
 }

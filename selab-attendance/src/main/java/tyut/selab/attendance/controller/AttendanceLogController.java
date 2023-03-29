@@ -6,6 +6,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import tyut.selab.attendance.service.Impl.AttendanceLogServiceImpl;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 
 import static org.apache.commons.lang3.SystemUtils.getUserName;
@@ -36,20 +39,17 @@ public class AttendanceLogController {
     @GetMapping("/log")
     @ResponseBody
     public AjaxResult getLogList(){
-        return AjaxResult.success();
+        return AjaxResult.success(attendanceLogService.getLogFileList());
     }
 
     /**
      * 根据文件名，下载某文件
-     * @return 某文件
      */
     @PreAuthorize("@ss.hasPermi('attendance:log')")
-    @PostMapping("/file")
+    @GetMapping("/{filename:.+}")
     @ResponseBody
-    public AjaxResult signIn(){
-        return AjaxResult.success();
+    public void getFileByName(HttpServletRequest request, HttpServletResponse response, @PathVariable("filename") String filename) throws IOException {
+        String filePath = "../selab-attendance/src/main/resources/signlog/"; // 您的文件路径
+        attendanceLogService.getFileByName(request, response, filePath, filename);
     }
-
-
-
 }

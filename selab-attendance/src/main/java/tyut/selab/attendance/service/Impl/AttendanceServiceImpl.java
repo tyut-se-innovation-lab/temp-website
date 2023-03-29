@@ -45,7 +45,6 @@ public class AttendanceServiceImpl implements IAttendanceService {
                 if (date1 != date2){
                     attendanceMapper.signIn(getUsername(),attStartTime);
                     return true;
-                    //记得插一条删除废记录！！！！！！！！！！！！！！！！！！！！！！！！！！
                 }else return false;
             }else {
                 attendanceMapper.signIn(getUsername(),attStartTime);

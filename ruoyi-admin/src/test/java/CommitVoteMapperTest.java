@@ -16,6 +16,7 @@ import tyut.selab.vote.service.ICommitVoteService;
 
 
 import javax.servlet.ServletOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,6 +25,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -64,7 +66,7 @@ public void commitVote(@Autowired ICommitVoteService service, @Autowired Attenda
     //System.out.println(attendanceMapper.couleSignOut("20"));
     //System.out.println(attendanceMapper.signOut("20", dateTime(YYYY_MM_DD_HH_MM_SS, getTime()), 1));
 
-    try {
+    /*try {
 
         XSSFWorkbook workbook = new XSSFWorkbook();
 
@@ -160,6 +162,16 @@ public void commitVote(@Autowired ICommitVoteService service, @Autowired Attenda
         System.out.println("导出成功！");
     } catch (Exception e) {
         e.printStackTrace();
+    }*/
+
+    File folder = new File("../selab-attendance/src/main/resources/signlog/");
+    List<String> fileLists = new ArrayList<>();
+    String[] fileNames = folder.list();
+    if (fileNames != null){
+        fileLists.addAll(Arrays.asList(fileNames));
+    }
+    for (String file:fileLists) {
+        System.out.println(file);
     }
 }
 }

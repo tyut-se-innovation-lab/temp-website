@@ -1,6 +1,7 @@
 package tyut.selab.attendance.service.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import tyut.selab.attendance.domain.po.Attendance;
 import tyut.selab.attendance.domain.vo.AttendanceLog;
 import tyut.selab.attendance.mapper.AttendanceLogMapper;
@@ -14,6 +15,7 @@ import java.util.List;
  * @Author: Gulu
  * @Date: 2023/3/26 19:50
  */
+@Service
 public class AttendanceLogServiceImpl implements IAttendanceLogService {
 
     @Autowired

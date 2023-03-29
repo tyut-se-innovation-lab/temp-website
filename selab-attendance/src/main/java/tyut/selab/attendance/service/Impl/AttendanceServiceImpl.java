@@ -85,7 +85,7 @@ public class AttendanceServiceImpl implements IAttendanceService {
             int date2 = cal2.get(Calendar.DATE);
             if (date1 == date2){
                 int minute = differentHoursByMillisecond(attEndTime, attStartTime);
-                String interval = String.format("%4.2f",minute/60);
+                String interval = String.format("%4.2f",minute/60.0);
                 if (minute >= 60){
                     return attendanceMapper.signOut(getUsername(), attEndTime,interval) > 0;
                 }else return false;

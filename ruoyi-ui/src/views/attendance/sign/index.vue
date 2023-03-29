@@ -1,7 +1,13 @@
 <template>
   <div id="sign">
     <button @click="signIn">签到</button>
-    <button @click="signOut" :disabled="this.disabled">签退</button>
+    <button
+      @click="signOut"
+      :disabled="disabled"
+      :class="{ disabled: disabled }"
+    >
+      {{ signOutText }}
+    </button>
   </div>
 </template>
 
@@ -16,6 +22,13 @@ export default {
     };
   },
 
+  computed: {
+    signOutText() {
+      console.log(this.disabled);
+      return !this.disabled ? "签退" : "未满一个小时不许签退";
+    },
+  },
+
   methods: {
     signIn() {
       this.sign.signIn().then((res) => {
@@ -23,19 +36,21 @@ export default {
       });
     },
     signOut() {
-      console.log(666);
       this.sign.signOut().then((res) => {
         console.log(res);
         // $.modal.msgSuccess("签退成功");
       });
     },
     couldSignOut() {
-      this.sign.couldSignOut().then((res) => {
-        if (res) {
+      this.sign.couldSignOut().then(
+        (res) => {
           this.$modal.msgSuccess(res.msg);
-          this.disabled = res;
+          this.disabled = false;
+        },
+        (err) => {
+          this.disabled = true;
         }
-      });
+      );
     },
   },
 
@@ -80,5 +95,12 @@ export default {
     rgb(59, 130, 246),
     rgb(147, 51, 234)
   );
+}
+
+.disabled {
+  background-image: linear-gradient(
+    rgb(17, 24, 39),
+    rgb(75, 85, 99)
+  ) !important;
 }
 </style>

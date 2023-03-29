@@ -1,5 +1,7 @@
 package tyut.selab.attendance.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
+
 /**
  * @Author: Gulu
  * @Date: 2023/3/27 16:16

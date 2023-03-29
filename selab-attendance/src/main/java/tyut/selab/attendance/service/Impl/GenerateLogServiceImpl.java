@@ -5,6 +5,7 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import tyut.selab.attendance.domain.po.Attendance;
 import tyut.selab.attendance.mapper.AttendanceLogMapper;
 import tyut.selab.attendance.mapper.GenerateLogMapper;
@@ -24,6 +25,7 @@ import static com.ruoyi.common.utils.DateUtils.getDate;
  * @Author: Gulu
  * @Date: 2023/3/27 16:21
  */
+@Service
 public class GenerateLogServiceImpl implements IGenerateLogService {
 
     @Autowired

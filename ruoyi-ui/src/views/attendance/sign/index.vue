@@ -20,12 +20,18 @@ export default {
       sign: new Sign(),
       disabled: false,
       time: "",
+      isSignOut: false,
+      timer: "",
     };
   },
 
   computed: {
     signOutText() {
-      return this.disabled ? "不允许签退(^_^)" : "签退";
+      if (this.isSignOut === false) {
+        return this.disabled ? this.time : "先签到(^_^)";
+      } else {
+        return "签退";
+      }
     },
   },
 
@@ -36,6 +42,7 @@ export default {
     signIn() {
       this.sign.signIn().then((res) => {
         this.$modal.msgSuccess(res.msg);
+        this.couldSignOut();
       });
     },
 
@@ -46,18 +53,48 @@ export default {
       this.sign.signOut().then((res) => {
         this.$modal.msgSuccess(res.msg);
         this.couldSignOut();
+        this.isSignOut = false;
       });
     },
 
     /**
      * 倒计时
+     * @param {String} startTime 开始时间字符串
+     * @param {String} countTime 倒计时间(h)
      */
-    countDown() {
+    countDown(startTime, countTime) {
+      let start = new Date(startTime);
+      let current = new Date();
+      let minute = Math.floor(
+        (start.getTime() + countTime * 60 * 60 * 1000 - current.getTime()) /
+          (1000 * 60)
+      );
+      let second = parseInt(
+        ((start.getTime() + countTime * 60 * 60 * 1000 - current.getTime()) %
+          (1000 * 60)) /
+          1000
+      );
+      //修改位数
       let timer = setInterval(() => {
-        if (this.time < 0) {
+        if (minute < 0 || (minute === 0 && second === 0)) {
+          this.isSignOut = true;
+          // this.couldSignOut();
           clearInterval(timer);
         }
+        if (second != 0) {
+          second--;
+        } else {
+          minute--;
+          second = 59;
+        }
+        this.time = `${minute <= 9 ? "0" + minute : minute}:${
+          second <= 9 ? "0" + second : second
+        }`;
       }, 1000);
+    },
+
+    shutCountDown() {
+      clearInterval(this.timer);
     },
 
     /**
@@ -66,10 +103,15 @@ export default {
     couldSignOut() {
       this.sign.couldSignOut().then(
         (res) => {
-          this.$modal.msgSuccess(res.msg);
-          this.disabled = false;
+          if (res.msg) {
+            this.countDown(res.data, 1);
+            this.disabled = true;
+          } else {
+            this.disabled = false;
+          }
         },
         (err) => {
+          this.$modal.msgSuccess("请先签到");
           this.disabled = true;
         }
       );

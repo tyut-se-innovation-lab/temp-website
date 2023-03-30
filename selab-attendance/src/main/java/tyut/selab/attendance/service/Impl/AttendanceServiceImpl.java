@@ -57,11 +57,10 @@ public class AttendanceServiceImpl implements IAttendanceService {
 
     @Override
     public Date couleSignOut() {
-        if(ObjectattendanceMapper.couleSignOut(sysUserMapper.selectUserById(getUserId()).getNickName()).getAttStartTime()){
-            Date attStartTime = attendanceMapper.couleSignOut(sysUserMapper.selectUserById(getUserId()).getNickName()).getAttStartTime();
-        }
-
-        return attStartTime;
+        Attendance attendance = attendanceMapper.couleSignOut(sysUserMapper.selectUserById(getUserId()).getNickName());
+        if (attendance.getAttEndTime() == null){
+            return attendance.getAttStartTime();
+        }else return null;
     }
 
     @Override

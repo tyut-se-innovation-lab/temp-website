@@ -37,7 +37,9 @@ public class AttendanceController {
     @GetMapping("/could")
     @ResponseBody
     public AjaxResult couldSignOut(){
-        return AjaxResult.success(attendanceService.couleSignOut());
+        return  attendanceService.couleSignOut() != null?
+                AjaxResult.success(attendanceService.couleSignOut()):
+                AjaxResult.error("请先签到");
     }
 
     /**

@@ -1,7 +1,13 @@
 <template>
   <div>
     <div>
-      <el-button type="" @click="setVisible">下 载</el-button>
+      <div id="logheader">
+        <div>
+          选择时间：<el-date-picker v-model="filterDate"></el-date-picker>
+        </div>
+        <el-button type="" @click="setVisible">下 载</el-button>
+      </div>
+
       <el-dialog
         title="请选择下载文件名称"
         :visible.sync="downloadVisible"
@@ -25,25 +31,25 @@
         prop="userName"
         label="用户名"
         align="center"
-        width="120"
+        min-width="130"
       ></el-table-column>
       <el-table-column
         prop="signTimes[0]"
         label="开始时间"
         align="center"
-        width="260"
+        min-width="270"
       ></el-table-column>
       <el-table-column
         prop="signTimes[1]"
         label="结束时间"
         align="center"
-        width="260"
+        min-width="270"
       ></el-table-column>
       <el-table-column
         prop="signTime"
         label="经历时间(h)"
         align="center"
-        width="120"
+        min-width="130"
       ></el-table-column>
     </el-table>
   </div>
@@ -60,6 +66,7 @@ export default {
       tmpRecord: [],
       fileList: [],
       fileName: "",
+      filterDate: "",
       downloadVisible: false,
     };
   },
@@ -112,7 +119,23 @@ export default {
       this.downloadVisible = true;
     },
 
-    downloadFile() {},
+    downloadFile(blobFlow) {
+      let data = [];
+      data[0] = blobFlow;
+      const blob = new Blob(data, {
+        //type of excel
+        type: "application/vnd.ms-excel",
+      });
+      if (window.navigator.msSaveOrOpenBlob) {
+        navigator.msSaveBlob(blob, this.fileName);
+      } else {
+        let link = document.createElement("a");
+        link.href = window.URL.createObjectURL(blob);
+        link.download = this.fileName;
+        link.click();
+        window.URL.revokeObjectURL(link.href);
+      }
+    },
 
     /**
      * 获取文件
@@ -121,6 +144,7 @@ export default {
       if (this.fileName !== "") {
         this.log.getFile(this.fileName).then((res) => {
           console.log(res);
+          this.downloadFile(res);
         });
       }
     },
@@ -133,7 +157,12 @@ export default {
 </script>
 
 <style>
+#logheader {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
 #table {
-  width: 760px;
+  margin: 0 auto;
 }
 </style>

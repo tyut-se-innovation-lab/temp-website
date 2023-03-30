@@ -23,6 +23,10 @@ class Sign {
         return request({
             url: '/selab/attendance/sign/out',
             method: 'post',
+            header: {
+                headers: { 'Content-Type': 'application/x-download' }
+            },
+            responseType: 'blob'
         })
     }
 }

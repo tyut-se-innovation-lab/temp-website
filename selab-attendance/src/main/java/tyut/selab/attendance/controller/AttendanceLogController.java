@@ -46,7 +46,7 @@ public class AttendanceLogController {
      * 根据文件名，下载某文件
      */
     @PreAuthorize("@ss.hasPermi('attendance:log')")
-    @GetMapping("/{filename:.+}")
+    @GetMapping("/{filename}")
     @ResponseBody
     public void getFileByName(HttpServletRequest request, HttpServletResponse response, @PathVariable("filename") String filename) throws IOException {
         String filePath = "selab-attendance/src/main/resources/signlog/"; // 您的文件路径

@@ -1,5 +1,7 @@
 package tyut.selab.attendance.service;
 
+import tyut.selab.attendance.domain.po.CouldSignOut;
+
 import java.util.Date;
 
 /**
@@ -16,7 +18,7 @@ public interface IAttendanceService {
      * 是否允许签退
      * @return
      */
-    Date couleSignOut();
+    CouldSignOut couleSignOut();
 
     /**
      * 签退

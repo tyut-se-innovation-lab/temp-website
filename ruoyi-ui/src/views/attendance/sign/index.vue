@@ -20,12 +20,18 @@ export default {
       sign: new Sign(),
       disabled: false,
       time: "",
+      isSignOut: false,
+      timer: "",
     };
   },
 
   computed: {
     signOutText() {
-      return this.disabled ? this.time : "先签到(^_^)";
+      if (this.isSignOut === false) {
+        return this.disabled ? this.time : "先签到(^_^)";
+      } else {
+        return "签退";
+      }
     },
   },
 
@@ -36,6 +42,7 @@ export default {
     signIn() {
       this.sign.signIn().then((res) => {
         this.$modal.msgSuccess(res.msg);
+        this.couldSignOut();
       });
     },
 
@@ -46,6 +53,7 @@ export default {
       this.sign.signOut().then((res) => {
         this.$modal.msgSuccess(res.msg);
         this.couldSignOut();
+        this.isSignOut = false;
       });
     },
 
@@ -68,8 +76,9 @@ export default {
       );
       //修改位数
       let timer = setInterval(() => {
-        if (minute === 0 && second === 0) {
-          this.couldSignOut();
+        if (minute < 0 || (minute === 0 && second === 0)) {
+          this.isSignOut = true;
+          // this.couldSignOut();
           clearInterval(timer);
         }
         if (second != 0) {
@@ -84,18 +93,28 @@ export default {
       }, 1000);
     },
 
+    shutCountDown() {
+      clearInterval(this.timer);
+    },
+
     /**
      * 是否可以签退
      */
     couldSignOut() {
-      this.sign.couldSignOut().then((res) => {
-        if (res.msg) {
-          this.countDown(res.data, 1);
+      this.sign.couldSignOut().then(
+        (res) => {
+          if (res.msg) {
+            this.countDown(res.data, 1);
+            this.disabled = true;
+          } else {
+            this.disabled = false;
+          }
+        },
+        (err) => {
+          this.$modal.msgSuccess("请先签到");
           this.disabled = true;
-        } else {
-          this.disabled = false;
         }
-      });
+      );
     },
   },
 

@@ -30,14 +30,16 @@
         UPDATE
             selab_attendance_log AS a,
             (SELECT
-                 MAX(id) AS id,
+                 id,
                  att_user,
                  att_start_time,
                  att_end_time,
                  `interval`
              FROM
                  selab_attendance_log
-             WHERE att_user = #{userName}) AS b
+             WHERE att_user = #{userName}
+               AND id = (SELECT MAX(id) FROM selab_attendance_log)
+             GROUP BY id,att_user, att_start_time,att_end_time,`interval`) AS b
         SET
             a.att_end_time = #{attEndTime},a.interval = #{interval}
         WHERE a.id = b.id

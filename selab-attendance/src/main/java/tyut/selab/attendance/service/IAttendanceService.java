@@ -16,7 +16,7 @@ public interface IAttendanceService {
      * 是否允许签退
      * @return
      */
-    Boolean couleSignOut();
+    Date couleSignOut();
 
     /**
      * 签退

@@ -54,8 +54,8 @@ public class AttendanceServiceImpl implements IAttendanceService {
     }
 
     @Override
-    public Boolean couleSignOut() {
-        Date attEndTime = dateTime(YYYY_MM_DD_HH_MM_SS,getTime());
+    public Date couleSignOut() {
+        /*Date attEndTime = dateTime(YYYY_MM_DD_HH_MM_SS,getTime());
         Attendance attendance = attendanceMapper.couleSignOut(getUsername());
         if (attendance != null && attendance.getAttEndTime() == null){
             Calendar cal1 = Calendar.getInstance();
@@ -68,7 +68,9 @@ public class AttendanceServiceImpl implements IAttendanceService {
                 int hoursByMillisecond = differentHoursByMillisecond(attEndTime, attendance.getAttStartTime());
                 return hoursByMillisecond >= 60;
             }else return false;
-        }else return false;
+        }else return false;*/
+        Date attStartTime = attendanceMapper.couleSignOut(getUsername()).getAttStartTime();
+        return attStartTime;
     }
 
     @Override

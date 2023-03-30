@@ -1,5 +1,6 @@
 package tyut.selab.attendance.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import tyut.selab.attendance.domain.po.Attendance;
 import tyut.selab.attendance.domain.vo.AttendanceLog;

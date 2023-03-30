@@ -1,5 +1,6 @@
 package tyut.selab.attendance.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import tyut.selab.attendance.domain.po.Attendance;
 
 import java.util.Date;

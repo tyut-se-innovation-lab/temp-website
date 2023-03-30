@@ -8,7 +8,7 @@ spring:
             master:
                 url: jdbc:mysql://localhost:3306/temp-website
                 username: root
-                password: hrn77799.
+                password: 20221011selabA2!
             # 从库数据源
             slave:
                 # 从数据源开关/默认关闭

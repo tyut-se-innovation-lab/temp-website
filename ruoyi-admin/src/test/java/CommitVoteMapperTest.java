@@ -1,5 +1,6 @@
 import com.ruoyi.RuoYiApplication;
 import com.ruoyi.common.utils.poi.ExcelUtil;
+import com.ruoyi.system.mapper.SysUserMapper;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -31,6 +32,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.ruoyi.common.utils.DateUtils.*;
+import static com.ruoyi.common.utils.SecurityUtils.getUserId;
 
 /**
  * @Author: Gulu
@@ -38,6 +40,7 @@ import static com.ruoyi.common.utils.DateUtils.*;
  */
 @SpringBootTest(classes = RuoYiApplication.class)
 public class CommitVoteMapperTest {
+
     @Value("${spring.datasource.druid.master.url}")
     String url ;
     @Value("${spring.datasource.druid.master.username}")
@@ -171,7 +174,7 @@ public void commitVote(@Autowired ICommitVoteService service, @Autowired Attenda
         e.printStackTrace();
     }*/
 
-    File folder = new File("selab-attendance/src/main/resources/signlog/");
+    /*File folder = new File("selab-attendance/src/main/resources/signlog/");
     List<String> fileLists = new ArrayList<>();
     String[] fileNames = folder.list();
     if (fileNames != null){
@@ -179,7 +182,7 @@ public void commitVote(@Autowired ICommitVoteService service, @Autowired Attenda
     }
     for (String file:fileLists) {
         System.out.println(file);
-    }
+    }*/
 
     /*File folder = new File("../selab-attendance/src/main/resources/signlog/");
     List<String> fileLists = new ArrayList<>();

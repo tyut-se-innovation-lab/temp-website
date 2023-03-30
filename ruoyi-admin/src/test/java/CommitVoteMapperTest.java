@@ -171,7 +171,7 @@ public void commitVote(@Autowired ICommitVoteService service, @Autowired Attenda
         e.printStackTrace();
     }*/
 
-    /*File folder = new File("../selab-attendance/src/main/resources/signlog/");
+    File folder = new File("selab-attendance/src/main/resources/signlog/");
     List<String> fileLists = new ArrayList<>();
     String[] fileNames = folder.list();
     if (fileNames != null){
@@ -179,7 +179,7 @@ public void commitVote(@Autowired ICommitVoteService service, @Autowired Attenda
     }
     for (String file:fileLists) {
         System.out.println(file);
-    }*/
+    }
 
     /*File folder = new File("../selab-attendance/src/main/resources/signlog/");
     List<String> fileLists = new ArrayList<>();

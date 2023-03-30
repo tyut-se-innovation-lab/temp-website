@@ -7,13 +7,16 @@
         :visible.sync="downloadVisible"
         width="500px"
       >
-        <el-select>
-          <el-option></el-option>
+        <el-select v-model="fileName" placeholder="请选择文件">
+          <el-option
+            v-for="(item, index) of fileList"
+            :key="index"
+            :value="item"
+            :label="item"
+          ></el-option>
         </el-select>
         <div slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="dialogFormVisible = false"
-            >下 载</el-button
-          >
+          <el-button type="primary" @click="getFile">下 载</el-button>
         </div>
       </el-dialog>
     </div>
@@ -56,6 +59,7 @@ export default {
       loginRecord: [],
       tmpRecord: [],
       fileList: [],
+      fileName: "",
       downloadVisible: false,
     };
   },
@@ -114,9 +118,11 @@ export default {
      * 获取文件
      */
     getFile() {
-      this.log.getFile().then((res) => {
-        console.log(res);
-      });
+      if (this.fileName !== "") {
+        this.log.getFile(this.fileName).then((res) => {
+          console.log(res);
+        });
+      }
     },
   },
   created() {

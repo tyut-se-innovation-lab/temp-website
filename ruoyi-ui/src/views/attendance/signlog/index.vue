@@ -1,25 +1,16 @@
 <template>
   <div>
     <div>
-      <el-button type="">下 载</el-button>
+      <el-button type="" @click="setVisible">下 载</el-button>
       <el-dialog
-        title="请选择下载时间"
+        title="请选择下载文件名称"
         :visible.sync="downloadVisible"
         width="500px"
       >
-        <!-- <el-form :model="form">
-          <el-form-item label="姓名" :label-width="formLabelWidth">
-            <el-input v-model="form.name" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="电话" :label-width="formLabelWidth">
-            <el-input v-model="form.tel" autocomplete="off"></el-input>
-          </el-form-item>
-        </el-form> -->
         <el-select>
           <el-option></el-option>
         </el-select>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogFormVisible = false">取 消</el-button>
           <el-button type="primary" @click="dialogFormVisible = false"
             >下 载</el-button
           >
@@ -56,7 +47,7 @@
 </template>
 
 <script>
-import { Log } from "@/api/attendance/log/index.js";
+import { Log } from "@/api/attendance/signlog/index.js";
 export default {
   name: "log",
   data() {
@@ -111,6 +102,10 @@ export default {
       this.log.getFileList().then((res) => {
         this.fileList = res.data;
       });
+    },
+
+    setVisible() {
+      this.downloadVisible = true;
     },
 
     downloadFile() {},

@@ -3,7 +3,13 @@
     <div>
       <div id="logheader">
         <div>
-          选择时间：<el-date-picker v-model="filterDate"></el-date-picker>
+          选择时间：<el-date-picker
+            type="daterange"
+            v-model="filterDate"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+          ></el-date-picker>
         </div>
         <el-button type="" @click="setVisible">下 载</el-button>
       </div>
@@ -26,7 +32,7 @@
         </div>
       </el-dialog>
     </div>
-    <el-table :data="loginRecord" id="table">
+    <el-table :data="tmpRecord" id="table">
       <el-table-column
         prop="userName"
         label="用户名"
@@ -77,7 +83,8 @@ export default {
     weekLog() {
       // this.$nextTick(() => {
       this.log.weekLog().then((res) => {
-        this.loginRecord = this.filterData(res.data);
+        this.loginRecord = res.data;
+        this.tmpRecord = this.filterData(res.data);
       });
       // });
     },
@@ -156,7 +163,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #logheader {
   display: flex;
   justify-content: space-between;

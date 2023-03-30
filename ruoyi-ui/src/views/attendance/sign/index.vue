@@ -19,28 +19,50 @@ export default {
     return {
       sign: new Sign(),
       disabled: false,
+      time: "",
     };
   },
 
   computed: {
     signOutText() {
-      console.log(this.disabled);
       return this.disabled ? "不允许签退(^_^)" : "签退";
     },
   },
 
   methods: {
+    /**
+     * 签到
+     */
     signIn() {
       this.sign.signIn().then((res) => {
         this.$modal.msgSuccess(res.msg);
       });
     },
+
+    /**
+     * 签退
+     */
     signOut() {
       this.sign.signOut().then((res) => {
         this.$modal.msgSuccess(res.msg);
-        // $.modal.msgSuccess("签退成功");
+        this.couldSignOut();
       });
     },
+
+    /**
+     * 倒计时
+     */
+    countDown() {
+      let timer = setInterval(() => {
+        if (this.time < 0) {
+          clearInterval(timer);
+        }
+      }, 1000);
+    },
+
+    /**
+     * 是否可以签退
+     */
     couldSignOut() {
       this.sign.couldSignOut().then(
         (res) => {

@@ -8,7 +8,7 @@ insert into sys_menu
 values ('2013', '今日签到', '2012', '1', 'att', 'attendance/sign', '', 1, 1, 'C', '0', '0', 'attendance:sign',
         'edit', 'admin', sysdate(), '', null, '签到表单');
 insert into sys_menu
-values ('2014', '查看记录', '2012', '2', 'join', 'attendance/log', '', 1, 0, 'C', '0', '0', 'attendance:log',
+values ('2014', '查看记录', '2012', '2', 'join', 'attendance/signlog', '', 1, 0, 'C', '0', '0', 'attendance:log',
         'exit-fullscreen',
         'admin', sysdate(), '', null, '查看记录表单');
 

@@ -79,7 +79,7 @@ public class AttendanceServiceImpl implements IAttendanceService {
                     if (minute >= 60){
                         couldSignOut.setCouldSignOut(true);
                     }
-                } else if (hour >= 22 || (hour == 21 && minutes > 30)) {
+                } else if (hour >= 21) {
                     if (minute >= 60){
                         couldSignOut.setCouldSignOut(true);
                     }

@@ -21,9 +21,9 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class ScheduledTask {
 
-    static {
+    /*static {
         new ScheduledTask().start();
-    }
+    }*/
 
     @Autowired
     static

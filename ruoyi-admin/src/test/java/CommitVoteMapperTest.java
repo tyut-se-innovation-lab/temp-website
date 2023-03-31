@@ -13,6 +13,8 @@ import tyut.selab.attendance.domain.po.Attendance;
 import tyut.selab.attendance.mapper.AttendanceLogMapper;
 import tyut.selab.attendance.mapper.AttendanceMapper;
 
+import tyut.selab.attendance.mapper.GenerateLogMapper;
+import tyut.selab.attendance.service.Impl.GenerateLogServiceImpl;
 import tyut.selab.vote.domain.po.VoteResult;
 import tyut.selab.vote.service.ICommitVoteService;
 
@@ -40,6 +42,9 @@ import static com.ruoyi.common.utils.SecurityUtils.getUserId;
  */
 @SpringBootTest(classes = RuoYiApplication.class)
 public class CommitVoteMapperTest {
+
+    @Autowired
+    GenerateLogMapper generateLogMapper;
 
     @Value("${spring.datasource.druid.master.url}")
     String url ;
@@ -195,5 +200,8 @@ public void commitVote(@Autowired ICommitVoteService service, @Autowired Attenda
             System.out.println(fileLists.get(i));
         }
     }*/
+
+    generateLogMapper.deleteInvalidData();
+
 }
 }

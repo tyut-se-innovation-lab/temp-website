@@ -2,7 +2,7 @@ package tyut.selab.attendance.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import tyut.selab.attendance.service.Impl.GenerateLogServiceImpl;
+import tyut.selab.attendance.mapper.GenerateLogMapper;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
@@ -23,10 +23,6 @@ public class ScheduleTaskSecond {
         new ScheduleTaskSecond().start();
     }
 
-    @Autowired
-    static
-    GenerateLogServiceImpl generateLogService;
-
     private ScheduledExecutorService executor;
 
     public ScheduleTaskSecond() {
@@ -38,7 +34,7 @@ public class ScheduleTaskSecond {
      */
     public void start() {
         // 设置每日晚11点的执行时间，执行周期为1天，即每天执行一次
-        LocalDateTime everyDay = LocalDateTime.now().withHour(23).withMinute(0).withSecond(0).withNano(0);
+        LocalDateTime everyDay = LocalDateTime.now().withHour(12).withMinute(05).withSecond(50).withNano(0);
         long initialDelay = ChronoUnit.MILLIS.between(LocalDateTime.now(), everyDay);
         long period = 24 * 60 * 60 * 1000L;
         executor.scheduleAtFixedRate(new everyDayNightTask(), initialDelay, period, TimeUnit.MILLISECONDS);
@@ -55,9 +51,14 @@ public class ScheduleTaskSecond {
      * 执行的定时任务
      */
     private static class everyDayNightTask implements Runnable {
+
+        @Autowired
+        GenerateLogMapper generateLogMapper;
+
         @Override
         public void run() {
-            generateLogService.deleteInvalidData();
+            System.out.println("定时任务执行了");
+            generateLogMapper.deleteInvalidData();
         }
     }
 }

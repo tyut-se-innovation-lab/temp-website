@@ -5,7 +5,7 @@
 <mapper namespace="tyut.selab.attendance.mapper.GenerateLogMapper">
     <!--  public void deleteThisWeekLog();-->
     <delete id="deleteThisWeekLog">
-            delete from selab_attendance_log;
+        delete from selab_attendance_log;
     </delete>
 
     <!--  public void deleteThisWeekLogStatistics();-->

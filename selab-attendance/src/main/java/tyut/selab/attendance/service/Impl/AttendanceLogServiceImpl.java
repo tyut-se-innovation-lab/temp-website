@@ -46,7 +46,7 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
 
     @Override
     public List<String> getLogFileList() {
-        File folder = new File("signlog/");
+        File folder = new File("classpath:signlog/");
         List<String> fileLists = new ArrayList<>();
         File[] files = folder.listFiles();
         if (files != null){

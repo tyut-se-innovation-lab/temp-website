@@ -85,11 +85,9 @@ public class AttendanceServiceImpl implements IAttendanceService {
                     }
                 }
             }
-
             if (attendance.getAttEndTime() != null){ //有此人签到和签退记录,不能签退，请先签到
                 couldSignOut.setCouldSignOut(false);
             }
-
         }else { //当前库中无此人签到记录,不允许签退
             couldSignOut.setCouldSignOut(false);
             couldSignOut.setAttStartTime(null);

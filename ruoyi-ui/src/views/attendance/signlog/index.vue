@@ -97,12 +97,17 @@ export default {
      * @param {Array} data 要过滤的数据
      */
     filterData(data) {
-      let tmpdata = data.filter((data) => {
-        return data.signTime != null;
-      });
+      let tmpdata = data;
+      // let tmpdata = data.filter((data) => {
+      //   return data.signTime != null;
+      // });
       for (let i = 0; i < tmpdata.length; i++) {
         tmpdata[i].signInTime = this.fixTime(tmpdata[i].signTimes[0]);
-        tmpdata[i].signOutTime = this.fixTime(tmpdata[i].signTimes[1]);
+
+        tmpdata[i].signOutTime =
+          tmpdata[i].signTimes[1] === null
+            ? null
+            : this.fixTime(tmpdata[i].signTimes[1]);
       }
       return tmpdata;
     },

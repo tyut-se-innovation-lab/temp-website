@@ -68,40 +68,28 @@ public class AttendanceServiceImpl implements IAttendanceService {
             cal2.setTime(attEndTime);
             int date1 = cal1.get(Calendar.DATE);
             int date2 = cal2.get(Calendar.DATE);
-<<<<<<< HEAD
-            if (date1 == date2){
-=======
             couldSignOut.setCouldSignOut(false);
             couldSignOut.setAttStartTime(null);
             if (date1 == date2){ //当前时间和签到时间是同一天
                 couldSignOut.setAttStartTime(attStartTime);
->>>>>>> cfa6ee95993d88fe71e0630f91973f96e38f216a
                 int minute = differentHoursByMillisecond(attEndTime, attStartTime);
                 int hour = cal2.get(Calendar.HOUR_OF_DAY); //签退时间小时数
                 int minutes = cal2.get(Calendar.MINUTE); //签退时间分钟数
                 if (hour <= 18 || (hour == 19 && minutes < 30)){ //晚上7点半到9点半不允许签退
-                        if (minute >= 60){
-                            couldSignOut.setCouldSignOut(true);
-                        }
+                    if (minute >= 60){
+                        couldSignOut.setCouldSignOut(true);
+                    }
                 } else if (hour >= 22 || (hour == 21 && minutes > 30)) {
                     if (minute >= 60){
                         couldSignOut.setCouldSignOut(true);
                     }
                 }
             }
-<<<<<<< HEAD
-            couldSignOut.setAttStartTime(attStartTime);
-            if (attendance.getAttEndTime() != null){
+            if (attendance.getAttEndTime() != null){ //有此人签到和签退记录,不能签退，请先签到
                 couldSignOut.setCouldSignOut(false);
                 couldSignOut.setAttStartTime(null);
             }
-        }else {
-=======
-            if (attendance.getAttEndTime() != null){ //有此人签到和签退记录,不能签退，请先签到
-                couldSignOut.setCouldSignOut(false);
-            }
         }else { //当前库中无此人签到记录,不允许签退
->>>>>>> cfa6ee95993d88fe71e0630f91973f96e38f216a
             couldSignOut.setCouldSignOut(false);
             couldSignOut.setAttStartTime(null);
         }

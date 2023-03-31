@@ -75,11 +75,11 @@ public class AttendanceServiceImpl implements IAttendanceService {
                 int minute = differentHoursByMillisecond(attEndTime, attStartTime);
                 int hour = cal2.get(Calendar.HOUR_OF_DAY); //签退时间小时数
                 int minutes = cal2.get(Calendar.MINUTE); //签退时间分钟数
-                if (hour < 19 && minutes < 30){ //晚上7点半到9点半不允许签退
+                if (hour <= 18 || (hour == 19 && minutes < 30)){ //晚上7点半到9点半不允许签退
                         if (minute >= 60){
                             couldSignOut.setCouldSignOut(true);
                         }
-                } else if (hour > 21 && minutes > 30) {
+                } else if (hour >= 22 || (hour == 21 && minutes > 30)) {
                     if (minute >= 60){
                         couldSignOut.setCouldSignOut(true);
                     }

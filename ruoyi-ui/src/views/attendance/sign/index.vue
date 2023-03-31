@@ -3,8 +3,8 @@
     <button @click="signIn">签到</button>
     <button
       @click="signOut"
-      :disabled="disabled"
-      :class="{ disabled: isSignOut }"
+      :disabled="!isSignOut"
+      :class="{ disabled: !isSignOut }"
     >
       {{ signOutText }}
     </button>
@@ -18,9 +18,9 @@ export default {
   data() {
     return {
       sign: new Sign(),
-      disabled: false,
       time: "",
-      isSignOut: false,
+      isSignOut: false, //是否能签退
+      isSignIn: true, //是否能签到
       timer: "",
     };
   },
@@ -28,7 +28,7 @@ export default {
   computed: {
     signOutText() {
       if (!this.isSignOut) {
-        return this.disabled ? this.time : "先签到(^_^)";
+        return this.isSignIn ? "先签到(^_^)" : this.time;
       } else {
         return "签退";
       }
@@ -78,8 +78,7 @@ export default {
       let timer = setInterval(() => {
         console.log(minute, second);
         if (minute < 0 || (minute === 0 && second === 0)) {
-          this.isSignOut = true;
-          // this.couldSignOut();
+          this.couldSignOut();
           clearInterval(timer);
         }
         if (second != 0) {
@@ -102,20 +101,21 @@ export default {
      * 是否可以签退
      */
     couldSignOut() {
-      this.sign.couldSignOut().then(
-        (res) => {
-          if (res.msg) {
-            // this.countDown(res.data, 1);
-            this.disabled = true;
+      this.sign.couldSignOut().then((res) => {
+        if (res.data.couldSignOut) {
+          this.isSignIn = false;
+          this.isSignOut = true;
+        } else {
+          if (res.data.attStartTime) {
+            this.isSignIn = false;
+            this.isSignOut = false;
+            this.countDown(res.data.attStartTime, 1);
           } else {
-            this.disabled = false;
+            this.isSignIn = true;
+            this.isSignOut = false;
           }
-        },
-        (err) => {
-          this.$modal.msgSuccess("请先签到");
-          this.disabled = true;
         }
-      );
+      });
     },
   },
 

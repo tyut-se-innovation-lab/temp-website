@@ -81,12 +81,10 @@ export default {
      * 获取记录
      */
     weekLog() {
-      // this.$nextTick(() => {
       this.log.weekLog().then((res) => {
         this.loginRecord = res.data;
         this.tmpRecord = this.filterData(res.data);
       });
-      // });
     },
 
     /**
@@ -94,9 +92,6 @@ export default {
      */
     filterData(data) {
       let tmpdata = data;
-      // let tmpdata = data.filter((data) => {
-      //   return data.signTime != null;
-      // });
       for (let i = 0; i < tmpdata.length; i++) {
         tmpdata[i].signInTime = this.fixTime(tmpdata[i].signTimes[0]);
 
@@ -128,14 +123,19 @@ export default {
       });
     },
 
+    /**
+     * 设置是否可见
+     */
     setVisible() {
       this.downloadVisible = true;
     },
 
+    /**
+     * 下载
+     * @param {Blob} bolbFlow Blob流
+     */
     downloadFile(blobFlow) {
-      let data = [];
-      data[0] = blobFlow;
-      const blob = new Blob(data, {
+      const blob = new Blob(new Array(blobFlow), {
         //type of excel
         type: "application/vnd.ms-excel",
       });

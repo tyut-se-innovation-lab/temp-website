@@ -93,10 +93,6 @@ export default {
       }, 1000);
     },
 
-    shutCountDown() {
-      clearInterval(this.timer);
-    },
-
     /**
      * 是否可以签退
      */

@@ -56,8 +56,11 @@ public class AttendanceServiceImpl implements IAttendanceService {
     public CouldSignOut couleSignOut() {
         CouldSignOut couldSignOut = new CouldSignOut();
         Date attEndTime = dateTime(YYYY_MM_DD_HH_MM_SS,getTime());
-        Attendance attendance = attendanceMapper.couleSignOut(sysUserMapper.selectUserById(getUserId()).getNickName());
-        if(attendance.getAttStartTime() != null){
+        Attendance attendance = new Attendance();
+        if (attendanceMapper.couleSignOut(sysUserMapper.selectUserById(getUserId()).getNickName()) != null){
+            attendance = attendanceMapper.couleSignOut(sysUserMapper.selectUserById(getUserId()).getNickName());
+        }
+        if(attendance.getAttStartTime() != null){ //当前库中有此人签到时间记录
             Date attStartTime = attendance.getAttStartTime();
             Calendar cal1 = Calendar.getInstance();
             Calendar cal2 = Calendar.getInstance();
@@ -65,18 +68,40 @@ public class AttendanceServiceImpl implements IAttendanceService {
             cal2.setTime(attEndTime);
             int date1 = cal1.get(Calendar.DATE);
             int date2 = cal2.get(Calendar.DATE);
+<<<<<<< HEAD
             if (date1 == date2){
+=======
+            couldSignOut.setCouldSignOut(false);
+            couldSignOut.setAttStartTime(null);
+            if (date1 == date2){ //当前时间和签到时间是同一天
+                couldSignOut.setAttStartTime(attStartTime);
+>>>>>>> cfa6ee95993d88fe71e0630f91973f96e38f216a
                 int minute = differentHoursByMillisecond(attEndTime, attStartTime);
-                if (minute >= 60){
-                    couldSignOut.setCouldSignOut(true);
+                int hour = cal2.get(Calendar.HOUR_OF_DAY); //签退时间小时数
+                int minutes = cal2.get(Calendar.MINUTE); //签退时间分钟数
+                if (hour <= 18 || (hour == 19 && minutes < 30)){ //晚上7点半到9点半不允许签退
+                        if (minute >= 60){
+                            couldSignOut.setCouldSignOut(true);
+                        }
+                } else if (hour >= 22 || (hour == 21 && minutes > 30)) {
+                    if (minute >= 60){
+                        couldSignOut.setCouldSignOut(true);
+                    }
                 }
             }
+<<<<<<< HEAD
             couldSignOut.setAttStartTime(attStartTime);
             if (attendance.getAttEndTime() != null){
                 couldSignOut.setCouldSignOut(false);
                 couldSignOut.setAttStartTime(null);
             }
         }else {
+=======
+            if (attendance.getAttEndTime() != null){ //有此人签到和签退记录,不能签退，请先签到
+                couldSignOut.setCouldSignOut(false);
+            }
+        }else { //当前库中无此人签到记录,不允许签退
+>>>>>>> cfa6ee95993d88fe71e0630f91973f96e38f216a
             couldSignOut.setCouldSignOut(false);
             couldSignOut.setAttStartTime(null);
         }
@@ -88,22 +113,15 @@ public class AttendanceServiceImpl implements IAttendanceService {
         Date attEndTime = dateTime(YYYY_MM_DD_HH_MM_SS,getTime());
         Attendance attendance = attendanceMapper.couleSignOut(sysUserMapper.selectUserById(getUserId()).getNickName());
         Date attStartTime = attendance.getAttStartTime();
-        Date endTime = attendance.getAttEndTime();
-
-        if (attStartTime != null && endTime == null){
+        CouldSignOut couldSignOut = couleSignOut();
+        if (couldSignOut.getCouldSignOut()){
             Calendar cal1 = Calendar.getInstance();
             Calendar cal2 = Calendar.getInstance();
             cal1.setTime(attStartTime);
             cal2.setTime(attEndTime);
-            int date1 = cal1.get(Calendar.DATE);
-            int date2 = cal2.get(Calendar.DATE);
-            if (date1 == date2){
-                int minute = differentHoursByMillisecond(attEndTime, attStartTime);
-                String interval = String.format("%4.2f",minute/60.0);
-                if (minute >= 60){
-                    return attendanceMapper.signOut(sysUserMapper.selectUserById(getUserId()).getNickName(), attEndTime,interval) > 0;
-                }else return false;
-            }return false;
-        }return false;
+            int minute = differentHoursByMillisecond(attEndTime, attStartTime);
+            String interval = String.format("%4.2f",minute/60.0);
+            return attendanceMapper.signOut(sysUserMapper.selectUserById(getUserId()).getNickName(), attEndTime,interval) > 0;
+        }else return false;
     }
 }

@@ -38,6 +38,12 @@
             <groupId>tyut.selab</groupId>
             <artifactId>selab-vote</artifactId>
         </dependency>
+        <dependency>
+            <groupId>tyut.selab</groupId>
+            <artifactId>selab-attendance</artifactId>
+            <version>3.8.3</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 

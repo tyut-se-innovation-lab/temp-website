@@ -46,7 +46,12 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
 
     @Override
     public List<String> getLogFileList() {
-        File folder = new File("selab-attendance/src/main/resources/signlog/");
+        File folder = new File(".\\signlog\\");
+        try {
+            folder.mkdir();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         List<String> fileLists = new ArrayList<>();
         File[] files = folder.listFiles();
         if (files != null){

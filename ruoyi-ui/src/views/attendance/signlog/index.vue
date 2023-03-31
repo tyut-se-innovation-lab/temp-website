@@ -40,13 +40,13 @@
         min-width="130"
       ></el-table-column>
       <el-table-column
-        prop="signInTime"
+        prop="signTimes[0]"
         label="开始时间"
         align="center"
         min-width="270"
       ></el-table-column>
       <el-table-column
-        prop="signOutTime"
+        prop="signTimes[1]"
         label="结束时间"
         align="center"
         min-width="270"
@@ -76,25 +76,21 @@ export default {
       downloadVisible: false,
     };
   },
-  watch: {
-    filterDate(newVal, oldVal) {
-      this.filterByDate(newVal, this.loginRecord);
-    },
-  },
   methods: {
     /**
      * 获取记录
      */
     weekLog() {
+      // this.$nextTick(() => {
       this.log.weekLog().then((res) => {
-        this.loginRecord = this.filterData(res.data);
+        this.loginRecord = res.data;
         this.tmpRecord = this.filterData(res.data);
       });
+      // });
     },
 
     /**
      * 过滤数据
-     * @param {Array} data 要过滤的数据
      */
     filterData(data) {
       let tmpdata = data;
@@ -113,23 +109,7 @@ export default {
     },
 
     /**
-     * 通过时间范围过滤
-     * @param {Array} dates 时间数组
-     * @param {Array} compareArr 要进行操作数组
-     */
-    filterByDate(dates, compareArr) {
-      let tmp = compareArr.filter((data) => {
-        console.log(data.signTimes[0]);
-        return (
-          new Date(data.signTimes[0]) > new Date(dates[0]) &&
-          new Date(data.signTimes[0]) < new Date(dates[1])
-        );
-      });
-      this.tmpRecord = this.filterData(tmp);
-    },
-
-    /**
-     * 修正时间到指定字符串格式
+     * 修正时间
      * @param {String} dateString
      */
     fixTime(dateString) {
@@ -148,18 +128,14 @@ export default {
       });
     },
 
-    /**
-     * 设置提示框是否可见
-     */
     setVisible() {
       this.downloadVisible = true;
     },
 
-    /**
-     * 下载文件
-     */
     downloadFile(blobFlow) {
-      const blob = new Blob(new Array(blobFlow), {
+      let data = [];
+      data[0] = blobFlow;
+      const blob = new Blob(data, {
         //type of excel
         type: "application/vnd.ms-excel",
       });

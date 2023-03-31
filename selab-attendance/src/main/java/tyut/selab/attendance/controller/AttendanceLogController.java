@@ -49,7 +49,7 @@ public class AttendanceLogController {
     @GetMapping("/{filename}")
     @ResponseBody
     public void getFileByName(HttpServletRequest request, HttpServletResponse response, @PathVariable("filename") String filename) throws IOException {
-        String filePath = "classpath:signlog/"; // 您的文件路径
+        String filePath = "selab-attendance/src/main/resources/signlog/"; // 您的文件路径
         attendanceLogService.getFileByName(request, response, filePath, filename);
     }
 }

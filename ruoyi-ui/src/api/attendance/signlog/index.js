@@ -5,10 +5,6 @@ class Log {
 
     }
 
-    /**
-     * 获取日志
-     * @returns axios请求
-     */
     weekLog() {
         return request({
             url: '/selab/attendance/log/week',
@@ -17,8 +13,8 @@ class Log {
     }
 
     /**
-     * 获取文件列表
-     * @returns axios请求
+     * 
+     * @returns 
      */
     getFileList() {
         return request({
@@ -27,11 +23,6 @@ class Log {
         })
     }
 
-    /**
-     * 获取指定文件
-     * @param {String} fileName 文件名称
-     * @returns axios请求
-     */
     getFile(fileName) {
         return request({
             url: `/selab/attendance/log/${fileName}`,

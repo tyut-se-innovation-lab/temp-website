@@ -76,6 +76,7 @@ export default {
       );
       //修改位数
       let timer = setInterval(() => {
+        console.log(minute, second);
         if (minute < 0 || (minute === 0 && second === 0)) {
           this.couldSignOut();
           clearInterval(timer);
@@ -90,6 +91,10 @@ export default {
           second <= 9 ? "0" + second : second
         }`;
       }, 1000);
+    },
+
+    shutCountDown() {
+      clearInterval(this.timer);
     },
 
     /**

@@ -5,6 +5,10 @@ class Sign {
 
     }
 
+    /**
+     * 登录
+     * @returns axios请求
+     */
     signIn() {
         return request({
             url: '/selab/attendance/sign',
@@ -12,6 +16,10 @@ class Sign {
         })
     }
 
+    /**
+     * 是否能够登出
+     * @returns axios请求
+     */
     couldSignOut() {
         return request({
             url: '/selab/attendance/could',
@@ -19,14 +27,14 @@ class Sign {
         })
     }
 
+    /**
+     * 登出
+     * @returns axios请求
+     */
     signOut() {
         return request({
             url: '/selab/attendance/sign/out',
             method: 'post',
-            header: {
-                headers: { 'Content-Type': 'application/x-download' }
-            },
-            responseType: 'blob'
         })
     }
 }

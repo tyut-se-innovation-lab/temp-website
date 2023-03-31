@@ -65,16 +65,16 @@ public class AttendanceServiceImpl implements IAttendanceService {
             cal2.setTime(attEndTime);
             int date1 = cal1.get(Calendar.DATE);
             int date2 = cal2.get(Calendar.DATE);
-            if (attendance.getAttEndTime() != null){
-                couldSignOut.setCouldSignOut(false);
-                couldSignOut.setAttStartTime(null);
-            }
-            couldSignOut.setAttStartTime(attStartTime);
             if (date1 == date2){
                 int minute = differentHoursByMillisecond(attEndTime, attStartTime);
                 if (minute >= 60){
                     couldSignOut.setCouldSignOut(true);
                 }
+            }
+            couldSignOut.setAttStartTime(attStartTime);
+            if (attendance.getAttEndTime() != null){
+                couldSignOut.setCouldSignOut(false);
+                couldSignOut.setAttStartTime(null);
             }
         }else {
             couldSignOut.setCouldSignOut(false);

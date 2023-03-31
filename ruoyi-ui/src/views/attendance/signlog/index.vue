@@ -40,13 +40,13 @@
         min-width="130"
       ></el-table-column>
       <el-table-column
-        prop="signTimes[0]"
+        prop="signInTime"
         label="开始时间"
         align="center"
         min-width="270"
       ></el-table-column>
       <el-table-column
-        prop="signTimes[1]"
+        prop="signOutTime"
         label="结束时间"
         align="center"
         min-width="270"
@@ -76,34 +76,55 @@ export default {
       downloadVisible: false,
     };
   },
+  watch: {
+    filterDate(newVal, oldVal) {
+      this.filterByDate(newVal, this.loginRecord);
+    },
+  },
   methods: {
     /**
      * 获取记录
      */
     weekLog() {
-      // this.$nextTick(() => {
       this.log.weekLog().then((res) => {
-        this.loginRecord = res.data;
+        this.loginRecord = this.filterData(res.data);
         this.tmpRecord = this.filterData(res.data);
       });
-      // });
     },
 
     /**
      * 过滤数据
+     * @param {Array} data 要过滤的数据
      */
     filterData(data) {
-      for (let i = 0; i < data.length; i++) {
-        data[i].signTimes[0] = this.fixTime(data[i].signTimes[0]);
-        data[i].signTimes[1] = this.fixTime(data[i].signTimes[1]);
-      }
-      return data.filter((data) => {
+      let tmpdata = data.filter((data) => {
         return data.signTime != null;
       });
+      for (let i = 0; i < tmpdata.length; i++) {
+        tmpdata[i].signInTime = this.fixTime(tmpdata[i].signTimes[0]);
+        tmpdata[i].signOutTime = this.fixTime(tmpdata[i].signTimes[1]);
+      }
+      return tmpdata;
     },
 
     /**
-     * 修正时间
+     * 通过时间范围过滤
+     * @param {Array} dates 时间数组
+     * @param {Array} compareArr 要进行操作数组
+     */
+    filterByDate(dates, compareArr) {
+      let tmp = compareArr.filter((data) => {
+        console.log(data.signTimes[0]);
+        return (
+          new Date(data.signTimes[0]) > new Date(dates[0]) &&
+          new Date(data.signTimes[0]) < new Date(dates[1])
+        );
+      });
+      this.tmpRecord = this.filterData(tmp);
+    },
+
+    /**
+     * 修正时间到指定字符串格式
      * @param {String} dateString
      */
     fixTime(dateString) {
@@ -122,14 +143,18 @@ export default {
       });
     },
 
+    /**
+     * 设置提示框是否可见
+     */
     setVisible() {
       this.downloadVisible = true;
     },
 
+    /**
+     * 下载文件
+     */
     downloadFile(blobFlow) {
-      let data = [];
-      data[0] = blobFlow;
-      const blob = new Blob(data, {
+      const blob = new Blob(new Array(blobFlow), {
         //type of excel
         type: "application/vnd.ms-excel",
       });

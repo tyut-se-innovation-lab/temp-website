@@ -89,7 +89,6 @@ public class AttendanceServiceImpl implements IAttendanceService {
         Attendance attendance = attendanceMapper.couleSignOut(sysUserMapper.selectUserById(getUserId()).getNickName());
         Date attStartTime = attendance.getAttStartTime();
         Date endTime = attendance.getAttEndTime();
-
         if (attStartTime != null && endTime == null){
             Calendar cal1 = Calendar.getInstance();
             Calendar cal2 = Calendar.getInstance();

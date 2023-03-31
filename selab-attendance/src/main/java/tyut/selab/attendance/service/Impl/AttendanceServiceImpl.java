@@ -56,7 +56,10 @@ public class AttendanceServiceImpl implements IAttendanceService {
     public CouldSignOut couleSignOut() {
         CouldSignOut couldSignOut = new CouldSignOut();
         Date attEndTime = dateTime(YYYY_MM_DD_HH_MM_SS,getTime());
-        Attendance attendance = attendanceMapper.couleSignOut(sysUserMapper.selectUserById(getUserId()).getNickName());
+        Attendance attendance = new Attendance();
+        if (attendanceMapper.couleSignOut(sysUserMapper.selectUserById(getUserId()).getNickName()) != null){
+            attendance = attendanceMapper.couleSignOut(sysUserMapper.selectUserById(getUserId()).getNickName());
+        }
         if(attendance.getAttStartTime() != null){ //当前库中有此人签到时间记录
             Date attStartTime = attendance.getAttStartTime();
             Calendar cal1 = Calendar.getInstance();
@@ -72,11 +75,11 @@ public class AttendanceServiceImpl implements IAttendanceService {
                 int minute = differentHoursByMillisecond(attEndTime, attStartTime);
                 int hour = cal2.get(Calendar.HOUR_OF_DAY); //签退时间小时数
                 int minutes = cal2.get(Calendar.MINUTE); //签退时间分钟数
-                if (hour == 19 && minutes < 30){ //晚上7点半到9点半不允许签退
+                if (hour < 19 && minutes < 30){ //晚上7点半到9点半不允许签退
                         if (minute >= 60){
                             couldSignOut.setCouldSignOut(true);
                         }
-                } else if (hour == 21 && minutes > 30) {
+                } else if (hour > 21 && minutes > 30) {
                     if (minute >= 60){
                         couldSignOut.setCouldSignOut(true);
                     }

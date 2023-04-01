@@ -1,19 +1,20 @@
 <template>
-  <div id="sign">
-    <button @click="signIn">签到</button>
-    <button
-      @click="signOut"
-      :disabled="!isSignOut"
-      :class="{ disabled: !isSignOut }"
-    >
-      {{ signOutText }}
-    </button>
+  <div>
+    <div id="sign">
+      <button @click="signIn">签到</button>
+      <button
+        @click="signOut"
+        :disabled="!isSignOut"
+        :class="{ disabled: !isSignOut }"
+      >
+        {{ signOutText }}
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
 import { Sign } from "@/api/attendance/sign/index.js";
-import { delay } from "lodash";
 export default {
   name: "sign",
   data() {
@@ -67,9 +68,10 @@ export default {
       let date = new Date();
       date.setHours(customTimes.startTime[0]);
       date.setMinutes(customTimes.startTime[1]);
-      this.timeInterval[0] = date;
-      date.setHours(customTimes.startTime[0] + delay);
-      this.timeInterval[1] = date;
+      this.timeInterval[0] = new Date(date);
+
+      date.setHours(customTimes.startTime[0] + customTimes.delay);
+      this.timeInterval[1] = new Date(date);
     },
 
     /**
@@ -79,12 +81,12 @@ export default {
       let current = new Date();
       //最小倒计时
       let currentToTargTime =
-        (date.getTime() + countTime * 60 * 60 * 1000 - current.getTime()) /
+        (startTime.getTime() + countTime * 60 * 60 * 1000 - current.getTime()) /
         (60 * 60 * 1000);
       if (currentToTargTime <= this.minCountTime) {
         this.countDown(startTime, this.minCountTime);
       } else {
-        this.countDown(startTime, this.countTime);
+        this.countDown(startTime, countTime);
       }
     },
 
@@ -96,8 +98,8 @@ export default {
       let date = new Date(startTime);
       this.setAssignTime(this.customTimes);
       if (
-        current.getTime() > this.timeInterval[0].getTime &&
-        current.getTime() < this.timeInterval[1].getTime
+        current.getTime() > this.timeInterval[0].getTime() &&
+        current.getTime() < this.timeInterval[1].getTime()
       ) {
         this.setAssignCountDown(this.timeInterval[0], this.customTimes.delay);
       } else {
@@ -122,33 +124,37 @@ export default {
      * @param {String} countTime 倒计时间(h)
      */
     countDown(startTime, countTime) {
+      let start = new Date(startTime);
       let current = new Date();
       let hour = Math.floor(
-        (startTime.getTime() + countTime * 60 * 60 * 1000 - current.getTime()) /
+        (start.getTime() + countTime * 60 * 60 * 1000 - current.getTime()) /
           (1000 * 60 * 60)
       );
       let minute = Math.floor(
-        (startTime.getTime() + countTime * 60 * 60 * 1000 - current.getTime()) /
+        ((start.getTime() + countTime * 60 * 60 * 1000 - current.getTime()) %
+          (1000 * 60 * 60)) /
           (1000 * 60)
       );
       let second = parseInt(
-        ((startTime.getTime() +
-          countTime * 60 * 60 * 1000 -
-          current.getTime()) %
+        ((start.getTime() + countTime * 60 * 60 * 1000 - current.getTime()) %
           (1000 * 60)) /
           1000
       );
+      console.log(countTime);
       //修改位数
       let timer = setInterval(() => {
-        if (minute < 0 || (minute === 0 && second === 0)) {
-          this.couldSignOut();
-          clearInterval(timer);
-        }
         if (second != 0) {
           second--;
-        } else {
+        } else if (minute != 0) {
           minute--;
           second = 59;
+        } else if (second === 0 && minute === 0) {
+          hour--;
+          minute = 59;
+        }
+        if (hour < 0 || (minute === 0 && second === 0 && hour === 0)) {
+          this.couldSignOut();
+          clearInterval(timer);
         }
         this.time = `
           ${hour <= 9 ? "0" + hour : hour}:

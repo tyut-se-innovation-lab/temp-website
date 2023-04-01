@@ -24,6 +24,7 @@ import java.util.List;
 @Service
 public class AttendanceLogServiceImpl implements IAttendanceLogService {
 
+    public static final String FILEPATH = "signlog";
     @Autowired
     AttendanceLogMapper attendanceLogMapper;
 
@@ -46,9 +47,14 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
 
     @Override
     public List<String> getLogFileList() {
-        File folder = new File(".\\signlog\\");
+        File folder = new File(FILEPATH);
         try {
-            folder.mkdir();
+            if(!folder.exists()){
+                folder.mkdirs();
+                System.err.println("已创建文件"+folder);
+            } else {
+                System.out.println(folder.getPath());
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

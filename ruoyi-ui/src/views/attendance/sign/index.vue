@@ -13,6 +13,7 @@
 
 <script>
 import { Sign } from "@/api/attendance/sign/index.js";
+import { delay } from "lodash";
 export default {
   name: "sign",
   data() {
@@ -22,6 +23,12 @@ export default {
       isSignOut: false, //是否能签退
       isSignIn: true, //是否能签到
       timer: "",
+      customTimes: {
+        startTime: [19, 30], //开始时间
+        delay: 2, //持续时间
+      },
+      timeInterval: [],
+      minCountTime: 1,
     };
   },
 
@@ -47,6 +54,58 @@ export default {
     },
 
     /**
+     * 初始化
+     */
+    init() {
+      let date1 = new Date();
+      date1.setHours(19);
+      date1.setMinutes(30);
+    },
+
+    // 设置当天指定时间
+    setAssignTime(customTimes) {
+      let date = new Date();
+      date.setHours(customTimes.startTime[0]);
+      date.setMinutes(customTimes.startTime[1]);
+      this.timeInterval[0] = date;
+      date.setHours(customTimes.startTime[0] + delay);
+      this.timeInterval[1] = date;
+    },
+
+    /**
+     * 自定义倒计时
+     */
+    setAssignCountDown(startTime, countTime = 1) {
+      let current = new Date();
+      //最小倒计时
+      let currentToTargTime =
+        (date.getTime() + countTime * 60 * 60 * 1000 - current.getTime()) /
+        (60 * 60 * 1000);
+      if (currentToTargTime <= this.minCountTime) {
+        this.countDown(startTime, this.minCountTime);
+      } else {
+        this.countDown(startTime, this.countTime);
+      }
+    },
+
+    /**
+     * 是否设置自定义倒计时
+     */
+    isSetAssignCountDown(startTime) {
+      let current = new Date();
+      let date = new Date(startTime);
+      this.setAssignTime(this.customTimes);
+      if (
+        current.getTime() > this.timeInterval[0].getTime &&
+        current.getTime() < this.timeInterval[1].getTime
+      ) {
+        this.setAssignCountDown(this.timeInterval[0], this.customTimes.delay);
+      } else {
+        this.countDown(date, 1);
+      }
+    },
+
+    /**
      * 签退
      */
     signOut() {
@@ -59,24 +118,28 @@ export default {
 
     /**
      * 倒计时
-     * @param {String} startTime 开始时间字符串
+     * @param {Date} startTime 开始时间字符串
      * @param {String} countTime 倒计时间(h)
      */
     countDown(startTime, countTime) {
-      let start = new Date(startTime);
       let current = new Date();
+      let hour = Math.floor(
+        (startTime.getTime() + countTime * 60 * 60 * 1000 - current.getTime()) /
+          (1000 * 60 * 60)
+      );
       let minute = Math.floor(
-        (start.getTime() + countTime * 60 * 60 * 1000 - current.getTime()) /
+        (startTime.getTime() + countTime * 60 * 60 * 1000 - current.getTime()) /
           (1000 * 60)
       );
       let second = parseInt(
-        ((start.getTime() + countTime * 60 * 60 * 1000 - current.getTime()) %
+        ((startTime.getTime() +
+          countTime * 60 * 60 * 1000 -
+          current.getTime()) %
           (1000 * 60)) /
           1000
       );
       //修改位数
       let timer = setInterval(() => {
-        console.log(minute, second);
         if (minute < 0 || (minute === 0 && second === 0)) {
           this.couldSignOut();
           clearInterval(timer);
@@ -87,9 +150,10 @@ export default {
           minute--;
           second = 59;
         }
-        this.time = `${minute <= 9 ? "0" + minute : minute}:${
-          second <= 9 ? "0" + second : second
-        }`;
+        this.time = `
+          ${hour <= 9 ? "0" + hour : hour}:
+          ${minute <= 9 ? "0" + minute : minute}:
+          ${second <= 9 ? "0" + second : second}`;
       }, 1000);
     },
 
@@ -105,7 +169,7 @@ export default {
           if (res.data.attStartTime) {
             this.isSignIn = false;
             this.isSignOut = false;
-            this.countDown(res.data.attStartTime, 1);
+            this.isSetAssignCountDown(res.data.attStartTime);
           } else {
             this.isSignIn = true;
             this.isSignOut = false;

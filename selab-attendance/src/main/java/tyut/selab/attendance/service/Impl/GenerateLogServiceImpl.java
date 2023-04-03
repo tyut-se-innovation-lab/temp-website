@@ -3,6 +3,8 @@ package tyut.selab.attendance.service.Impl;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -128,14 +130,22 @@ public class GenerateLogServiceImpl implements IGenerateLogService {
             int numColumns2 = resultSet2.getMetaData().getColumnCount();
 
             while (resultSet2.next()) {
+                XSSFCellStyle cellStyle = workbook.createCellStyle();
+                Font font = workbook.createFont();
+                font.setColor(Font.COLOR_RED);
+                cellStyle.setFont(font);
                 Row dataRow = sheet2.createRow(rowNum2++);
                 for (int i = 1; i <= numColumns2; i++) {
                     Cell cell = dataRow.createCell(i - 1);
+                    if (i == numColumns2 && Double.parseDouble(resultSet2.getString(i)) < 15){
+                        cell.setCellStyle(cellStyle);
+                    }
                     cell.setCellValue(resultSet2.getString(i));
                 }
             }
 
             FileOutputStream outputStream = new FileOutputStream(".\\signlog\\"+ getDate() +"签到表.xlsx");
+            //FileOutputStream outputStream = new FileOutputStream("../selab-attendance/src/main/resources/signlog/"+ getDate() +"签到表.xlsx");
             workbook.write(outputStream);
             outputStream.close();
             System.out.println("导出成功！");

@@ -73,7 +73,7 @@ public void commitVote(@Autowired ICommitVoteService service, @Autowired Attenda
     System.out.println(service.getDeadLineById(1L));*/
     //System.out.println(attendanceMapper.signIn("20", dateTime(YYYY_MM_DD_HH_MM_SS, getTime())));
     //System.out.println(attendanceMapper.couleSignOut("20"));
-    //System.out.println(attendanceMapper.signOut("20", dateTime(YYYY_MM_DD_HH_MM_SS, getTime()), 1));
+    System.out.println(attendanceMapper.signOut("gh", dateTime(YYYY_MM_DD_HH_MM_SS, getTime()), "1"));
 
     /*try {
 
@@ -201,7 +201,6 @@ public void commitVote(@Autowired ICommitVoteService service, @Autowired Attenda
         }
     }*/
 
-    generateLogMapper.deleteInvalidData();
-
+    //generateLogMapper.deleteInvalidData();
 }
 }

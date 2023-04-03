@@ -27,22 +27,12 @@
 
 <!--    public int signOut(String  userName,Date attEndTime,int interval);-->
     <update id="signOut">
-        UPDATE
-            selab_attendance_log AS a,
-            (SELECT
-                 id,
-                 att_user,
-                 att_start_time,
-                 att_end_time,
-                 `interval`
-             FROM
-                 selab_attendance_log
-             WHERE att_user = #{userName}
-               AND id = (SELECT MAX(id) FROM selab_attendance_log)
-             GROUP BY id,att_user, att_start_time,att_end_time,`interval`) AS b
-        SET
-            a.att_end_time = #{attEndTime},a.interval = #{interval}
-        WHERE a.id = b.id
+        UPDATE selab_attendance_log AS s
+            INNER JOIN
+            (SELECT MAX(id) AS max_id FROM selab_attendance_log WHERE att_user = #{userName}) AS t2
+            ON s.id = t2.max_id
+        SET s.att_end_time = #{attEndTime}, s.`interval` = #{interval}
+        WHERE s.att_user = #{userName};
     </update>
 
 </mapper>

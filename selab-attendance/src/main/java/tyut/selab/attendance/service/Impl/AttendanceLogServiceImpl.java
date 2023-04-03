@@ -24,7 +24,6 @@ import java.util.List;
 @Service
 public class AttendanceLogServiceImpl implements IAttendanceLogService {
 
-    public static final String FILEPATH = "signlog";
     @Autowired
     AttendanceLogMapper attendanceLogMapper;
 
@@ -47,11 +46,11 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
 
     @Override
     public List<String> getLogFileList() {
-        File folder = new File(FILEPATH);
+        File folder = new File(".\\signlog\\");
         try {
             if(!folder.exists()){
                 folder.mkdirs();
-                System.err.println("已创建文件"+folder);
+                System.err.println("已创建文件夹"+folder);
             } else {
                 System.out.println(folder.getPath());
             }
@@ -71,10 +70,6 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
     @Override
     public void getFileByName(HttpServletRequest request, HttpServletResponse response, String filePath, String fileName) throws IOException {
         File file = new File(filePath + fileName);
-        if (!file.exists()) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            return;
-        }
         FileInputStream inputStream = new FileInputStream(file);
         response.setContentType("application/octet-stream");
         response.setContentLength((int) file.length());

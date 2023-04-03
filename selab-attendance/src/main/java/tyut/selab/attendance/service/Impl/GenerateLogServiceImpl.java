@@ -135,7 +135,7 @@ public class GenerateLogServiceImpl implements IGenerateLogService {
                 }
             }
 
-            FileOutputStream outputStream = new FileOutputStream(AttendanceLogServiceImpl.FILEPATH +"\\"+ getDate() +"签到表.xlsx");
+            FileOutputStream outputStream = new FileOutputStream(".\\signlog\\"+ getDate() +"签到表.xlsx");
             workbook.write(outputStream);
             outputStream.close();
             System.out.println("导出成功！");

@@ -25,11 +25,11 @@ export default {
       isSignIn: true, //是否能签到
       timer: "",
       customTimes: {
-        startTime: [19, 30], //开始时间
-        delay: 2, //持续时间
+        startTime: [20, 30], //开始时间
+        delay: 1.5, //持续时间
       },
       timeInterval: [],
-      minCountTime: 1,
+      minCountTime: 1, //最小签到时间=
     };
   },
 
@@ -70,25 +70,27 @@ export default {
       date.setMinutes(customTimes.startTime[1]);
       this.timeInterval[0] = new Date(date);
 
-      date.setHours(customTimes.startTime[0] + customTimes.delay);
+      let setTimeSeconds = date.getTime() + customTimes.delay * 60 * 60 * 1000;
+      date.setTime(setTimeSeconds);
+
       this.timeInterval[1] = new Date(date);
     },
 
-    /**
-     * 自定义倒计时
-     */
-    setAssignCountDown(startTime, countTime = 1) {
-      let current = new Date();
-      //最小倒计时
-      let currentToTargTime =
-        (startTime.getTime() + countTime * 60 * 60 * 1000 - current.getTime()) /
-        (60 * 60 * 1000);
-      if (currentToTargTime <= this.minCountTime) {
-        this.countDown(startTime, this.minCountTime);
-      } else {
-        this.countDown(startTime, countTime);
-      }
-    },
+    // /**
+    //  * 自定义倒计时
+    //  */
+    // setAssignCountDown(startTime, countTime = 1) {
+    //   let current = new Date();
+    //   //最小倒计时
+    //   let currentToTargTime =
+    //     (startTime.getTime() + countTime * 60 * 60 * 1000 - current.getTime()) /
+    //     (60 * 60 * 1000);
+    //   if (currentToTargTime <= this.minCountTime) {
+    //     this.countDown(startTime, countTime);
+    //   } else {
+    //     this.countDown(startTime, countTime);
+    //   }
+    // },
 
     /**
      * 是否设置自定义倒计时
@@ -96,12 +98,23 @@ export default {
     isSetAssignCountDown(startTime) {
       let current = new Date();
       let date = new Date(startTime);
+
       this.setAssignTime(this.customTimes);
+
+      let currentToTargTime =
+        (this.timeInterval[0].getTime() +
+          this.customTimes.delay * 60 * 60 * 1000 -
+          current.getTime()) /
+        (60 * 60 * 1000);
+
+      //处于自定义时间段，且不小于最小签到时间
       if (
         current.getTime() > this.timeInterval[0].getTime() &&
-        current.getTime() < this.timeInterval[1].getTime()
+        current.getTime() < this.timeInterval[1].getTime() &&
+        currentToTargTime > this.minCountTime
       ) {
-        this.setAssignCountDown(this.timeInterval[0], this.customTimes.delay);
+        //自定义
+        this.countDown(this.timeInterval[0], this.customTimes.delay);
       } else {
         this.countDown(date, 1);
       }
@@ -140,7 +153,6 @@ export default {
           (1000 * 60)) /
           1000
       );
-      console.log(countTime);
       //修改位数
       let timer = setInterval(() => {
         if (second != 0) {

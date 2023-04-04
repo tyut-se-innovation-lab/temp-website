@@ -40,13 +40,13 @@
         min-width="130"
       ></el-table-column>
       <el-table-column
-        prop="signTimes[0]"
+        prop="signInTime"
         label="开始时间"
         align="center"
         min-width="270"
       ></el-table-column>
       <el-table-column
-        prop="signTimes[1]"
+        prop="signOutTime"
         label="结束时间"
         align="center"
         min-width="270"
@@ -101,6 +101,19 @@ export default {
             : this.fixTime(tmpdata[i].signTimes[1]);
       }
       return tmpdata;
+    },
+
+    /**
+     * 筛选指定时间内记录
+     * @param {Array} date 时间区间数组
+     */
+    filterByDate(date) {
+      let date1 = new Date(date[0]);
+      let date2 = new Date(date[1]);
+      return this.tmpRecord.filter((data) => {
+        let compare = new Date(data.signTimes[0]);
+        return compare >= date1 && compare <= date2;
+      });
     },
 
     /**
@@ -160,6 +173,11 @@ export default {
           this.downloadFile(res);
         });
       }
+    },
+  },
+  watch: {
+    filterDate(newVal, oldVal) {
+      this.tmpRecord = this.filterByDate(newVal);
     },
   },
   created() {

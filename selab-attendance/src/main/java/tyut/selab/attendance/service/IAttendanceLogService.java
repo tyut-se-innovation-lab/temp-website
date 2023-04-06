@@ -23,7 +23,7 @@ public interface IAttendanceLogService {
      * 查看本周日志
      * @return 日志信息
      */
-    List<AttendanceLog> couleSignOut();
+    List<AttendanceLog> couleSignOut(int pageNum);
 
     /**
      * 获取日志文件列表

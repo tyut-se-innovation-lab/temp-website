@@ -11,6 +11,7 @@ import java.util.Date;
  * @Author: Gulu
  * @Date: 2023/3/24 10:10
  */
+@Mapper
 public interface AttendanceMapper {
     /**
      * 参与签到

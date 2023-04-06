@@ -27,8 +27,8 @@ public class AttendanceLogController {
     @PreAuthorize("@ss.hasPermi('attendance:log')")
     @GetMapping("/week")
     @ResponseBody
-    public AjaxResult getThisWeekLog(){
-        return AjaxResult.success(attendanceLogService.couleSignOut());
+    public AjaxResult getThisWeekLog(int pageNum){
+        return AjaxResult.success(attendanceLogService.couleSignOut(pageNum));
     }
 
     /**
@@ -49,7 +49,7 @@ public class AttendanceLogController {
     @GetMapping("/{filename}")
     @ResponseBody
     public void getFileByName(HttpServletRequest request, HttpServletResponse response, @PathVariable("filename") String filename) throws IOException {
-        String filePath = ".\\signlog\\"; // 您的文件路径
+        String filePath = "../signlog/"; // 您的文件路径
         attendanceLogService.getFileByName(request, response, filePath, filename);
     }
 }

@@ -33,8 +33,8 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
     }
 
     @Override
-    public List<AttendanceLog> couleSignOut() {
-        List<Attendance> attendances = attendanceLogMapper.couleSignOut();
+    public List<AttendanceLog> couleSignOut(int pageNum) {
+        List<Attendance> attendances = attendanceLogMapper.couleSignOut((pageNum - 1) * 15);
         List<AttendanceLog> attendanceLogs = new ArrayList<>();
         if (attendances != null){
             for (Attendance attendance:attendances) {
@@ -46,7 +46,7 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
 
     @Override
     public List<String> getLogFileList() {
-        File folder = new File(".\\signlog\\");
+        File folder = new File("../signlog/");
         try {
             if(!folder.exists()){
                 folder.mkdirs();

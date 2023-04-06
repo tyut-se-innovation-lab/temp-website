@@ -12,8 +12,8 @@
     </resultMap>
     
     <!--  public List<Attendance> couleSignOut();-->
-    <select id="couleSignOut" resultMap="Attendance">
-        select * from selab_attendance_log;
+    <select id="couleSignOut" parameterType="java.lang.Integer" resultMap="Attendance">
+        SELECT * FROM selab_attendance_log ORDER BY id ASC LIMIT 15 OFFSET #{pageNum}
     </select>
 
     <!--  public void statisticsLogs();-->

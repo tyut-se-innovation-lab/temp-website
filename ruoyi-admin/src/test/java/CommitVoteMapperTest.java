@@ -1,3 +1,4 @@
+import com.github.pagehelper.PageInfo;
 import com.ruoyi.RuoYiApplication;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.system.mapper.SysUserMapper;
@@ -11,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import tyut.selab.attendance.domain.po.Attendance;
+import tyut.selab.attendance.domain.vo.AttendanceLog;
 import tyut.selab.attendance.mapper.AttendanceLogMapper;
 import tyut.selab.attendance.mapper.AttendanceMapper;
 
 import tyut.selab.attendance.mapper.GenerateLogMapper;
+import tyut.selab.attendance.service.Impl.AttendanceLogServiceImpl;
 import tyut.selab.attendance.service.Impl.GenerateLogServiceImpl;
 import tyut.selab.vote.domain.po.VoteResult;
 import tyut.selab.vote.service.ICommitVoteService;
@@ -54,7 +57,7 @@ public class CommitVoteMapperTest {
     @Value("${spring.datasource.druid.master.password}")
     String password ;
 @Test
-public void commitVote(@Autowired ICommitVoteService service, @Autowired AttendanceMapper attendanceMapper, @Autowired AttendanceLogMapper attendanceLogMapper) throws IOException {
+public void commitVote(@Autowired ICommitVoteService service, @Autowired AttendanceMapper attendanceMapper, @Autowired AttendanceLogMapper attendanceLogMapper, @Autowired AttendanceLogServiceImpl attendanceLogService) throws IOException {
     /*//添加投票结果测试
     VoteResult voteResult1 = new VoteResult();
     voteResult1.setVoteOptionId(758437L);
@@ -182,7 +185,7 @@ public void commitVote(@Autowired ICommitVoteService service, @Autowired Attenda
             e.printStackTrace();
         }*/
 
-    File folder = new File("../selab-attendance/src/main/resources/signlog/");
+    /*File folder = new File("../selab-attendance/src/main/resources/signlog/");
     List<String> fileLists = new ArrayList<>();
     String[] fileNames = folder.list();
     if (fileNames != null){
@@ -190,7 +193,16 @@ public void commitVote(@Autowired ICommitVoteService service, @Autowired Attenda
     }
     for (String file:fileLists) {
         System.out.println(file);
-    }
+    }*/
+
+    PageInfo<Attendance> pageInfo = attendanceLogService.bookPageInfo(1, 3);
+    pageInfo.getList().forEach(System.out::println);
+
+    System.out.println("总数量"+pageInfo.getTotal());
+    System.out.println("当前页查询记录"+pageInfo.getList().size());
+    System.out.println("当前页码"+pageInfo.getPageNum());
+    System.out.println("每页显示数量"+pageInfo.getPageSize());
+    System.out.println("总页"+pageInfo.getPages());
 
     /*File folder = new File("../selab-attendance/src/main/resources/signlog/");
     List<String> fileLists = new ArrayList<>();

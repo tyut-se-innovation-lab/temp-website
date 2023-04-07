@@ -27,8 +27,8 @@ public class AttendanceLogController {
     @PreAuthorize("@ss.hasPermi('attendance:log')")
     @GetMapping("/week")
     @ResponseBody
-    public AjaxResult getThisWeekLog(int pageNum){
-        return AjaxResult.success(attendanceLogService.couleSignOut(pageNum));
+    public AjaxResult getThisWeekLog(@RequestParam("pageNum") int pageNum,@RequestParam("pageSize") int pageSize){
+        return AjaxResult.success(attendanceLogService.bookPageInfo(pageNum,pageSize));
     }
 
     /**

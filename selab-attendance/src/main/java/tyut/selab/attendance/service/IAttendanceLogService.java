@@ -1,6 +1,8 @@
 package tyut.selab.attendance.service;
 
+import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.PathVariable;
+import tyut.selab.attendance.domain.po.Attendance;
 import tyut.selab.attendance.domain.vo.AttendanceLog;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +25,15 @@ public interface IAttendanceLogService {
      * 查看本周日志
      * @return 日志信息
      */
-    List<AttendanceLog> couleSignOut(int pageNum);
+    List<AttendanceLog> couleSignOut();
+
+    /**
+     * 查看本周日志分页查询
+     * @param pageNum 当前页数
+     * @param pageSize 每页的数据行数
+     * @return
+     */
+    PageInfo<Attendance> bookPageInfo(int pageNum,int pageSize);
 
     /**
      * 获取日志文件列表

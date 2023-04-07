@@ -1,5 +1,7 @@
 package tyut.selab.attendance.service.Impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -33,8 +34,8 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
     }
 
     @Override
-    public List<AttendanceLog> couleSignOut(int pageNum) {
-        List<Attendance> attendances = attendanceLogMapper.couleSignOut((pageNum - 1) * 15);
+    public List<AttendanceLog> couleSignOut() {
+        List<Attendance> attendances = attendanceLogMapper.couleSignOut();
         List<AttendanceLog> attendanceLogs = new ArrayList<>();
         if (attendances != null){
             for (Attendance attendance:attendances) {
@@ -42,6 +43,13 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
             }
         }
         return attendanceLogs;
+    }
+
+    @Override
+    public PageInfo<Attendance> bookPageInfo(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Attendance> attendances = attendanceLogMapper.couleSignOut();
+        return new PageInfo<>(attendances);
     }
 
     @Override

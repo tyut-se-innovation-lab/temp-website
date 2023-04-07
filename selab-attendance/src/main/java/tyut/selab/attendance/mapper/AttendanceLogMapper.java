@@ -17,7 +17,7 @@ public interface AttendanceLogMapper {
      * 查询本周日志
      * @return
      */
-    public List<Attendance> couleSignOut(int pageNum);
+    public List<Attendance> couleSignOut();
 
     /**
      * 统计本周日志

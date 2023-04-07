@@ -22,4 +22,9 @@ public interface GenerateLogMapper {
      * 删除数据库中未签退数据
      */
     public void deleteInvalidData();
+
+    /**
+     * 删除非大一的废物们
+     */
+    public void wasteRemoval();
 }

@@ -17,4 +17,9 @@
     <delete id="deleteInvalidData">
         delete from selab_attendance_log where att_end_time IS NULL
     </delete>
+
+    <!--  public void wasteRemoval();-->
+    <delete id="wasteRemoval">
+        delete from selab_attendance_log where att_user not in (select user_name FROM sys_user WHERE dept_id = '105')
+    </delete>
 </mapper>

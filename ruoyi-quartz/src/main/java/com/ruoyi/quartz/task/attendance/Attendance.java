@@ -20,7 +20,7 @@ public class Attendance {
 
     public void clearAttendanceLogInDB(){
         generateLogService.deleteInvalidData();//删除每日未签退数据
-        generateLogMapper.wasteRemoval(); //删除非大一的废物们数据
+        //generateLogMapper.wasteRemoval(); //删除非大一的废物们数据
     }
     public void createAttendanceLogFile(){
         attendanceLogService.statisticsLogs(); //对本周签到数据进行统计

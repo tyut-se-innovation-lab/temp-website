@@ -68,6 +68,7 @@ export default {
       let date = new Date();
       date.setHours(customTimes.startTime[0]);
       date.setMinutes(customTimes.startTime[1]);
+      date.setSeconds(0);
       this.timeInterval[0] = new Date(date);
 
       let setTimeSeconds = date.getTime() + customTimes.delay * 60 * 60 * 1000;
@@ -135,6 +136,8 @@ export default {
           (1000 * 60)) /
           1000
       );
+      console.log(666);
+      console.log(start, current);
       //修改位数
       let timer = setInterval(() => {
         if (second != 0) {

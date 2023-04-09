@@ -72,7 +72,7 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
 
     @Override
     public List<String> getLogFileList() {
-        File folder = new File("../signlog/");
+        File folder = new File("/var/temp_website/signlog");
         try {
             if(!folder.exists()){
                 folder.mkdirs();

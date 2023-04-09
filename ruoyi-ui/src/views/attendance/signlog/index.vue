@@ -32,7 +32,7 @@
         </div>
       </el-dialog>
     </div>
-    <el-table :data="tmpRecord" id="table">
+    <el-table :data="loginRecord" id="table">
       <el-table-column
         prop="userName"
         label="用户名"
@@ -40,13 +40,13 @@
         min-width="130"
       ></el-table-column>
       <el-table-column
-        prop="signInTime"
+        prop="attStartTime"
         label="开始时间"
         align="center"
         min-width="270"
       ></el-table-column>
       <el-table-column
-        prop="signOutTime"
+        prop="attEndTime"
         label="结束时间"
         align="center"
         min-width="270"
@@ -58,11 +58,13 @@
         min-width="130"
       ></el-table-column>
     </el-table>
+    <!-- <Page></Page> -->
   </div>
 </template>
 
 <script>
 import { Log } from "@/api/attendance/signlog/index.js";
+import Page from "@/views/components/pages/index.vue";
 export default {
   name: "log",
   data() {
@@ -72,18 +74,29 @@ export default {
       tmpRecord: [],
       fileList: [],
       fileName: "",
-      filterDate: "",
+      filterDate: null,
+      currentPage: 1,
       downloadVisible: false,
     };
+  },
+  components: {
+    Page,
   },
   methods: {
     /**
      * 获取记录
      */
     weekLog() {
-      this.log.weekLog().then((res) => {
-        this.loginRecord = res.data;
-        this.tmpRecord = this.filterData(res.data);
+      let tmpObj = {
+        attStartTime: this.filterDate ? this.filterDate[0].getTime() : null,
+        attEndTime: this.filterDate ? this.filterDate[1].getTime() : null,
+        currentPage: 2,
+        pageCount: 15,
+      };
+
+      this.log.weekLog(tmpObj).then((res) => {
+        this.loginRecord = res.data.list;
+        // this.tmpRecord = this.filterData(res.data.list);
       });
     },
 
@@ -177,7 +190,7 @@ export default {
   },
   watch: {
     filterDate(newVal, oldVal) {
-      this.tmpRecord = this.filterByDate(newVal);
+      this.weekLog();
     },
   },
   created() {

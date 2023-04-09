@@ -42,6 +42,25 @@ class Log {
             responseType: 'blob'
         })
     }
+
+    /**
+     * 获取日志
+     * @param {Array} timeGap 起止时间
+     * @param {Number} pageCount 每页的最大记录数
+     * @param {Number} currentPage 当前页数 
+     */
+    weekLog({ attStartTime, attEndTime, currentPage, pageCount }) {
+        return request({
+            url: `/selab/attendance/log/week`,
+            method: 'get',
+            params: {
+                attStartTime,
+                attEndTime,
+                pageNum: currentPage,
+                pageSize: pageCount,
+            }
+        })
+    }
 }
 
 export {

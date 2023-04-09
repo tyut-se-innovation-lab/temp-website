@@ -144,7 +144,7 @@ public class GenerateLogServiceImpl implements IGenerateLogService {
                 }
             }
 
-            FileOutputStream outputStream = new FileOutputStream("../signlog/"+ getDate() +"签到表.xlsx");
+            FileOutputStream outputStream = new FileOutputStream("/var/temp_website/signlog/"+ getDate() +"签到表.xlsx");
             //FileOutputStream outputStream = new FileOutputStream("../selab-attendance/src/main/resources/signlog/"+ getDate() +"签到表.xlsx");
             workbook.write(outputStream);
             outputStream.close();

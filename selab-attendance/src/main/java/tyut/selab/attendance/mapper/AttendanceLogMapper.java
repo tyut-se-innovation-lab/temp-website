@@ -1,6 +1,7 @@
 package tyut.selab.attendance.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import tyut.selab.attendance.domain.po.Attendance;
 
 import java.util.Date;
@@ -17,7 +18,7 @@ public interface AttendanceLogMapper {
      * 查询本周日志
      * @return
      */
-    public List<Attendance> couleSignOut();
+    public List<Attendance> couleSignOut(@Param("startTime") Date startTime,@Param("endTime") Date endTime);
 
     /**
      * 统计本周日志

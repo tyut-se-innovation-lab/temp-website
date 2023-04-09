@@ -4,7 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import tyut.selab.attendance.domain.po.Attendance;
 import tyut.selab.attendance.domain.vo.AttendanceLog;
 import tyut.selab.attendance.mapper.AttendanceLogMapper;
@@ -15,8 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Author: Gulu
@@ -35,20 +40,33 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
 
     @Override
     public List<AttendanceLog> couleSignOut() {
-        List<Attendance> attendances = attendanceLogMapper.couleSignOut();
+        /*List<Attendance> attendances = attendanceLogMapper.couleSignOut();
         List<AttendanceLog> attendanceLogs = new ArrayList<>();
         if (attendances != null){
             for (Attendance attendance:attendances) {
                 attendanceLogs.add(attendance.change());
             }
         }
-        return attendanceLogs;
+        return attendanceLogs;*/
+        return null;
     }
 
     @Override
-    public PageInfo<Attendance> bookPageInfo(int pageNum, int pageSize) {
+    public PageInfo<Attendance> bookPageInfo(@Nullable Long attStartTime,@Nullable Long attEndTime, int pageNum, int pageSize) {
+        Date start = new Date();
+        Date end = new Date();
+        if (attStartTime != null && attEndTime != null){
+            start.setTime(attStartTime);
+            end.setTime(attEndTime);
+        }else {
+            start = null;
+            end = null;
+        }
         PageHelper.startPage(pageNum,pageSize);
-        List<Attendance> attendances = attendanceLogMapper.couleSignOut();
+        List<Attendance> attendances;
+        if (start != null){
+                attendances = attendanceLogMapper.couleSignOut(start,end);
+        }else attendances = attendanceLogMapper.couleSignOut(null,null);
         return new PageInfo<>(attendances);
     }
 

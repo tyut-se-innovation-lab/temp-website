@@ -2,6 +2,8 @@ package tyut.selab.attendance.controller;
 
 import com.ruoyi.common.core.domain.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.Nullable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import tyut.selab.attendance.service.Impl.AttendanceLogServiceImpl;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import static org.apache.commons.lang3.SystemUtils.getUserName;
 
@@ -27,8 +30,11 @@ public class AttendanceLogController {
     @PreAuthorize("@ss.hasPermi('attendance:log')")
     @GetMapping("/week")
     @ResponseBody
-    public AjaxResult getThisWeekLog(@RequestParam("pageNum") int pageNum,@RequestParam("pageSize") int pageSize){
-        return AjaxResult.success(attendanceLogService.bookPageInfo(pageNum,pageSize));
+    public AjaxResult getThisWeekLog(@Nullable @RequestParam(required = false,value = "attStartTime") Long attStartTime,
+                                     @Nullable @RequestParam(required = false,value = "attEndTime") Long attEndTime,
+                                     @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+                                     @RequestParam(value = "pageSize",defaultValue = "15") int pageSize){
+        return AjaxResult.success(attendanceLogService.bookPageInfo(attStartTime,attEndTime,pageNum,pageSize));
     }
 
     /**

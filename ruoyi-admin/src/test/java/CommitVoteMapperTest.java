@@ -32,6 +32,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -57,7 +59,7 @@ public class CommitVoteMapperTest {
     @Value("${spring.datasource.druid.master.password}")
     String password ;
 @Test
-public void commitVote(@Autowired ICommitVoteService service, @Autowired AttendanceMapper attendanceMapper, @Autowired AttendanceLogMapper attendanceLogMapper, @Autowired AttendanceLogServiceImpl attendanceLogService) throws IOException {
+public void commitVote(@Autowired ICommitVoteService service, @Autowired AttendanceMapper attendanceMapper, @Autowired AttendanceLogMapper attendanceLogMapper, @Autowired AttendanceLogServiceImpl attendanceLogService) throws IOException, ParseException {
     /*//添加投票结果测试
     VoteResult voteResult1 = new VoteResult();
     voteResult1.setVoteOptionId(758437L);
@@ -195,14 +197,6 @@ public void commitVote(@Autowired ICommitVoteService service, @Autowired Attenda
         System.out.println(file);
     }*/
 
-    PageInfo<Attendance> pageInfo = attendanceLogService.bookPageInfo(1, 3);
-    pageInfo.getList().forEach(System.out::println);
-
-    System.out.println("总数量"+pageInfo.getTotal());
-    System.out.println("当前页查询记录"+pageInfo.getList().size());
-    System.out.println("当前页码"+pageInfo.getPageNum());
-    System.out.println("每页显示数量"+pageInfo.getPageSize());
-    System.out.println("总页"+pageInfo.getPages());
 
     /*File folder = new File("../selab-attendance/src/main/resources/signlog/");
     List<String> fileLists = new ArrayList<>();

@@ -1,6 +1,7 @@
 package tyut.selab.attendance.service;
 
 import com.github.pagehelper.PageInfo;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.PathVariable;
 import tyut.selab.attendance.domain.po.Attendance;
 import tyut.selab.attendance.domain.vo.AttendanceLog;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,7 +35,7 @@ public interface IAttendanceLogService {
      * @param pageSize 每页的数据行数
      * @return
      */
-    PageInfo<Attendance> bookPageInfo(int pageNum,int pageSize);
+    PageInfo<Attendance> bookPageInfo(@Nullable Long attStartTime, @Nullable Long attEndTime, int pageNum, int pageSize);
 
     /**
      * 获取日志文件列表

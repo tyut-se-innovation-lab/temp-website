@@ -55,7 +55,7 @@ public class AttendanceLogController {
     @GetMapping("/{filename}")
     @ResponseBody
     public void getFileByName(HttpServletRequest request, HttpServletResponse response, @PathVariable("filename") String filename) throws IOException {
-        String filePath = "../signlog/"; // 您的文件路径
+        String filePath = "/var/temp_website/signlog/"; // 您的文件路径
         attendanceLogService.getFileByName(request, response, filePath, filename);
     }
 }

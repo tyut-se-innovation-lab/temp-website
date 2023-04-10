@@ -39,19 +39,6 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
     }
 
     @Override
-    public List<AttendanceLog> couleSignOut() {
-        /*List<Attendance> attendances = attendanceLogMapper.couleSignOut();
-        List<AttendanceLog> attendanceLogs = new ArrayList<>();
-        if (attendances != null){
-            for (Attendance attendance:attendances) {
-                attendanceLogs.add(attendance.change());
-            }
-        }
-        return attendanceLogs;*/
-        return null;
-    }
-
-    @Override
     public PageInfo<Attendance> bookPageInfo(@Nullable Long attStartTime,@Nullable Long attEndTime, int pageNum, int pageSize) {
         Date start = new Date();
         Date end = new Date();

@@ -24,12 +24,6 @@ public interface IAttendanceLogService {
     void statisticsLogs();
 
     /**
-     * 查看本周日志
-     * @return 日志信息
-     */
-    List<AttendanceLog> couleSignOut();
-
-    /**
      * 查看本周日志分页查询
      * @param pageNum 当前页数
      * @param pageSize 每页的数据行数

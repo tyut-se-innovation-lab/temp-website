@@ -20,6 +20,11 @@
 
     <!--  public void wasteRemoval();-->
     <delete id="wasteRemoval">
-        delete from selab_attendance_log where att_user not in (select user_name FROM sys_user WHERE dept_id = '105')
+        DELETE FROM selab_attendance_log
+        WHERE att_user NOT IN (
+            SELECT nick_name
+            FROM sys_user s JOIN sys_user_role u ON s.user_id = u.user_id
+            WHERE u.role_id = '105'
+        )
     </delete>
 </mapper>

@@ -6,9 +6,7 @@ import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 import tyut.selab.attendance.domain.po.Attendance;
-import tyut.selab.attendance.domain.vo.AttendanceLog;
 import tyut.selab.attendance.mapper.AttendanceLogMapper;
 import tyut.selab.attendance.service.IAttendanceLogService;
 
@@ -17,11 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @Author: Gulu

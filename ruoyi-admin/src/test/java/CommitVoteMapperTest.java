@@ -34,10 +34,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static com.ruoyi.common.utils.DateUtils.*;
 import static com.ruoyi.common.utils.SecurityUtils.getUserId;
@@ -82,7 +79,7 @@ public void commitVote(@Autowired ICommitVoteService service, @Autowired Attenda
     //System.out.println(attendanceMapper.signOut("gh", dateTime(YYYY_MM_DD_HH_MM_SS, getTime()), "1"));
 
 
-    attendanceLogService.statisticsLogs(); //对本周签到数据进行统计
+    /*attendanceLogService.statisticsLogs(); //对本周签到数据进行统计
 
     //生成签到日志Excel表格
     try {
@@ -189,7 +186,7 @@ public void commitVote(@Autowired ICommitVoteService service, @Autowired Attenda
         System.out.println("导出成功！");
     } catch (Exception e) {
         e.printStackTrace();
-    }
+    }*/
 
     /*File folder = new File("../selab-attendance/src/main/resources/signlog/");
     List<String> fileLists = new ArrayList<>();

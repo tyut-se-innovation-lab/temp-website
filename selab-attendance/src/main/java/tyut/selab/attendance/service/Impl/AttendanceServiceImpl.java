@@ -73,13 +73,21 @@ public class AttendanceServiceImpl implements IAttendanceService {
             if (date1 == date2){ //当前时间和签到时间是同一天
                 couldSignOut.setAttStartTime(attStartTime);
                 int minute = differentHoursByMillisecond(attEndTime, attStartTime);
+                cal2.get(Calendar.DAY_OF_WEEK);
                 int hour = cal2.get(Calendar.HOUR_OF_DAY); //签退时间小时数
                 int minutes = cal2.get(Calendar.MINUTE); //签退时间分钟数
-                if (hour <= 18 || (hour == 19 && minutes < 30)){ //晚上7点半到9点半不允许签退
-                    if (minute >= 60){
-                        couldSignOut.setCouldSignOut(true);
+                int week = cal2.get(Calendar.DAY_OF_WEEK) - 1; //签退时间星期数
+                if (week != 6 && week != 7){
+                    if (hour <= 18 || (hour == 19 && minutes < 30)){ //晚上7点半到9点半不允许签退
+                        if (minute >= 60){
+                            couldSignOut.setCouldSignOut(true);
+                        }
+                    } else if (hour >= 21) {
+                        if (minute >= 60){
+                            couldSignOut.setCouldSignOut(true);
+                        }
                     }
-                } else if (hour >= 21) {
+                }else {
                     if (minute >= 60){
                         couldSignOut.setCouldSignOut(true);
                     }

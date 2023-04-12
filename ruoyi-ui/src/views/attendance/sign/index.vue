@@ -57,13 +57,11 @@ export default {
     /**
      * 初始化
      */
-    init() {
-      let date1 = new Date();
-      date1.setHours(19);
-      date1.setMinutes(30);
-    },
+    init() {},
 
-    // 设置当天指定时间
+    /**
+     * 设置自定义时间
+     */
     setAssignTime(customTimes) {
       let date = new Date();
       date.setHours(customTimes.startTime[0]);
@@ -136,8 +134,6 @@ export default {
           (1000 * 60)) /
           1000
       );
-      console.log(666);
-      console.log(start, current);
       //修改位数
       let timer = setInterval(() => {
         if (second != 0) {

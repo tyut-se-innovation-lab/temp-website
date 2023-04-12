@@ -32,7 +32,7 @@
         </div>
       </el-dialog>
     </div>
-    <el-table :data="loginRecord" id="table">
+    <el-table :data="signLogShowData" id="table">
       <el-table-column
         prop="userName"
         label="用户名"
@@ -58,7 +58,7 @@
         min-width="130"
       ></el-table-column>
     </el-table>
-    <!-- <Page></Page> -->
+    <Page :pageData="pageData" @pageClick="pageClick" ref="child"></Page>
   </div>
 </template>
 
@@ -70,38 +70,81 @@ export default {
   data() {
     return {
       log: new Log(),
-      loginRecord: [],
-      tmpRecord: [],
+      signLog: {},
+      signLogShowData: [], //要展示的数据
       fileList: [],
       fileName: "",
       filterDate: null,
       currentPage: 1,
+      pageData: {
+        totalPages: 0,
+        currentPage: 0,
+        pagerCount: 0,
+      },
       downloadVisible: false,
     };
+  },
+  compute: {
+    pageData() {
+      return a;
+    },
   },
   components: {
     Page,
   },
   methods: {
     /**
-     * 获取记录
+     * 初始化
      */
-    weekLog() {
+    init() {
+      this.getFileList();
+      this.weekLog();
+    },
+
+    /**
+     * 获取记录
+     * @param {Number} currentPage 自定义参数:当前页数
+     * @param {Number} pageCount 自定义参数:每页最大展示条数
+     */
+    weekLog(currentPage, pageCount) {
       let tmpObj = {
         attStartTime: this.filterDate ? this.filterDate[0].getTime() : null,
         attEndTime: this.filterDate ? this.filterDate[1].getTime() : null,
-        currentPage: 2,
-        pageCount: 15,
+        currentPage: currentPage || this.currentPage,
+        pageCount: pageCount || 15,
       };
 
       this.log.weekLog(tmpObj).then((res) => {
-        this.loginRecord = res.data.list;
-        // this.tmpRecord = this.filterData(res.data.list);
+        this.signLog = res.data;
+        this.signLogShowData = res.data.list;
+
+        this.initPageData(res);
+
+        // console.log(this.$refs.child.init());
       });
     },
 
     /**
+     * 初始化pageData
+     */
+    initPageData(res) {
+      // let a = {};
+      // a.totalPages = res.data.pageNum;
+      // a.currentPage = this.currentPage;
+      // a.pagerCount = this.pagerCount ? this.pagerCount : 7;
+      // this.pageData = a;
+      // this.$set(this.pageData, "totalPages", res.data.pageNum);
+      // this.$set(this.pageData, "currentPage", this.currentPage);
+      // this.$set(this.pageData, "pagerCount", 7);
+      this.pageData.totalPages = 5;
+      this.pageData.currentPage = 2;
+      this.pageData.pagerCount = this.pagerCount ? this.pagerCount : 7;
+      console.log(this.pageData.totalPages);
+    },
+
+    /**
      * 过滤数据
+     *
      */
     filterData(data) {
       let tmpdata = data;
@@ -182,20 +225,33 @@ export default {
     getFile() {
       if (this.fileName !== "") {
         this.log.getFile(this.fileName).then((res) => {
-          console.log(res);
           this.downloadFile(res);
         });
       }
     },
+
+    /**
+     * 按钮按下
+     */
+    pageClick(index) {
+      this.currentPage = index;
+      console.log(index);
+    },
   },
   watch: {
     filterDate(newVal, oldVal) {
+      //更新数据
+      if (this.currentPage !== 1) {
+        this.currentPage = 1;
+      }
+      this.weekLog();
+    },
+    currentPage(newVal, oldVal) {
       this.weekLog();
     },
   },
   created() {
-    this.getFileList();
-    this.weekLog();
+    this.init();
   },
 };
 </script>

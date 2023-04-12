@@ -136,8 +136,6 @@ export default {
           (1000 * 60)) /
           1000
       );
-      console.log(666);
-      console.log(start, current);
       //修改位数
       let timer = setInterval(() => {
         if (second != 0) {

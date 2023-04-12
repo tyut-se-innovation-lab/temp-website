@@ -6,17 +6,6 @@ class Log {
     }
 
     /**
-     * 获取日志
-     * @returns axios请求
-     */
-    weekLog() {
-        return request({
-            url: '/selab/attendance/log/week',
-            method: 'get',
-        })
-    }
-
-    /**
      * 获取文件列表
      * @returns axios请求
      */

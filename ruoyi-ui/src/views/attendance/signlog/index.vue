@@ -64,6 +64,7 @@
 
 <script>
 import { Log } from "@/api/attendance/signlog/index.js";
+import { Download } from "@/api/extendsion/download/index.js";
 import Page from "@/views/components/pages/index.vue";
 export default {
   name: "log",
@@ -115,6 +116,7 @@ export default {
       };
 
       this.log.weekLog(tmpObj).then((res) => {
+        console.log(res);
         this.signLog = res.data;
         this.signLogShowData = res.data.list;
 
@@ -136,8 +138,8 @@ export default {
       // this.$set(this.pageData, "totalPages", res.data.pageNum);
       // this.$set(this.pageData, "currentPage", this.currentPage);
       // this.$set(this.pageData, "pagerCount", 7);
-      this.pageData.totalPages = 5;
-      this.pageData.currentPage = 2;
+      this.pageData.totalPages = res.data.pages;
+      this.pageData.currentPage = this.currentPage;
       this.pageData.pagerCount = this.pagerCount ? this.pagerCount : 7;
       console.log(this.pageData.totalPages);
     },
@@ -200,32 +202,16 @@ export default {
     },
 
     /**
-     * 下载
-     * @param {Blob} bolbFlow Blob流
-     */
-    downloadFile(blobFlow) {
-      const blob = new Blob(new Array(blobFlow), {
-        //type of excel
-        type: "application/vnd.ms-excel",
-      });
-      if (window.navigator.msSaveOrOpenBlob) {
-        navigator.msSaveBlob(blob, this.fileName);
-      } else {
-        let link = document.createElement("a");
-        link.href = window.URL.createObjectURL(blob);
-        link.download = this.fileName;
-        link.click();
-        window.URL.revokeObjectURL(link.href);
-      }
-    },
-
-    /**
      * 获取文件
      */
     getFile() {
       if (this.fileName !== "") {
         this.log.getFile(this.fileName).then((res) => {
-          this.downloadFile(res);
+          new Download().downloadBlob(
+            res,
+            "application/vnd.ms-excel",
+            this.fileName
+          );
         });
       }
     },

@@ -10,6 +10,7 @@
     <button
       v-for="item in pageArr"
       class="active"
+      :class="{ click: currentPage === item }"
       @click="pageNumClick(item)"
       :disabled="item === '...'"
     >
@@ -26,7 +27,7 @@
 </template>
 
 <script>
-import { Pagination } from "@/api/extends/pages/index.js";
+import { Pagination } from "@/api/extendsion/pages/index.js";
 export default {
   props: {
     pageData: {
@@ -43,7 +44,7 @@ export default {
       currentPage: 1,
       pageArr: [],
       data: null,
-      pagerCount: 0,
+      totalPages: 0,
     };
   },
   computed: {
@@ -60,7 +61,7 @@ export default {
      */
     init() {
       this.currentPage = this.pageData.currentPage;
-      this.pagerCount = this.pageData.pagerCount;
+      this.totalPages = this.pageData.totalPages;
       this.page = new Pagination(this.pageData);
       this.pageArr = this.page.initPagination();
     },
@@ -95,7 +96,7 @@ export default {
      * 下一页
      */
     nextPage() {
-      if (this.currentPage < this.pagerCount) {
+      if (this.currentPage < this.totalPages) {
         this.currentPage += 1;
       }
       this.pageButtonClick();
@@ -104,9 +105,9 @@ export default {
   watch: {
     pageData: {
       handler(newVal, oldVal) {
-        console.log(newVal, oldVal);
+        // console.log(newVal, oldVal);
         // setTimeout(() => {
-        console.log(this.pageData.totalPages);
+        // console.log(this.pageData.totalPages);
         this.init();
         // }, 3000);
       },
@@ -137,6 +138,14 @@ button {
   border: 1px solid black;
   border-radius: 8px;
   transition: all 0.5s;
+}
+
+.click {
+  background-color: rgb(51, 197, 255);
+}
+
+.active {
+  color: black;
 }
 
 .active:hover {

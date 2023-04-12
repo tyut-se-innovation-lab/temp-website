@@ -7,3 +7,7 @@ class Filter {
         }
     }
 }
+
+export {
+    Filter
+}

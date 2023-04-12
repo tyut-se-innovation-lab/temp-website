@@ -1,3 +1,5 @@
+//Page工具函数
+
 /**
  * @description 得到分页数组 indexArr，如[1,2,3,4,10],[1,3,4,5,10],[1,7,8,9,10]
  * @param {number} currentPage 当前页数,默认为第一页	

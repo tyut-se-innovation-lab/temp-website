@@ -10,14 +10,10 @@ class Pagination {
         if (pagerCount && pagerCount % 2 == 0) {
             pagerCount--;
         }
-        // this.root = root;
-        // this.pageSize = pageSize || 10;
         this.totalPages = totalPages;
         this.pagerCount = pagerCount;
         this.currentPage = currentPage;
-        // this.currentChange = currentChange;
 
-        console.log(currentPage, totalPages, pagerCount);
         this.initPagination();
     }
 
@@ -26,7 +22,6 @@ class Pagination {
      * @returns {Array} 按钮数组
      */
     initPagination() {
-
         this.indexArr = createPaginationIndexArr(this.currentPage, this.totalPages, this.pagerCount);
         return this.fixIndexArr(this.indexArr);
     }

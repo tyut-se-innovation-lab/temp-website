@@ -116,7 +116,7 @@ export default {
       };
 
       this.log.weekLog(tmpObj).then((res) => {
-        console.log(res);
+        // console.log(res);
         this.signLog = res.data;
         this.signLogShowData = res.data.list;
 
@@ -141,7 +141,7 @@ export default {
       this.pageData.totalPages = res.data.pages;
       this.pageData.currentPage = this.currentPage;
       this.pageData.pagerCount = this.pagerCount ? this.pagerCount : 7;
-      console.log(this.pageData.totalPages);
+      // console.log(this.pageData.totalPages);
     },
 
     /**
@@ -221,7 +221,6 @@ export default {
      */
     pageClick(index) {
       this.currentPage = index;
-      console.log(index);
     },
   },
   watch: {

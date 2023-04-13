@@ -61,11 +61,10 @@ const createPaginationIndexArr = (currentPage, totalPages, pagerCount) => {
             indexArr[pagerCount - 1] = totalPages;
         }
     }
-    console.log(indexArr);
     return indexArr;
 }
 
 
-module.exports = {
+export {
     createPaginationIndexArr
 }

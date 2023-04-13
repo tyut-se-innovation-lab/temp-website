@@ -1,7 +1,7 @@
 <template>
   <div class="management">
-    <div v-for="(val, key, i) of nameType" :key="i" class="box">
-      <p>{{ val }}:</p>
+    <div v-for="(val, key, i) of nameValue" :key="i" class="box">
+      <p>{{ key }}:</p>
       <el-input
         v-model="nameValue[key]"
         placeholder="请输入内容"
@@ -19,15 +19,6 @@ import Submit from "../vote_display/submit.vue";
 export default {
   data() {
     return {
-      nameType: {
-        votemanager: "投票管理员",
-        devleader: "开发组组长",
-        csleader: "网安组组长",
-        devmanager: "开发组管理员",
-        csmanager: "网安组管理员",
-        devmember: "开发组成员",
-        csmember: "网安组成员",
-      },
       nameValue: {},
       management: new Management(),
     };
@@ -39,6 +30,7 @@ export default {
     getManagData() {
       this.management.getManageValue().then((res) => {
         this.nameValue = res.data;
+        console.log(res.data);
       });
     },
     submitManagData() {

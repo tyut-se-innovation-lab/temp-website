@@ -48,6 +48,6 @@ class Pagination {
     }
 }
 
-module.exports = {
+export {
     Pagination
 }

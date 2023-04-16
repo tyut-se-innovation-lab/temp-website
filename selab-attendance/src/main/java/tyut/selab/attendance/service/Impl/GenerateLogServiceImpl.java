@@ -4,11 +4,9 @@ import com.ruoyi.common.utils.poi.ExcelUtil;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import tyut.selab.attendance.domain.po.Attendance;
 import tyut.selab.attendance.mapper.AttendanceLogMapper;
 import tyut.selab.attendance.mapper.GenerateLogMapper;
 import tyut.selab.attendance.service.IGenerateLogService;
@@ -17,7 +15,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.List;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 

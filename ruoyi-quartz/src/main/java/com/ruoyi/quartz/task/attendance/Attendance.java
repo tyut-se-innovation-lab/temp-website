@@ -28,4 +28,9 @@ public class Attendance {
         generateLogService.deleteThisWeekLog(); //删除本周签到日志记录
         generateLogMapper.deleteThisWeekLogStatistics(); //删除本周统计日志记录
     }
+
+    public void createFile(){
+        attendanceLogService.statisticsLogs(); //对本周签到数据进行统计
+        generateLogService.writeLogFileThisWeek(); //生成本周签到日志文件
+    }
 }

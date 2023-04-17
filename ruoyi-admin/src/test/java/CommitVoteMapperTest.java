@@ -86,7 +86,7 @@ public void commitVote(@Autowired ICommitVoteService service, @Autowired Attenda
 
         XSSFWorkbook workbook = new XSSFWorkbook();
 
-        org.apache.poi.ss.usermodel.Sheet sheet1 = workbook.createSheet("签到日志");
+        Sheet sheet1 = workbook.createSheet("签到日志");
 
         Row headerRow = sheet1.createRow(0);
         headerRow.setHeightInPoints(30);

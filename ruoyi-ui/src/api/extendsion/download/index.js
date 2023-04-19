@@ -26,3 +26,7 @@ class Download {
         }
     }
 }
+
+export {
+    Download
+}

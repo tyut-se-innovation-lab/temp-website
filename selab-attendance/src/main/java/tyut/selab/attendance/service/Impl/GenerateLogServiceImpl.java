@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import tyut.selab.attendance.mapper.AttendanceLogMapper;
 import tyut.selab.attendance.mapper.GenerateLogMapper;
 import tyut.selab.attendance.service.IGenerateLogService;
+
+import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -141,8 +143,12 @@ public class GenerateLogServiceImpl implements IGenerateLogService {
                 }
             }
 
-            FileOutputStream outputStream = new FileOutputStream("/var/temp_website/signlog/"+ getDate() +"签到表.xlsx");
-            //FileOutputStream outputStream = new FileOutputStream("../selab-attendance/src/main/resources/signlog/"+ getDate() +"签到表.xlsx");
+            File file = new File("/var/temp_website/signlog/"+ getDate() +"签到表.xlsx");
+            //File file = new File("./selab-attendance/src/main/resources/signlog/"+ getDate() +"签到表.xlsx");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileOutputStream outputStream = new FileOutputStream(file);
             workbook.write(outputStream);
             outputStream.close();
             System.out.println("导出成功！");

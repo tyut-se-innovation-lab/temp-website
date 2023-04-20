@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import tyut.selab.vote.tools.VoteKeyTool;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -19,6 +20,9 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
+import static tyut.selab.vote.tools.VoteKeyTool.privateKey;
+import static tyut.selab.vote.tools.VoteKeyTool.publicKey;
+
 /**
  * RSA算法工具类
  * @Author: Gulu
@@ -26,9 +30,6 @@ import javax.crypto.NoSuchPaddingException;
  */
 
 public class RSATool {
-    static String publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7OmOXY83/PO61/pXrUDKXF1czJ3hXLK28pqGJosRo748eRGPZlJNegEP7l2HNeapxBl3i5zS/Iv8Ig0/19H4wMp+vh7VoIK1MjpaKOPSDRuk6XshilvO0UhI9Q8FLgFLrOMfBmDBVGVc25zmTh60x/9P7K2yIJ0wLZO7BtEIkTQIDAQAB";
-    static String privateKey = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBALs6Y5djzf887rX+letQMpcXVzMneFcsrbymoYmixGjvjx5EY9mUk16AQ/uXYc15qnEGXeLnNL8i/wiDT/X0fjAyn6+HtWggrUyOloo49ING6TpeyGKW87RSEj1DwUuAUus4x8GYMFUZVzbnOZOHrTH/0/srbIgnTAtk7sG0QiRNAgMBAAECgYA67Mt/UAf7NqAiYzen0Zu6dbwZ+2gid4tOflsEyFdsd0jhy8BpMBuZeGDtA93iH1KHM+vEh+PP7CG7+ifmTsaPts5k6fq7P1M4sZzxkEnOjs+nOy30QQ0a956OYo9dDh41x6TTaDa8JoW94L6Cqh6inV9YZOoF/H8/Lg8v5xViuQJBAOTGTa+q8qpOEVRm2N1vY+kOE2lsKwfEO4DqT3QladPAn1yrAryAaWaZ1+/BZu/w0ZcJ0eFsY9Gvfr8FT1Pc0ZsCQQDRglspcKPbH3XywAYv9qC2OTTGR/GSGQHBuNIrSJSH0VLDLrRR/fW2CuNqmAeMhkcwZGofpbNPBKLsR9lp4xQ3AkEAu2tiFXoc1zyhod2n6LDqzvEDIijFj9VJUjGi6eoEqr9xTv+ifD9PGgkLCJYO+J73dZ9L3DtqA0ycr21wMaoD5QJAF/NTAJXD5ZTfIvUYv/rtvGclxVUMJKt/K+o4/IG7mRsw3udD7eueX0U3YkQm+MWQ9dNE3oFO0kWxall8XUJ8WQJBAMqUNdKJVlbh9Pt238H00D0AeodcnigAWY6+iPTXkUSKiCqigHFiIjarXAH3kjPMxtHihR3wo9ASKVnA/f/Cw4Q=";
-
     public static final String KEY_ALGORITHM = "RSA";
     public static final String SIGNATURE_ALGORITHM = "MD5withRSA";
 

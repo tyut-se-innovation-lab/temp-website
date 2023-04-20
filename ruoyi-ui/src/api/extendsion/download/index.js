@@ -7,7 +7,7 @@ class Download {
 
     /**
      * 通过Blob的形式下载
-     * @param {String} filetype 文件类型 
+     * @param {String} filetype 文件类型
      * @param {String} data Blob字符串
      * @param {String} fileName 文件名称
      */

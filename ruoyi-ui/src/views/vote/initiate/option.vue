@@ -3,6 +3,7 @@
   <div>
     <el-container>
       <el-header>{{headers.vote_name}}</el-header>
+      <hr>
       <el-main>
         <div class="context">
           <!-- 标题 -->
@@ -28,6 +29,7 @@ import deadlineVue from "./option_modules/deadline.vue"
 import contentVue from "./option_modules/content.vue";
 import optionType from "./option_type.vue";
 import {getInitiate} from "../../../api/vote/initiate/initiate";
+import tree from "element-ui/packages/tree";
 export default {
     name:'voteOption',
     components:{
@@ -71,14 +73,35 @@ export default {
         this.data.voteQues =[]
         this.data.voteQues =[...val.tempSingle,...val.tempMultiple,...val.tempFill,]
       },
+       depthMeasurement (data){
+        if(data instanceof Array){
+          for (let i = 0; i < data.length; i++) {
+            if(data[i].options instanceof Array){
+              for (let j = 0; j < data[i].options.length; j++) {
+                if (data[i].options[j].content === ""){
+                  return true
+                }
+              }
+            }
+          }
+        }
+      },
       // 发布投票
       async sendVote() {
-         console.log(this.data)
-         let info = await getInitiate(this.data);
-         if(info.msg === "OK"){
-           this.$modal.alertSuccess("提交成功啦");
-           this.$router.go(0)
-         }
+        if(this.depthMeasurement(this.data.voteQues)){
+          this.$modal.alertWarning("题目或者选项不能为空")
+        }else if(this.data.title === ""){
+          this.$modal.alertWarning("标题不能为空")
+        }else if(this.data.deadline === ""){
+          this.$modal.alertWarning("截止日期不能为空")
+        }
+        else{
+          let info = await getInitiate(this.data);
+          if(info.msg === "OK"){
+            this.$modal.alertSuccess("提交成功啦");
+            this.$router.go(0)
+          }
+        }
        },
 
     },
@@ -91,24 +114,19 @@ export default {
   padding: 0;
 }
 .el-header, .el-footer {
-  background-color: #B3C0D1;
+  margin: 20px;
   color: #333;
-  text-align: center;
-  line-height: 12vh;
-  height: 12vh !important;
+  text-align: left;
+  line-height: 30px;
+  height: 30px !important;
   font-size: x-large;
   font-weight:bolder;
   letter-spacing: 10px;
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-
-.el-main {
-  background-color: white;
-}
 .context{
-  width: 1000px;
-  background: #F2F6FC;
+  width: 90%;
   margin: 0 auto;
   padding: 0;
   height: auto;

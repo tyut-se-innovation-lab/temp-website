@@ -9,9 +9,9 @@
 
 <!--按钮组群-->
     <div class="buttonGroups">
-      <el-button type="primary" @click="addSingle">添加单选题</el-button>
-      <el-button type="primary" @click="addMultiple">添加多选题</el-button>
-      <el-button type="primary" @click="addFill">添加文本框</el-button>
+      <el-button  @click="addSingle">添加单项选择</el-button>
+      <el-button  @click="addMultiple">添加多项选择</el-button>
+      <el-button  @click="addFill">添加文本输入</el-button>
     </div>
   </div>
 </template>
@@ -106,7 +106,7 @@ export default {
 
 <style  scoped>
 .buttonGroups{
-  width: 500px;
+  width: 97%;
   height: 50px;
   margin: 0 auto;
 }

@@ -42,7 +42,6 @@ export default {
   padding-right: 10px;
   padding-bottom: 10px;
   border: 2px solid #5550;
-  background: #f1f7ff;
   margin-bottom: 10px;
 }
 span{

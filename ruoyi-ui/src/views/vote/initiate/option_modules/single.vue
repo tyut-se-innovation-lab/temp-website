@@ -1,7 +1,7 @@
 <!-- 单选 -->
 <template>
   <div>
-    <span>单选题</span>
+    <span>单项选择</span>
     <div class="input" v-for="(item, index) in option" :key="index">
       <strong>{{ index + 1 }} 、</strong>
       <el-input v-model="item.queContent" placeholder="请输入题目" />
@@ -13,18 +13,18 @@
       >
         <el-radio :label="option_index" >
           <el-input v-model="options.content" placeholder="请输入选项内容" />
-          <el-button type="primary" @click="option_delete(index, option_index)"
+          <el-button type="danger" @click="option_delete(index, option_index)"
             >删除选项</el-button
           >
         </el-radio>
       </div>
-      <el-button class="buttonAdd" type="primary" @click="addOption(index)"
+      <el-button class="buttonAdd"   @click="addOption(index)"
         >添加选项</el-button
       >
 
       <!-- 单选的的按钮 -->
       <div class="button">
-        <el-button type="primary" @click="single_delete(index)">删除</el-button>
+        <el-button  type="danger" @click="single_delete(index)">删除</el-button>
       </div>
  </div>
   </div>
@@ -125,7 +125,6 @@ span {
   padding-right: 10px;
   padding-bottom: 10px;
   border: 2px solid #5550;
-  background: #f1f7ff;
   margin-bottom: 10px;
 }
 .input >>> .el-button {

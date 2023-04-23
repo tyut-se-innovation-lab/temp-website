@@ -48,17 +48,13 @@ export default {
 }
 .input {
   width: 80%;
-  margin-left: 10px;
-  margin-right: 20px;
-  margin-top: 10px;
   display: inline-block;
   padding-left: 40px;
   padding-top: 10px;
   padding-right: 10px;
   padding-bottom: 10px;
   border: 2px solid #5550;
-  background: #f1f7ff;
-  margin-bottom: 10px;
+  margin: 10px 20px;
 }
 span {
   margin-left: 10px;

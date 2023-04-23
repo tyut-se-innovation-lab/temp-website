@@ -1,18 +1,18 @@
 <!--文本框-->                                                                                                                                                               !&#45;&#45; 文本框 &ndash;&gt;-->
 <template>
   <div class="title">
-    <span>文本框</span>
+    <span>文本输入</span>
     <br />
     <div class="input" v-for="(items,index) in fill" :key="index">
       <strong>{{ index + 1 + Msg }} 、</strong>
       <el-input
         type="input"
         placeholder="请输入问题"
-        v-model="items.question"
+        v-model="items.queContent"
       /><br /><br />
       <el-input type="textarea" placeholder="请输入内容" disabled v-model="items.content" />
       <div class="button">
-        <el-button type="primary" @click="fill_delete(index)">删除</el-button>
+        <el-button type="danger" @click="fill_delete(index)">删除</el-button>
       </div>
     </div>
   </div>
@@ -31,10 +31,10 @@ export default {
       // 内容
       fill: [
         {
-          question: "",
+          queContent: "",
           id: this.Msg, //题号
           type: "T", // 类型 ----文本框
-          content: "", //文本内容
+          options: [], //文本内容
         },
       ],
     };
@@ -48,10 +48,10 @@ export default {
       let index = this.fill.length - 1;
       this.fill.push(
         {
-          question: "",
-          id: this.Msg + index, //题号
-          type: this.fillType, // 类型 ----文本框
-          content: "", //文本内容
+          queContent: "",
+          id: this.Msg, //题号
+          type: "T", // 类型 ----文本框
+          options: [], //文本内容
         },
       )
     }
@@ -89,7 +89,6 @@ export default {
   padding-right: 10px;
   padding-bottom: 10px;
   border: 2px solid #5550;
-  background: #f1f7ff;
   margin-bottom: 10px;
 }
 .input >>> .el-input {

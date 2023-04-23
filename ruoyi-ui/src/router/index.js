@@ -102,8 +102,6 @@ export const constantRoutes = [
         component: () => import('@/views/vote/join/index'),
         meta: { title: '参与投票' },
         children: [
-
-
           {
             name: "success",
             path: "success",
@@ -117,28 +115,33 @@ export const constantRoutes = [
         component: () => import('@/views/vote/join/details/index'),
         meta: { title: '参与投票细节' },
       },
-
-
-    ]
-  },
-  {
-    path: '/vote/history',
-    component: () => import('@/views/vote/history/brief/index'),
-    children: [
       {
-        path: "details",
-        component: () => import('@/views/vote/history/details/index')
-      }
+        path: '/vote/history',
+        component: () => import('@/views/vote/history/brief/index'),
+        children: [
+          {
+            path: "details",
+            component: () => import('@/views/vote/history/details/index')
+          }
+        ]
+      },
+      {
+        path: '/vote/management',
+        component: () => import('@/views/vote/management/index'),
+      },
+      {
+        path: '/vote/initiate',
+        component: () => import('../views/vote/initiate/index'),
+      },
+      {
+        name: "historyAllData",
+        path: "historyAllData",
+        component: () => import('@/views/vote/mine/historyAllData.vue'),
+        meta: { title: '我的投票细节' },
+      },
     ]
   },
-  {
-    path: '/vote/management',
-    component: () => import('@/views/vote/management/index'),
-  },
-  {
-    path: '/vote/initiate',
-    component: () => import('../views/vote/initiate/index'),
-  }
+
 ]
 
 // 动态路由，基于用户权限动态去加载

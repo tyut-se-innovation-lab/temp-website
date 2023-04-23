@@ -40,6 +40,7 @@ public class WeightControlService implements IWeightControlService {
             });
         });
         weightMapper.writeWeight(weightToDB);
+        weightMapper.modifyLastUse(maxWeightId+1);
     }
 
     @Override

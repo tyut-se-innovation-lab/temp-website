@@ -16,4 +16,6 @@ public interface WeightMapper {
 
     Long getMaxWeightId();
 
+    void modifyLastUse(Long weightId);
+
 }

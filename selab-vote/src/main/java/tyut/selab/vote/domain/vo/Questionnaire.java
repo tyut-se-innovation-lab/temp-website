@@ -34,6 +34,10 @@ public class Questionnaire {
     //是否参与
     private boolean isJoin;
 
+    public boolean isEmpty(){
+        return voteQues.isEmpty();
+    }
+
     @JsonSetter("context")
     public void setContent(String content) {
         this.content = content;

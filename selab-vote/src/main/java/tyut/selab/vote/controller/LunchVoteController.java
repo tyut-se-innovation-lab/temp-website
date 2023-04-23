@@ -26,6 +26,9 @@ public class LunchVoteController {
     @PreAuthorize("@ss.hasPermi('vote:initiate')")
     @PostMapping("/initiate")
     public AjaxResult lunchVote(@RequestBody Questionnaire questionnaire){
+        if(questionnaire.isEmpty()){
+            return new AjaxResult(500,"投票内容为空，请填写后重新上传");
+        }
         launchVoteService.launchVote(questionnaire,getUserId());
         return new AjaxResult(200,"投票正在上传,请稍后(⌓‿⌓)");
     }

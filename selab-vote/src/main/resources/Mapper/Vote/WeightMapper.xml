@@ -36,4 +36,9 @@
     <select id="getMaxWeightId" resultType="java.lang.Long">
         select weight_id from selab_vote_weight order by weight_id desc limit 1
     </select>
+
+<!--    void modifyLastUse();-->
+    <update id="modifyLastUse">
+        update selab_vote_last_use set weight_id = #{weightId} where id = 1
+    </update>
 </mapper>

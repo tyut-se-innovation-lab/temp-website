@@ -5,8 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import tyut.selab.vote.domain.po.PoVoteOption;
 import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteResult;
-import tyut.selab.vote.domain.po.WeightPo;
-import tyut.selab.vote.domain.vo.Weight;
+
 
 import java.util.Date;
 import java.util.List;
@@ -16,19 +15,6 @@ import java.util.List;
  * @author Big_bai on 2022/11/22
  */
 public interface FindInfoDBMapper {
-
-    /**
-     * 根据id查询权重
-     * @param id
-     * @return
-     */
-    WeightPo getWeightById(Long id);
-
-    /**
-     * 获取上一次使用的投票id
-     * @return
-     */
-    Long getLastUseWeightId();
 
     /**
      * 根据id查询投票信息
@@ -143,7 +129,7 @@ public interface FindInfoDBMapper {
      * @param voteId
      * @return
      */
-    int isJoin(@Param("userId")String userId,@Param("voteId")Long voteId);
+    List<VoteResult> isJoin(@Param("userId")String userId, @Param("voteId")Long voteId);
 
     /**
      * 根据voteId查询投票开始时间

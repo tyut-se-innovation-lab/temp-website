@@ -211,6 +211,7 @@
         <module>ruoyi-common</module>
         <module>selab-vote</module>
         <module>selab-schedule</module>
+        <module>selab-attendance</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -10,11 +10,10 @@ import tyut.selab.vote.domain.vo.VoteOption;
 import tyut.selab.vote.domain.vo.VoteQue;
 import tyut.selab.vote.mapper.FindInfoDBMapper;
 import tyut.selab.vote.service.IDisplayVoteResultService;
-import tyut.selab.vote.tools.AnonymousControl;
+import tyut.selab.vote.tools.impl.RSATool;
 import tyut.selab.vote.tools.impl.VoPoConverterTool;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 @Service
 public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
@@ -50,6 +49,11 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
         for (VoteQue voteQue : que) {
             List<PoVoteOption> voteOptionByParentId = findInfoDBMapper.getVoteOptionByParentId(voteQue.getId());
             List<VoteResult> resByUserIdAndOptionId = findInfoDBMapper.getResByUserIdAndOptionId(userId, voteOptionByParentId);
+            for (VoteResult voteResult : resByUserIdAndOptionId) {
+                if (!voteResult.getUserId().equals(userId)){
+                    resByUserIdAndOptionId.remove(voteResult);
+                }
+            }
             List<VoteOption> options = tool.options(voteOptionByParentId,resByUserIdAndOptionId);
             voteOptionByParentId.forEach(System.out::println);
             voteQue.setOptions(options);
@@ -96,6 +100,11 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
                 poVoteOption.setPercentage(getPercentage(getVotesByVoteId(poVoteOption.getId()),getTotalVotes(voteOption)));
             }
             List<VoteResult> resByUserIdAndOptionId = findInfoDBMapper.getResByUserIdAndOptionId(userId, voteOption);
+            for (int i=0;i<resByUserIdAndOptionId.size();i++){
+                if(!resByUserIdAndOptionId.get(i).getUserIds().toString().equals(userId)){
+                    resByUserIdAndOptionId.remove(i);
+                }
+            }
             List<VoteOption> options = tool.options(voteOption,resByUserIdAndOptionId);
             voteQue.setOptions(options);
         }
@@ -159,6 +168,7 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
         Long totalVote = 0L;
         List<VoteResult> user = findInfoDBMapper.displayVoteUser(optionId);
         for (VoteResult userId : user) {
+            userId.setUserId(userId.getUserIds().toString());
             totalVote+=weight.getWeightByUserId(userId.getUserId());
         }
         return totalVote;
@@ -173,6 +183,7 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
         Long num = 0L;
         List<VoteResult> users = findInfoDBMapper.displayVoteUsers(optionId);
         for (VoteResult user : users) {
+            user.setUserId(user.getUserIds().toString());
             num+= weight.getWeightByUserId(user.getUserId());
         }
         return num;
@@ -204,11 +215,20 @@ public class DisplayVoteResultServiceImpl implements IDisplayVoteResultService {
      */
     @Override
     public Boolean isJoin(String userId, Long voteId) {
-        try {
-            //Id = AnonymousControl.encrypt(voteId);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return findInfoDBMapper.isJoin(userId,voteId) != 0 ? true:false;
+//        try {
+//            //Id = AnonymousControl.encrypt(voteId);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        List<VoteResult> join = findInfoDBMapper.isJoin(userId, voteId);
+        for (VoteResult user : join) {
+            if (user.getUserIds().toString().equals(userId)){
+                return true;
+            }
+        }return false;
+    }
+    public String crackUserId(String userId){
+        String user = RSATool.decrypt(userId);
+        return user;
     }
 }

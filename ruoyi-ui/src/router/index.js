@@ -70,7 +70,7 @@ export const constantRoutes = [
         path: 'index',
         component: () => import('@/views/index'),
         name: 'Index',
-        meta: { title: '首页', icon: 'dashboard', affix: true }
+        meta: {title: '首页', icon: 'dashboard', affix: true}
       }
     ]
   },
@@ -84,7 +84,7 @@ export const constantRoutes = [
         path: 'profile',
         component: () => import('@/views/system/user/profile/index'),
         name: 'Profile',
-        meta: { title: '个人中心', icon: 'user' }
+        meta: {title: '个人中心', icon: 'user'}
       }
     ]
   },
@@ -93,37 +93,50 @@ export const constantRoutes = [
     component: Layout,
     hidden: true,
     // permissions: ['vote'],
-    meta: { title: '投票系统' },
+    meta: {title: '投票系统'},
     redirect: 'noRedirect',
     children: [
       {
         name: "join",
         path: "join",
         component: () => import('@/views/vote/join/index'),
-        meta: { title: '参与投票' },
+        meta: {title: '参与投票'},
+
         children: [
           {
             name: "success",
             path: "success",
             component: () => import('@/views/vote/join/success/index')
-          }
+          },
         ]
       },
       {
-        name: "joindetails",
-        path: "joindetails",
-        component: () => import('@/views/vote/join/details/index'),
-        meta: { title: '参与投票细节' },
+        name: "history",
+        path: "history",
+        component: () => import('@/views/vote/history/index'),
+        meta: {title: '查看历史投票'},
       },
+      {
+        name: "historydetails",
+        path: "historydetails",
+        component: () => import('@/views/vote/history/details/index'),
+        meta: {title: '历史投票细节'},
+      },
+
       {
         path: '/vote/history',
         component: () => import('@/views/vote/history/brief/index'),
         children: [
           {
-            path: "details",
-            component: () => import('@/views/vote/history/details/index')
-          }
-        ]
+            path: '/vote/history',
+            component: () => import('@/views/vote/history/brief/index'),
+            children: [
+              {
+                path: "details",
+                component: () => import('@/views/vote/history/details/index')
+              }
+            ]
+          }]
       },
       {
         path: '/vote/management',
@@ -137,10 +150,10 @@ export const constantRoutes = [
         name: "historyAllData",
         path: "historyAllData",
         component: () => import('@/views/vote/mine/historyAllData.vue'),
-        meta: { title: '我的投票细节' },
-      },
+        meta: {title: '我的投票细节'},
+      }
     ]
-  },
+  }
 
 ]
 
@@ -156,7 +169,7 @@ export const dynamicRoutes = [
         path: 'role/:userId(\\d+)',
         component: () => import('@/views/system/user/authRole'),
         name: 'AuthRole',
-        meta: { title: '分配角色', activeMenu: '/system/user' }
+        meta: {title: '分配角色', activeMenu: '/system/user'}
       }
     ]
   },
@@ -170,7 +183,7 @@ export const dynamicRoutes = [
         path: 'user/:roleId(\\d+)',
         component: () => import('@/views/system/role/authUser'),
         name: 'AuthUser',
-        meta: { title: '分配用户', activeMenu: '/system/role' }
+        meta: {title: '分配用户', activeMenu: '/system/role'}
       }
     ]
   },
@@ -184,7 +197,7 @@ export const dynamicRoutes = [
         path: 'index/:dictId(\\d+)',
         component: () => import('@/views/system/dict/data'),
         name: 'Data',
-        meta: { title: '字典数据', activeMenu: '/system/dict' }
+        meta: {title: '字典数据', activeMenu: '/system/dict'}
       }
     ]
   },
@@ -198,7 +211,7 @@ export const dynamicRoutes = [
         path: 'index',
         component: () => import('@/views/monitor/job/log'),
         name: 'JobLog',
-        meta: { title: '调度日志', activeMenu: '/monitor/job' }
+        meta: {title: '调度日志', activeMenu: '/monitor/job'}
       }
     ]
   },
@@ -212,7 +225,7 @@ export const dynamicRoutes = [
         path: 'index/:tableId(\\d+)',
         component: () => import('@/views/tool/gen/editTable'),
         name: 'GenEdit',
-        meta: { title: '修改生成配置', activeMenu: '/tool/gen' }
+        meta: {title: '修改生成配置', activeMenu: '/tool/gen'}
       }
     ]
   }
@@ -226,6 +239,6 @@ Router.prototype.push = function push(location) {
 
 export default new Router({
   mode: 'history', // 去掉url中的#
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({y: 0}),
   routes: constantRoutes
 })

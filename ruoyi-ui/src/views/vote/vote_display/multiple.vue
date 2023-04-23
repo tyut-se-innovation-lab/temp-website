@@ -1,11 +1,11 @@
 <template>
   <div class="multiple">
-    <h3>{{ id + 1 }}.{{ question }}</h3>
+    <h3>{{ index + 1 }}.{{ question }}</h3>
     <div class="checkbox">
       <el-checkbox
         v-for="(item, index) in options"
         :key="index"
-        v-model="options[index].select"
+        v-model="options[index].isSelect"
         border
         >{{ item.content }}</el-checkbox
       >
@@ -16,7 +16,7 @@
 <script>
 export default {
   name: "multiple",
-  props: ["question", "options", "id"],
+  props: ["question", "options", "index"],
   data() {
     return {
       options_data: [],
@@ -25,13 +25,13 @@ export default {
   watch: {
     options_data: {
       handler(newValue, oldValue) {
-        this.$emit("sendMultipleAnswer", newValue, this.id);
+        this.$emit("sendMultipleAnswer", newValue, this.index);
       },
       deep: true,
     },
   },
   mounted() {
-    this.options_data = this.answer;
+    this.options_data = this.options;
   },
 };
 </script>

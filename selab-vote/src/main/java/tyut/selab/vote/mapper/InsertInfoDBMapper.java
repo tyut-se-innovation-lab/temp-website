@@ -6,8 +6,6 @@ import tyut.selab.vote.domain.po.PoVoteOption;
 import tyut.selab.vote.domain.po.VoteInfo;
 import org.apache.ibatis.annotations.Param;
 import tyut.selab.vote.domain.po.VoteResult;
-import tyut.selab.vote.domain.po.WeightPo;
-import tyut.selab.vote.domain.vo.Weight;
 
 import java.util.List;
 
@@ -16,7 +14,6 @@ import java.util.List;
  * @author Big_bai on 2022/11/22
  */
 public interface InsertInfoDBMapper {
-    void writeWightInfoToDB(WeightPo w);
 
 
     void writeVoteInfoToDB(VoteInfo voteInfo);

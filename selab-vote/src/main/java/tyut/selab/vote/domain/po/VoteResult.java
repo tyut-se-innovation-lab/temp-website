@@ -1,15 +1,38 @@
 package tyut.selab.vote.domain.po;
 
+import tyut.selab.vote.enums.User;
+
 import java.util.Date;
 
 public class VoteResult {
     private Long id;
     private Long voteOptionId;
     private String userId;
+    private User userIds;
     private String content;
     private int isEnable;
     private Date createTime;
 
+    @Override
+    public String toString() {
+        return "VoteResult{" +
+                "id=" + id +
+                ", voteOptionId=" + voteOptionId +
+                ", userId='" + userId + '\'' +
+                ", userIds=" + userIds +
+                ", content='" + content + '\'' +
+                ", isEnable=" + isEnable +
+                ", createTime=" + createTime +
+                '}';
+    }
+
+    public User getUserIds() {
+        return userIds;
+    }
+
+    public void setUserIds(User userIds) {
+        this.userIds = userIds;
+    }
 
     public Long getId() {
         return id;
@@ -60,15 +83,4 @@ public class VoteResult {
     }
 
 
-    @Override
-    public String toString() {
-        return "VoteResult{" +
-                "id=" + id +
-                ", voteOptionId=" + voteOptionId +
-                ", userId='" + userId + '\'' +
-                ", content='" + content + '\'' +
-                ", isEnable=" + isEnable +
-                ", createTime=" + createTime +
-                '}';
-    }
 }

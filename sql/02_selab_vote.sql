@@ -74,24 +74,16 @@ create table selab_vote_result
 drop table if exists selab_vote_weight;
 create table selab_vote_weight
 (
-    id              bigint          not null    auto_increment comment '数据唯一标识',
-    voteManager     int             default 1   comment '投票管理员',
-    DEVManager      int             default 1   comment '开发组',
-    CSManager       int             default 1   comment '网安组',
-    DEVLeader       int             default 1   comment '开发组管理员',
-    CSLeader        int             default 1   comment '开发组管理员',
-    DEVMember       int             default 1   comment '开发组管理员',
-    CSMember        int             default 1   comment '开发组管理员',
-    primary key(id)
+    weight_id bigint not null  comment '权重编号',
+    role_id bigint not null comment '身份编号',
+    weight int default 1 comment '权重值'
 );
-INSERT INTO selab_vote_weight (voteManager,DEVManager,CSManager,DEVLeader,CSLeader,DEVMember,CSMember) VALUE (1,1,1,1,1,1,1);
 -- ----------------------------
 -- 5、最后一次使用的权重id
 -- ----------------------------
 drop table if exists selab_vote_last_use;
 create table selab_vote_last_use
 (
-    weight_id int default 1 ,
+    weight_id bigint default 1 ,
     id  bigint default 1
 );
-    INSERT INTO selab_vote_last_use (weight_id, id)  VALUE (1,1);

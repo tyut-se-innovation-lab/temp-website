@@ -13,7 +13,7 @@ public class VoteOption {
     //内容
     private String content;
     //用户是否选择   上传时默认为0
-    private int isSelect;
+    private Boolean isSelect;
     //类型
     private String type;
     //文本框的值（有的话）

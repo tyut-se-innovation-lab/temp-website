@@ -58,7 +58,7 @@ public interface IVoPoConverterTool {
      * @return
      */
 //    Questionnaire options(List<PoVoteOption> voteOptions, List<VoteResult> voteResults);
-    int isSelect(PoVoteOption option,List<VoteResult>voteResults);
+    Boolean isSelect(PoVoteOption option,List<VoteResult>voteResults);
     /**
      * 文本框的显示
      * @param option 选项

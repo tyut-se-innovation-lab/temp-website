@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 获取随即课表
+// 获取随机课表
 export function listAttange(data) {
   return request({
     url: '/selab/schedule/arrange',

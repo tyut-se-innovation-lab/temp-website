@@ -13,7 +13,7 @@
 </template>
 
 <script>
-// import { getVoteDetails } from "@/api/vote/join/detail.js";
+import HistoryDetails from "@/api/vote/history/details.js";
 import Title from "@/views/vote/vote_display/title.vue";
 import Content from "@/views/vote/vote_display/content.vue";
 import Deadline from "@/views/vote/vote_display/deadline.vue";
@@ -24,6 +24,7 @@ export default {
   name: "",
   data() {
     return {
+      historydetails: new HistoryDetails(),
       vote_data: {
         title: "一些问题", //标题
         content: "开始尝试投票", //简介
@@ -110,28 +111,44 @@ export default {
     Progress,
   },
   methods: {
-    //获取当前投票详细信息
-    // getDetails() {
-    //   getVoteDetails(this.$route.query.id).then((response) => {
-    //     this.vote_data = response;
-    //   });
+    /**
+     * 初始化
+     */
+    init() {
+      this.getDetails();
+    },
+
+    /**
+     * 获取当前投票详细数据
+     */
+    getDetails() {
+      let id = this.$route.query.id;
+      console.log(id);
+      this.historydetails.getDetails(id).then((res) => {
+        console.log(res.data);
+        this.vote_data = this.historydetails.fixDateData(res.data);
+        this.filterVoteQues();
+      });
+    },
+
+    // sendSingleAnswer(select, id) {
+    //   //清空
+    //   for (let i = 0; i < this.vote_data.options[id].answer.length; i++) {
+    //     console.log(this.vote_data.options[id].answer.length);
+    //     this.vote_data.options[id].answer[i].select = "0";
+    //   }
+    //   //赋值选项
+    //   this.vote_data.options[id].answer[select].select = "1";
     // },
-    sendSingleAnswer(select, id) {
-      //清空
-      for (let i = 0; i < this.vote_data.options[id].answer.length; i++) {
-        console.log(this.vote_data.options[id].answer.length);
-        this.vote_data.options[id].answer[i].select = "0";
-      }
-      //赋值选项
-      this.vote_data.options[id].answer[select].select = "1";
-    },
-    sendMultipleAnswer(answer, id) {
-      //赋值选项
-      this.vote_data.options[id].answer = answer;
-    },
-    sendContent(content, id) {
-      this.vote_data.options[id].content = content;
-    },
+
+    // sendMultipleAnswer(answer, id) {
+    //   //赋值选项
+    //   this.vote_data.options[id].answer = answer;
+    // },
+
+    // sendContent(content, id) {
+    //   this.vote_data.options[id].content = content;
+    // },
     filterVoteQues() {
       let voteQues = this.vote_data.voteQues;
       let voteType = Object.keys(this.voteType);
@@ -143,8 +160,8 @@ export default {
       }
     },
   },
-  beforeCreate() {
-    // getDetails();
+  created() {
+    this.init();
   },
 };
 </script>

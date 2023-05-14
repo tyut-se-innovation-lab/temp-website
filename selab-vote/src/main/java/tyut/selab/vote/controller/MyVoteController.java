@@ -30,6 +30,8 @@ public class MyVoteController {
     private IDisplayVoteResultService iDisplayVoteResultService;
 
     /**
+     * 暂不实现
+     *
      * 用户参与的历史投票信息(粗略)
      *
      * @return 返回我参与的投票列表
@@ -41,6 +43,8 @@ public class MyVoteController {
     }
 
     /**
+     * 暂不实现
+     *
      * 查看我创建的投票列表（粗略）
      *
      * @return 我创建的投票列表（粗略）
@@ -53,6 +57,8 @@ public class MyVoteController {
 
 
     /**
+     * 暂不实现
+     *
      * 对发起的投票进行撤回
      * @param voteId 问卷id
      * @return 撤回成功与否
@@ -66,6 +72,8 @@ public class MyVoteController {
     }
 
     /**
+     * 暂不实现
+     *
      * 提前结束功能
      * @param voteId 问卷id
      * @return 操作成功与否

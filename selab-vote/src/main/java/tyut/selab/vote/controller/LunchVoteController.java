@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.service.ILaunchVoteService;
-import tyut.selab.vote.tools.impl.VoPoConverterTool;
 
 import static com.ruoyi.common.utils.SecurityUtils.getUserId;
 

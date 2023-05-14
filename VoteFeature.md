@@ -95,7 +95,7 @@
 - 历史投票
 
 
-  - 返回历史投票信息粗略列表: /selab/vote/join/list {get}
+  - 返回历史投票信息粗略列表: /selab/vote/join/show {get}
 
 ```json
     [

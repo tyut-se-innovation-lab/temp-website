@@ -87,3 +87,13 @@ create table selab_vote_last_use
     weight_id bigint default 1 ,
     id  bigint default 1
 );
+
+-- ----------------------------
+-- 6、用户是否回答了某一问卷
+-- ----------------------------
+drop table if exists selab_vote_user_vote;
+create table selab_vote_user
+(
+    user_id bigint ,
+    vote_id bigint
+);

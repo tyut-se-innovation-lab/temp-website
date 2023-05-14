@@ -45,7 +45,7 @@
 
 ### 加密解密 -张喆斌
 
-​	1.使用RSA算法
+​	1.使用MD5算法
 ​	前端直接加密JSON字符串
 
 ## 接口约束
@@ -115,37 +115,28 @@
 
 ```json
 {
-  "id": 0,
-  "title": "",
-  "content": "",
-  "createdTime": "",
-  "deadline": "",
-  "authority":"",
-  "isWithdraw": "",
-  "status":"",
+  "id": 0,  //问卷的id
+  "title": "", //问卷的标题
+  "content": "", //问卷简介
+  "createdTime": "", //问卷创建时间
+  "deadline": "",  //问卷截止时间
+  "authority":"",  //问卷使用的权重策略
+  "isWithdraw": "",  //是否被撤回
+  "status":"",   //问卷当前状态
   "voteQues": [
     {
-      "id": 0,
+      "id": 0,     //问题的id
       "type": "",	//类型，S表示单选，M表示多选，T表示文本框
-      "queContent": "",
-      "options": [
-        //单选，多选
+      "queContent": "", //单选多选的问题，文本的问题
+      "options": [ //单选多选一个对象为一个选项，文本一个对象为用户填写的一条信息
         {
-          "id": 0,
-          "content": "",
-          "isSelect": 0,
-          "percentage":""
-          "type": "",
-          "other": ""
+          "content": "", //单选多选：选项内容    文本：用户填写的信息
+          "percentage":"" //百分比
+          "type": "",  //选项种类  S表示单选，M表示多选，T表示文本框
+          "other": "" 
         },	
       ]
     },
-    {//文本题
-		question:""
-		id:""//题号
-		type:""// 类型 ----文本框
-		content:''//文本内容
-	}
   ]
 }
 ```
@@ -154,6 +145,37 @@
 
 
 - 参与投票: /selab/vote/join {post}
+
+  ```json
+  {
+    "id": 0,  //传入该投票的id即可
+    "title": "", //问卷的标题
+    "content": "", //问卷简介
+    "createdTime": "", //问卷创建时间
+    "deadline": "",  //问卷截止时间
+    "authority":"",  //问卷使用的权重策略
+    "isWithdraw": "",  //是否被撤回
+    "status":"",   //问卷当前状态
+    "voteQues": [
+      {
+        "id": 0,
+        "type": "",	//类型，S表示单选，M表示多选，T表示文本框
+        "queContent": "", //单选、多选、文本题目
+        "options": [ //单选多选传选项，文本传用户输入的文本
+          {
+            "content": "", //选项内容   用户输入的文本内容
+            "percentage":"" //百分比   上传投票时不用传这个
+            "isSelect": "" //用户是否选中 上传投票时用户选中的选项传true，没选的传false   文本框为true
+            "type": "", //选项的种类 S表示单选，M表示多选，T表示文本框
+            "other": ""
+          },	
+        ]
+      },
+    ]
+  }
+  ```
+  
+  
 
 
   - 获取可参与的（未过期）投票粗略信息: /selab/vote/join/list {get}
@@ -173,50 +195,20 @@
  ]
 ```
 
-  - 返回某次投票详细信息: /selab/vote/join/allInfo/:voteId {get}
-
-    - ```json
-      {
-        "id": 0,
-        "title": "",
-        "content": "",
-        "createdTime": "",
-        "deadline": "",
-        "authority":"",
-        "status":"",
-        "isWithdraw": "",
-        "voteQues": [
-          { //单选，多选
-            "id": 0,
-            "type": "",	//类型，S表示单选，M表示多选，T表示文本框
-            "queContent": "",
-            "options": [
-              {
-                "id": 0,
-                "content": "",
-                "isSelect": 0,
-                "percentage":""
-                "type": "",
-                "other": ""
-              },	
-            ]
-          },
-          {//文本题
-      		question:""
-      		id:""//题号
-      		type:""// 类型 ----文本框
-    			content:''//文本内容
-    		}
-        ]
-      }
-      ```
 
 
-- 我的投票
+
+
+
+
+
+
+  - 我的投票
+
 
 
   - 1 我发起的投票简略列表: /selab/vote/mine/launched/lists{get}
- ```
+ ```json
     {
         msg=操作成功, 
         code=200, 

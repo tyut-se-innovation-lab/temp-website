@@ -101,7 +101,7 @@ export default {
       } else {
         let info = await getInitiate(this.data);
         console.log(info);
-        if (info.msg != undefined) {
+        if (info.code === 200) {
           this.$modal.alertSuccess("提交成功啦");
           // this.$router.go(0);
         }

@@ -25,14 +25,8 @@ public class Questionnaire {
     private Date creatTime;
     //截止时间
     private Date deadline;
-    //总人数
-    private int peoples;
     //内容
     private List<VoteQue> voteQues;
-    //是否支持撤回
-    private int authority;
-    //是否参与
-    private boolean isJoin;
 
     public boolean isEmpty(){
         return voteQues.isEmpty();
@@ -61,9 +55,6 @@ public class Questionnaire {
                 ", status='" + status + '\'' +
                 ", creatTime=" + creatTime +
                 ", deadline=" + deadline +
-                ", peoples=" + peoples +
-                ", authority=" + authority +
-                ", isJoin=" + isJoin +
                 ", voteQues=" + voteQues +
                 '}';
     }

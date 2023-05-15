@@ -10,11 +10,11 @@ public class VoteKeyTool {
     /**
      * 公钥
      */
-    public static String publicKey;
+    public static String publicKey = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAM2RbjxXkS2hqdm/gES9FBmxxknA39o6RAFACwIl9KnluJdkpEPVSnVuUWZbxESYi76TMl0oX4VstgcSQ5Bg2BkCAwEAAQ==";
     /**
      * 私钥
      */
-    public static String privateKey;
+    public static String privateKey = "MIIBUwIBADANBgkqhkiG9w0BAQEFAASCAT0wggE5AgEAAkEAzZFuPFeRLaGp2b+ARL0UGbHGScDf2jpEAUALAiX0qeW4l2SkQ9VKdW5RZlvERJiLvpMyXShfhWy2BxJDkGDYGQIDAQABAkAFvxL9zNTaGbLNy3Sid0agkT+hwCqBxy8vecLVBIqaVSzBthmGCyV/7hif6MbjqPqiQ6pc9c+UaixLuuybfjwhAiEA9J7P1Fjvo8Mu1+uUcRkVD+vSp+nH+z0G6x5KysOoL4cCIQDXIYtquiyzrmRJsD39ltnM+h3MUdCqZlYK7D3sKjpjXwIgXAejiPAsuB+mb/VhU2tsUSEXj7SUWCENiUdMPByAGeECIF/WpdFqFzgE3NCnHza12Vmjo1q+qAMBjBtZm0x2k4RpAiAV/V7WiA1kv1R6062u7aCzEzdT9MWwgKawaMIaOvyB2A==";
 
     /**
      * 获取密钥

@@ -12,12 +12,8 @@ public class VoteOption {
     private long id;
     //内容
     private String content;
-    //用户是否选择   上传时默认为0
-    private Boolean isSelect;
     //类型
     private String type;
-    //文本框的值（有的话）
-    private String other;
     //百分比
     private String percentage;
 
@@ -26,9 +22,7 @@ public class VoteOption {
         return "VoteOption{" +
                 "id=" + id +
                 ", content='" + content + '\'' +
-                ", isSelect=" + isSelect +
                 ", type='" + type + '\'' +
-                ", other='" + other + '\'' +
                 ", percentage='" + percentage + '\'' +
                 '}';
     }

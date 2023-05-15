@@ -1,14 +1,10 @@
 package tyut.selab.a2;
 
-import com.ruoyi.common.core.domain.AjaxResult;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.web.bind.annotation.RequestBody;
 import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.mapper.FindInfoDBMapper;
-import tyut.selab.vote.service.IDisplayVoteResultService;
-import tyut.selab.vote.service.impl.DisplayVoteResultServiceImpl;
 import tyut.selab.vote.service.impl.WeightControlService;
 
 import java.util.Date;

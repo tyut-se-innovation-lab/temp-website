@@ -51,7 +51,9 @@ public class LaunchVoteService implements ILaunchVoteService,Runnable {
 
         for(PoVoteOption que:ques){
             long queId = memoryQuesAndGetId(que);
-            memoryOption(queId,qAMap.get(que));
+            if(!"T".equals(que.getOptionType())) {
+                memoryOption(queId, qAMap.get(que));
+            }
         }
     }
 
@@ -73,6 +75,8 @@ public class LaunchVoteService implements ILaunchVoteService,Runnable {
             PoVoteOption que = voteQueToPoVoteOption(vq);
             if(!que.getOptionType().equals("T")){
                 poVoteOptions = voteOptionToPoVoteOption(vq.getOptions());
+            }else {
+                poVoteOptions = new ArrayList<>();
             }
             queToOpt.put(que,poVoteOptions);
         }

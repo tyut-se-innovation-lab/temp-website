@@ -16,6 +16,8 @@ public class VoteOption {
     private String type;
     //百分比
     private String percentage;
+    //是否选中
+    private Boolean isSelect;
 
     @Override
     public String toString() {

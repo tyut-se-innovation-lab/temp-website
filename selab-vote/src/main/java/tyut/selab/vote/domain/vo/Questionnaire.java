@@ -22,9 +22,13 @@ public class Questionnaire {
     //状态
     private String status;
     //开始时间
-    private Date creatTime;
+    private Date createdTime;
     //截止时间
     private Date deadline;
+    //权重表
+    private Long authority;
+    //是否撤回
+    private boolean isWithdraw;
     //内容
     private List<VoteQue> voteQues;
 
@@ -53,7 +57,6 @@ public class Questionnaire {
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", status='" + status + '\'' +
-                ", creatTime=" + creatTime +
                 ", deadline=" + deadline +
                 ", voteQues=" + voteQues +
                 '}';

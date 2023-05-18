@@ -64,7 +64,8 @@ create table selab_vote_result
     user_id        text       not null comment '参与投票的用户ID（加密后）',
     content        text         not null comment '投票内容',  -- 如果是文本框，就存文本框写的，不是的话就是本选项的内容 --
     isEnable       bool         default TRUE comment '是否有效',
-    create_time    datetime comment '投票时间',
+    create_time    datetime     comment '投票时间',
+    weight         int          comment '该票权值',
     primary key (id)
 ) engine=innodb comment = '投票结果表';
 

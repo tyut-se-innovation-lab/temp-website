@@ -29,6 +29,10 @@ public class Questionnaire {
     private Long authority;
     //是否撤回
     private boolean isWithdraw;
+    //总人数
+    private int peoples;
+    //是否参与
+    private boolean isJoin;
     //内容
     private List<VoteQue> voteQues;
 
@@ -57,7 +61,12 @@ public class Questionnaire {
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", status='" + status + '\'' +
+                ", createdTime=" + createdTime +
                 ", deadline=" + deadline +
+                ", authority=" + authority +
+                ", isWithdraw=" + isWithdraw +
+                ", peoples=" + peoples +
+                ", isJoin=" + isJoin +
                 ", voteQues=" + voteQues +
                 '}';
     }

@@ -8,10 +8,10 @@ public class VoteResult {
     private Long id;
     private Long voteOptionId;
     private String userId;
-    private User userIds;
     private String content;
     private int isEnable;
     private Date createTime;
+    private int weight;
 
     @Override
     public String toString() {
@@ -19,19 +19,19 @@ public class VoteResult {
                 "id=" + id +
                 ", voteOptionId=" + voteOptionId +
                 ", userId='" + userId + '\'' +
-                ", userIds=" + userIds +
                 ", content='" + content + '\'' +
                 ", isEnable=" + isEnable +
                 ", createTime=" + createTime +
+                ", weight=" + weight +
                 '}';
     }
 
-    public User getUserIds() {
-        return userIds;
+    public int getWeight() {
+        return weight;
     }
 
-    public void setUserIds(User userIds) {
-        this.userIds = userIds;
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     public Long getId() {

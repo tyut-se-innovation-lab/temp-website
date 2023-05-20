@@ -38,16 +38,34 @@ public class ShowDetailedVoteListService implements IShowDetailedVoteListService
         info.setPeoples(mapper.theNumOfJoinVote(voteId));
         List<PoVoteOption> que = mapper.getQueByVoteId(voteId);
         List<VoteQue> voteQues = VoPoConverterTool.que(que);
-        for (VoteQue voteQue : voteQues) {
-            List<PoVoteOption> option = mapper.getOptionByParentId(voteQue.getId());
-            for (PoVoteOption poVoteOption : option) {
-                poVoteOption.setPercentage(getPercentage(getVotesByVoteId(poVoteOption.getId()),getTotalVotes(option)));
-            }
-            List<VoteOption> options = VoPoConverterTool.options(option);
-            voteQue.setOptions(options);
-        }
+        improveQue(voteQues,isJoin(voteId));
         info.setVoteQues(voteQues);
         return info;
+    }
+
+    /**
+     * 根据是否参加过投票显示百分比
+     * @param voteQues
+     * @param isJoin
+     */
+    private void improveQue(List<VoteQue> voteQues, boolean isJoin){
+        if(isJoin){
+            for (VoteQue voteQue : voteQues) {
+                List<PoVoteOption> option = mapper.getOptionByParentId(voteQue.getId());
+                for (PoVoteOption poVoteOption : option) {
+                    poVoteOption.setPercentage(getPercentage(getVotesByVoteId(poVoteOption.getId()),getTotalVotes(option)));
+                }
+                List<VoteOption> options = VoPoConverterTool.options(option);
+                voteQue.setOptions(options);
+            }
+        }else {
+            for (VoteQue voteQue : voteQues) {
+                List<PoVoteOption> option = mapper.getOptionByParentId(voteQue.getId());
+                List<VoteOption> options = VoPoConverterTool.options(option);
+                voteQue.setOptions(options);
+            }
+        }
+
     }
 
     /**
@@ -56,7 +74,7 @@ public class ShowDetailedVoteListService implements IShowDetailedVoteListService
      * @return
      */
     public Boolean isJoin(Long voteId){
-        int num = mapper.getJoinedVoteNum("2021001111", voteId);
+        int num = mapper.getJoinedVoteNum(String.valueOf(getUserId()), voteId);
         if(num != 0){
             return true;
         }return false;

@@ -11,7 +11,7 @@ export default class History {
     */
     getBriefList() {
         return request({
-            url: '/selab/vote/join/list',
+            url: '/selab/vote/join/show',
             method: 'get',
         })
     }

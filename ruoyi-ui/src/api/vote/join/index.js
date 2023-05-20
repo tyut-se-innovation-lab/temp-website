@@ -12,7 +12,7 @@ export default class Join {
     */
     getBriefList() {
         return request({
-            url: '/selab/vote/join/show',
+            url: '/selab/vote/join/list',
             method: 'get',
         })
     }

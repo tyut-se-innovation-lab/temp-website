@@ -1,6 +1,9 @@
 package tyut.selab.vote.service;
 
+import tyut.selab.vote.domain.vo.JoinQuestionnaire;
 import tyut.selab.vote.domain.vo.Questionnaire;
+
+import java.util.List;
 
 /**
  * @author Big-Bai
@@ -13,4 +16,6 @@ public interface ICommitVoteService {
      * @return 是否记录成功
      */
     Boolean recordSelection(Questionnaire questionnaire,Long user);
+
+    List<JoinQuestionnaire> listAllowed(Long user);
 }

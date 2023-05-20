@@ -8,16 +8,13 @@ import tyut.selab.vote.domain.po.VoteResult;
 import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.domain.vo.VoteOption;
 import tyut.selab.vote.domain.vo.VoteQue;
-import tyut.selab.vote.mapper.FindInfoDBMapper;
 import tyut.selab.vote.mapper.GetInfoDBMapper;
 import tyut.selab.vote.service.IShowDetailedVoteListService;
-import tyut.selab.vote.tools.impl.RSATool;
 import tyut.selab.vote.tools.impl.VoPoConverterTool;
 
 import static com.ruoyi.common.utils.SecurityUtils.getUserId;
 
 import java.text.NumberFormat;
-import java.util.Iterator;
 import java.util.List;
 
 @Service

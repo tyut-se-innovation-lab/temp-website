@@ -3,10 +3,7 @@ package tyut.selab.vote.controller;
 import com.ruoyi.common.core.domain.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.service.IShowDetailedVoteListService;
 import tyut.selab.vote.service.IShowRoughVoteListService;
@@ -43,8 +40,8 @@ public class ShowVoteController {
      * @return
      */
     @PreAuthorize("@ss.hasPermi('vote:history')")
-    @GetMapping("/allInfo")
-    public AjaxResult getVoteScrutiny(@RequestBody Long voteId){
+    @GetMapping("/allInfo/{id}")
+    public AjaxResult getVoteScrutiny(@PathVariable("id") Long voteId){
         Questionnaire questionnaire = detailedService.showDetailedVote(voteId);
         if(questionnaire.isEmpty()){
             return AjaxResult.error("500","该投票不存在");

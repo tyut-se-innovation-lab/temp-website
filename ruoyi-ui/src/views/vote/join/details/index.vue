@@ -143,10 +143,10 @@ export default {
       let voteQues = this.vote_data.voteQues[index];
       //清空
       for (let i = 0; i < voteQues.options.length; i++) {
-        voteQues.options[i].isSelect = "0";
+        voteQues.options[i].isSelect = false;
       }
       //赋值选项
-      voteQues.options[selindex].isSelect = "1";
+      voteQues.options[selindex].isSelect = true;
     },
     /**
      * 传递多选选择答案
@@ -194,11 +194,11 @@ export default {
   list-style: none;
 }
 .box {
-  /* margin: 20px 0; */
+  margin: 20px 0;
   position: relative;
 }
--- > .page {
-  width: 72vw;
+.page {
+  width: 80vw;
   margin: 0px auto;
   position: relative;
 }

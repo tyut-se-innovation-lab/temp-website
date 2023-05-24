@@ -32,7 +32,7 @@ public class CommitVoteController {
      * @return
      */
     @PreAuthorize("@ss.hasAnyPermi('vote:join')")
-    @PostMapping("/")
+    @PostMapping("")
     public AjaxResult commitVote(@RequestBody Questionnaire questionnaire){
         commitVoteService.recordSelection(questionnaire,getUserId());
         return AjaxResult.success("上传成功");

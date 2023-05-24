@@ -178,6 +178,7 @@ export default {
     getBriefList() {
       this.join.getBriefList().then((res) => {
         this.init(res.data);
+        console.log(this.tmpData);
       });
     },
   },
@@ -191,5 +192,4 @@ export default {
 .brief {
   width: 100%;
 }
-
 </style>

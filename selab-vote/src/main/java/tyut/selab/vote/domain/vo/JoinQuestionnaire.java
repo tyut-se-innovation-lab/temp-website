@@ -25,11 +25,11 @@ public class JoinQuestionnaire {
     /**
      * 开始时间
      */
-    private Date start;
+    private Date creatTime;
     /**
      * 结束时间
      */
-    private Date end;
+    private Date deadline;
     /**
      * 简介
      */

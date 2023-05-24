@@ -62,8 +62,8 @@ public class CommitVoteService implements ICommitVoteService {
             join.setId(vin.getId());
             join.setTitle(vin.getTitle());
             join.setState(vin.getStatus());
-            join.setStart(vin.getCreateTime());
-            join.setEnd(vin.getDeadline());
+            join.setCreatTime(vin.getCreateTime());
+            join.setDeadline(vin.getDeadline());
             join.setContent(vin.getContent());
             join.setIsJoin(showDetailedVoteListService.isJoin(vin.getId()));
             allAllowed.add(join);

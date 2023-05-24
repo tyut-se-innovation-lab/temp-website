@@ -62,7 +62,7 @@ export default class Join {
      */
     filterJoined(data) {
         return data.filter((item) => {
-            return item.join === true;
+            return item.isJoin === true;
         });
     }
 
@@ -73,7 +73,7 @@ export default class Join {
      */
     filterUnjoined(data) {
         return data.filter((item) => {
-            return item.join === false;
+            return item.isJoin === false;
         });
     }
 
@@ -86,7 +86,6 @@ export default class Join {
             data[i].creatTime = this.dateToString(data[i].creatTime);
             data[i].deadline = this.dateToString(data[i].deadline);
         }
-        console.log(data);
         return data;
     }
 

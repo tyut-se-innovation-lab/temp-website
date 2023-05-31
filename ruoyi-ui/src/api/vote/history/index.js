@@ -60,7 +60,7 @@ export default class History {
      */
     filterJoined(data) {
         return data.filter((item) => {
-            return item.join === true;
+            return item.isJoin === true;
         });
     }
 
@@ -71,7 +71,7 @@ export default class History {
      */
     filterUnjoined(data) {
         return data.filter((item) => {
-            return item.join === false;
+            return item.isJoin === false;
         });
     }
 
@@ -84,7 +84,6 @@ export default class History {
             data[i].creatTime = this.dateToString(data[i].creatTime);
             data[i].deadline = this.dateToString(data[i].deadline);
         }
-        console.log(data);
         return data;
     }
 

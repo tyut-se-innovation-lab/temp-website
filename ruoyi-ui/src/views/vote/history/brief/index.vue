@@ -52,6 +52,7 @@ export default {
   methods: {
     init(data) {
       this.historyData = this.history.initHistory(data);
+      console.log(this.historyData);
     },
 
     getHistoryList() {

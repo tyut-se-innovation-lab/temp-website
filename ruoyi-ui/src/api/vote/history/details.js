@@ -14,11 +14,8 @@ export default class JoinDetails {
     */
     getDetails(id) {
         return request({
-            url: `/selab/vote/join/allInfo`,
+            url: `/selab/vote/join/allInfo/${id}`,
             method: 'get',
-            params: {
-                id
-            }
         })
     }
 

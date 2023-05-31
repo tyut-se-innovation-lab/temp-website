@@ -130,21 +130,21 @@ export const constantRoutes = [
         meta: { title: '参与投票细节' },
       },
 
-      {
-        path: '/vote/history',
-        component: () => import('@/views/vote/history/brief/index'),
-        children: [
-          {
-            path: '/vote/history',
-            component: () => import('@/views/vote/history/brief/index'),
-            children: [
-              {
-                path: "details",
-                component: () => import('@/views/vote/history/details/index')
-              }
-            ]
-          }]
-      },
+      // {
+      //   path: '/vote/history',
+      //   component: () => import('@/views/vote/history/brief/index'),
+      //   children: [
+      //     {
+      //       path: '/vote/history',
+      //       component: () => import('@/views/vote/history/brief/index'),
+      //       children: [
+      //         {
+      //           path: "details",
+      //           component: () => import('@/views/vote/history/details/index')
+      //         }
+      //       ]
+      //     }]
+      // },
       {
         path: '/vote/management',
         component: () => import('@/views/vote/management/index'),

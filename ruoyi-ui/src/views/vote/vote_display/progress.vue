@@ -19,7 +19,7 @@
 <script>
 export default {
   name: "queprogress",
-  props: ["data"],
+  props: ["data", "index"],
   data() {
     return {
       queType: {
@@ -33,7 +33,7 @@ export default {
   },
   computed: {
     questionText() {
-      return `${parseInt(this.data.id) + 1}.${this.data.queContent}（${
+      return `${parseInt(this.index) + 1}.${this.data.queContent}（${
         this.queType[this.data.type]
       }）`;
     },

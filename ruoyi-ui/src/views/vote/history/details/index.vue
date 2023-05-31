@@ -5,9 +5,10 @@
     <span></span>
     <Content :content="vote_data.content"></Content>
     <Progress
-      v-for="item in vote_data.voteQues"
+      v-for="(item, index) in vote_data.voteQues"
       :key="item.id"
       :data="item"
+      :index="index"
     ></Progress>
   </div>
 </template>

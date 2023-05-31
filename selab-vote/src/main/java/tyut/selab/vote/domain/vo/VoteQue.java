@@ -18,6 +18,11 @@ public class VoteQue {
     //选项
     List<VoteOption> options;
 
+    private String content;
+
+
+
+
     public long getId() {
         return id;
     }
@@ -50,6 +55,13 @@ public class VoteQue {
         this.options = options;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     @Override
     public String toString() {

@@ -74,15 +74,27 @@ public class CommitVoteService implements ICommitVoteService {
     private void putVoteResults(){
         voteResults = new ArrayList<>();
         for (VoteQue vq:voteQues) {
-            for(VoteOption vo:vq.getOptions()){
+            if("T".equals(vq.getType())){
                 VoteResult vr = new VoteResult();
                 vr.setVoteOptionId(vq.getId());
                 vr.setUserId(userId);
-                vr.setContent(vr.getContent());
+                vr.setContent(vq.getContent());
                 vr.setIsEnable(1);
                 vr.setCreateTime(GetSysTime.getNow());
                 vr.setWeight(userWeight);
+                voteResults.add(vr);
             }
+            for(VoteOption vo:vq.getOptions()){
+                VoteResult vr = new VoteResult();
+                    vr.setVoteOptionId(vo.getId());
+                    vr.setUserId(userId);
+                    vr.setContent(vo.getContent());
+                    vr.setIsEnable(1);
+                    vr.setCreateTime(GetSysTime.getNow());
+                    vr.setWeight(userWeight);
+                voteResults.add(vr);
+            }
+
         }
     }
 

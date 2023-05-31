@@ -38,7 +38,7 @@
     <!--    int writeVoteResultToDB(VoteResult voteResult)-->
     <insert id="writeVoteResultToDB" parameterType="voteResult" useGeneratedKeys="true" keyProperty="id">
     INSERT INTO selab_vote_result(
-    vote_option_id, user_id, content, isEnable, create_time
+    vote_option_id, user_id, content, isEnable, create_time,weight
     ) VALUE
         <foreach collection="results" item="r" separator=",">
         (
@@ -46,7 +46,8 @@
         #{r.userId},
         #{r.content},
         #{r.isEnable},
-        #{r.createTime}
+        #{r.createTime},
+        #{r.weight}
         )
         </foreach>
     </insert>

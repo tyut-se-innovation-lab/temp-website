@@ -155,7 +155,7 @@ export default {
      */
     sendMultipleAnswer(option, index) {
       //赋值选项
-      this.vote_data.voteQues[index] = option;
+      this.vote_data.voteQues[index].options = option;
     },
     /**
      * 传递文本题答案

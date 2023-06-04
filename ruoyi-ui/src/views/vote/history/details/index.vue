@@ -1,9 +1,9 @@
 <template>
   <div class="page">
-    <Title :title="vote_data.title"></Title>
+    <Title :titletext="vote_data.title"></Title>
     <Deadline :deadline="vote_data.deadline"></Deadline>
     <span></span>
-    <Content :content="vote_data.content"></Content>
+    <Content :contenttext="vote_data.context"></Content>
     <Progress
       v-for="(item, index) in vote_data.voteQues"
       :key="item.id"
@@ -26,6 +26,7 @@ export default {
   data() {
     return {
       historydetails: new HistoryDetails(),
+      //数据大况
       vote_data: {
         title: "一些问题", //标题
         content: "开始尝试投票", //简介
@@ -124,9 +125,8 @@ export default {
      */
     getDetails() {
       let id = this.$route.query.id;
-      console.log(id);
       this.historydetails.getDetails(id).then((res) => {
-        console.log(res.data);
+        //修正数据
         this.vote_data = this.historydetails.fixDateData(res.data);
         this.filterVoteQues();
       });

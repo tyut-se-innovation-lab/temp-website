@@ -17,6 +17,7 @@ export default {
     return {
       history: new History(),
       type: [],
+      //数据大况
       historyData: [
         {
           id: "", //投票id
@@ -52,7 +53,6 @@ export default {
   methods: {
     init(data) {
       this.historyData = this.history.initHistory(data);
-      console.log(this.historyData);
     },
 
     getHistoryList() {

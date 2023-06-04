@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="box" v-if="isShow">
     <div class="success">
       <svg width="200" height="200">
         <circle
@@ -24,12 +24,25 @@
         />
       </svg>
       <h2>Thank you</h2>
+      <div class="close" @click="switchShow">&times;</div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "success",
+  data() {
+    return {
+      isShow: false,
+    };
+  },
+  methods: {
+    switchShow() {
+      this.isShow = !this.isShow;
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -48,8 +61,8 @@ export default {};
 }
 
 .success {
-  width: 600px;
-  height: 300px;
+  width: 500px;
+  height: 400px;
   border-radius: 15px;
   background-color: white;
   position: absolute;
@@ -78,6 +91,20 @@ h2 {
   animation: tick 0.8s ease-out;
   animation-fill-mode: forwards;
   animation-delay: 0.95s;
+}
+
+.close {
+  font-size: 40px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.235);
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: rgba(0, 0, 0, 1);
 }
 
 @keyframes circle {

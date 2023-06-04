@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <Success v-if="isSuccess"></Success>
+    <Success ref="success"></Success>
     <div class="page">
       <Title :titletext="vote_data.title"></Title>
       <Deadline :deadline="vote_data.deadline"></Deadline>
@@ -179,7 +179,7 @@ export default {
      * 提交成功
      */
     submitDataSuccessly() {
-      this.isSuccess = true;
+      this.$refs.success.switchShow();
     },
   },
   created() {
@@ -194,12 +194,13 @@ export default {
   list-style: none;
 }
 .box {
-  margin: 20px 0;
+  margin: 0px 0;
   position: relative;
 }
 .page {
   width: 80vw;
   margin: 0px auto;
+  padding-top: 20px;
   position: relative;
 }
 </style>

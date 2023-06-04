@@ -11,4 +11,5 @@ public interface IShowDetailedVoteListService {
      * @return 信息列表
      */
     Questionnaire showDetailedVote(Long voteId);
+
 }

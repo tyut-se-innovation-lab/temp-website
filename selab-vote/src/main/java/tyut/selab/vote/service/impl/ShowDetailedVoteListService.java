@@ -114,7 +114,7 @@ public class ShowDetailedVoteListService implements IShowDetailedVoteListService
         NumberFormat numberFormat = NumberFormat.getPercentInstance();
         numberFormat.setMaximumFractionDigits(2);
         String format = numberFormat.format(optionNum1 / allVoteNum1);
-        return format;
+        return format.replace("%","") ;
     }
 //    private List<VoteResult> getResByUserIdAndOptionId(List<PoVoteOption> optionId){
 //        List<VoteResult> results = mapper.getResByUserIdAndOptionId(optionId);

@@ -47,6 +47,7 @@ public class CommitVoteService implements ICommitVoteService {
     public Boolean recordSelection(Questionnaire questionnaire,Long user) {
         this.voteQues = questionnaire.getVoteQues();
         this.userId = RSATool.encrypt(user.toString());
+        insertInfoDBMapper.writeParticipateToDB(questionnaire.getId(), user);
         putUserWeight(user);
         putVoteResults();
         insertInfoDBMapper.writeVoteResultToDB(voteResults);

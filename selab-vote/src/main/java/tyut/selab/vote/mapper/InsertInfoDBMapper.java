@@ -27,5 +27,12 @@ public interface InsertInfoDBMapper {
      * @return 添加数据条数
      */
     int writeVoteResultToDB(@Param("results") List<VoteResult> results);
+
+    /**
+     * 记录谁参与了哪个投票
+     * @param voteId 投票id
+     * @param userId 用户id
+     */
+    void writeParticipateToDB(@Param("voteId") Long voteId,@Param("userId") Long userId);
 }
 

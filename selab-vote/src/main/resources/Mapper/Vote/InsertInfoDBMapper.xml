@@ -52,4 +52,8 @@
         </foreach>
     </insert>
 
+<!--    void writeParticipateToDB(Long voteId,Long userId);-->
+    <insert id="writeParticipateToDB" >
+        insert into selab_vote_user(user_id,vote_id) values (#{userId},#{voteId})
+    </insert>
 </mapper>

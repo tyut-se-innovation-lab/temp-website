@@ -7,11 +7,11 @@ export default class History {
 
     /**
     * 获取投票列表
-    * @returns 
+    * @returns
     */
     getHistoryList() {
         return request({
-            url: '/selab/vote/join/list',
+            url: '/selab/vote/join/show',
             method: 'get',
         })
     }
@@ -19,8 +19,8 @@ export default class History {
 
     /**
      * 初始化参与投票
-     * @param {Object} data 
-     * @returns 
+     * @param {Object} data
+     * @returns
      */
     initHistory(data) {
         let tmpdata1 = this.sortbriefDataByDate(data);
@@ -30,8 +30,8 @@ export default class History {
 
     /**
      * 根据是否已经参与进行排序
-     * @param {Object} data 要处理的data 
-     * @returns 
+     * @param {Object} data 要处理的data
+     * @returns
      */
     sortbriefDataByIsjoin(data) {
         this.sortbriefDataByDate(data);
@@ -42,8 +42,8 @@ export default class History {
 
     /**
      * 根据投票发起时间进行排序
-     * @param {Object} data 要处理的data 
-     * @returns 
+     * @param {Object} data 要处理的data
+     * @returns
      */
     sortbriefDataByDate(data) {
         return data.sort((a, b) => {
@@ -55,8 +55,8 @@ export default class History {
 
     /**
      * 过滤出参与过的投票
-     * @param {*} data 
-     * @returns 
+     * @param {*} data
+     * @returns
      */
     filterJoined(data) {
         return data.filter((item) => {
@@ -66,8 +66,8 @@ export default class History {
 
     /**
      * 过滤出未参与过的投票
-     * @param {*} data 
-     * @returns 
+     * @param {*} data
+     * @returns
      */
     filterUnjoined(data) {
         return data.filter((item) => {
@@ -77,7 +77,7 @@ export default class History {
 
     /**
      * 修正date数据
-     * @param {Object} data 
+     * @param {Object} data
      */
     fixDateData(data) {
         for (let i = 0; i < data.length; i++) {
@@ -89,7 +89,7 @@ export default class History {
 
     /**
      * 输出指定字符串数据
-     * @param {String} string 
+     * @param {String} string
      */
     dateToString(string) {
         let date = new Date(string);

@@ -18,10 +18,7 @@ import tyut.selab.vote.service.ICommitVoteService;
 import tyut.selab.vote.tools.GetSysTime;
 import tyut.selab.vote.tools.impl.RSATool;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Big-Bai
@@ -58,16 +55,19 @@ public class CommitVoteService implements ICommitVoteService {
     public List<JoinQuestionnaire> listAllowed(Long user) {
         List<JoinQuestionnaire> allAllowed = new ArrayList<>();
         List<VoteInfo> allowed = getInfoDBMapper.displayAllUsefulVote();
+
         for (VoteInfo vin:allowed) {
-            JoinQuestionnaire join = new JoinQuestionnaire();
-            join.setId(vin.getId());
-            join.setTitle(vin.getTitle());
-            join.setState(vin.getStatus());
-            join.setCreatTime(vin.getCreateTime());
-            join.setDeadline(vin.getDeadline());
-            join.setContent(vin.getContent());
-            join.setIsJoin(showDetailedVoteListService.isJoin(vin.getId()));
-            allAllowed.add(join);
+            if(vin.getDeadline().after(new Date())&& !showDetailedVoteListService.isJoin(vin.getId())) {
+                JoinQuestionnaire join = new JoinQuestionnaire();
+                join.setId(vin.getId());
+                join.setTitle(vin.getTitle());
+                join.setState(vin.getStatus());
+                join.setCreatTime(vin.getCreateTime());
+                join.setDeadline(vin.getDeadline());
+                join.setContent(vin.getContent());
+                join.setIsJoin(showDetailedVoteListService.isJoin(vin.getId()));
+                allAllowed.add(join);
+            }
         }
         return allAllowed;
     }

@@ -4,6 +4,7 @@ import com.ruoyi.common.core.domain.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import tyut.selab.vote.domain.vo.JoinQuestionnaire;
 import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.service.IShowDetailedVoteListService;
 import tyut.selab.vote.service.IShowRoughVoteListService;
@@ -31,7 +32,7 @@ public class ShowVoteController {
     @PreAuthorize("@ss.hasPermi('vote:history')")
     @GetMapping("/show")
     public AjaxResult getAllVoteRoughly(){
-        List<Questionnaire> questionnaireList = roughService.showAllVote();
+        List<JoinQuestionnaire> questionnaireList = roughService.showAllVote();
         return AjaxResult.success("200",questionnaireList);
     }
 

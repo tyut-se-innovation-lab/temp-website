@@ -3,6 +3,7 @@ package tyut.selab.vote.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.vote.domain.po.VoteInfo;
+import tyut.selab.vote.domain.vo.JoinQuestionnaire;
 import tyut.selab.vote.domain.vo.Questionnaire;
 import tyut.selab.vote.mapper.GetInfoDBMapper;
 import tyut.selab.vote.service.IShowRoughVoteListService;
@@ -18,9 +19,21 @@ public class ShowRoughVoteListService implements IShowRoughVoteListService {
     @Autowired
     ShowDetailedVoteListService service;
     @Override
-    public List<Questionnaire> showAllVote(){
+    public List<JoinQuestionnaire> showAllVote(){
         List<VoteInfo> voteInfos = mapper.displayAllVote();
-        return getQuestionnaires(voteInfos);
+        List<JoinQuestionnaire> joinQuestionnaires = new ArrayList<>();
+        for(VoteInfo v:voteInfos){
+            JoinQuestionnaire join = new JoinQuestionnaire();
+            join.setId(v.getId());
+            join.setTitle(v.getTitle());
+            join.setState(v.getStatus());
+            join.setCreatTime(v.getCreateTime());
+            join.setDeadline(v.getDeadline());
+            join.setContent(v.getContent());
+            join.setIsJoin(service.isJoin(v.getId()));
+            joinQuestionnaires.add(join);
+        }
+        return joinQuestionnaires;
     }
 
     @Override

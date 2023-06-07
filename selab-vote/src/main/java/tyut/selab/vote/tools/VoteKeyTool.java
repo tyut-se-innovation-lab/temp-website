@@ -1,65 +1,92 @@
 package tyut.selab.vote.tools;
 
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 import tyut.selab.vote.tools.impl.RSATool;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
 
 /**
  * 验证输入并从控制台获取密钥
+ *
  * @author Big-Bai
  **/
+@Component
 public class VoteKeyTool {
     /**
      * 公钥
      */
-    public static String publicKey = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAM2RbjxXkS2hqdm/gES9FBmxxknA39o6RAFACwIl9KnluJdkpEPVSnVuUWZbxESYi76TMl0oX4VstgcSQ5Bg2BkCAwEAAQ==";
+    public static String publicKey;
     /**
      * 私钥
      */
-    public static String privateKey = "MIIBUwIBADANBgkqhkiG9w0BAQEFAASCAT0wggE5AgEAAkEAzZFuPFeRLaGp2b+ARL0UGbHGScDf2jpEAUALAiX0qeW4l2SkQ9VKdW5RZlvERJiLvpMyXShfhWy2BxJDkGDYGQIDAQABAkAFvxL9zNTaGbLNy3Sid0agkT+hwCqBxy8vecLVBIqaVSzBthmGCyV/7hif6MbjqPqiQ6pc9c+UaixLuuybfjwhAiEA9J7P1Fjvo8Mu1+uUcRkVD+vSp+nH+z0G6x5KysOoL4cCIQDXIYtquiyzrmRJsD39ltnM+h3MUdCqZlYK7D3sKjpjXwIgXAejiPAsuB+mb/VhU2tsUSEXj7SUWCENiUdMPByAGeECIF/WpdFqFzgE3NCnHza12Vmjo1q+qAMBjBtZm0x2k4RpAiAV/V7WiA1kv1R6062u7aCzEzdT9MWwgKawaMIaOvyB2A==";
+    public static String privateKey;
 
-    /**
-     * 获取密钥
-     * @param args
-     * @return
-     */
-    public static boolean isKeyPassed(String[] args){
-        if(args.length<2){
-            System.out.println("需要传入两个参数");
-            printHelp();
-            return false;
-        }
+    private static void printHelp() {
+        System.out.println("====================================================");
+        System.out.println("本系统 投票模块 需要在启动时传入存放密钥的文件的绝对路径,不需要包含扩展名");
+        System.out.println("公钥私钥请满足RSA算法要求");
+        System.out.println("文件编写要求：");
+        System.out.println("必须包含公钥(publicKey),可以不包含私钥(privateKey)");
+        System.out.println("文件的第一行放置公钥，第二行可以放置私钥");
+        System.out.println("格式：publicKey: xxxxxxx");
+        System.out.println("文件路径传入示例:");
+        System.out.println("--keyPath: /xx/xx/xxx");
+        System.out.println("请注意-- 与大小写");
+        System.out.println("====================================================");
 
-        String[] isPublic = args[0].split("publicKey:");
-        String[] isPrivate = args[1].split("privateKey:");
-        if(isPublic.length<2||isPrivate.length<2){
-            System.out.println("某一个参数名称错误或未传值");
-            printHelp();
-            return false;
-        }
-        publicKey = isPublic[1];
-        privateKey = isPrivate[1];
-
-        String testString = "testString-I love you";
-        String encrypted = RSATool.encrypt(testString);
-        String decrypted = RSATool.decrypt(encrypted);
-        if(!testString.equals(decrypted)){
-            System.out.println("公钥私钥不匹配,请重新输入");
-            printHelp();
-            return false;
-        }
-        System.out.println("已获取投票参数+"+publicKey+" "+privateKey);
-        return true;
     }
 
-    private static void printHelp(){
-        System.out.println("====================================================");
-        System.out.println("本系统 投票模块 需要在启动时传入用于加密信息的密钥(公钥与私钥)");
-        System.out.println("公钥私钥请满足RSA算法要求");
-        System.out.println("传入格式如下:");
-        System.out.println("--publicKey:xxx --privateKey:xxx");
-        System.out.println("示例：");
-        System.out.println("java -jar ruoyi-admin.jar --publicKey:xxx --privateKey:xxx");
-        System.out.println("请注意空格与--还有大小写");
-        System.out.println("====================================================");
+    public static void run(String... args) {
+        if (args.length < 1) {
+            printHelp();
+            System.exit(10086);
+        }
+        Map<String, String> argsMap = new HashMap<>();
+        for (int i = 0; i < args.length; i += 2) {
+            if (i % 2 == 0) {
+                argsMap.put(args[i], args[i + 1]);
+            }
+        }
+        parseKeyPath(argsMap);
+    }
 
+    public static void parseKeyPath(Map<String, String> argsMap) {
+        String keyPath = argsMap.get("--keyPath:");
+        if (keyPath == null) {
+            System.err.println("未传入密钥文件地址");
+            printHelp();
+            System.exit(114514);
+        }
+        try {
+            Scanner keyReader = new Scanner(new File(keyPath));
+            Map<String, String> keyField = new HashMap<>();
+            while (keyReader.hasNext()) {
+                String[] keyValueInFile = keyReader.nextLine().split(" ");
+                if(keyValueInFile.length<2){
+                    continue;
+                }
+                keyField.put(keyValueInFile[0], keyValueInFile[1]);
+            }
+            if (keyField.size() == 0) {
+                System.err.println("文件为空");
+                printHelp();
+                System.exit(114514);
+            }
+            if (keyField.get("publicKey:") == null || keyField.get("publicKey:") .equals("")) {
+                System.err.println("该文件中没有publicKey或者格式错误");
+                printHelp();
+                System.exit(114514);
+            }
+            publicKey = keyField.get("publicKey:");
+            privateKey = keyField.get("privateKey:");
+            System.out.println("成功读取到参数，启动成功~！");
+        } catch (FileNotFoundException fe) {
+            printHelp();
+            fe.printStackTrace();
+            System.exit(114514);
+        }
     }
 }

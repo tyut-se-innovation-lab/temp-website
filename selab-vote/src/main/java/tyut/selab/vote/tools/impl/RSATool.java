@@ -62,6 +62,9 @@ public class RSATool {
      * @throws Exception
      */
     public static String decrypt(String data){
+        if(privateKey == null){
+            throw new RuntimeException("无法解密，私钥为空");
+        }
         return new String(decryptByPrivateKey(data,privateKey));
     }
     /**

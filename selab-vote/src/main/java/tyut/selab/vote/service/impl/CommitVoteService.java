@@ -43,6 +43,9 @@ public class CommitVoteService implements ICommitVoteService {
 
     @Override
     public Boolean recordSelection(Questionnaire questionnaire, Long user) {
+        if(showDetailedVoteListService.isJoin(questionnaire.getId())){
+            throw new RuntimeException("请不要重复提交");
+        }
         this.voteQues = questionnaire.getVoteQues();
         this.userId = RSATool.encrypt(user.toString());
         insertInfoDBMapper.writeParticipateToDB(questionnaire.getId(), user);

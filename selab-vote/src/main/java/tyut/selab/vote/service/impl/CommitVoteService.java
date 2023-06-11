@@ -1,6 +1,7 @@
 package tyut.selab.vote.service.impl;
 
 import com.ruoyi.common.core.domain.entity.SysRole;
+import com.ruoyi.system.mapper.SysRoleMapper;
 import com.ruoyi.system.service.ISysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ import java.util.*;
 public class CommitVoteService implements ICommitVoteService {
 
     @Autowired
-    private ISysRoleService sysRoleService;
+    private SysRoleMapper roleMapper;
     @Autowired
     private WeightMapper weightMapper;
     @Autowired
@@ -107,7 +108,7 @@ public class CommitVoteService implements ICommitVoteService {
 
     private void putUserWeight(Long user) {
         List<Weight> weights = weightMapper.getWeightList(weightMapper.getLastUseWeightId());
-        List<SysRole> roles = sysRoleService.selectRolesByUserId(user);
+        List<SysRole> roles = roleMapper.selectRolePermissionByUserId(user);
         Map<Long, Integer> roleWeight = new HashMap<>();
         for (Weight w : weights) {
             roleWeight.put(w.getRoleId(), w.getWeight());

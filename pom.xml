@@ -6,7 +6,7 @@
 	
     <groupId>com.ruoyi</groupId>
     <artifactId>ruoyi</artifactId>
-    <version>3.8.3</version>
+    <version>3.8.4</version>
 
     <name>ruoyi</name>
     <url>http://www.ruoyi.vip</url>
@@ -197,7 +197,7 @@
             <dependency>
                 <groupId>tyut.selab</groupId>
                 <artifactId>selab-vote</artifactId>
-                <version>3.8.3</version>
+                <version>3.8.4</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

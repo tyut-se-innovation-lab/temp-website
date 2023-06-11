@@ -1,25 +1,25 @@
--- 投票系统按钮
--- 一级菜单
-insert into sys_menu
-values ('2000', '投票系统', '0', '4', 'vote', null, '', 1, 0, 'M', '0', '0', '', 'checkbox', 'admin', sysdate(), '',
-        null, '投票系统目录');
--- 二级菜单
-insert into sys_menu
-values ('2001', '发起投票', '2000', '1', 'initiate', 'vote/initiate/index', '', 1, 1, 'C', '0', '0', 'vote:initiate',
-        'edit', 'admin', sysdate(), '', null, '发起投票表单');
-insert into sys_menu
-values ('2002', '参与投票', '2000', '2', 'join', 'vote/join/index', '', 1, 0, 'C', '0', '0', 'vote:join',
-        'exit-fullscreen',
-        'admin', sysdate(), '', null, '参与投票表单');
-insert into sys_menu
-values ('2003', '查看历史投票记录', '2000', '3', 'history', 'vote/history/index', '', 1, 1, 'C', '0', '0',
-        'vote:history', 'documentation', 'admin', sysdate(), '', null, '查看历史投票记录');
-insert into sys_menu
-values ('2004', '我的提议', '2000', '4', 'mine', 'vote/mine/index', '', 1, 1, 'C', '0', '0', 'vote:mine',
-        'search', 'admin', sysdate(), '', null, '管理我的提议');
-insert into sys_menu
-values ('2011', '设置投票策略', '2000', '5', 'strategy', 'vote/management/index', '', 1, 1, 'C', '0', '0', 'vote:management',
-        'search', 'admin', sysdate(), '', null, '设置投票策略');
+-- -- 投票系统按钮
+-- -- 一级菜单
+-- insert into sys_menu
+-- values ('2000', '投票系统', '0', '4', 'vote', null, '', 1, 0, 'M', '0', '0', '', 'checkbox', 'admin', sysdate(), '',
+--         null, '投票系统目录');
+-- -- 二级菜单
+-- insert into sys_menu
+-- values ('2001', '发起投票', '2000', '1', 'initiate', 'vote/initiate/index', '', 1, 1, 'C', '0', '0', 'vote:initiate',
+--         'edit', 'admin', sysdate(), '', null, '发起投票表单');
+-- insert into sys_menu
+-- values ('2002', '参与投票', '2000', '2', 'join', 'vote/join/index', '', 1, 0, 'C', '0', '0', 'vote:join',
+--         'exit-fullscreen',
+--         'admin', sysdate(), '', null, '参与投票表单');
+-- insert into sys_menu
+-- values ('2003', '查看历史投票记录', '2000', '3', 'history', 'vote/history/index', '', 1, 1, 'C', '0', '0',
+--         'vote:history', 'documentation', 'admin', sysdate(), '', null, '查看历史投票记录');
+-- insert into sys_menu
+-- values ('2004', '我的提议', '2000', '4', 'mine', 'vote/mine/index', '', 1, 1, 'C', '0', '0', 'vote:mine',
+--         'search', 'admin', sysdate(), '', null, '管理我的提议');
+-- insert into sys_menu
+-- values ('2011', '设置投票策略', '2000', '5', 'strategy', 'vote/management/index', '', 1, 1, 'C', '0', '0', 'vote:management',
+--         'search', 'admin', sysdate(), '', null, '设置投票策略');
 
 -- ----------------------------
 -- 1、投票选项存储表

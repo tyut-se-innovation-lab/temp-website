@@ -78,6 +78,7 @@
         <dependency>
             <groupId>tyut.selab</groupId>
             <artifactId>selab-vote</artifactId>
+            <version>3.8.4</version>
         </dependency>
 
         <!-- 签到系统 -->

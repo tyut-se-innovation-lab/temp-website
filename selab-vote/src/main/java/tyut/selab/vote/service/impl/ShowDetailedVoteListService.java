@@ -15,6 +15,7 @@ import tyut.selab.vote.tools.impl.VoPoConverterTool;
 import static com.ruoyi.common.utils.SecurityUtils.getUserId;
 
 import java.text.NumberFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,12 +31,13 @@ public class ShowDetailedVoteListService implements IShowDetailedVoteListService
      */
     public Questionnaire showDetailedVote(Long voteId){
         VoteInfo voteInfo = mapper.getInfoByVoteId(voteId);
+        boolean isDead = !voteInfo.getDeadline().after(new Date());
         Questionnaire info = VoPoConverterTool.info(voteInfo);
         info.setJoin(isJoin(voteId));
         info.setPeoples(mapper.theNumOfJoinVote(voteId));
         List<PoVoteOption> que = mapper.getQueByVoteId(voteId);
         List<VoteQue> voteQues = VoPoConverterTool.que(que);
-        improveQue(voteQues,isJoin(voteId));
+        improveQue(voteQues,isDead);
         info.setVoteQues(voteQues);
         return info;
     }

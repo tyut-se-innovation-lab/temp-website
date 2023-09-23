@@ -16,5 +16,5 @@ Now only the empty schedule system has been developed.
 5. use `sh ry.sh start`
 ### Run vue
 1. use `cd ruoyi-ui`
-2. use `npm run install`
+2. use `npm install`
 3. use `npm run dev`

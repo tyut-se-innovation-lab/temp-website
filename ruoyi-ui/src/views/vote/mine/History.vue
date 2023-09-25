@@ -1,15 +1,16 @@
 <template>
   <div>
     <el-container>
-<!--      标题-->
+      <!--      标题-->
       <el-header>{{ headers.my_vote_name }}</el-header>
       <hr>
       <el-main>
         <div class="context">
-          <button @click="mineJoining">我参与的</button> <button @click="mineCreating">我发起的</button>
-<!--      内容-->
+          <button @click="mineJoining">我参与的</button>
+          <button @click="mineCreating">我发起的</button>
+          <!--      内容-->
           <div v-for="(item) in childBriefly" :key="item.id" @click="getPage(item.id,item.state)">
-            <historyData :childBriefly="item" />
+            <historyData :childBriefly="item"/>
           </div>
         </div>
       </el-main>
@@ -20,6 +21,7 @@
 <script>
 import historyData from "./historyData.vue";
 import {mineCreate, mineJoin} from "@/api/vote/mine";
+
 export default {
   components: {
     historyData,
@@ -31,50 +33,50 @@ export default {
       },
       childBriefly: [
         {
-          id:20,	//投票id
-          title:"踢出疯羊",//title,
-          state:0	,//0,1,2状态
-          start:this.getTime(new Date("2022-11-30 00:00:00")),	//开始时间
-          end:this.getTime(new Date("2022-12-30 00:00:00")),	//结束时间
-          content:"暂时没有吧",	//简介
-          isjoin:false	//是否已经参与
+          id: 20,	//投票id
+          title: "踢出疯羊",//title,
+          state: 0,//0,1,2状态
+          start: this.getTime(new Date("2022-11-30 00:00:00")),	//开始时间
+          end: this.getTime(new Date("2022-12-30 00:00:00")),	//结束时间
+          content: "暂时没有吧",	//简介
+          isjoin: false	//是否已经参与
         },
         {
-          id:31,	//投票id
+          id: 31,	//投票id
           title: "踢出孙红飞",
           content: "没有原因就是看见他不爽",
-          state:2	,//0,1,2状态
-          start:this.getTime(new Date("2022-10-20 00:00:00")),
+          state: 2,//0,1,2状态
+          start: this.getTime(new Date("2022-10-20 00:00:00")),
           end: this.getTime(new Date("2022-11-30 00:00:00")),
-          isjoin:false
+          isjoin: false
         },
         {
-          id:30,
+          id: 30,
           title: "踢出孙红飞",
           content: "没有原因就是看见他不爽",
-          state:1	,//0,1,2状态
-          start:this.getTime(new Date("2022-09-30 00:00:00")),
+          state: 1,//0,1,2状态
+          start: this.getTime(new Date("2022-09-30 00:00:00")),
           end: this.getTime(new Date("2022-11-10 00:00:00")),
-          isjoin:false
+          isjoin: false
         },
         {
-          id:32,
+          id: 32,
           title: "踢出孙红飞",
           content: "没有原因就是看见他不爽",
-          state:1	,//0,1,2状态
-          start:this.getTime(new Date("2022-10-17 00:00:00")),
+          state: 1,//0,1,2状态
+          start: this.getTime(new Date("2022-10-17 00:00:00")),
           end: this.getTime(new Date("2022-11-30 00:00:00")),
-          isjoin:true
+          isjoin: true
         },
       ],
     };
   },
   methods: {
-    async mineJoining(){
-     let content = await mineJoin()
+    async mineJoining() {
+      let content = await mineJoin()
       console.log(content)
     },
-    async mineCreating(){
+    async mineCreating() {
       let content = await mineCreate()
       console.log(content)
     },
@@ -105,12 +107,12 @@ export default {
       return year + "-" + month + "-" + date + " " + hours + ":" + minute + ":" + second;
     },
     // 点击页面跳转
-    getPage(index,statusVal) {
+    getPage(index, statusVal) {
       // console.log(index,statusVal);
-      if(statusVal === 2){
+      if (statusVal === 2) {
         return
-      }else {
-        this.$router.push({ name: "historyAllData", params: { index : index } });
+      } else {
+        this.$router.push({name: "historyAllData", params: {index: index}});
       }
 
     },
@@ -123,6 +125,7 @@ export default {
   margin: 0;
   padding: 0;
 }
+
 .el-header, .el-footer {
   margin: 20px;
   color: #333;
@@ -130,14 +133,15 @@ export default {
   line-height: 30px;
   height: 30px !important;
   font-size: x-large;
-  font-weight:bolder;
+  font-weight: bolder;
   letter-spacing: 10px;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .el-main {
   background-color: white;
 }
+
 .context {
   width: 1000px;
 

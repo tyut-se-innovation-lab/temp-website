@@ -195,7 +195,7 @@ export default {
           },
 
           {
-            "id":7 ,
+            "id": 7,
             "type": "M",	//类型，S表示单选，M表示多选，T表示文本框
             "queContent": "踢出疯羊",
             "options": [
@@ -270,11 +270,11 @@ export default {
       let aa = yy + '-' + mm + '-' + dd + ' ' + hh + ':' + MM + ':' + ss;
       return aa;
     },
-    async deleteVote(){
+    async deleteVote() {
       let data = await mineDelete()
       console.log(data)
     },
-    async earlyTermination(){
+    async earlyTermination() {
       let data = await mineEarlyTermination()
       console.log(data)
     }
@@ -311,6 +311,7 @@ export default {
   margin: 0;
   padding: 0;
 }
+
 .el-header, .el-footer {
   margin: 20px;
   color: #333;
@@ -318,14 +319,15 @@ export default {
   line-height: 30px;
   height: 30px !important;
   font-size: x-large;
-  font-weight:bolder;
+  font-weight: bolder;
   letter-spacing: 10px;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .el-main {
   background-color: white;
 }
+
 .context {
   width: 1000px;
 
@@ -333,19 +335,22 @@ export default {
   padding: 0;
   height: auto;
 }
-.button{
+
+.button {
   width: 80%;
   height: 40px;
   text-align: right;
   line-height: 40px;
 }
-.button>button{
-  display:inline-block;
+
+.button > button {
+  display: inline-block;
   width: 100px;
   height: 25px;
 }
-.button>button:hover{
-  display:inline-block;
+
+.button > button:hover {
+  display: inline-block;
   width: 105px;
   height: 30px;
   background-color: #C03639;

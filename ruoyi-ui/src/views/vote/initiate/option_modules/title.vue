@@ -35,14 +35,9 @@ export default {
 }
 .input{
   width: 80%;
-  margin-left: 10px;
-  margin-right: 20px;
-  padding-left: 40px;
-  padding-top: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
+  padding: 10px 10px 10px 40px;
   border: 2px solid #5550;
-  margin-bottom: 10px;
+  margin: 0 auto;
 }
 span{
   margin-left: 10px;

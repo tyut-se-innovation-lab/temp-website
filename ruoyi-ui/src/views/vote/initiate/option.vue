@@ -127,7 +127,7 @@ export default {
   font-weight: bolder;
   letter-spacing: 10px;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .context {
@@ -135,5 +135,7 @@ export default {
   margin: 0 auto;
   padding: 0;
   height: auto;
+  text-align: center;
+  color: #707070;
 }
 </style>

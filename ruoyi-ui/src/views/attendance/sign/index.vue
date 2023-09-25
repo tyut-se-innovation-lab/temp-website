@@ -1,11 +1,12 @@
 <template>
   <div>
     <div id="sign">
-      <button @click="signIn">签到</button>
+      <button @click="signIn" v-if="isSignIn" :disabled="disabled">{{title}}</button>
       <button
         @click="signOut"
         :disabled="!isSignOut"
         :class="{ disabled: !isSignOut }"
+        v-if="!isSignIn"
       >
         {{ signOutText }}
       </button>
@@ -24,11 +25,9 @@ export default {
       isSignOut: false, //是否能签退
       isSignIn: true, //是否能签到
       timer: "",
-      customTimes: {
-        startTime: [19, 30], //开始时间
-        delay: 1.5, //持续时间
-      },
-      timeInterval: [],
+
+      title: "签到",
+      disabled: false,
       minCountTime: 1, //最小签到时间=
     };
   },
@@ -36,7 +35,7 @@ export default {
   computed: {
     signOutText() {
       if (!this.isSignOut) {
-        return this.isSignIn ? "先签到(^_^)" : this.time;
+        return this.time;
       } else {
         return "签退";
       }
@@ -59,46 +58,18 @@ export default {
      */
     init() {},
 
-    /**
-     * 设置自定义时间
-     */
-    setAssignTime(customTimes) {
-      let date = new Date();
-      date.setHours(customTimes.startTime[0]);
-      date.setMinutes(customTimes.startTime[1]);
-      date.setSeconds(0);
-      this.timeInterval[0] = new Date(date);
-
-      let setTimeSeconds = date.getTime() + customTimes.delay * 60 * 60 * 1000;
-      date.setTime(setTimeSeconds);
-
-      this.timeInterval[1] = new Date(date);
-    },
 
     /**
      * 是否设置自定义倒计时
      * @param {Date} startTime 开始时间
      */
     isSetAssignCountDown(startTime) {
+      // 现在的时间
       let current = new Date();
+      // 签到的时间
       let date = new Date(startTime);
 
-      this.setAssignTime(this.customTimes);
-
-      let signInToTargTime =
-        (this.timeInterval[1].getTime() - date.getTime()) / (60 * 60 * 1000);
-
-      //处于自定义时间段，且不小于最小签到时间
-      if (
-        current.getTime() > this.timeInterval[0].getTime() &&
-        current.getTime() < this.timeInterval[1].getTime() &&
-        signInToTargTime > this.minCountTime
-      ) {
-        //自定义
-        this.countDown(this.timeInterval[0], this.customTimes.delay);
-      } else {
-        this.countDown(date, this.minCountTime);
-      }
+      this.countDown(date, this.minCountTime);  // 第一个是点击签到按钮的时间戳，第二个是1
     },
 
     /**
@@ -109,6 +80,8 @@ export default {
         this.$modal.msgSuccess(res.msg);
         this.couldSignOut();
         this.isSignOut = false;
+        this.disabled = true;
+        this.title = "签退成功";
       });
     },
 
@@ -181,6 +154,7 @@ export default {
   created() {
     this.couldSignOut();
   },
+
 };
 </script>
 

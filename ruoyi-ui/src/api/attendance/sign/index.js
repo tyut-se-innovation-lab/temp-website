@@ -6,7 +6,7 @@ class Sign {
     }
 
     /**
-     * 登录
+     * 签到
      * @returns axios请求
      */
     signIn() {
@@ -17,7 +17,7 @@ class Sign {
     }
 
     /**
-     * 是否能够登出
+     * 是否能够签退
      * @returns axios请求
      */
     couldSignOut() {
@@ -28,7 +28,7 @@ class Sign {
     }
 
     /**
-     * 登出
+     * 签退
      * @returns axios请求
      */
     signOut() {

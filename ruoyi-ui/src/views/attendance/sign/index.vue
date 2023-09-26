@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div id="sign">
-      <button @click="signIn" v-if="isSignIn" :disabled="disabled">{{title}}</button>
+    <div id="sign" v-if="show">
+      <button v-if="isSignIn" :disabled="disabled">{{ title }}</button>
       <button
         @click="signOut"
         :disabled="!isSignOut"
@@ -15,19 +15,23 @@
 </template>
 
 <script>
-import { Sign } from "@/api/attendance/sign/index.js";
+import {Sign} from "@/api/attendance/sign/index.js";
+
 export default {
   name: "sign",
   data() {
     return {
       sign: new Sign(),
-      time: "",
+      time: "00: 00: 00",
       isSignOut: false, //是否能签退
       isSignIn: true, //是否能签到
       timer: "",
 
       title: "签到",
       disabled: false,
+
+      show: false,
+
       minCountTime: 1, //最小签到时间=
     };
   },
@@ -56,7 +60,8 @@ export default {
     /**
      * 初始化
      */
-    init() {},
+    init() {
+    },
 
 
     /**
@@ -79,6 +84,7 @@ export default {
       this.sign.signOut().then((res) => {
         this.$modal.msgSuccess(res.msg);
         this.couldSignOut();
+
         this.isSignOut = false;
         this.disabled = true;
         this.title = "签退成功";
@@ -95,17 +101,17 @@ export default {
       let current = new Date();
       let hour = Math.floor(
         (start.getTime() + countTime * 60 * 60 * 1000 - current.getTime()) /
-          (1000 * 60 * 60)
+        (1000 * 60 * 60)
       );
       let minute = Math.floor(
         ((start.getTime() + countTime * 60 * 60 * 1000 - current.getTime()) %
           (1000 * 60 * 60)) /
-          (1000 * 60)
+        (1000 * 60)
       );
       let second = parseInt(
         ((start.getTime() + countTime * 60 * 60 * 1000 - current.getTime()) %
           (1000 * 60)) /
-          1000
+        1000
       );
       //修改位数
       let timer = setInterval(() => {
@@ -147,6 +153,7 @@ export default {
             this.isSignOut = false;
           }
         }
+        this.show = true;
       });
     },
   },
@@ -154,6 +161,12 @@ export default {
   created() {
     this.couldSignOut();
   },
+
+  mounted() {
+    setTimeout(() => {
+      "111"
+    },1000)
+  }
 
 };
 </script>
@@ -169,6 +182,7 @@ export default {
   margin-top: 15%;
   justify-content: space-evenly;
 }
+
 #sign > button {
   width: 150px;
   height: 150px;
@@ -186,6 +200,7 @@ export default {
   cursor: pointer;
   transition: 1s all;
 }
+
 #sign > button:hover {
   background-image: linear-gradient(
     141deg,

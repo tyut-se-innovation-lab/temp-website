@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="sign" v-if="show">
-      <button v-if="isSignIn" :disabled="disabled">{{ title }}</button>
+      <button v-if="isSignIn" :disabled="disabled" @click="signIn">{{ title }}</button>
       <button
         @click="signOut"
         :disabled="!isSignOut"
@@ -161,12 +161,6 @@ export default {
   created() {
     this.couldSignOut();
   },
-
-  mounted() {
-    setTimeout(() => {
-      "111"
-    },1000)
-  }
 
 };
 </script>

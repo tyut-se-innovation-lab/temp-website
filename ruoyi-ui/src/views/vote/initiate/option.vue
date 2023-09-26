@@ -2,20 +2,21 @@
 <template>
   <div>
     <el-container>
+      <!-- 大标题 -->
       <el-header>{{ headers.vote_name }}</el-header>
-      <hr />
+      <hr/>
       <el-main>
         <div class="context">
-          <!-- 标题 -->
-          <titleVue @childTitle="getTitle" />
+          <!-- 投票标题 -->
+          <titleVue @childTitle="getTitle"/>
           <!-- 截止时间 -->
-          <deadlineVue @childDeadline="getDeadline" />
+          <deadlineVue @childDeadline="getDeadline"/>
           <!-- 投票简介 -->
-          <contentVue @childContent="getContent" />
-          <!--          题目-->
-          <optionType @getOption="getOption" />
+          <contentVue @childContent="getContent"/>
+          <!-- 添加的内容 -->
+          <optionType @getOption="getOption"/>
           <!-- 发布 -->
-          <submit :sendVote="sendVote" />
+          <submit :sendVote="sendVote"/>
         </div>
       </el-main>
     </el-container>
@@ -28,8 +29,9 @@ import submit from "./option_modules/submit.vue";
 import deadlineVue from "./option_modules/deadline.vue";
 import contentVue from "./option_modules/content.vue";
 import optionType from "./option_type.vue";
-import { getInitiate } from "../../../api/vote/initiate/initiate";
+import {getInitiate} from "../../../api/vote/initiate/initiate";
 import tree from "element-ui/packages/tree";
+
 export default {
   name: "voteOption",
   components: {
@@ -116,6 +118,7 @@ export default {
   margin: 0;
   padding: 0;
 }
+
 .el-header,
 .el-footer {
   margin: 20px;

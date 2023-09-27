@@ -199,6 +199,13 @@
                 <artifactId>selab-vote</artifactId>
                 <version>3.8.3</version>
             </dependency>
+
+            <!-- 奖惩制度 -->
+            <dependency>
+                <groupId>tyut.selab</groupId>
+                <artifactId>selab-rule</artifactId>
+                <version>3.8.3</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -211,6 +218,7 @@
         <module>ruoyi-common</module>
         <module>selab-vote</module>
         <module>selab-schedule</module>
+        <module>selab-rule</module>
     </modules>
     <packaging>pom</packaging>
 

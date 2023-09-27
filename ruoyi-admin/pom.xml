@@ -73,6 +73,13 @@
             <artifactId>selab-vote</artifactId>
         </dependency>
 
+        <!-- 奖惩制度 -->
+        <dependency>
+            <groupId>tyut.selab</groupId>
+            <artifactId>selab-rule</artifactId>
+            <version>3.8.3</version>
+        </dependency>
+
         <!-- springboot测试 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

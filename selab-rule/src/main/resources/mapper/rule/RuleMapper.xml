@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tyut.selab.rule.mapper.RuleMapper">
+    <update id="setStatus">
+        update rule_score set rule_status=#{rule_status} where user_id=#{user_id}
+    </update>
+    <update id="edit">
+        update sys_rule set text=#{text} where id=1
+    </update>
+
+    <select id="getStatus" resultType="java.lang.Integer">
+        select rule_status from rule_score where user_id=#{user_id}
+    </select>
+    <select id="getText" resultType="java.lang.String">
+        select context from sys_rule where id=1
+    </select>
+</mapper>

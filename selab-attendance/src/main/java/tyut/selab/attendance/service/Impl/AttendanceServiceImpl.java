@@ -66,36 +66,19 @@ public class AttendanceServiceImpl implements IAttendanceService {
             Calendar cal2 = Calendar.getInstance();
             cal1.setTime(attStartTime);
             cal2.setTime(attEndTime);
-            int date1 = cal1.get(Calendar.DATE);
-            int date2 = cal2.get(Calendar.DATE);
             couldSignOut.setCouldSignOut(false);
-            couldSignOut.setAttStartTime(null);
-            if (date1 == date2){ //当前时间和签到时间是同一天
-                couldSignOut.setAttStartTime(attStartTime);
-                int minute = differentHoursByMillisecond(attEndTime, attStartTime);
-                cal2.get(Calendar.DAY_OF_WEEK);
-                int hour = cal2.get(Calendar.HOUR_OF_DAY); //签退时间小时数
-                int minutes = cal2.get(Calendar.MINUTE); //签退时间分钟数
-                int week = cal2.get(Calendar.DAY_OF_WEEK) - 1; //签退时间星期数
-                if (week != 6 && week != 7){
-                    if (hour <= 18 || (hour == 19 && minutes < 30)){ //晚上7点半到9点半不允许签退
-                        if (minute >= 60){
-                            couldSignOut.setCouldSignOut(true);
-                        }
-                    } else if (hour >= 21) {
-                        if (minute >= 60){
-                            couldSignOut.setCouldSignOut(true);
-                        }
-                    }
-                }else {
-                    if (minute >= 60){
-                        couldSignOut.setCouldSignOut(true);
-                    }
-                }
-            }
+            couldSignOut.setAttStartTime(attStartTime);
             if (attendance.getAttEndTime() != null){ //有此人签到和签退记录,不能签退，请先签到
                 couldSignOut.setCouldSignOut(false);
                 couldSignOut.setAttStartTime(null);
+            }else{ // 有签到无签退
+                int hour = cal2.get(Calendar.HOUR_OF_DAY); //签退时间小时数
+                int i = cal1.get(Calendar.HOUR_OF_DAY);
+                if (hour - i >=1){
+                    couldSignOut.setCouldSignOut(true);
+                }else {
+                    couldSignOut.setCouldSignOut(false);
+                }
             }
         }else { //当前库中无此人签到记录,不允许签退
             couldSignOut.setCouldSignOut(false);

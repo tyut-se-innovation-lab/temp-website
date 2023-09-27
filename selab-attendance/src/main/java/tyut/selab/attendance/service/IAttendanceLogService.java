@@ -30,7 +30,21 @@ public interface IAttendanceLogService {
      * @return
      */
     PageInfo<Attendance> bookPageInfo(@Nullable Long attStartTime, @Nullable Long attEndTime, int pageNum, int pageSize);
+    /**
+     * 查看部门成员日志分页查询+时间总和
+     * @param pageNum 当前页数
+     * @param pageSize 每页的数据行数
+     * @return
+     */
+    PageInfo<Attendance> departmentBookPageInfo(@Nullable Long attStartTime, @Nullable Long attEndTime, int pageNum, int pageSize,int deptId);
 
+    /**
+     * 查看all成员日志分页查询+时间总和
+     * @param pageNum 当前页数
+     * @param pageSize 每页的数据行数
+     * @return
+     */
+    public PageInfo<Attendance> totalBookPageInfo(@Nullable Long attStartTime,@Nullable Long attEndTime, int pageNum, int pageSize);
     /**
      * 获取日志文件列表
      * @return 日志文件列表

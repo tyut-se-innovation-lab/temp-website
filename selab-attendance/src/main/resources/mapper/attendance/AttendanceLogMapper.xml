@@ -21,6 +21,24 @@
         </where>
     </select>
 
+    <select id="deptUserId" parameterType="java.lang.Integer" >
+        SELECT user_id  FROM sys_user
+        WHERE dept_id = #{deptId};
+    </select>
+
+    <select id="allUserId" parameterType="java.lang.Integer" >
+        SELECT user_id  FROM sys_user
+    </select>
+    <select id="userTime" parameterType="java.lang.Integer" resultMap="Attendance">
+        SELECT id, att_user, att_start_time, att_end_time, `interval`
+        FROM selab_attendance_log
+        <where>
+            <if test="startTime != null and endTime != null">
+                AND att_start_time BETWEEN #{startTime} AND #{endTime}
+            </if>
+            AND att_user = #{userId}
+        </where>
+    </select>
     <!--  public void statisticsLogs();-->
     <insert id="statisticsLogs">
         INSERT INTO `selab_attendance_log_statistics` (`att_user`, `interval`)
@@ -29,4 +47,8 @@
         GROUP BY `att_user`
         ON DUPLICATE KEY UPDATE `interval` = VALUES(`interval`)
     </insert>
+
+
+
+
 </mapper>

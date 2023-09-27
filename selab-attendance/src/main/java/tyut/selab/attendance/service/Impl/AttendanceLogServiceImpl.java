@@ -50,6 +50,64 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
         }else attendances = attendanceLogMapper.couleSignOut(null,null);
         return new PageInfo<>(attendances);
     }
+    public PageInfo<Attendance> totalBookPageInfo(@Nullable Long attStartTime,@Nullable Long attEndTime, int pageNum, int pageSize) {
+        Date start = new Date();
+        Date end = new Date();
+        if (attStartTime != null && attEndTime != null){
+            start.setTime(attStartTime);
+            end.setTime(attEndTime);
+        }else {
+            start = null;
+            end = null;
+        }
+        PageHelper.startPage(pageNum,pageSize);
+        List<Integer> allUserIds=attendanceLogMapper.allUserId();
+        List<Attendance> totalAttendances = null;
+        if (start != null){
+            for (int allUserId : allUserIds) {
+                List<Attendance> attendances = attendanceLogMapper.userTime(start, end, allUserId);
+                double total = 0;
+                for (Attendance attendance : attendances) {
+                    total = total + Double.parseDouble(attendance.getSignTime());
+                }
+                Attendance totalAttendance = attendances.get(0);
+                totalAttendance.setSignTime(String.valueOf(total));
+                totalAttendances.add(totalAttendance);
+            }
+
+        }else totalAttendances = attendanceLogMapper.couleSignOut(null,null);
+        return new PageInfo<>(totalAttendances);
+    }
+
+    @Override
+
+    public PageInfo<Attendance> departmentBookPageInfo(Long attStartTime, Long attEndTime, int pageNum, int pageSize, int deptId) {
+        Date start = new Date();
+        Date end = new Date();
+        List<Attendance> totalAttendances = null;
+        if (attStartTime != null && attEndTime != null) {
+            start.setTime(attStartTime);
+            end.setTime(attEndTime);
+        } else {
+            start = null;
+            end = null;
+        }
+        PageHelper.startPage(pageNum,pageSize);
+        List<Integer> userIds = attendanceLogMapper.deptUserId(deptId);
+        if (start != null) {
+            for (int userId : userIds) {
+                List<Attendance> attendances = attendanceLogMapper.userTime(start, end, userId);
+                double total = 0;
+                for (Attendance attendance : attendances) {
+                    total = total + Double.parseDouble(attendance.getSignTime());
+                }
+                Attendance totalAttendance = attendances.get(0);
+                totalAttendance.setSignTime(String.valueOf(total));
+                totalAttendances.add(totalAttendance);
+            }
+        }
+        return new PageInfo<>(totalAttendances);
+    }
 
     @Override
     public List<String> getLogFileList() {

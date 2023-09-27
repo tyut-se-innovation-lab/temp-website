@@ -31,12 +31,42 @@ public class AttendanceLogController {
     @GetMapping("/week")
     @ResponseBody
     public AjaxResult getThisWeekLog(@Nullable @RequestParam(required = false,value = "attStartTime") Long attStartTime,
-                                     @Nullable @RequestParam(required = false,value = "attEndTime") Long attEndTime,
+                                     @Nullable @RequestParam(required = false,value = "attEndTime")
+
+                                     Long attEndTime,
                                      @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
                                      @RequestParam(value = "pageSize",defaultValue = "15") int pageSize){
         return AjaxResult.success(attendanceLogService.bookPageInfo(attStartTime,attEndTime,pageNum,pageSize));
     }
+    /**
+     * 查看alluser日志+时间总和
+     * @return
+     */
+    @PreAuthorize("@ss.hasPermi('attendance:log')")
+    @GetMapping("/allTime")
+    @ResponseBody
+    public AjaxResult allUserTime(@Nullable @RequestParam(required = false,value = "attStartTime") Long attStartTime,
+                                     @Nullable @RequestParam(required = false,value = "attEndTime")
 
+                                     Long attEndTime,
+                                     @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+                                     @RequestParam(value = "pageSize",defaultValue = "15") int pageSize){
+        return AjaxResult.success(attendanceLogService.totalBookPageInfo(attStartTime,attEndTime,pageNum,pageSize));
+    }
+    /**
+     * 查看部门日志+时间总和
+     * @return 部门日志信息
+     */
+    @PreAuthorize("@ss.hasPermi('attendance:log')")
+    @GetMapping("/deptTime")
+    @ResponseBody
+    public AjaxResult getDeptDataTimeLog(@Nullable @RequestParam(required = false,value = "attStartTime") Long attStartTime,
+                                     @Nullable @RequestParam(required = false,value = "attEndTime") Long attEndTime,
+                                     @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
+                                     @RequestParam(value = "pageSize",defaultValue = "15") int pageSize,
+                                                                                        int deptId){
+        return AjaxResult.success(attendanceLogService.departmentBookPageInfo(attStartTime,attEndTime,pageNum, pageSize,deptId));
+    }
     /**
      * 获取导出的文件列表
      * @return 文件列表

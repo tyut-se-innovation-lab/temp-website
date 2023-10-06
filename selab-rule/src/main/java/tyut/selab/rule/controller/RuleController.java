@@ -45,7 +45,7 @@ public class RuleController {
      * @param ruleStatus
      */
     @ApiOperation("当用户点击不再提示奖惩制度窗口后，发送请求修改sys_user表中的is_pop字段")
-    @PutMapping("setStatus")
+    @PutMapping("/setStatus")
     public R setStatus(Long userId, int ruleStatus) {
         ruleService.setStatus(userId, ruleStatus);
         return R.ok();
@@ -57,7 +57,7 @@ public class RuleController {
      * @param text
      */
     @ApiOperation("用户点击修改文本，点击保存后发送请求修改sys_text表中的content字段")
-    @PutMapping("edit")
+    @PutMapping("/edit")
     public R edit(String text) {
         ruleService.edit(text);
         return R.ok();

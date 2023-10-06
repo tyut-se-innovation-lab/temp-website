@@ -3,16 +3,30 @@
     <div>
       <div id="logheader">
         <div>
-          选择时间：
+          时间：
           <el-date-picker
             type="daterange"
             v-model="filterDate"
+            popper-class="datePicker"
+            unlink-panels
             range-separator="至"
             start-placeholder="开始日期"
             end-placeholder="结束日期"
           ></el-date-picker>
         </div>
-        <el-button type="" @click="setVisible">下 载</el-button>
+        <div>
+          部门：
+          <el-select v-model="deptId" clearable placeholder="全部">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+              change="">
+            </el-option>
+          </el-select>
+        </div>
+        <el-button @click="setVisible">下 载</el-button>
       </div>
 
       <el-dialog
@@ -64,7 +78,7 @@
 </template>
 
 <script>
-import {Log} from "@/api/attendance/signlog/index.js";
+import {Log} from "@/api/attendance/signlogsort/index.js";
 import {Download} from "@/api/extendsion/download/index.js";
 import Page from "@/views/components/pages/index.vue";
 
@@ -85,6 +99,45 @@ export default {
         pagerCount: 0,
       },
       downloadVisible: false,
+      options: [
+      {
+        value: '203',
+        label: '开发挂件小分队'
+      }, {
+        value: '204',
+        label: '塔罗会'
+      }, {
+        value: '205',
+        label: 'NGC2237'
+      }, {
+        value: '206',
+        label: 'GG Bond 粉丝群'
+      }, {
+        value: '207',
+        label: '原神理工大学家教群'
+      }, {
+        value: '208',
+        label: '瑞克五专卖(魔仙堡店)'
+      }, {
+        value: '209',
+        label: '羊村'
+      }, {
+        value: '210',
+        label: 'CT阵营'
+      }, {
+        value: '211',
+        label: '狼堡'
+      }, {
+        value: '212',
+        label: '算法提前批'
+      }, {
+        value: '213',
+        label: '真假🖐🏻👌🏻🐟'
+      }, {
+        value: '214',
+        label: 'T阵营'
+      }], // 部门选项
+      deptId: ""      // 部门id
     };
   },
   compute: {
@@ -101,7 +154,7 @@ export default {
      */
     init() {
       this.getFileList();
-      this.weekLog();
+      this.deptTime();
     },
 
     /**
@@ -109,16 +162,17 @@ export default {
      * @param {Number} currentPage 自定义参数:当前页数
      * @param {Number} pageCount 自定义参数:每页最大展示条数
      */
-    weekLog(currentPage, pageCount) {
+    deptTime(currentPage, pageCount) {
       let tmpObj = {
         attStartTime: this.filterDate ? this.filterDate[0].getTime() : null,
         attEndTime: this.filterDate ? this.filterDate[1].getTime() : null,
         currentPage: currentPage || this.currentPage,
         pageCount: pageCount || 15,
+        deptId: this.deptId || 1
       };
 
-      this.log.weekLog(tmpObj).then((res) => {
-        // console.log(res);
+      this.log.deptTime(tmpObj).then((res) => {
+        console.log(res);
         this.signLog = res.data;
         this.signLogShowData = res.data.list;
 
@@ -229,11 +283,14 @@ export default {
       if (this.currentPage !== 1) {
         this.currentPage = 1;
       }
-      this.weekLog();
+      this.deptTime();
     },
     currentPage(newVal, oldVal) {
-      this.weekLog();
+      this.deptTime();
     },
+    deptId(newVal, oldVal) {
+      this.deptTime()
+    }
   },
   created() {
     this.init();
@@ -252,4 +309,11 @@ export default {
   margin: 0 auto;
 }
 
+.datePicker{
+  background-color: black;
+}
+
+/deep/ .is-right {
+  display: none;
+}
 </style>

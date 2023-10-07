@@ -30,7 +30,7 @@ public interface AttendanceLogMapper {
      * @param deptId
      * @return
      */
-    public List deptUserId(@Param("deptId") int deptId);
+    public List<Integer> deptUserId(@Param("deptId") int deptId);
 
     /**
      * 根据部门id获得部员日志

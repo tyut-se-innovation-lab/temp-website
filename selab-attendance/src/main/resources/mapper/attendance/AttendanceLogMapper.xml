@@ -22,8 +22,7 @@
     </select>
 
     <select id="deptUserId" parameterType="java.lang.Integer" >
-        SELECT user_id  FROM sys_user
-        WHERE dept_id = #{deptId};
+        SELECT user_id FROM sys_user WHERE dept_id = #{deptId};
     </select>
 
     <select id="allUserId" parameterType="java.lang.Integer" >

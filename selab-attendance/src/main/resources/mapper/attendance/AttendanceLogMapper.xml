@@ -21,7 +21,7 @@
         </where>
     </select>
 
-    <select id="deptUserId" parameterType="java.lang.Integer" >
+    <select id="deptUserId" parameterType="java.lang.Integer" resultType="int">
         SELECT user_id FROM sys_user WHERE dept_id = #{deptId};
     </select>
 

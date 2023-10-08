@@ -1,3 +1,6 @@
+package ruoyi_attendace;
+
+import com.ruoyi.RuoYiApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +11,7 @@ import tyut.selab.attendance.mapper.AttendanceLogMapper;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = )
+@SpringBootTest(classes = RuoYiApplication.class)
 public class AttendanceLogMapperTest {
     @Autowired
     private AttendanceLogMapper attendanceLogMapper;

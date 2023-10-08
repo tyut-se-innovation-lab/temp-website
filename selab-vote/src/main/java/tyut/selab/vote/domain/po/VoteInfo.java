@@ -1,19 +1,19 @@
 package tyut.selab.vote.domain.po;
 
-import tyut.selab.vote.enums.VoteStatus;
-import tyut.selab.vote.enums.VoteType;
+import tyut.selab.vote.enums.User;
 
 import java.util.Date;
 
 public class VoteInfo {
     private Long id;
     private String userId;
-    private VoteType type;
     private String title;
     private String content;
-    private VoteStatus status;
+    private String status;
+    private Date deadline;
     private Date createTime;
-    private Date updateTime;
+    private Long weight;
+    private int peoples;
 
     public Long getId() {
         return id;
@@ -29,14 +29,6 @@ public class VoteInfo {
 
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    public VoteType getType() {
-        return type;
-    }
-
-    public void setType(VoteType type) {
-        this.type = type;
     }
 
     public String getTitle() {
@@ -55,11 +47,11 @@ public class VoteInfo {
         this.content = content;
     }
 
-    public VoteStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(VoteStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -71,12 +63,43 @@ public class VoteInfo {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public Long getWeight() {
+        return weight;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setWeight(Long weight) {
+        this.weight = weight;
+    }
+
+    public Date getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
+    }
+
+    public int getPeoples() {
+        return peoples;
+    }
+
+    public void setPeoples(int peoples) {
+        this.peoples = peoples;
+    }
+
+    @Override
+    public String toString() {
+        return "VoteInfo{" +
+                "id=" + id +
+                ", userId='" + userId + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", status='" + status + '\'' +
+                ", deadline=" + deadline +
+                ", createTime=" + createTime +
+                ", weight=" + weight +
+                ", peoples=" + peoples +
+                '}';
     }
 }
 

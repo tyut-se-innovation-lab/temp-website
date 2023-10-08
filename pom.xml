@@ -6,17 +6,17 @@
 	
     <groupId>com.ruoyi</groupId>
     <artifactId>ruoyi</artifactId>
-    <version>3.8.3</version>
+    <version>3.8.4</version>
 
     <name>ruoyi</name>
     <url>http://www.ruoyi.vip</url>
     <description>若依管理系统</description>
     
     <properties>
-        <ruoyi.version>3.8.3</ruoyi.version>
+        <ruoyi.version>3.8.4</ruoyi.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
         <druid.version>1.2.11</druid.version>
         <bitwalker.version>1.21</bitwalker.version>
@@ -112,6 +112,18 @@
             <!-- excel工具 -->
             <dependency>
                 <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml-schemas</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.poi</groupId>
                 <artifactId>poi-ooxml</artifactId>
                 <version>${poi.version}</version>
             </dependency>
@@ -190,14 +202,14 @@
             <dependency>
                 <groupId>tyut.selab</groupId>
                 <artifactId>selab-schedule</artifactId>
-                <version>3.8.3</version>
+                <version>3.8.4</version>
             </dependency>
 
             <!-- 投票系统 -->
             <dependency>
                 <groupId>tyut.selab</groupId>
                 <artifactId>selab-vote</artifactId>
-                <version>3.8.3</version>
+                <version>3.8.4</version>
             </dependency>
 
             <!-- 奖惩制度 -->
@@ -219,12 +231,18 @@
         <module>selab-vote</module>
         <module>selab-schedule</module>
         <module>selab-rule</module>
+        <module>selab-attendance</module>
     </modules>
     <packaging>pom</packaging>
 
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>

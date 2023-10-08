@@ -80,6 +80,7 @@ export default {
         animation-timing-function: linear;
         animation-fill-mode: forwards;
         animation-delay: 1.2s;
+
       }
       &.right {
         width: 62px;

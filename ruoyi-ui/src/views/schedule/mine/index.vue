@@ -9,16 +9,14 @@
             <el-button type="primary" v-if="modifybutton" @click="writeData"
               >修改</el-button
             >
-             <temp_find/>
+            <temp_find />
           </div>
         </el-col>
         <el-col :span="scale2">
           <schedule-input></schedule-input>
         </el-col>
       </el-row>
-      
     </el-main>
-   
   </el-container>
 </template>
 
@@ -33,7 +31,7 @@ export default {
   components: {
     WriteSchedule,
     ScheduleInput,
-    temp_find
+    temp_find,
   },
   data() {
     return {
@@ -85,7 +83,7 @@ export default {
         setTimeout(() => {
           this.writableData();
           this.writableData();
-        }, 200);
+        }, 500);
       }, 500);
     },
   },
@@ -98,7 +96,7 @@ export default {
       setTimeout(() => {
         this.writableData();
         this.writableData();
-      }, 200);
+      }, 500);
     }
   },
 };

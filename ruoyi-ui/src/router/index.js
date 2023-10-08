@@ -20,12 +20,12 @@ import Layout from '@/layout'
  * roles: ['admin', 'common']       // 访问路由的角色权限
  * permissions: ['a:a:a', 'b:b:b']  // 访问路由的菜单权限
  * meta : {
-    noCache: true                   // 如果设置为true，则不会被 <keep-alive> 缓存(默认 false)
-    title: 'title'                  // 设置该路由在侧边栏和面包屑中展示的名字
-    icon: 'svg-name'                // 设置该路由的图标，对应路径src/assets/icons/svg
-    breadcrumb: false               // 如果设置为false，则不会在breadcrumb面包屑中显示
-    activeMenu: '/system/user'      // 当路由设置了该属性，则会高亮相对应的侧边栏。
-  }
+ noCache: true                   // 如果设置为true，则不会被 <keep-alive> 缓存(默认 false)
+ title: 'title'                  // 设置该路由在侧边栏和面包屑中展示的名字
+ icon: 'svg-name'                // 设置该路由的图标，对应路径src/assets/icons/svg
+ breadcrumb: false               // 如果设置为false，则不会在breadcrumb面包屑中显示
+ activeMenu: '/system/user'      // 当路由设置了该属性，则会高亮相对应的侧边栏。
+ }
  */
 
 // 公共路由
@@ -70,7 +70,7 @@ export const constantRoutes = [
         path: 'index',
         component: () => import('@/views/index'),
         name: 'Index',
-        meta: { title: '首页', icon: 'dashboard', affix: true }
+        meta: {title: '首页', icon: 'dashboard', affix: true}
       }
     ]
   },
@@ -84,10 +84,84 @@ export const constantRoutes = [
         path: 'profile',
         component: () => import('@/views/system/user/profile/index'),
         name: 'Profile',
-        meta: { title: '个人中心', icon: 'user' }
+        meta: {title: '个人中心', icon: 'user'}
+      }
+    ]
+  },
+  {
+    path: '/vote',
+    component: Layout,
+    hidden: true,
+    // permissions: ['vote'],
+    meta: {title: '投票系统'},
+    redirect: 'noRedirect',
+    children: [
+      {
+        name: "join",
+        path: "join",
+        component: () => import('@/views/vote/join/index'),
+        meta: {title: '参与投票'},
+
+        children: [
+          {
+            name: "success",
+            path: "success",
+            component: () => import('@/views/vote/join/success/index')
+          },
+        ]
+      },
+      {
+        name: "history",
+        path: "history",
+        component: () => import('@/views/vote/history/index'),
+        meta: {title: '查看历史投票'},
+      },
+      {
+        name: "historydetails",
+        path: "historydetails",
+        component: () => import('@/views/vote/history/details/index'),
+        meta: {title: '历史投票细节'},
+      },
+
+      {
+        name: "joindetails",
+        path: "joindetails",
+        component: () => import('@/views/vote/join/details/index'),
+        meta: {title: '参与投票细节'},
+      },
+
+      // {
+      //   path: '/vote/history',
+      //   component: () => import('@/views/vote/history/brief/index'),
+      //   children: [
+      //     {
+      //       path: '/vote/history',
+      //       component: () => import('@/views/vote/history/brief/index'),
+      //       children: [
+      //         {
+      //           path: "details",
+      //           component: () => import('@/views/vote/history/details/index')
+      //         }
+      //       ]
+      //     }]
+      // },
+      {
+        path: '/vote/management',
+        component: () => import('@/views/vote/management/index'),
+      },
+      {
+        path: '/vote/initiate',
+        component: () => import('../views/vote/initiate/index'),
+      },
+      {
+        name: "historyAllData",
+        path: "historyAllData",
+        component: () => import('@/views/vote/mine/historyAllData.vue'),
+        meta: {title: '我的投票细节'},
       }
     ]
   }
+
 ]
 
 // 动态路由，基于用户权限动态去加载
@@ -102,7 +176,7 @@ export const dynamicRoutes = [
         path: 'role/:userId(\\d+)',
         component: () => import('@/views/system/user/authRole'),
         name: 'AuthRole',
-        meta: { title: '分配角色', activeMenu: '/system/user' }
+        meta: {title: '分配角色', activeMenu: '/system/user'}
       }
     ]
   },
@@ -116,7 +190,7 @@ export const dynamicRoutes = [
         path: 'user/:roleId(\\d+)',
         component: () => import('@/views/system/role/authUser'),
         name: 'AuthUser',
-        meta: { title: '分配用户', activeMenu: '/system/role' }
+        meta: {title: '分配用户', activeMenu: '/system/role'}
       }
     ]
   },
@@ -130,7 +204,7 @@ export const dynamicRoutes = [
         path: 'index/:dictId(\\d+)',
         component: () => import('@/views/system/dict/data'),
         name: 'Data',
-        meta: { title: '字典数据', activeMenu: '/system/dict' }
+        meta: {title: '字典数据', activeMenu: '/system/dict'}
       }
     ]
   },
@@ -144,7 +218,7 @@ export const dynamicRoutes = [
         path: 'index',
         component: () => import('@/views/monitor/job/log'),
         name: 'JobLog',
-        meta: { title: '调度日志', activeMenu: '/monitor/job' }
+        meta: {title: '调度日志', activeMenu: '/monitor/job'}
       }
     ]
   },
@@ -158,7 +232,7 @@ export const dynamicRoutes = [
         path: 'index/:tableId(\\d+)',
         component: () => import('@/views/tool/gen/editTable'),
         name: 'GenEdit',
-        meta: { title: '修改生成配置', activeMenu: '/tool/gen' }
+        meta: {title: '修改生成配置', activeMenu: '/tool/gen'}
       }
     ]
   }
@@ -172,6 +246,6 @@ Router.prototype.push = function push(location) {
 
 export default new Router({
   mode: 'history', // 去掉url中的#
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({y: 0}),
   routes: constantRoutes
 })

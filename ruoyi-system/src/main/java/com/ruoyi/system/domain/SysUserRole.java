@@ -1,5 +1,6 @@
 package com.ruoyi.system.domain;
 
+import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -8,6 +9,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * 
  * @author ruoyi
  */
+@Data
 public class SysUserRole
 {
     /** 用户ID */
@@ -42,5 +44,13 @@ public class SysUserRole
             .append("userId", getUserId())
             .append("roleId", getRoleId())
             .toString();
+    }
+
+    public SysUserRole() {
+    }
+
+    public SysUserRole(Long userId, Long roleId) {
+        this.userId = userId;
+        this.roleId = roleId;
     }
 }

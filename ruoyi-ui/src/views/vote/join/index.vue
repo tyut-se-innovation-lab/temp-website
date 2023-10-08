@@ -1,3 +1,17 @@
 <template>
-  <h1>join page</h1>
+  <div>
+    <Join></Join>
+  </div>
 </template>
+
+<script>
+import Join from "@/views/vote/join/brief/index.vue";
+export default {
+  components: {
+    Join,
+  },
+};
+</script>
+
+<style>
+</style>

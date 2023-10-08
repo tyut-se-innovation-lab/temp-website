@@ -30,13 +30,14 @@ public interface AttendanceLogMapper {
      * @param deptId
      * @return
      */
-    public List<Integer> deptUserId(@Param("deptId") int deptId);
+    public List<String> nickName(@Param("deptId") int deptId);
 
     /**
      * 根据部门id获得部员日志
      * @return
      */
-    public List<Attendance> userTime(@Param("startTime") Date startTime,@Param("endTime") Date endTime,@Param("roleId") int roleId);
+    public List<Attendance> userTime(@Param("startTime") Date startTime,@Param("endTime") Date endTime,@Param("userId") int userId);
+    public List<Attendance> userTimeName(@Param("startTime") Date startTime,@Param("endTime") Date endTime,@Param("userName") String userName);
 
     public List allUserId();
 

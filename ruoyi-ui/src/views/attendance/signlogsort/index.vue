@@ -168,7 +168,7 @@ export default {
         attEndTime: this.filterDate ? this.filterDate[1].getTime() : null,
         currentPage: currentPage || this.currentPage,
         pageCount: pageCount || 15,
-        deptId: this.deptId
+        deptId: this.deptId || 1
       };
 
       this.log.deptTime(tmpObj).then((res) => {

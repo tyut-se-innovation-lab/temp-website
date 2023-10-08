@@ -84,7 +84,7 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
     public PageInfo<Attendance> departmentBookPageInfo(Long attStartTime, Long attEndTime, int pageNum, int pageSize, int deptId) {
         Date start = new Date();
         Date end = new Date();
-        List<Attendance> totalAttendances = null;
+        List<Attendance> totalAttendances = new ArrayList<>();
         if (attStartTime != null && attEndTime != null) {
             start.setTime(attStartTime);
             end.setTime(attEndTime);
@@ -93,17 +93,23 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
             end = null;
         }
         PageHelper.startPage(pageNum,pageSize);
-        List<Integer> userIds = attendanceLogMapper.deptUserId(deptId);
+        List<String> userNames = attendanceLogMapper.nickName(deptId);
         if (start != null) {
-            for (int userId : userIds) {
-                List<Attendance> attendances = attendanceLogMapper.userTime(start, end, userId);
+            for (String userName: userNames) {
+                List<Attendance> attendances = attendanceLogMapper.userTimeName(start, end, userName);
+                if (attendances.size() !=0){
                 double total = 0;
                 for (Attendance attendance : attendances) {
                     total = total + Double.parseDouble(attendance.getSignTime());
                 }
                 Attendance totalAttendance = attendances.get(0);
                 totalAttendance.setSignTime(String.valueOf(total));
-                totalAttendances.add(totalAttendance);
+                    if (!attendances.isEmpty()) {
+                        totalAttendances.add(totalAttendance);
+                    }
+
+                }
+                else continue;
             }
         }
         return new PageInfo<>(totalAttendances);

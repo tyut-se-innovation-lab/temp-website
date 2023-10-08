@@ -21,8 +21,8 @@
         </where>
     </select>
 
-    <select id="deptUserId" parameterType="java.lang.Integer" resultType="int">
-        SELECT user_id FROM sys_user WHERE dept_id = #{deptId};
+    <select id="nickName" parameterType="java.lang.Integer" resultType="String">
+        SELECT nick_name FROM sys_user WHERE dept_id = #{deptId}
     </select>
 
     <select id="allUserId" parameterType="java.lang.Integer" >
@@ -36,6 +36,16 @@
                 AND att_start_time BETWEEN #{startTime} AND #{endTime}
             </if>
             AND att_user = #{userId}
+        </where>
+    </select>
+    <select id="userTimeName" parameterType="java.lang.String" resultMap="Attendance">
+        SELECT id, att_user, att_start_time, att_end_time, `interval`
+        FROM selab_attendance_log
+        <where>
+            <if test="startTime != null and endTime != null">
+                AND att_start_time BETWEEN #{startTime} AND #{endTime}
+            </if>
+            AND att_user = #{userName}
         </where>
     </select>
     <!--  public void statisticsLogs();-->

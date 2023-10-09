@@ -4,6 +4,7 @@ import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.domain.R;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import tyut.selab.rule.service.ContextService;
 
 import javax.servlet.ServletInputStream;
@@ -40,6 +41,25 @@ public class ContextServiceImpl implements ContextService {
             file.createNewFile();
         }
         BufferedInputStream in=new BufferedInputStream(input);
+        BufferedOutputStream out=new BufferedOutputStream(new FileOutputStream(fileName));
+        int len=-1;
+        byte[] b=new byte[1024];
+        while((len=in.read(b))!=-1){
+            out.write(b,0,len);
+        }
+        in.close();
+        out.close();
+    }
+
+    @Override
+    public void upload(MultipartFile file) throws IOException {
+        InputStream inputStream = file.getInputStream();
+        String fileName="D://12354.md";
+        File newfile=new File(fileName);
+        if(!newfile.exists()){
+            newfile.createNewFile();
+        }
+        BufferedInputStream in=new BufferedInputStream(inputStream);
         BufferedOutputStream out=new BufferedOutputStream(new FileOutputStream(fileName));
         int len=-1;
         byte[] b=new byte[1024];

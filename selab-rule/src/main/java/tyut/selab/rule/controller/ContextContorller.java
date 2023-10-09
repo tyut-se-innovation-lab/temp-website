@@ -2,6 +2,8 @@ package tyut.selab.rule.controller;
 import com.ruoyi.common.annotation.Anonymous;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.domain.R;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import tyut.selab.rule.service.ContextService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,24 +25,36 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 
+@Api("文件文档类")
 @RestController
 @RequestMapping("/file")
 public class ContextContorller {
     @Autowired
     ContextService contextService;
 
-    @GetMapping("/show")
-    public AjaxResult showfiles(String filename, HttpServletResponse res) throws IOException {
+    @ApiOperation("获取文件流展示到前端，同时可以用该流下载")
+    @GetMapping("/deliver")
+    public AjaxResult deliverfile(String filename, HttpServletResponse res) throws IOException {
         contextService.showfiles(filename,res);
         return AjaxResult.success();
     }
 
+    @ApiOperation("前端编辑后后端获取流写入文件")
     @PreAuthorize("@ss.hasAnyRoles('admin')")
     @PostMapping("/edit")
     public AjaxResult editfile(HttpServletRequest req) throws IOException {
         contextService.editdfile(req);
         return AjaxResult.success();
     }
+
+    @ApiOperation("接收前端上传的文件")
+    @PreAuthorize("@ss.hasAnyPermi('file:upload')")
+    @PostMapping("/upload")
+    public AjaxResult uploadrule(MultipartFile file) throws IOException {
+        contextService.upload(file);
+        return AjaxResult.success();
+    }
+
 
 }
 

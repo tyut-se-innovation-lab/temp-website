@@ -16,7 +16,6 @@ public class RuoYiApplication {
         // System.setProperty("spring.devtools.restart.enabled", "false");
         VoteKeyTool.run(args);
 
-
         SpringApplication.run(RuoYiApplication.class, args);
         System.out.println("(♥◠‿◠)ﾉﾞ  服务启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
                 "  _____  __   __  _   _   _____    ___     ___     _       ___     ___      _\n" +

@@ -16,7 +16,7 @@ public class UserController {
     //查看用户的当前分数和与该用户相关的操作
     @Autowired
     private UserService userService;
-    @PreAuthorize("@ss.hasAnyPermi('rule:score:check')")
+    @PreAuthorize("@ss.hasAnyPermi('rule:announcement')")
     @GetMapping("/userInfo")
     public AjaxResult userInfo(@RequestParam("userId") Long userId) {
         return userService.userInfo(userId);

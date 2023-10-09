@@ -34,18 +34,17 @@ public class ContextContorller {
 
     @ApiOperation("获取文件流展示到前端，同时可以用该流下载")
     @GetMapping("/deliver")
-    public AjaxResult deliverfile(String filename, HttpServletResponse res) throws IOException {
+    public AjaxResult deliverFile(String filename, HttpServletResponse res) throws IOException {
         contextService.showfiles(filename,res);
         return AjaxResult.success();
     }
 
-    @ApiOperation("前端编辑后后端获取流写入文件")
-    @PreAuthorize("@ss.hasAnyRoles('admin')")
-    @PostMapping("/edit")
-    public AjaxResult editfile(HttpServletRequest req) throws IOException {
-        contextService.editdfile(req);
+    @GetMapping("/download")
+    public AjaxResult downloadFile(String filename, HttpServletResponse res) throws IOException {
+        contextService.downloadFile(filename,res);
         return AjaxResult.success();
     }
+
 
     @ApiOperation("接收前端上传的文件")
     @PreAuthorize("@ss.hasAnyPermi('file:upload')")
@@ -55,6 +54,12 @@ public class ContextContorller {
         return AjaxResult.success();
     }
 
-
+    //    @ApiOperation("前端编辑后后端获取流写入文件")
+//    @PreAuthorize("@ss.hasAnyRoles('admin')")
+//    @PostMapping("/edit")
+//    public AjaxResult editfile(HttpServletRequest req) throws IOException {
+//        contextService.editdfile(req);
+//        return AjaxResult.success();
+//    }
 }
 

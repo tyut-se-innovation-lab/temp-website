@@ -13,4 +13,6 @@ public interface ContextService {
     void editdfile(HttpServletRequest res) throws IOException;
 
     void upload(MultipartFile file) throws IOException;
+
+    void downloadFile(String filename, HttpServletResponse res) throws IOException;
 }

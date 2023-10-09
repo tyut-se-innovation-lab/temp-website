@@ -2,6 +2,8 @@ package tyut.selab.attendance.service.Impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.ruoyi.common.core.domain.model.LoginBody;
+import com.ruoyi.common.core.domain.model.LoginUser;
 import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
@@ -24,6 +26,7 @@ import java.util.*;
 @Service
 public class AttendanceLogServiceImpl implements IAttendanceLogService {
 
+    private LoginUser loginUser;
     @Autowired
     AttendanceLogMapper attendanceLogMapper;
 
@@ -100,7 +103,16 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
                 if (attendances.size() !=0){
                 double total = 0;
                 for (Attendance attendance : attendances) {
-                    total = total + Double.parseDouble(attendance.getSignTime());
+                    String signTimeStr = attendance.getSignTime();
+                    if (signTimeStr != null) {
+                        try {
+                            double d = Double.parseDouble(signTimeStr);
+                            System.out.println("转换后的double值为: " + d);
+                            total = total + d;
+                        } catch (NumberFormatException e) {
+                            System.err.println("无法将字符串转换为double: " + signTimeStr);
+                        }
+                    }
                 }
                 Attendance totalAttendance = attendances.get(0);
                 totalAttendance.setSignTime(String.valueOf(total));
@@ -118,7 +130,16 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
                 if (attendances.size() != 0) {
                     double total = 0;
                     for (Attendance attendance : attendances) {
-                        total = total + Double.parseDouble(attendance.getSignTime());
+                        String signTimeStr = attendance.getSignTime();
+                        if (signTimeStr != null) {
+                            try {
+                                double d = Double.parseDouble(signTimeStr);
+                                System.out.println("转换后的double值为: " + d);
+                                total = total + d;
+                            } catch (NumberFormatException e) {
+                                System.err.println("无法将字符串转换为double: " + signTimeStr);
+                            }
+                        }
                     }
                     Attendance totalAttendance = attendances.get(0);
                     totalAttendance.setSignTime(String.valueOf(total));
@@ -132,7 +153,29 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
         }
         return new PageInfo<>(totalAttendances);
     }
+    public double userWeekTime() {
+        Long userId =loginUser.getUserId();
+        String userName = attendanceLogMapper.nickUserName(userId);
+        List<Attendance> attendances = attendanceLogMapper.userTimeName(null, null,userName );
+        double total = 0;
+        if (attendances.size() != 0) {
+            for (Attendance attendance : attendances) {
+                String signTimeStr = attendance.getSignTime();
+                if (signTimeStr != null) {
+                    try {
+                        double d = Double.parseDouble(signTimeStr);
+                        System.out.println("转换后的double值为: " + d);
+                        total = total + d;
+                    } catch (NumberFormatException e) {
+                        System.err.println("无法将字符串转换为double: " + signTimeStr);
+                        return 0;
+                    }
+                }
+            }
+        }else  total = 0;
 
+        return total;
+    }
     @Override
     public List<String> getLogFileList() {
         File folder = new File("/var/temp_website/signlog");

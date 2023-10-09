@@ -19,9 +19,9 @@
           <el-select v-model="deptId" clearable placeholder="全部">
             <el-option
               v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+              :key="item.deptId"
+              :label="item.deptName"
+              :value="item.deptId"
               change="">
             </el-option>
           </el-select>
@@ -68,7 +68,7 @@
       ></el-table-column>
       <el-table-column
         prop="signTime"
-        label="经历时间(h)"
+        label="总计有效时间(h)"
         align="center"
         min-width="130"
       ></el-table-column>
@@ -81,6 +81,7 @@
 import {Log} from "@/api/attendance/signlogsort/index.js";
 import {Download} from "@/api/extendsion/download/index.js";
 import Page from "@/views/components/pages/index.vue";
+import {listDept} from "@/api/system/dept";
 
 export default {
   name: "log",
@@ -101,44 +102,7 @@ export default {
         pagerCount: 0,
       },
       downloadVisible: false,
-      options: [
-      {
-        value: '203',
-        label: '开发挂件小分队'
-      }, {
-        value: '204',
-        label: '塔罗会'
-      }, {
-        value: '205',
-        label: 'NGC2237'
-      }, {
-        value: '206',
-        label: 'GG Bond 粉丝群'
-      }, {
-        value: '207',
-        label: '原神理工大学家教群'
-      }, {
-        value: '208',
-        label: '瑞克五专卖(魔仙堡店)'
-      }, {
-        value: '209',
-        label: '羊村'
-      }, {
-        value: '210',
-        label: 'CT阵营'
-      }, {
-        value: '211',
-        label: '狼堡'
-      }, {
-        value: '212',
-        label: '算法提前批'
-      }, {
-        value: '213',
-        label: '真假🖐🏻👌🏻🐟'
-      }, {
-        value: '214',
-        label: 'T阵营'
-      }], // 部门选项
+      options: [], // 部门选项
       deptId: ""      // 部门id
     };
   },
@@ -151,12 +115,23 @@ export default {
     Page,
   },
   methods: {
+    /** 查询部门列表 */
+    getList() {
+      this.loading = true;
+      listDept(this.queryParams).then(response => {
+        console.log(response)
+        this.options = response.data
+        this.options.splice(0,3)
+      });
+    },
     /**
      * 初始化
      */
     init() {
       this.getFileList();
-      this.deptTime();
+
+      // 没改表所以一开始请求了也是空的所以就不用初始化这个了
+      // this.deptTime();
     },
 
     /**
@@ -299,6 +274,7 @@ export default {
   },
   created() {
     this.init();
+    this.getList()
   },
 };
 </script>
@@ -314,7 +290,7 @@ export default {
   margin: 0 auto;
 }
 
-.datePicker{
+.datePicker {
   background-color: black;
 }
 

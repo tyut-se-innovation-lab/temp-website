@@ -51,6 +51,7 @@ public interface IAttendanceLogService {
      */
     List<String> getLogFileList();
 
+    public double  userWeekTime();
     /**
      *
      * @param request 请求对象

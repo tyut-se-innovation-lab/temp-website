@@ -32,6 +32,8 @@ public interface AttendanceLogMapper {
      */
     public List<String> nickName(@Param("deptId") int deptId);
 
+    public String nickUserName(@Param("deptId") Long userId);
+
     /**
      * 根据部门id获得部员日志
      * @return

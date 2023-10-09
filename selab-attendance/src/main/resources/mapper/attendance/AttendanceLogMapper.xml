@@ -25,6 +25,10 @@
         SELECT nick_name FROM sys_user WHERE dept_id = #{deptId}
     </select>
 
+    <select id="nickUserName" parameterType="java.lang.Integer" resultType="String">
+        SELECT nick_name FROM sys_user WHERE user_id = #{userId}
+    </select>
+
     <select id="allUserId" parameterType="java.lang.Integer" >
         SELECT user_id  FROM sys_user
     </select>

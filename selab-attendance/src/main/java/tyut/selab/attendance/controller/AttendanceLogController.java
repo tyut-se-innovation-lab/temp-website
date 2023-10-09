@@ -1,6 +1,7 @@
 package tyut.selab.attendance.controller;
 
 import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.core.domain.model.LoginBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
@@ -66,6 +67,16 @@ public class AttendanceLogController {
                                      @RequestParam(value = "pageSize",defaultValue = "15") int pageSize,
                                                                                         int deptId){
         return AjaxResult.success(attendanceLogService.departmentBookPageInfo(attStartTime,attEndTime,pageNum, pageSize,deptId));
+    }
+    /**
+     * 查看个人本周时间总和
+     * @return 时间
+     */
+    @PreAuthorize("@ss.hasPermi('attendance:log')")
+    @GetMapping("/userWeekTime")
+    @ResponseBody
+    public AjaxResult userWeekTime(){
+        return AjaxResult.success(attendanceLogService.userWeekTime());
     }
     /**
      * 获取导出的文件列表

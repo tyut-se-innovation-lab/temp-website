@@ -44,6 +44,11 @@
             <version>3.8.4</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.vlkan.rfos</groupId>
+            <artifactId>rotating-fos</artifactId>
+            <version>0.9.5</version>
+        </dependency>
 
     </dependencies>
 

@@ -112,6 +112,24 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
                 else continue;
             }
         }
+        else {
+            for (String userName : userNames) {
+                List<Attendance> attendances = attendanceLogMapper.userTimeName(null, null, userName);
+                if (attendances.size() != 0) {
+                    double total = 0;
+                    for (Attendance attendance : attendances) {
+                        total = total + Double.parseDouble(attendance.getSignTime());
+                    }
+                    Attendance totalAttendance = attendances.get(0);
+                    totalAttendance.setSignTime(String.valueOf(total));
+                    if (!attendances.isEmpty()) {
+                        totalAttendances.add(totalAttendance);
+                    }
+
+                } else continue;
+
+            }
+        }
         return new PageInfo<>(totalAttendances);
     }
 

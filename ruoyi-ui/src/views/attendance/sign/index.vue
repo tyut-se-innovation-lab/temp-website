@@ -1,6 +1,10 @@
 <template>
   <div>
+    <div class="signTotal">
+      本周签到有效时长：{{ total }}
+    </div>
     <div id="sign" v-if="show">
+
       <button v-if="isSignIn" :disabled="disabled" @click="signIn">{{ title }}</button>
       <button
         @click="signOut"
@@ -32,7 +36,9 @@ export default {
 
       show: false,
 
-      minCountTime: 1, //最小签到时间=
+      minCountTime: 1, //最小签到时间
+
+      total: "",  // 本周已签到时长
     };
   },
 
@@ -163,19 +169,22 @@ export default {
   },
 
 
-
 };
 </script>
 
 <style scoped>
+.signTotal {
+  margin: 50px 0 0 50px;
+  font-size: 24px;
+}
+
 #sign {
   width: 70%;
   min-width: 400px;
-  margin: 0 auto;
-  display: flex;
   vertical-align: middle;
   text-align: center;
-  margin-top: 15%;
+  margin: 15% auto 0;
+  display: flex;
   justify-content: space-evenly;
 }
 

@@ -55,14 +55,14 @@
         min-width="130"
       ></el-table-column>
       <el-table-column
-        prop="attStartTime"
-        label="签到时间"
+        prop="attEndTime"
+        label="占位1"
         align="center"
         min-width="270"
       ></el-table-column>
       <el-table-column
-        prop="attEndTime"
-        label="签退时间"
+        prop="attStartTime"
+        label="占位2"
         align="center"
         min-width="270"
       ></el-table-column>
@@ -92,6 +92,8 @@ export default {
       fileList: [],
       fileName: "",
       filterDate: null,
+      zhan1: "不加这个显得很空旷但又让我美化",
+      zhan2: "但我也不知道美化啥所以我随便写点吧",
       currentPage: 1,
       pageData: {
         totalPages: 0,
@@ -168,14 +170,17 @@ export default {
         attEndTime: this.filterDate ? this.filterDate[1].getTime() : null,
         currentPage: currentPage || this.currentPage,
         pageCount: pageCount || 15,
-        deptId: this.deptId || 1
+        deptId: this.deptId || 0
       };
 
       this.log.deptTime(tmpObj).then((res) => {
         console.log(res);
         this.signLog = res.data;
         this.signLogShowData = res.data.list;
-
+        this.signLogShowData.forEach(val => {
+          val.attStartTime = this.zhan2
+          val.attEndTime = this.zhan1
+        })
         this.initPageData(res);
 
         // console.log(this.$refs.child.init());

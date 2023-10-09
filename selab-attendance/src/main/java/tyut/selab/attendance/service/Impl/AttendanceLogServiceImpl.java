@@ -131,6 +131,16 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
             }
         }
         return new PageInfo<>(totalAttendances);
+    }public double userWeekTime( String userName) {
+        List<Attendance> attendances = attendanceLogMapper.userTimeName(null, null, userName);
+        double total = 0;
+        if (attendances.size() != 0) {
+            for (Attendance attendance : attendances) {
+                total = total + Double.parseDouble(attendance.getSignTime());
+            }
+        }else  total = 0;
+
+        return total;
     }
 
     @Override

@@ -68,6 +68,16 @@ public class AttendanceLogController {
         return AjaxResult.success(attendanceLogService.departmentBookPageInfo(attStartTime,attEndTime,pageNum, pageSize,deptId));
     }
     /**
+     * 查看个人本周时间总和
+     * @return 时间
+     */
+    @PreAuthorize("@ss.hasPermi('attendance:log')")
+    @GetMapping("/userWeekTime")
+    @ResponseBody
+    public AjaxResult userWeekTime(String userName){
+        return AjaxResult.success(attendanceLogService.userWeekTime(userName));
+    }
+    /**
      * 获取导出的文件列表
      * @return 文件列表
      */

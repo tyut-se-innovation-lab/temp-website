@@ -33,21 +33,21 @@ public class ContextContorller {
     ContextService contextService;
 
     @ApiOperation("获取文件流展示到前端，同时可以用该流下载")
+    @PreAuthorize("@ss.hasPermi('rule:article:check')")
     @GetMapping("/deliver")
     public AjaxResult deliverFile(String filename, HttpServletResponse res) throws IOException {
         contextService.showfiles(filename,res);
         return AjaxResult.success();
     }
-
+    @PreAuthorize("@ss.hasPermi('rule:article:download')")
     @GetMapping("/download")
     public AjaxResult downloadFile(String filename, HttpServletResponse res) throws IOException {
         contextService.downloadFile(filename,res);
         return AjaxResult.success();
     }
 
-
+    @PreAuthorize("@ss.hasPermi('rule:article:upload')")
     @ApiOperation("接收前端上传的文件")
-    @PreAuthorize("@ss.hasAnyPermi('file:upload')")
     @PostMapping("/upload")
     public AjaxResult uploadrule(MultipartFile file) throws IOException {
         contextService.upload(file);

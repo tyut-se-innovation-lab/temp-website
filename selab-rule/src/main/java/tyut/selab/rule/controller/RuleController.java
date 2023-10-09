@@ -1,9 +1,11 @@
 package tyut.selab.rule.controller;
 
+import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.domain.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import tyut.selab.rule.domain.VO.OperationVO;
 import tyut.selab.rule.service.RuleService;
@@ -26,10 +28,11 @@ public class RuleController {
      * @param userId
      * @return
      */
+    @PreAuthorize("@ss.hasAnyPermi('rule:article:pop')")
     @ApiOperation("根据rule_score中的rule_status字段查询是否需要弹出规章制度")
     @GetMapping("/getRuleStatus/{userId}")
-    public R getRuleStatus(@PathVariable("userId") Long userId) {
-        return R.ok(ruleService.getRuleStatus(userId));
+    public AjaxResult getRuleStatus(@PathVariable("userId") Long userId) {
+        return AjaxResult.success(ruleService.getRuleStatus(userId));
     }
 
     /**
@@ -40,9 +43,10 @@ public class RuleController {
      */
     @ApiOperation("当用户点击不再提示奖惩制度窗口后，发送请求修改rule_score表中的rule_status字段")
     @PutMapping("/setRuleStatus")
-    public R setRuleStatus(Long userId, int ruleStatus) {
+    @PreAuthorize("@ss.hasAnyPermi('rule:article:nomore')")
+    public AjaxResult setRuleStatus(Long userId, int ruleStatus) {
         ruleService.setRuleStatus(userId, ruleStatus);
-        return R.ok();
+        return AjaxResult.success();
     }
 
     /**
@@ -53,8 +57,9 @@ public class RuleController {
      */
     @GetMapping("/{userId}")
     @ApiOperation("查询是否需要弹出操作弹窗")
-    public R getOperationStatus(@PathVariable Long userId) {
-        return R.ok(ruleService.getOperationStatus(userId));
+    @PreAuthorize("@ss.hasAnyPermi('rule:log:pop')")
+    public AjaxResult getOperationStatus(@PathVariable Long userId) {
+        return AjaxResult.success(ruleService.getOperationStatus(userId));
     }
 
     /**
@@ -62,9 +67,10 @@ public class RuleController {
      *
      * @return
      */
+    @PreAuthorize("@ss.hasAnyPermi('rule:log:check')")
     @GetMapping("/getOperationInfo/{userId}")
-    public R<List<OperationVO>> getOperationInfo(@PathVariable Long userId) {
+    public AjaxResult getOperationInfo(@PathVariable Long userId) {
         List<OperationVO> operationInfo = ruleService.getOperationInfo(userId);
-        return R.ok(operationInfo);
+        return AjaxResult.success(operationInfo);
     }
 }

@@ -1,6 +1,7 @@
 package tyut.selab.rule.service.impl;
 
 
+import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.domain.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,13 +26,13 @@ public class UserServiceImpl implements UserService {
      * 查看用户的当前分数和与该用户相关的操作
      */
     @Override
-    public R userInfo(Long userId) {
+    public AjaxResult userInfo(Long userId) {
         RuleScore score = ruleScoreMapper.selectByUserId(userId);
         List<RuleLog> logs = ruleLogMapper.selectByUserId(userId);
         RuleVO ruleVO = new RuleVO();
         ruleVO.setRuleScore(score.getScores());
         ruleVO.setLogs(logs);
         ruleVO.setUserId(userId);
-        return R.ok(ruleVO);
+        return AjaxResult.success(ruleVO);
     }
 }

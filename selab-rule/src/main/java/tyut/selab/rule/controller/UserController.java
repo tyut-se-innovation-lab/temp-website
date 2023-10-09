@@ -1,5 +1,6 @@
 package tyut.selab.rule.controller;
 
+import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.domain.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,9 +16,9 @@ public class UserController {
     //查看用户的当前分数和与该用户相关的操作
     @Autowired
     private UserService userService;
-    @PreAuthorize("@ss.hasPermi('rule:check')")
+    @PreAuthorize("@ss.hasAnyPermi('rule:score:check')")
     @GetMapping("/userInfo")
-    public R userInfo(@RequestParam("userId") Long userId) {
+    public AjaxResult userInfo(@RequestParam("userId") Long userId) {
         return userService.userInfo(userId);
     }
 }

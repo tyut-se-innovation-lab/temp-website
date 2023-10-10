@@ -6,6 +6,10 @@
     <update id="setRuleStatus">
         update rule_score set rule_status=#{rule_status} where user_id=#{user_id}
     </update>
+<!--将所有用户的socre清零-->
+    <update id="clearAllScore">
+        update rule_score set scores=0
+    </update>
     <select id="getRuleStatus" resultType="java.lang.Integer">
         select rule_status from rule_score where user_id=#{user_id}
     </select>

@@ -1,6 +1,8 @@
 package tyut.selab.rule.service.impl;
 
+import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.domain.R;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.rule.domain.VO.OperationVO;
@@ -10,11 +12,13 @@ import tyut.selab.rule.service.RuleService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * 奖惩制度 业务层处理
  */
 @Service
+@Slf4j
 public class RuleServiceImpl implements RuleService {
     @Autowired
     private RuleMapper ruleMapper;
@@ -76,5 +80,14 @@ public class RuleServiceImpl implements RuleService {
             operationVOS.get(i).setImage(operations.get(i).getImage());
         }
         return operationVOS;
+    }
+
+    /**
+     *每两个月对rule_score表中的score字段置为0
+     */
+    @Override
+    public void clearAllScore() {
+        log.info("评分任务定时执行");
+        ruleMapper.clearAllScore();
     }
 }

@@ -27,7 +27,19 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public AjaxResult userInfo(Long userId) {
-        RuleScore score = ruleScoreMapper.selectByUserId(userId);
+        List<RuleScore> scores = ruleScoreMapper.selectByUserId(userId);
+        RuleScore score = null;
+        if(scores.size()!=1){
+            RuleScore newUser = new RuleScore();
+            newUser.setUserId(userId);
+            newUser.setScores(0L);
+            newUser.setRuleStatus(1);
+            newUser.setOperationStatus(0);
+            ruleScoreMapper.insert(newUser);
+            score =newUser;
+        }else{
+            score = scores.get(0);
+        }
         List<RuleLog> logs = ruleLogMapper.selectByUserId(userId);
         RuleVO ruleVO = new RuleVO();
         ruleVO.setRuleScore(score.getScores());

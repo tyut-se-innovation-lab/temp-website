@@ -16,7 +16,7 @@
         </div>
         <div>
           部门：
-          <el-select v-model="deptId" clearable placeholder="全部">
+          <el-select v-model="deptId" clearable placeholder="请选择部门">
             <el-option
               v-for="item in options"
               :key="item.deptId"
@@ -119,7 +119,6 @@ export default {
     getList() {
       this.loading = true;
       listDept(this.queryParams).then(response => {
-        console.log(response)
         this.options = response.data
         this.options.splice(0,3)
       });
@@ -149,10 +148,10 @@ export default {
       };
 
       this.log.deptTime(tmpObj).then((res) => {
-        console.log(res);
         this.signLog = res.data;
         this.signLogShowData = res.data.list;
         this.signLogShowData.forEach(val => {
+          val.signTime = Math.floor(val.signTime * 100) / 100
           val.attStartTime = this.zhan2
           val.attEndTime = this.zhan1
         })

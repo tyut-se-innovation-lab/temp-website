@@ -85,6 +85,13 @@ export const constantRoutes = [
         component: () => import('@/views/system/user/profile/index'),
         name: 'Profile',
         meta: {title: '个人中心', icon: 'user'}
+      },
+      // 弹窗的通知
+      {
+        path: 'noticePop',
+        component: () => import('@/views/system/user/noticePop/index'),
+        name: 'NoticePop',
+        meta: {title: '通知', icon: 'user'}
       }
     ]
   },
@@ -163,8 +170,6 @@ export const constantRoutes = [
       }
     ]
   },
-
-
 ]
 
 // 动态路由，基于用户权限动态去加载

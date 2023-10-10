@@ -3,7 +3,7 @@
     <div class="signTotal" v-if="show">
       <div class="signTotalInner">
         <span>本周签到有效时长：</span>
-        <span>{{ total }}</span>
+        <span>{{ total }} h</span>
       </div>
     </div>
     <div id="sign" v-if="show">
@@ -40,7 +40,7 @@ export default {
 
       minCountTime: 0.5, //最小签到时间
 
-      total: "10:16:22",  // 本周已签到时长
+      total: "0",  // 本周已签到时长
     };
   },
 
@@ -71,9 +71,12 @@ export default {
     init() {
     },
 
+    /**
+     * 查看本周有效时长
+     */
     userWeekTime() {
       this.sign.userWeekTime().then((res) => {
-        console.log(res)
+        this.total = Math.floor(res.data * 100) / 100
       })
     },
 
@@ -196,7 +199,7 @@ export default {
   align-items: center;
   font-size: 24px;
   line-height: 50px;
-  background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+  background-color: #c2e9fb;
   border-radius: 24px;
 }
 

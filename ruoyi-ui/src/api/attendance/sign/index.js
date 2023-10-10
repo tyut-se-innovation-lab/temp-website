@@ -11,7 +11,7 @@ class Sign {
    */
   userWeekTime() {
     return request({
-      url: '/selab/attendance/userWeekTime',
+      url: '/selab/attendance/log/userWeekTime',
       method: 'get',
     })
   }

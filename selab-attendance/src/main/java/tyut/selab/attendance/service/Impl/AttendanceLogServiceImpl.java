@@ -4,7 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ruoyi.common.core.domain.model.LoginBody;
 import com.ruoyi.common.core.domain.model.LoginUser;
+import com.ruoyi.common.utils.SecurityUtils;
 import org.apache.commons.compress.utils.IOUtils;
+import org.apache.poi.hssf.record.DVALRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
@@ -26,7 +28,6 @@ import java.util.*;
 @Service
 public class AttendanceLogServiceImpl implements IAttendanceLogService {
 
-    private LoginUser loginUser;
     @Autowired
     AttendanceLogMapper attendanceLogMapper;
 
@@ -154,8 +155,8 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
         return new PageInfo<>(totalAttendances);
     }
     public double userWeekTime() {
-        Long userId =loginUser.getUserId();
-        String userName = attendanceLogMapper.nickUserName(userId);
+        Long userId = SecurityUtils.getUserId();
+        String userName = attendanceLogMapper.nickUserName(userId.intValue());
         List<Attendance> attendances = attendanceLogMapper.userTimeName(null, null,userName );
         double total = 0;
         if (attendances.size() != 0) {
@@ -172,7 +173,7 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
                     }
                 }
             }
-        }else  total = 0;
+        }
 
         return total;
     }

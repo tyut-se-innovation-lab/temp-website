@@ -1,4 +1,6 @@
-package tyut.selab.rule.domain;
+package tyut.selab.rule.domain.VO;
+
+import tyut.selab.rule.domain.RuleLog;
 
 import java.io.Serializable;
 import java.util.List;

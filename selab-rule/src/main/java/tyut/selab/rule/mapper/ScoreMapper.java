@@ -16,12 +16,12 @@ public interface ScoreMapper {
      * @param i
      */
     @Update("update rule_score set operation_status = 1")
-    void setUserPop(int i);
+    void setUserPop(Integer i);
 
     /**
      * 该操作是否需要弹出弹窗
      * @param i
      */
     @Update("update rule_log set status = 1")
-    void setOperationPop(int i);
+    void setOperationPop(Integer i);
 }

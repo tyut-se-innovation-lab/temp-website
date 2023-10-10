@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.rule.domain.RuleLog;
 import tyut.selab.rule.domain.RuleScore;
-import tyut.selab.rule.domain.RuleVO;
+import tyut.selab.rule.domain.VO.RuleVO;
 import tyut.selab.rule.mapper.RuleLogMapper;
 import tyut.selab.rule.mapper.RuleScoreMapper;
 import tyut.selab.rule.service.UserService;

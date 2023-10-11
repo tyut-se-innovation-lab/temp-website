@@ -16,38 +16,28 @@
         </div>
         <div>
           部门：
-          <el-select v-model="deptId" clearable placeholder="请选择部门">
+          <el-select v-model="deptId" clearable placeholder="请选择部门" @change="selectionPage" @clear="selectionPageClear">
             <el-option
               v-for="item in options"
               :key="item.deptId"
               :label="item.deptName"
-              :value="item.deptId"
-              change="">
+              :value="item.deptId">
             </el-option>
           </el-select>
         </div>
-        <el-button @click="setVisible">下 载</el-button>
       </div>
-
-      <el-dialog
-        title="请选择下载文件名称"
-        :visible.sync="downloadVisible"
-        width="500px"
-      >
-        <el-select v-model="fileName" placeholder="请选择文件">
-          <el-option
-            v-for="(item, index) of fileList"
-            :key="index"
-            :value="item"
-            :label="item"
-          ></el-option>
-        </el-select>
-        <div slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="getFile">下 载</el-button>
-        </div>
-      </el-dialog>
     </div>
-    <el-table :data="signLogShowData" id="table">
+    <el-skeleton :loading="loading" animated>
+        <template #template>
+            <div style="margin: 44px 60px 0 60px">
+                <div v-for="index in 5">
+                    <el-skeleton-item variant="text" style="height: 35px;width: 50%; margin-bottom: 15px"/>
+                    <el-skeleton-item variant="text" style="height: 35px;margin-bottom: 15px"/>
+                </div>
+            </div>
+        </template>
+    </el-skeleton>
+    <el-table v-if="!loading" :data="signLogShowData" id="table">
       <el-table-column
         prop="userName"
         label="姓名"
@@ -73,13 +63,12 @@
         min-width="130"
       ></el-table-column>
     </el-table>
-    <Page :pageData="pageData" @pageClick="pageClick" ref="child"></Page>
+    <Page v-if="!loading" :pageData="pageData" @pageClick="pageClick" ref="child"></Page>
   </div>
 </template>
 
 <script>
 import {Log} from "@/api/attendance/signlogsort/index.js";
-import {Download} from "@/api/extendsion/download/index.js";
 import Page from "@/views/components/pages/index.vue";
 import {listDept} from "@/api/system/dept";
 
@@ -90,8 +79,6 @@ export default {
       log: new Log(),
       signLog: {},
       signLogShowData: [], //要展示的数据
-      fileList: [],
-      fileName: "",
       filterDate: null,
       zhan1: "不加这个显得很空旷但又让我美化",
       zhan2: "但我也不知道美化啥所以我随便写点吧",
@@ -101,9 +88,10 @@ export default {
         currentPage: 0,
         pagerCount: 0,
       },
-      downloadVisible: false,
       options: [], // 部门选项
-      deptId: ""      // 部门id
+      deptId: "",      // 部门id
+      selectionPageNum: 0,  // 选的哪个分页
+      loading: true
     };
   },
   compute: {
@@ -115,26 +103,34 @@ export default {
     Page,
   },
   methods: {
+    // 选择的哪个分页
+    selectionPage() {
+      this.selectionPageNum = 1;
+      this.loading = true;
+    },
+    selectionPageClear() {
+      this.selectionPageNum = 0;
+      this.allDeptTime();
+      this.loading = true;
+    },
+
     /** 查询部门列表 */
     getList() {
-      this.loading = true;
       listDept(this.queryParams).then(response => {
         this.options = response.data
-        this.options.splice(0,3)
+        this.options.splice(0, 3)
       });
     },
+
     /**
      * 初始化
      */
     init() {
-      this.getFileList();
-
-      // 没改表所以一开始请求了也是空的所以就不用初始化这个了
-      // this.deptTime();
+      this.allDeptTime();
     },
 
     /**
-     * 获取记录
+     * 获取部门记录
      * @param {Number} currentPage 自定义参数:当前页数
      * @param {Number} pageCount 自定义参数:每页最大展示条数
      */
@@ -147,9 +143,42 @@ export default {
         deptId: this.deptId || 0
       };
 
-      this.log.deptTime(tmpObj).then((res) => {
-        this.signLog = res.data;
-        this.signLogShowData = res.data.list;
+      if (this.selectionPageNum === 1) {
+        this.log.deptTime(tmpObj).then((res) => {
+          // 为了好看
+          setTimeout(() => {
+              this.loading = false;
+          },500)
+          this.signLog = res.data;
+          this.signLogShowData = res.data.list;
+          this.signLogShowData.forEach(val => {
+            val.signTime = Math.floor(val.signTime * 100) / 100
+            val.attStartTime = this.zhan2
+            val.attEndTime = this.zhan1
+          })
+          this.initPageData(res);
+
+          // console.log(this.$refs.child.init());
+        });
+      }
+    },
+
+    /** 获取所有部门的总计时间 */
+    allDeptTime(currentPage, pageCount) {
+      let tmpObj = {
+        attStartTime: this.filterDate ? this.filterDate[0].getTime() : null,
+        attEndTime: this.filterDate ? this.filterDate[1].getTime() : null,
+        currentPage: currentPage || this.currentPage,
+        pageCount: pageCount || 15,
+      };
+
+      this.log.deptAllTime(tmpObj).then((res) => {
+          // 为了好看
+          setTimeout(() => {
+              this.loading = false;
+          },500)
+        this.signLog = res.data.attendancePageInfo;
+        this.signLogShowData = res.data.attendancePageInfo.list;
         this.signLogShowData.forEach(val => {
           val.signTime = Math.floor(val.signTime * 100) / 100
           val.attStartTime = this.zhan2
@@ -173,7 +202,12 @@ export default {
       // this.$set(this.pageData, "totalPages", res.data.pageNum);
       // this.$set(this.pageData, "currentPage", this.currentPage);
       // this.$set(this.pageData, "pagerCount", 7);
-      this.pageData.totalPages = res.data.pages;
+      if (this.selectionPageNum === 0) {
+        this.pageData.totalPages = Math.floor(res.data.total / 15) + 1;
+      } else if (this.selectionPageNum === 1) {
+        this.pageData.totalPages = res.data.pages;
+      }
+      // this.pageData.totalPages = res.data.attendancePageInfo.pages;
       this.pageData.currentPage = this.currentPage;
       this.pageData.pagerCount = this.pagerCount ? this.pagerCount : 7;
       // console.log(this.pageData.totalPages);
@@ -189,9 +223,7 @@ export default {
         tmpdata[i].signInTime = this.fixTime(tmpdata[i].signTimes[0]);
 
         tmpdata[i].signOutTime =
-          tmpdata[i].signTimes[1] === null
-            ? null
-            : this.fixTime(tmpdata[i].signTimes[1]);
+          tmpdata[i].signTimes[1] === null ? null : this.fixTime(tmpdata[i].signTimes[1]);
       }
       return tmpdata;
     },
@@ -219,37 +251,6 @@ export default {
     },
 
     /**
-     * 获取文件列表
-     */
-    getFileList() {
-      this.log.getFileList().then((res) => {
-        this.fileList = res.data;
-      });
-    },
-
-    /**
-     * 设置是否可见
-     */
-    setVisible() {
-      this.downloadVisible = true;
-    },
-
-    /**
-     * 获取文件
-     */
-    getFile() {
-      if (this.fileName !== "") {
-        this.log.getFile(this.fileName).then((res) => {
-          new Download().downloadBlob(
-            res,
-            "application/vnd.ms-excel",
-            this.fileName
-          );
-        });
-      }
-    },
-
-    /**
      * 按钮按下
      */
     pageClick(index) {
@@ -265,7 +266,11 @@ export default {
       this.deptTime();
     },
     currentPage(newVal, oldVal) {
-      this.deptTime();
+      if (this.selectionPageNum === 0) {
+        this.allDeptTime();
+      } else if (this.selectionPageNum === 1) {
+        this.deptTime();
+      }
     },
     deptId(newVal, oldVal) {
       this.deptTime()
@@ -281,8 +286,12 @@ export default {
 <style scoped>
 #logheader {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin: 20px;
+}
+
+#logheader > div:nth-child(2) {
+  margin-left: 150px;
 }
 
 #table {

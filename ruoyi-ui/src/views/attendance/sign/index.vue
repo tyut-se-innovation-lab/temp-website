@@ -104,6 +104,8 @@ export default {
         this.isSignOut = false;
         this.disabled = true;
         this.title = "签退成功";
+
+        this.userWeekTime();
       });
     },
 

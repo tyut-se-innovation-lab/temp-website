@@ -32,6 +32,26 @@ class Log {
       })
     }
 
+  /**
+   * 获取全部部门综合的日志
+   * @param {Array} timeGap 起止时间
+   * @param {Number} pageCount 每页的最大记录数
+   * @param {Number} currentPage 当前页数
+   * @param {Number} deptId 部门id
+   */
+  deptAllTime({ attStartTime, attEndTime, currentPage, pageCount}) {
+    return request({
+      url: `/selab/attendance/log/allTime`,
+      method: 'get',
+      params: {
+        attStartTime,
+        attEndTime,
+        pageNum: currentPage,
+        pageSize: pageCount,
+      }
+    })
+  }
+
     /**
      * 获取带部门选项的日志
      * @param {Array} timeGap 起止时间

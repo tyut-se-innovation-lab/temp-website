@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import tyut.selab.attendance.domain.po.AttendanceLogPo;
 import tyut.selab.attendance.service.Impl.AttendanceLogServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +53,10 @@ public class AttendanceLogController {
                                      Long attEndTime,
                                      @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
                                      @RequestParam(value = "pageSize",defaultValue = "15") int pageSize){
-        return AjaxResult.success(attendanceLogService.totalBookPageInfo(attStartTime,attEndTime,pageNum,pageSize));
+
+        AttendanceLogPo attendanceLogPo =new AttendanceLogPo(attendanceLogService.totalTotalBookPageInfo(),attendanceLogService.totalBookPageInfo(attStartTime,attEndTime,pageNum,pageSize));
+
+        return AjaxResult.success(attendanceLogPo);
     }
     /**
      * 查看部门日志+时间总和

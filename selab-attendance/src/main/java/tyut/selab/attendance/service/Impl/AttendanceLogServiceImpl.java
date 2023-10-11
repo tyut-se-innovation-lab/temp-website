@@ -65,22 +65,82 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
             end = null;
         }
         PageHelper.startPage(pageNum,pageSize);
-        List<Integer> allUserIds=attendanceLogMapper.allUserId();
-        List<Attendance> totalAttendances = null;
-        if (start != null){
-            for (int allUserId : allUserIds) {
-                List<Attendance> attendances = attendanceLogMapper.userTime(start, end, allUserId);
-                double total = 0;
-                for (Attendance attendance : attendances) {
-                    total = total + Double.parseDouble(attendance.getSignTime());
-                }
-                Attendance totalAttendance = attendances.get(0);
-                totalAttendance.setSignTime(String.valueOf(total));
-                totalAttendances.add(totalAttendance);
-            }
+        List<String> userNames=attendanceLogMapper.allUserName();
+        List<Attendance> totalAttendances = new ArrayList<>();
+        if (start != null) {
+            for (String userName: userNames) {
+                List<Attendance> attendances = attendanceLogMapper.userTimeName(start, end, userName);
+                if (attendances.size() !=0){
+                    double total = 0;
+                    for (Attendance attendance : attendances) {
+                        String signTimeStr = attendance.getSignTime();
+                        if (signTimeStr != null) {
+                            try {
+                                double d = Double.parseDouble(signTimeStr);
+                                System.out.println("转换后的double值为: " + d);
+                                total = total + d;
+                            } catch (NumberFormatException e) {
+                                System.err.println("无法将字符串转换为double: " + signTimeStr);
+                            }
+                        }
+                    }
+                    Attendance totalAttendance = attendances.get(0);
+                    totalAttendance.setSignTime(String.valueOf(total));
+                    if (!attendances.isEmpty()) {
+                        totalAttendances.add(totalAttendance);
+                    }
 
-        }else totalAttendances = attendanceLogMapper.couleSignOut(null,null);
+                }
+                else {
+                    Attendance attendance = new Attendance();
+                    attendance.setSignTime("0");
+                    attendance.setUserName(userName);
+                    totalAttendances.add(attendance);
+                    continue;
+                }
+            }
+        }
+        else {
+            for (String userName : userNames) {
+                List<Attendance> attendances = attendanceLogMapper.userTimeName(null, null, userName);
+                if (attendances.size() != 0) {
+                    double total = 0;
+                    for (Attendance attendance : attendances) {
+                        String signTimeStr = attendance.getSignTime();
+                        if (signTimeStr != null) {
+                            try {
+                                double d = Double.parseDouble(signTimeStr);
+                                System.out.println("转换后的double值为: " + d);
+                                total = total + d;
+                            } catch (NumberFormatException e) {
+                                System.err.println("无法将字符串转换为double: " + signTimeStr);
+                            }
+                        }
+                    }
+                    Attendance totalAttendance = attendances.get(0);
+                    totalAttendance.setSignTime(String.valueOf(total));
+                    if (!attendances.isEmpty()) {
+                        totalAttendances.add(totalAttendance);
+                    }
+
+                } else {
+                    Attendance attendance = new Attendance();
+                    attendance.setSignTime("0");
+                    attendance.setUserName(userName);
+                    totalAttendances.add(attendance);
+                    continue;
+                };
+
+            }
+        }
         return new PageInfo<>(totalAttendances);
+    }
+
+    public  int  totalTotalBookPageInfo() {
+        List<String> userNames=attendanceLogMapper.allUserName();
+         return  userNames.size();
+
+
     }
 
     @Override

@@ -41,6 +41,5 @@ public interface AttendanceLogMapper {
     public List<Attendance> userTime(@Param("startTime") Date startTime,@Param("endTime") Date endTime,@Param("userId") int userId);
     public List<Attendance> userTimeName(@Param("startTime") Date startTime,@Param("endTime") Date endTime,@Param("userName") String userName);
 
-    public List allUserId();
-
+    public List<String> allUserName();
 }

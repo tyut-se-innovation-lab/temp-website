@@ -76,7 +76,7 @@ public class AttendanceLogController {
      * 查看个人本周时间总和
      * @return 时间
      */
-    @PreAuthorize("@ss.hasPermi('attendance:log')")
+    @PreAuthorize("@ss.hasPermi('attendance:sign:show')")
     @GetMapping("/userWeekTime")
     @ResponseBody
     public AjaxResult userWeekTime(){

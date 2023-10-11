@@ -5,6 +5,17 @@ class Sign {
 
     }
 
+  /**
+   * 签到
+   * @returns axios请求
+   */
+  userWeekTime() {
+    return request({
+      url: '/selab/attendance/log/userWeekTime',
+      method: 'get',
+    })
+  }
+
     /**
      * 签到
      * @returns axios请求

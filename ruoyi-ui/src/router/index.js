@@ -85,6 +85,13 @@ export const constantRoutes = [
         component: () => import('@/views/system/user/profile/index'),
         name: 'Profile',
         meta: {title: '个人中心', icon: 'user'}
+      },
+      // 弹窗的通知
+      {
+        path: 'noticePop',
+        component: () => import('@/views/system/user/noticePop/index'),
+        name: 'NoticePop',
+        meta: {title: '通知', icon: 'user'}
       }
     ]
   },
@@ -122,7 +129,6 @@ export const constantRoutes = [
         component: () => import('@/views/vote/history/details/index'),
         meta: {title: '历史投票细节'},
       },
-
       {
         name: "joindetails",
         path: "joindetails",
@@ -145,10 +151,13 @@ export const constantRoutes = [
       //       ]
       //     }]
       // },
+
+      // 权重
       {
         path: '/vote/management',
         component: () => import('@/views/vote/management/index'),
       },
+      // 发起投票
       {
         path: '/vote/initiate',
         component: () => import('../views/vote/initiate/index'),
@@ -160,8 +169,7 @@ export const constantRoutes = [
         meta: {title: '我的投票细节'},
       }
     ]
-  }
-
+  },
 ]
 
 // 动态路由，基于用户权限动态去加载

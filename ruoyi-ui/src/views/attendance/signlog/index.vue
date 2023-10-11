@@ -3,7 +3,8 @@
     <div>
       <div id="logheader">
         <div>
-          选择时间：<el-date-picker
+          选择时间：
+          <el-date-picker
             type="daterange"
             v-model="filterDate"
             range-separator="至"
@@ -35,19 +36,19 @@
     <el-table :data="signLogShowData" id="table">
       <el-table-column
         prop="userName"
-        label="用户名"
+        label="姓名"
         align="center"
         min-width="130"
       ></el-table-column>
       <el-table-column
         prop="attStartTime"
-        label="开始时间"
+        label="签到时间"
         align="center"
         min-width="270"
       ></el-table-column>
       <el-table-column
         prop="attEndTime"
-        label="结束时间"
+        label="签退时间"
         align="center"
         min-width="270"
       ></el-table-column>
@@ -63,9 +64,10 @@
 </template>
 
 <script>
-import { Log } from "@/api/attendance/signlog/index.js";
-import { Download } from "@/api/extendsion/download/index.js";
+import {Log} from "@/api/attendance/signlog/index.js";
+import {Download} from "@/api/extendsion/download/index.js";
 import Page from "@/views/components/pages/index.vue";
+
 export default {
   name: "log",
   data() {
@@ -180,9 +182,7 @@ export default {
      */
     fixTime(dateString) {
       let date = new Date(dateString);
-      return `${
-        date.getMonth() + 1
-      }-${date.getDate()} ${date.toLocaleTimeString()}`;
+      return `${date.getMonth() + 1}-${date.getDate()} ${date.toLocaleTimeString()}`;
     },
 
     /**
@@ -247,7 +247,9 @@ export default {
   justify-content: space-between;
   margin: 20px;
 }
+
 #table {
   margin: 0 auto;
 }
+
 </style>

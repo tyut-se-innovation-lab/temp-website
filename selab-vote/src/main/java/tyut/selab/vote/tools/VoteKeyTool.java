@@ -23,6 +23,7 @@ public class VoteKeyTool {
      */
     public static String privateKey;
 
+
     private static void printHelp() {
         System.out.println("====================================================");
         System.out.println("本系统 投票模块 需要在启动时传入存放密钥的文件的绝对路径,不需要包含扩展名");

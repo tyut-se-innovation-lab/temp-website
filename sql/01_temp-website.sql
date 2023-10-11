@@ -53,11 +53,11 @@ CREATE TABLE `gen_table`
 --
 
 LOCK
-TABLES `gen_table` WRITE;
+    TABLES `gen_table` WRITE;
 /*!40000 ALTER TABLE `gen_table` DISABLE KEYS */;
 /*!40000 ALTER TABLE `gen_table` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `gen_table_column`
@@ -99,11 +99,11 @@ CREATE TABLE `gen_table_column`
 --
 
 LOCK
-TABLES `gen_table_column` WRITE;
+    TABLES `gen_table_column` WRITE;
 /*!40000 ALTER TABLE `gen_table_column` DISABLE KEYS */;
 /*!40000 ALTER TABLE `gen_table_column` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `QRTZ_BLOB_TRIGGERS`
@@ -128,11 +128,11 @@ CREATE TABLE `QRTZ_BLOB_TRIGGERS`
 --
 
 LOCK
-TABLES `QRTZ_BLOB_TRIGGERS` WRITE;
+    TABLES `QRTZ_BLOB_TRIGGERS` WRITE;
 /*!40000 ALTER TABLE `QRTZ_BLOB_TRIGGERS` DISABLE KEYS */;
 /*!40000 ALTER TABLE `QRTZ_BLOB_TRIGGERS` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `QRTZ_CALENDARS`
@@ -155,11 +155,11 @@ CREATE TABLE `QRTZ_CALENDARS`
 --
 
 LOCK
-TABLES `QRTZ_CALENDARS` WRITE;
+    TABLES `QRTZ_CALENDARS` WRITE;
 /*!40000 ALTER TABLE `QRTZ_CALENDARS` DISABLE KEYS */;
 /*!40000 ALTER TABLE `QRTZ_CALENDARS` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `QRTZ_CRON_TRIGGERS`
@@ -185,11 +185,11 @@ CREATE TABLE `QRTZ_CRON_TRIGGERS`
 --
 
 LOCK
-TABLES `QRTZ_CRON_TRIGGERS` WRITE;
+    TABLES `QRTZ_CRON_TRIGGERS` WRITE;
 /*!40000 ALTER TABLE `QRTZ_CRON_TRIGGERS` DISABLE KEYS */;
 /*!40000 ALTER TABLE `QRTZ_CRON_TRIGGERS` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `QRTZ_FIRED_TRIGGERS`
@@ -222,11 +222,11 @@ CREATE TABLE `QRTZ_FIRED_TRIGGERS`
 --
 
 LOCK
-TABLES `QRTZ_FIRED_TRIGGERS` WRITE;
+    TABLES `QRTZ_FIRED_TRIGGERS` WRITE;
 /*!40000 ALTER TABLE `QRTZ_FIRED_TRIGGERS` DISABLE KEYS */;
 /*!40000 ALTER TABLE `QRTZ_FIRED_TRIGGERS` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `QRTZ_JOB_DETAILS`
@@ -256,11 +256,11 @@ CREATE TABLE `QRTZ_JOB_DETAILS`
 --
 
 LOCK
-TABLES `QRTZ_JOB_DETAILS` WRITE;
+    TABLES `QRTZ_JOB_DETAILS` WRITE;
 /*!40000 ALTER TABLE `QRTZ_JOB_DETAILS` DISABLE KEYS */;
 /*!40000 ALTER TABLE `QRTZ_JOB_DETAILS` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `QRTZ_LOCKS`
@@ -282,11 +282,11 @@ CREATE TABLE `QRTZ_LOCKS`
 --
 
 LOCK
-TABLES `QRTZ_LOCKS` WRITE;
+    TABLES `QRTZ_LOCKS` WRITE;
 /*!40000 ALTER TABLE `QRTZ_LOCKS` DISABLE KEYS */;
 /*!40000 ALTER TABLE `QRTZ_LOCKS` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `QRTZ_PAUSED_TRIGGER_GRPS`
@@ -308,11 +308,11 @@ CREATE TABLE `QRTZ_PAUSED_TRIGGER_GRPS`
 --
 
 LOCK
-TABLES `QRTZ_PAUSED_TRIGGER_GRPS` WRITE;
+    TABLES `QRTZ_PAUSED_TRIGGER_GRPS` WRITE;
 /*!40000 ALTER TABLE `QRTZ_PAUSED_TRIGGER_GRPS` DISABLE KEYS */;
 /*!40000 ALTER TABLE `QRTZ_PAUSED_TRIGGER_GRPS` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `QRTZ_SCHEDULER_STATE`
@@ -336,11 +336,11 @@ CREATE TABLE `QRTZ_SCHEDULER_STATE`
 --
 
 LOCK
-TABLES `QRTZ_SCHEDULER_STATE` WRITE;
+    TABLES `QRTZ_SCHEDULER_STATE` WRITE;
 /*!40000 ALTER TABLE `QRTZ_SCHEDULER_STATE` DISABLE KEYS */;
 /*!40000 ALTER TABLE `QRTZ_SCHEDULER_STATE` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `QRTZ_SIMPLE_TRIGGERS`
@@ -367,11 +367,11 @@ CREATE TABLE `QRTZ_SIMPLE_TRIGGERS`
 --
 
 LOCK
-TABLES `QRTZ_SIMPLE_TRIGGERS` WRITE;
+    TABLES `QRTZ_SIMPLE_TRIGGERS` WRITE;
 /*!40000 ALTER TABLE `QRTZ_SIMPLE_TRIGGERS` DISABLE KEYS */;
 /*!40000 ALTER TABLE `QRTZ_SIMPLE_TRIGGERS` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `QRTZ_SIMPROP_TRIGGERS`
@@ -406,11 +406,11 @@ CREATE TABLE `QRTZ_SIMPROP_TRIGGERS`
 --
 
 LOCK
-TABLES `QRTZ_SIMPROP_TRIGGERS` WRITE;
+    TABLES `QRTZ_SIMPROP_TRIGGERS` WRITE;
 /*!40000 ALTER TABLE `QRTZ_SIMPROP_TRIGGERS` DISABLE KEYS */;
 /*!40000 ALTER TABLE `QRTZ_SIMPROP_TRIGGERS` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `QRTZ_TRIGGERS`
@@ -448,11 +448,11 @@ CREATE TABLE `QRTZ_TRIGGERS`
 --
 
 LOCK
-TABLES `QRTZ_TRIGGERS` WRITE;
+    TABLES `QRTZ_TRIGGERS` WRITE;
 /*!40000 ALTER TABLE `QRTZ_TRIGGERS` DISABLE KEYS */;
 /*!40000 ALTER TABLE `QRTZ_TRIGGERS` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `sys_config`
@@ -482,7 +482,7 @@ CREATE TABLE `sys_config`
 --
 
 LOCK
-TABLES `sys_config` WRITE;
+    TABLES `sys_config` WRITE;
 /*!40000 ALTER TABLE `sys_config` DISABLE KEYS */;
 INSERT INTO `sys_config`
 VALUES (1, '主框架页-默认皮肤样式名称', 'sys.index.skinName', 'skin-blue', 'Y', 'admin', '2022-09-25 09:08:54', '',
@@ -497,7 +497,7 @@ VALUES (1, '主框架页-默认皮肤样式名称', 'sys.index.skinName', 'skin-
         '', NULL, '是否开启注册用户功能（true开启，false关闭）');
 /*!40000 ALTER TABLE `sys_config` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `sys_dept`
@@ -531,7 +531,7 @@ CREATE TABLE `sys_dept`
 --
 
 LOCK
-TABLES `sys_dept` WRITE;
+    TABLES `sys_dept` WRITE;
 /*!40000 ALTER TABLE `sys_dept` DISABLE KEYS */;
 INSERT INTO `sys_dept`
 VALUES (100, 0, '0', '创新实验室', 0, '范云飞', '15735952458', '1364483428@qq.com', '0', '0', 'admin',
@@ -557,7 +557,7 @@ VALUES (100, 0, '0', '创新实验室', 0, '范云飞', '15735952458', '13644834
         '2022-09-25 09:08:52', '', NULL);
 /*!40000 ALTER TABLE `sys_dept` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `sys_dict_data`
@@ -591,7 +591,7 @@ CREATE TABLE `sys_dict_data`
 --
 
 LOCK
-TABLES `sys_dict_data` WRITE;
+    TABLES `sys_dict_data` WRITE;
 /*!40000 ALTER TABLE `sys_dict_data` DISABLE KEYS */;
 INSERT INTO `sys_dict_data`
 VALUES (1, 1, '男', '0', 'sys_user_sex', '', '', 'Y', '0', 'admin', '2022-09-25 09:08:54', '', NULL, '性别男'),
@@ -650,7 +650,7 @@ VALUES (1, 1, '男', '0', 'sys_user_sex', '', '', 'Y', '0', 'admin', '2022-09-25
         '停用状态');
 /*!40000 ALTER TABLE `sys_dict_data` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `sys_dict_type`
@@ -680,7 +680,7 @@ CREATE TABLE `sys_dict_type`
 --
 
 LOCK
-TABLES `sys_dict_type` WRITE;
+    TABLES `sys_dict_type` WRITE;
 /*!40000 ALTER TABLE `sys_dict_type` DISABLE KEYS */;
 INSERT INTO `sys_dict_type`
 VALUES (1, '用户性别', 'sys_user_sex', '0', 'admin', '2022-09-25 09:08:54', '', NULL, '用户性别列表'),
@@ -695,7 +695,8 @@ VALUES (1, '用户性别', 'sys_user_sex', '0', 'admin', '2022-09-25 09:08:54', 
        (10, '系统状态', 'sys_common_status', '0', 'admin', '2022-09-25 09:08:54', '', NULL, '登录状态列表');
 /*!40000 ALTER TABLE `sys_dict_type` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
+
 
 --
 -- Table structure for table `sys_job`
@@ -728,7 +729,7 @@ CREATE TABLE `sys_job`
 --
 
 LOCK
-TABLES `sys_job` WRITE;
+    TABLES `sys_job` WRITE;
 /*!40000 ALTER TABLE `sys_job` DISABLE KEYS */;
 INSERT INTO `sys_job`
 VALUES (1, '系统默认（无参）', 'DEFAULT', 'ryTask.ryNoParams', '0/10 * * * * ?', '3', '1', '1', 'admin',
@@ -739,7 +740,7 @@ VALUES (1, '系统默认（无参）', 'DEFAULT', 'ryTask.ryNoParams', '0/10 * *
         '3', '1', '1', 'admin', '2022-09-25 09:08:55', '', NULL, '');
 /*!40000 ALTER TABLE `sys_job` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `sys_job_log`
@@ -767,11 +768,11 @@ CREATE TABLE `sys_job_log`
 --
 
 LOCK
-TABLES `sys_job_log` WRITE;
+    TABLES `sys_job_log` WRITE;
 /*!40000 ALTER TABLE `sys_job_log` DISABLE KEYS */;
 /*!40000 ALTER TABLE `sys_job_log` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `sys_logininfor`
@@ -800,7 +801,7 @@ CREATE TABLE `sys_logininfor`
 --
 
 LOCK
-TABLES `sys_logininfor` WRITE;
+    TABLES `sys_logininfor` WRITE;
 /*!40000 ALTER TABLE `sys_logininfor` DISABLE KEYS */;
 INSERT INTO `sys_logininfor`
 VALUES (100, 'admin', '127.0.0.1', '内网IP', 'Safari', 'Mac OS X', '0', '登录成功', '2022-09-25 09:56:35'),
@@ -814,7 +815,7 @@ VALUES (100, 'admin', '127.0.0.1', '内网IP', 'Safari', 'Mac OS X', '0', '登�
        (108, 'admin', '127.0.0.1', '内网IP', 'Safari', 'Mac OS X', '0', '登录成功', '2022-09-25 15:51:49');
 /*!40000 ALTER TABLE `sys_logininfor` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `sys_menu`
@@ -853,7 +854,7 @@ CREATE TABLE `sys_menu`
 --
 
 LOCK
-TABLES `sys_menu` WRITE;
+    TABLES `sys_menu` WRITE;
 /*!40000 ALTER TABLE `sys_menu` DISABLE KEYS */;
 INSERT INTO `sys_menu`
 VALUES (1, '系统管理', 0, 1, 'system', NULL, '', 1, 0, 'M', '0', '0', '', 'system', 'admin', '2022-09-25 09:08:52', '',
@@ -1026,7 +1027,7 @@ VALUES (1, '系统管理', 0, 1, 'system', NULL, '', 1, 0, 'M', '0', '0', '', 's
         '2022-09-25 09:08:53', '', NULL, '');
 /*!40000 ALTER TABLE `sys_menu` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `sys_notice`
@@ -1056,7 +1057,7 @@ CREATE TABLE `sys_notice`
 --
 
 LOCK
-TABLES `sys_notice` WRITE;
+    TABLES `sys_notice` WRITE;
 /*!40000 ALTER TABLE `sys_notice` DISABLE KEYS */;
 INSERT INTO `sys_notice`
 VALUES (1, '温馨提醒：2018-07-01 若依新版本发布啦', '2', _binary '新版本内容', '0', 'admin', '2022-09-25 09:08:55', '',
@@ -1065,7 +1066,7 @@ VALUES (1, '温馨提醒：2018-07-01 若依新版本发布啦', '2', _binary '�
         NULL, '管理员');
 /*!40000 ALTER TABLE `sys_notice` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `sys_oper_log`
@@ -1101,7 +1102,7 @@ CREATE TABLE `sys_oper_log`
 --
 
 LOCK
-TABLES `sys_oper_log` WRITE;
+    TABLES `sys_oper_log` WRITE;
 /*!40000 ALTER TABLE `sys_oper_log` DISABLE KEYS */;
 INSERT INTO `sys_oper_log`
 VALUES (100, '用户管理', 3, 'com.ruoyi.web.controller.system.SysUserController.remove()', 'DELETE', 1, 'admin', NULL,
@@ -1240,7 +1241,7 @@ VALUES (100, '用户管理', 3, 'com.ruoyi.web.controller.system.SysUserControll
         '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-09-25 15:53:26');
 /*!40000 ALTER TABLE `sys_oper_log` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `sys_post`
@@ -1270,7 +1271,7 @@ CREATE TABLE `sys_post`
 --
 
 LOCK
-TABLES `sys_post` WRITE;
+    TABLES `sys_post` WRITE;
 /*!40000 ALTER TABLE `sys_post` DISABLE KEYS */;
 INSERT INTO `sys_post`
 VALUES (1, 'ceo', '董事长', 1, '0', 'admin', '2022-09-25 09:08:52', '', NULL, ''),
@@ -1279,7 +1280,7 @@ VALUES (1, 'ceo', '董事长', 1, '0', 'admin', '2022-09-25 09:08:52', '', NULL,
        (4, 'user', '普通员工', 4, '0', 'admin', '2022-09-25 09:08:52', '', NULL, '');
 /*!40000 ALTER TABLE `sys_post` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `sys_role`
@@ -1313,7 +1314,7 @@ CREATE TABLE `sys_role`
 --
 
 LOCK
-TABLES `sys_role` WRITE;
+    TABLES `sys_role` WRITE;
 /*!40000 ALTER TABLE `sys_role` DISABLE KEYS */;
 INSERT INTO `sys_role`
 VALUES (1, '超级管理员', 'admin', 1, '1', 1, 1, '0', '0', 'admin', '2022-09-25 09:08:52', '', NULL, '超级管理员'),
@@ -1335,7 +1336,7 @@ VALUES (1, '超级管理员', 'admin', 1, '1', 1, 1, '0', '0', 'admin', '2022-09
         NULL, '实验室成员');
 /*!40000 ALTER TABLE `sys_role` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `sys_role_dept`
@@ -1357,11 +1358,11 @@ CREATE TABLE `sys_role_dept`
 --
 
 LOCK
-TABLES `sys_role_dept` WRITE;
+    TABLES `sys_role_dept` WRITE;
 /*!40000 ALTER TABLE `sys_role_dept` DISABLE KEYS */;
 /*!40000 ALTER TABLE `sys_role_dept` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `sys_role_menu`
@@ -1383,7 +1384,7 @@ CREATE TABLE `sys_role_menu`
 --
 
 LOCK
-TABLES `sys_role_menu` WRITE;
+    TABLES `sys_role_menu` WRITE;
 /*!40000 ALTER TABLE `sys_role_menu` DISABLE KEYS */;
 INSERT INTO `sys_role_menu`
 VALUES (100, 1),
@@ -1596,7 +1597,7 @@ VALUES (100, 1),
        (106, 2009);
 /*!40000 ALTER TABLE `sys_role_menu` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `sys_user`
@@ -1635,7 +1636,7 @@ CREATE TABLE `sys_user`
 --
 
 LOCK
-TABLES `sys_user` WRITE;
+    TABLES `sys_user` WRITE;
 /*!40000 ALTER TABLE `sys_user` DISABLE KEYS */;
 INSERT INTO `sys_user`
 VALUES (1, 101, 'admin', '孙鸿飞', '00', '021027shf@gmail.com', '13383553209', '1', '',
@@ -1643,7 +1644,7 @@ VALUES (1, 101, 'admin', '孙鸿飞', '00', '021027shf@gmail.com', '13383553209'
         'admin', '2022-09-25 09:08:52', '', '2022-09-25 15:51:49', '管理员');
 /*!40000 ALTER TABLE `sys_user` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `sys_user_post`
@@ -1665,13 +1666,13 @@ CREATE TABLE `sys_user_post`
 --
 
 LOCK
-TABLES `sys_user_post` WRITE;
+    TABLES `sys_user_post` WRITE;
 /*!40000 ALTER TABLE `sys_user_post` DISABLE KEYS */;
 INSERT INTO `sys_user_post`
 VALUES (1, 1);
 /*!40000 ALTER TABLE `sys_user_post` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `sys_user_role`
@@ -1693,13 +1694,13 @@ CREATE TABLE `sys_user_role`
 --
 
 LOCK
-TABLES `sys_user_role` WRITE;
+    TABLES `sys_user_role` WRITE;
 /*!40000 ALTER TABLE `sys_user_role` DISABLE KEYS */;
 INSERT INTO `sys_user_role`
 VALUES (1, 1);
 /*!40000 ALTER TABLE `sys_user_role` ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

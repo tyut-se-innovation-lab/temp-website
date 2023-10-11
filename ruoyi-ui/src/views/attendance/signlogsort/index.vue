@@ -37,33 +37,35 @@
             </div>
         </template>
     </el-skeleton>
-    <el-table v-if="!loading" :data="signLogShowData" id="table">
-      <el-table-column
-        prop="userName"
-        label="姓名"
-        align="center"
-        min-width="130"
-      ></el-table-column>
-      <el-table-column
-        prop="attEndTime"
-        label="占位1"
-        align="center"
-        min-width="270"
-      ></el-table-column>
-      <el-table-column
-        prop="attStartTime"
-        label="占位2"
-        align="center"
-        min-width="270"
-      ></el-table-column>
-      <el-table-column
-        prop="signTime"
-        label="总计有效时间(h)"
-        align="center"
-        min-width="130"
-      ></el-table-column>
-    </el-table>
-    <Page v-if="!loading" :pageData="pageData" @pageClick="pageClick" ref="child"></Page>
+    <div class="tableAnimation">
+      <el-table v-if="!loading" :data="signLogShowData" id="table">
+        <el-table-column
+            prop="userName"
+            label="姓名"
+            align="center"
+            min-width="130"
+        ></el-table-column>
+        <el-table-column
+            prop="attEndTime"
+            label="占位1"
+            align="center"
+            min-width="270"
+        ></el-table-column>
+        <el-table-column
+            prop="attStartTime"
+            label="占位2"
+            align="center"
+            min-width="270"
+        ></el-table-column>
+        <el-table-column
+            prop="signTime"
+            label="总计有效时间(h)"
+            align="center"
+            min-width="130"
+        ></el-table-column>
+      </el-table>
+      <Page v-if="!loading" :pageData="pageData" @pageClick="pageClick" ref="child" id="page"></Page>
+    </div>
   </div>
 </template>
 
@@ -148,7 +150,7 @@ export default {
           // 为了好看
           setTimeout(() => {
               this.loading = false;
-          },500)
+          },200)
           this.signLog = res.data;
           this.signLogShowData = res.data.list;
           this.signLogShowData.forEach(val => {
@@ -173,10 +175,10 @@ export default {
       };
 
       this.log.deptAllTime(tmpObj).then((res) => {
-          // 为了好看
-          setTimeout(() => {
-              this.loading = false;
-          },500)
+        // 为了好看
+        setTimeout(() => {
+            this.loading = false;
+        },200)
         this.signLog = res.data.attendancePageInfo;
         this.signLogShowData = res.data.attendancePageInfo.list;
         this.signLogShowData.forEach(val => {
@@ -296,7 +298,29 @@ export default {
 
 #table {
   margin: 0 auto;
+
+  z-index: 100;
+  overflow: hidden;
 }
+
+.tableAnimation{
+  animation-name: table;
+  animation-duration: 1.5s;
+}
+
+@keyframes table {
+  from {
+    opacity: .4;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+
+  }
+}
+
+
 
 .datePicker {
   background-color: black;

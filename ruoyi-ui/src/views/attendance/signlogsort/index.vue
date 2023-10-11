@@ -311,12 +311,9 @@ export default {
 @keyframes table {
   from {
     opacity: .4;
-    transform: translateY(100%);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
-
   }
 }
 

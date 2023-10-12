@@ -45,6 +45,11 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>tyut.selab</groupId>
+            <artifactId>selab-rule</artifactId>
+            <version>3.8.4</version>
+        </dependency>
+        <dependency>
             <groupId>com.vlkan.rfos</groupId>
             <artifactId>rotating-fos</artifactId>
             <version>0.9.5</version>

@@ -6,17 +6,20 @@ import tyut.selab.attendance.mapper.GenerateLogMapper;
 import tyut.selab.attendance.service.Impl.AttendanceLogServiceImpl;
 import tyut.selab.attendance.service.Impl.GenerateLogServiceImpl;
 
+import javax.annotation.Resource;
+
 @Component("attendance")
 public class Attendance {
 
-    @Autowired
+    @Resource
     GenerateLogServiceImpl generateLogService;
 
-    @Autowired
+    @Resource
     GenerateLogMapper generateLogMapper;
 
-    @Autowired
+    @Resource
     AttendanceLogServiceImpl attendanceLogService;
+
 
     public void clearAttendanceLogInDB(){
         generateLogService.deleteInvalidData();//删除每日未签退数据

@@ -2,6 +2,8 @@ package tyut.selab.rule.mapper;
 
 import tyut.selab.rule.domain.RuleScore;
 
+import java.util.List;
+
 /**
 * @author Tapper
 * @description 针对表【rule_score(人员分数)】的数据库操作Mapper
@@ -16,7 +18,7 @@ public interface RuleScoreMapper {
 
     int insertSelective(RuleScore record);
 
-    RuleScore selectByUserId(Long userId);
+    List<RuleScore> selectByUserId(Long userId);
 
     int updateByPrimaryKeySelective(RuleScore record);
 

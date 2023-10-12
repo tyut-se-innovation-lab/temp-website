@@ -6,6 +6,9 @@ import java.util.List;
 
 /**
  * 奖惩制度业务层
+ *
+ * @author Otion
+ * @date 2023/10/10
  */
 public interface RuleService {
     /**
@@ -35,4 +38,10 @@ public interface RuleService {
      * @return
      */
     List<OperationVO> getOperationInfo(Long userId);
+
+    /**
+     * 定时任务，每两个月执行一次，清空分数，将rule_score表中的score字段置为0
+     */
+    void clearAllScore();
+
 }

@@ -23,7 +23,7 @@ public class RuleScore implements Serializable {
     private Long scores;
 
     /**
-     * 是否弹出规章制度 0为不弹出 1为弹出 默认为0
+     * 是否弹出规章制度 0为不弹出 1为弹出 默认为1
      */
     private Integer ruleStatus;
 

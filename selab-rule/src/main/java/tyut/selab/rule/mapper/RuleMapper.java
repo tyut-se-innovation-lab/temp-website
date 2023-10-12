@@ -20,4 +20,6 @@ public interface RuleMapper {
     Integer getOperationStatus(Long userId);
 
     List<Operation> getOperationInfo(Long userid);
+
+    void clearAllScore();
 }

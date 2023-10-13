@@ -13,9 +13,15 @@
  */
 package tyut.selab.vote.service.impl;
 
+import com.ruoyi.common.utils.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.vote.domain.po.VoteReport;
+import tyut.selab.vote.enums.VoteStatus;
+import tyut.selab.vote.mapper.DealVoteMapper;
+import tyut.selab.vote.mapper.ReportVoteMapper;
 import tyut.selab.vote.service.ReportVoteService;
+import tyut.selab.vote.tools.TimeDealTool;
 
 import java.util.List;
 
@@ -27,14 +33,36 @@ import java.util.List;
  */
 @Service
 public class ReportVoteServiceImpl implements ReportVoteService {
+
+    @Autowired
+    private DealVoteMapper dealVoteMapper;
+    @Autowired
+    private ReportVoteMapper reportVoteMapper;
+
     @Override
-    public void submitReportVote(VoteReport voteReport) {
+    public Integer submitReportVote(VoteReport voteReport) {
+        //举报次数达到，则冻结
+        int freezeCount = 10;
+        if(TimeDealTool.judgeVoteFinish(dealVoteMapper.queryVoteDeadTime(voteReport.getVoteId()))){
+            //未到截止时间,可以提交举报信息
+            //Long userId = SecurityUtils.getUserId();
+            //voteReport.setUser_id(userId);
+            reportVoteMapper.submitReportVote(voteReport);
+            if(reportVoteMapper.queryReportCount(voteReport.getVoteId()) >= freezeCount){
+                dealVoteMapper.updateVoteStatus(voteReport.getVoteId(),VoteStatus.FREEZE);
+            }
+            return 1;
+        }else{
+            //此刻超出截止时间
+            return 0;
+        }
 
     }
 
     @Override
     public List<VoteReport> viewReportVote(Long voteId) {
-        return null;
+        return reportVoteMapper.viewReportVote(voteId);
     }
-}
 
+
+}

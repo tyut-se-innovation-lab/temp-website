@@ -14,7 +14,12 @@ public interface ReportVoteService {
      * @param voteReport 举报信息类
      * @return 判断投票是否结束，未结束则提交成功
      */
-    void submitReportVote(VoteReport voteReport);
+    Integer submitReportVote(VoteReport voteReport);
 
+    /**
+     * 查看举报信息
+     * @param voteId
+     * @return
+     */
     List<VoteReport> viewReportVote(Long voteId);
 }

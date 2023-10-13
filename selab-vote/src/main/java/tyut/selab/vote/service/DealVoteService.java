@@ -17,15 +17,22 @@ public interface DealVoteService {
 
     /**
      * 撤回投票
-     * @param vote_id
+     * @param voteId
      * @return
      */
-    Integer withdrawVote(Long vote_id);
+    Integer withdrawVote(Long voteId);
 
     /**
      * 处理冻结投票
-     * @param vote_id
+     * @param voteId
      * @return
      */
-    Integer HandlingFrozenVote(Long vote_id);
+    Integer HandlingFrozenVote(Long voteId,Integer handel);
+
+    /**
+     * 删除投票
+     * @param voteId
+     * @return
+     */
+    Integer deleteVote(Long voteId);
 }

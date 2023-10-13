@@ -1,8 +1,8 @@
 package tyut.selab.vote.domain.po;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import tyut.selab.vote.domain.vo.VoteOptionVo;
 import tyut.selab.vote.enums.VoteStatus;
@@ -27,9 +27,9 @@ public class VoteInfo {
     private String title;
     private String content;
     private VoteStatus status;
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date deadTime;
     private Integer optionNum;
     private String isRealTime;

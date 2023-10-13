@@ -21,4 +21,9 @@
         select * from selab_vote_report
         where vote_id = #{voteId}
     </select>
+
+    <select id="queryReportCount" resultType="int">
+        select count(*) from selab_vote_report
+        where vote_id = #{voteId}
+    </select>
 </mapper>

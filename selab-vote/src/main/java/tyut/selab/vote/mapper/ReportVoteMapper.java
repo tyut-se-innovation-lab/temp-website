@@ -38,5 +38,11 @@ public interface ReportVoteMapper {
      * @return
      */
     List<VoteReport> viewReportVote(@Param("voteId") Long voteId);
-}
 
+    /**
+     * 查询举报次数
+     * @param voteId
+     * @return
+     */
+    Integer queryReportCount(@Param("voteId") Long voteId);
+}

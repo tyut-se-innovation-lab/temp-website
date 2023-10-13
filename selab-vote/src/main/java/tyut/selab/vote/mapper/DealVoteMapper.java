@@ -44,6 +44,13 @@ public interface DealVoteMapper {
     Integer updateVoteStatus(@Param("voteId") Long voteId,@Param("status") VoteStatus status);
 
     /**
+     * 修改删除状态
+     * @param voteId
+     * @return
+     */
+    Integer deleteVote(@Param("voteId") Long voteId);
+
+    /**
      * 保存投票信息
      * @param voteInfo
      * @return

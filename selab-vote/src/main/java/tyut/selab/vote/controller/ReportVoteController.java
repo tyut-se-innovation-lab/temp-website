@@ -1,10 +1,11 @@
 package tyut.selab.vote.controller;
 
+import com.ruoyi.common.annotation.Anonymous;
 import com.ruoyi.common.core.domain.AjaxResult;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tyut.selab.vote.domain.po.VoteReport;
+import tyut.selab.vote.service.ReportVoteService;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,11 @@ import java.util.ArrayList;
  */
 @RestController
 @RequestMapping("/vote/report")
+@Anonymous
 public class ReportVoteController {
+
+    @Autowired
+    private ReportVoteService reportVoteService;
 
     /**
      *   提交举报信息
@@ -26,23 +31,19 @@ public class ReportVoteController {
      */
     @PostMapping("/submit")
     public AjaxResult submitReportVote(@RequestBody VoteReport voteReport){
-
-        // 检查投票是否未结束
-        // 如果数量大于a, 冻结投票 （修改投票status）
-        return AjaxResult.success();
+        if(reportVoteService.submitReportVote(voteReport) == 1) return AjaxResult.success("举报成功");
+        return AjaxResult.success("该投票已结束");
     }
 
+
     /**
-     *  查看举报信息
+     * 查看举报信息
      * @param voteId
      * @return
      */
-     @PostMapping("/view/{voteId}")
+    @PostMapping("/view/{voteId}")
     public AjaxResult viewReportVote(@PathVariable Long voteId){
-
-         return AjaxResult.success(new ArrayList<VoteReport>());
+        return AjaxResult.success(reportVoteService.viewReportVote(voteId));
     }
-
-
 
 }

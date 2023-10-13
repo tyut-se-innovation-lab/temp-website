@@ -7,15 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteResult;
-import tyut.selab.vote.domain.po.Weight;
-import tyut.selab.vote.domain.vo.JoinQuestionnaire;
-import tyut.selab.vote.domain.vo.Questionnaire;
-import tyut.selab.vote.domain.vo.VoteOption;
-import tyut.selab.vote.domain.vo.VoteQue;
-import tyut.selab.vote.mapper.GetInfoDBMapper;
-import tyut.selab.vote.mapper.InsertInfoDBMapper;
-import tyut.selab.vote.mapper.WeightMapper;
-import tyut.selab.vote.service.ICommitVoteService;
 import tyut.selab.vote.tools.GetSysTime;
 import tyut.selab.vote.tools.impl.RSATool;
 

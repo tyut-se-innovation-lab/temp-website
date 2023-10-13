@@ -1,11 +1,13 @@
 package tyut.selab.vote.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum VoteOptionType {
-    CONTAINER("C", "容器"),
-    QUESTION("Q", "问题"),
     SINGLE_CHECKBOX("S", "单选框"),
-    MULTIPLE_CHECKBOX("M", "多选框"),
-    TEXT_AREA("T", "文本域");
+    TEXT_AREA("C", "文本域");
+    @JsonValue
     private final String sign;
     private final String remake;
 

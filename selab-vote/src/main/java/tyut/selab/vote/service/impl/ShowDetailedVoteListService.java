@@ -2,14 +2,8 @@ package tyut.selab.vote.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tyut.selab.vote.domain.po.PoVoteOption;
 import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteResult;
-import tyut.selab.vote.domain.vo.Questionnaire;
-import tyut.selab.vote.domain.vo.VoteOption;
-import tyut.selab.vote.domain.vo.VoteQue;
-import tyut.selab.vote.mapper.GetInfoDBMapper;
-import tyut.selab.vote.service.IShowDetailedVoteListService;
 import tyut.selab.vote.tools.impl.VoPoConverterTool;
 
 import static com.ruoyi.common.utils.SecurityUtils.getUserId;

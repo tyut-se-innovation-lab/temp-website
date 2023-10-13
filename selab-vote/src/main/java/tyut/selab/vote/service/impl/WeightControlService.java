@@ -4,9 +4,6 @@ import com.ruoyi.common.core.domain.entity.SysRole;
 import com.ruoyi.system.service.ISysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tyut.selab.vote.domain.po.Weight;
-import tyut.selab.vote.mapper.WeightMapper;
-import tyut.selab.vote.service.IWeightControlService;
 import tyut.selab.vote.tools.AnonymousControl;
 
 import java.util.*;

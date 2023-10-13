@@ -1,38 +1,16 @@
 package tyut.selab.vote.domain.po;
 
+/**
+ * @className: VoteUser
+ * @author: lizhichao
+ * @description: TODO
+ * @date: 2023/10/11 19:22
+ * @version: 1.0
+ */
 public class VoteUser {
-    private String userId;
+
     private Long voteId;
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public Long getVoteId() {
-        return voteId;
-    }
-
-    public void setVoteId(Long voteId) {
-        this.voteId = voteId;
-    }
-
-    public VoteUser() {
-    }
-
-    public VoteUser(String userId, Long voteId) {
-        this.userId = userId;
-        this.voteId = voteId;
-    }
-
-    @Override
-    public String toString() {
-        return "VoteUser{" +
-                "userId='" + userId + '\'' +
-                ", voteId=" + voteId +
-                '}';
-    }
+    private String userName;
+    // 是否完成投票 1为完成 0为未完成
+    private Integer isComplete;
 }

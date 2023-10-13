@@ -44,7 +44,7 @@ public class AttendanceLogController {
      * 查看alluser日志+时间总和
      * @return
      */
-    @PreAuthorize("@ss.hasPermi('attendance:log')")
+    @PreAuthorize("@ss.hasPermi('attendance:sign:show')")
     @GetMapping("/allTime")
     @ResponseBody
     public AjaxResult allUserTime(@Nullable @RequestParam(required = false,value = "attStartTime") Long attStartTime,

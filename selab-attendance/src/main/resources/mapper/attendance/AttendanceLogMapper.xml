@@ -22,7 +22,7 @@
     </select>
 
     <select id="nickName" parameterType="java.lang.Integer" resultType="String">
-        SELECT nick_name FROM sys_user WHERE dept_id = #{deptId}
+        SELECT nick_name FROM sys_user WHERE dept_id = #{deptId} and  del_flag = 0;
     </select>
 
     <select id="nickUserName" parameterType="java.lang.Integer" resultType="String">

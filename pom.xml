@@ -216,7 +216,18 @@
             <dependency>
                 <groupId>tyut.selab</groupId>
                 <artifactId>selab-rule</artifactId>
-                <version>3.8.3</version>
+                <version>3.8.4</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>3.0.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>3.0.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -242,6 +253,16 @@
             <artifactId>lombok</artifactId>
             <version>1.18.24</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.vlkan.rfos</groupId>
+            <artifactId>rotating-fos</artifactId>
+            <version>0.9.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>3.0.2</version>
         </dependency>
     </dependencies>
 

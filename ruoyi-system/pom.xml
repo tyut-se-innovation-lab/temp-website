@@ -22,6 +22,11 @@
             <groupId>com.ruoyi</groupId>
             <artifactId>ruoyi-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.vlkan.rfos</groupId>
+            <artifactId>rotating-fos</artifactId>
+            <version>0.9.5</version>
+        </dependency>
 
     </dependencies>
 

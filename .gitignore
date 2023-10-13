@@ -30,3 +30,6 @@ log/
 # IDEA Properties
 *.iml
 .idea/
+
+#Other
+dump.rdb

@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.ruoyi</groupId>
         <artifactId>ruoyi</artifactId>
-        <version>3.8.3</version>
+        <version>3.8.4</version>
     </parent>
 
     <groupId>tyut.selab</groupId>

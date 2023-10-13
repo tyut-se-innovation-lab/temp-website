@@ -1,3 +1,11 @@
 <template>
-  <h1>mine page</h1>
+ <History/>
 </template>
+<script>
+import History from "@/views/vote/mine/History.vue";
+export default {
+  components: {
+    History,
+  },
+};
+</script>

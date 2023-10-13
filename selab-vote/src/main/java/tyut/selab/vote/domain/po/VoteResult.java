@@ -8,13 +8,15 @@ public class VoteResult {
     private Long voteId;
     private Long voteOptionId;
     private String userName;
-    private String userId;
+    private Long userId;
 
     private String content;
     private Date createTime;
    // 1 为匿名 0 为实名
     // 是否实名（1 为匿名 0 为实名）
     private String isAnonymous;
+
+    private Integer weight;
 
 
     public Long getId() {

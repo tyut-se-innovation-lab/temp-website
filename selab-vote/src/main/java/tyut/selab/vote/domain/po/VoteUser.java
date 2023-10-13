@@ -10,6 +10,7 @@ package tyut.selab.vote.domain.po;
 public class VoteUser {
 
     private Long voteId;
+    private String userId;
     private String userName;
     // 是否完成投票 1为完成 0为未完成
     private Integer isComplete;

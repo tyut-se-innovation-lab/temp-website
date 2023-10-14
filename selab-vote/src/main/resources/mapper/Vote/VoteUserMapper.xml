@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tyut.selab.vote.mapper.VoteUserMapper">
+    <resultMap id="voteUserMap" type="tyut.selab.vote.domain.po.VoteUser">
+        <result property="voteId" column="vote_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="nick_name"/>
+        <result property="isComplete" column="is_complete"/>
+    </resultMap>
+
+    <insert id="insertVoteUser" parameterType="tyut.selab.vote.domain.po.VoteUser">
+        INSERT INTO selab_vote_user (vote_id,user_id,is_complete) VALUE
+        <foreach collection="list" item="a" separator=",">
+            (
+            #{a.voteId},
+              #{a.userId},
+             #{a.isComplete}
+            )
+        </foreach>
+    </insert>
+
+    <select id="getListByVoteId" parameterType="long" resultMap="voteUserMap">
+        SELECT vote_id,v.user_id,is_complete,nick_name
+        FROM selab_vote_user v LFET JOIN sys_user u
+         WHERE vote_id = #{voteId}
+    </select>
+
+</mapper>

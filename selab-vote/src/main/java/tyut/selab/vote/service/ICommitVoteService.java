@@ -5,17 +5,16 @@ import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteResult;
 import tyut.selab.vote.exception.VoteException;
 
-import java.util.List;
 @Service
-public interface IShowVoteResultService {
+public interface ICommitVoteService {
 
 
-    /**
-     *
-     * @param voteId
-     * @return
-     * @throws VoteException
-     */
-    VoteInfo afterGetVoteInfoByVoteId(Long voteId) throws VoteException;
+
+     /**
+      *   提交投票信息
+      * @param voteResult
+      * @throws VoteException
+      */
+     void commitVote(VoteResult voteResult) throws VoteException;
 
 }

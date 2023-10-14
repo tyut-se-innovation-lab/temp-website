@@ -2,7 +2,7 @@ package tyut.selab.vote.mapper;
 
 import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteRange;
-import tyut.selab.vote.domain.vo.VoteResultDetails;
+
 
 
 import java.util.List;

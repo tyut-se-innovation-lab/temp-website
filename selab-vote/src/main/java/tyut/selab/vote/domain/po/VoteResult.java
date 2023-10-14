@@ -18,6 +18,37 @@ public class VoteResult {
 
     private Integer weight;
 
+    public Long getVoteId() {
+        return voteId;
+    }
+
+    public void setVoteId(Long voteId) {
+        this.voteId = voteId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getIsAnonymous() {
+        return isAnonymous;
+    }
+
+    public void setIsAnonymous(String isAnonymous) {
+        this.isAnonymous = isAnonymous;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
 
     public Long getId() {
         return id;

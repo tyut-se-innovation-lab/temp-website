@@ -26,7 +26,7 @@ public interface VoteResultMapper {
 
 
     /**
-     *  通过 voteId 和 optionId 和 userId （可变参数） 查询投票结果
+     *  通过 voteId 和 optionId 或 userId （可变参数） 查询投票结果
      * @param voteId
      * @param optionId
      * @return
@@ -41,5 +41,7 @@ public interface VoteResultMapper {
      * @return
      */
     Integer getVoteReultCount(Long voteId,Long optionId);
+
+
 
 }

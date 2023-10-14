@@ -82,5 +82,6 @@ public interface VoteInfoMapper {
 
 
 
+
 }
 

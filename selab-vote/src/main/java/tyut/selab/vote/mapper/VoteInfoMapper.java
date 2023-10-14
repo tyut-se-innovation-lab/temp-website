@@ -23,12 +23,12 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @ClassName: DealVoteMapper
- * @Description: java类描述
+ * @ClassName: VoteInfoMapper
+ * @Description:   投票信息mapper
  * @Author: 22932
  * @Date: 2023/10/11 18:52:28
  */
-public interface DealVoteMapper {
+public interface VoteInfoMapper {
     /**
      * 查询投票截止时间
      * @param voteId
@@ -70,6 +70,17 @@ public interface DealVoteMapper {
      * @return
      */
     Integer saveVoteWeightInformation(@Param("voteWeightList") List<VoteWeight> voteWeightList);
+
+
+
+    /**
+     *  查询投票状态 (返回到VoteInfo VoteStatus 属性)
+     * @param voteId
+     * @return
+     */
+    VoteInfo getVoteStatus(Long voteId);
+
+
 
 }
 

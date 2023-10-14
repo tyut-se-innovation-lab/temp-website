@@ -13,6 +13,7 @@ import java.util.List;
  */
 public interface VoteResultMapper {
 
+
     /**
      *  增加结果数据
      * @param voteResult
@@ -34,7 +35,7 @@ public interface VoteResultMapper {
 
 
     /**
-     *  查询票数  optionId为可加参数
+     *  查询票数
      * @param voteId
      * @param optionId
      * @return

@@ -1,4 +1,4 @@
-package tyut.selab.vote.domain.vo;
+package tyut.selab.vote.domain.po;
 
 import lombok.Data;
 import tyut.selab.vote.enums.VoteStatus;
@@ -13,7 +13,7 @@ import java.util.Date;
  * @version: 1.0
  */
 @Data
-public class VoteRangeVo {
+public class VoteRange {
 
     private Long voteId;
     private String title;

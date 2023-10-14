@@ -57,20 +57,6 @@ public interface VoteInfoMapper {
      */
     Integer saveVoteInformation(@Param("voteInfo") VoteInfo voteInfo);
 
-    /**
-     * 保存选项信息
-     * @param voteOptionList
-     * @return
-     */
-    Integer saveVoteOptionInformation(@Param("voteOptionList") List<VoteOption> voteOptionList);
-
-    /**
-     * 保存权重信息
-     * @param voteWeightList
-     * @return
-     */
-    Integer saveVoteWeightInformation(@Param("voteWeightList") List<VoteWeight> voteWeightList);
-
 
 
     /**

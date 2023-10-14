@@ -1,5 +1,6 @@
 package tyut.selab.vote.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import tyut.selab.vote.domain.po.VoteOption;
 
 import java.util.List;
@@ -21,11 +22,11 @@ public interface VoteOptionMapper {
     List<VoteOption> getVoteOptionByVoteId(Long voteId);
 
     /**
-     *   增加选项信息
+     *   保存选项信息
      * @param voteOptions
      * @return
      */
-    Integer insertVoteOption(List<VoteOption> voteOptions);
+    Integer saveVoteOptionInformation(@Param("voteOptions") List<VoteOption> voteOptions);
 
 
 

@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import tyut.selab.rule.service.ScoreService;
 
 /**
@@ -22,15 +21,15 @@ public class ScoreController {
     /**
      * 分数增减
      *
-     * @param score
+     * @param scoreChange
      * @return
      */
     @PutMapping
     @ApiOperation("分数增减")
     @PreAuthorize("@ss.hasAnyPermi('rule:content')")
-    public AjaxResult addOrReduceScore(Integer score, Long userId) {
+    public AjaxResult addOrReduceScore(Integer scoreChange, Long userId) {
         //加分减分操作
-        scoreService.addOrReduceScore(score, userId);
+        scoreService.addOrReduceScore(scoreChange, userId);
         //设置默认弹窗弹出
         //该用户需要弹出提示
         scoreService.setUserPop(1);

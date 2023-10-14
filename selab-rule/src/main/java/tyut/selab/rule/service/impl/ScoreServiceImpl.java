@@ -15,16 +15,20 @@ public class ScoreServiceImpl implements ScoreService {
 
     /**
      * 加减分数
-     * @param score
+     *
+     * @param scoreChange
      * @param userId
      */
     @Override
-    public void addOrReduceScore(Integer score, Long userId) {
-        scoreMapper.addOrReduceScore(score, userId);
+    public void addOrReduceScore(Integer scoreChange, Long userId) {
+        Integer score = scoreMapper.getByUserId(userId);
+        score += scoreChange;
+        scoreMapper.updateScore(score, userId);
     }
 
     /**
      * 该用户需要弹出弹窗
+     *
      * @param i
      */
     @Override
@@ -34,6 +38,7 @@ public class ScoreServiceImpl implements ScoreService {
 
     /**
      * 该操作需要弹出弹窗
+     *
      * @param i
      */
     @Override

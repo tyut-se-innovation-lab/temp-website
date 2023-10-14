@@ -1,6 +1,8 @@
 package tyut.selab.rule.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 @Mapper
@@ -9,7 +11,7 @@ public interface ScoreMapper {
      * 增减分数
      * @param score
      */
-    public void addOrReduceScore(Integer score,Long userId);
+    public void updateScore(@Param("score") Integer score, @Param("userId") Long userId);
 
     /**
      * 该用户需要弹出弹窗
@@ -24,4 +26,11 @@ public interface ScoreMapper {
      */
     @Update("update rule_log set status = 1")
     void setOperationPop(Integer i);
+
+    /**
+     * 根据用户id查询分数
+     * @return
+     */
+    @Select("select scores from rule_score where user_id = #{userId}")
+    Integer getByUserId(Long userId);
 }

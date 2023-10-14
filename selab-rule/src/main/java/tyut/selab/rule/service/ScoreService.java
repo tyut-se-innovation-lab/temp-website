@@ -6,9 +6,9 @@ package tyut.selab.rule.service;
 public interface ScoreService {
     /**
      * 分数增减
-     * @param score
+     * @param scoreChange
      */
-    void addOrReduceScore(Integer score,Long userId);
+    void addOrReduceScore(Integer scoreChange,Long userId);
 
     /**
      * 该用户需要弹出弹窗

@@ -31,7 +31,9 @@ public class ReportVoteController {
      */
     @PostMapping("/submit")
     public AjaxResult submitReportVote(@RequestBody VoteReport voteReport){
-        if(reportVoteService.submitReportVote(voteReport) == 1) return AjaxResult.success("举报成功");
+        Integer flag = reportVoteService.submitReportVote(voteReport);
+        if(flag==2) return AjaxResult.success("该投票已被冻结");
+        if(flag == 1) return AjaxResult.success("举报成功");
         return AjaxResult.success("该投票已结束");
     }
 

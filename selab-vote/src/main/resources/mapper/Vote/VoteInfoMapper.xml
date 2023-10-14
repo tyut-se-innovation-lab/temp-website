@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="tyut.selab.vote.mapper.DealVoteMapper">
+<mapper namespace="tyut.selab.vote.mapper.VoteInfoMapper">
     <select id="queryVoteDeadTime" resultType="java.util.Date">
         select dead_time from selab_vote_info
         where vote_id = #{voteId}
@@ -36,19 +36,7 @@
                 '1')
     </insert>
 
-    <insert id="saveVoteOptionInformation">
-        insert into selab_vote_option
-        values
-        <foreach collection="voteOptionList" separator="," item="voteOption">
-            (null,#{voteOption.voteId},#{voteOption.optionType,typeHandler=tyut.selab.vote.config.jdbc.handler.VoteOptionTypeHandler},#{voteOption.content})
-        </foreach>
-    </insert>
 
-    <insert id="saveVoteWeightInformation">
-        insert into selab_vote_weight
-        values
-        <foreach collection="voteWeightList" separator="," item="voteWeight">
-            (#{voteWeight.voteId},#{voteWeight.roleId},#{voteWeight.weight})
-        </foreach>
-    </insert>
+
+
 </mapper>

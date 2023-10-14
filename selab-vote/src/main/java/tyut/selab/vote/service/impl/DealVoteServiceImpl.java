@@ -22,7 +22,9 @@ import tyut.selab.vote.domain.po.VoteInfo;
 
 import tyut.selab.vote.domain.po.VoteOption;
 import tyut.selab.vote.enums.VoteStatus;
-import tyut.selab.vote.mapper.DealVoteMapper;
+import tyut.selab.vote.mapper.VoteInfoMapper;
+import tyut.selab.vote.mapper.VoteOptionMapper;
+import tyut.selab.vote.mapper.VoteWeightMapper;
 import tyut.selab.vote.service.DealVoteService;
 import tyut.selab.vote.tools.TimeDealTool;
 
@@ -40,7 +42,13 @@ import java.util.List;
 public class DealVoteServiceImpl implements DealVoteService {
 
     @Autowired
-    private DealVoteMapper dealVoteMapper;
+    private VoteInfoMapper voteInfoMapper;
+
+    @Autowired
+    private VoteWeightMapper voteWeightMapper;
+
+    @Autowired
+    private VoteOptionMapper voteOptionMapper;
 
     @Override
     public Integer launchVote(VoteInfo voteInfo) {
@@ -49,7 +57,7 @@ public class DealVoteServiceImpl implements DealVoteService {
 
         voteInfo.setStatus(VoteStatus.UNDERWAY);
         // TODO 是否需要判断截止时间合理性
-        dealVoteMapper.saveVoteInformation(voteInfo);
+        voteInfoMapper.saveVoteInformation(voteInfo);
         List<VoteOption> voteOptionList = new ArrayList<>();
         voteInfo.getVoteOptionVoList().forEach(voteOptionVo -> {
             VoteOption voteOption = new VoteOption();
@@ -58,45 +66,45 @@ public class DealVoteServiceImpl implements DealVoteService {
             voteOption.setContent(voteOptionVo.getContent());
             voteOptionList.add(voteOption);
         });
-        dealVoteMapper.saveVoteOptionInformation(voteOptionList);
-        dealVoteMapper.saveVoteWeightInformation(voteInfo.getVoteWeights());
+        voteOptionMapper.saveVoteOptionInformation(voteOptionList);
+        voteWeightMapper.saveVoteWeightInformation(voteInfo.getVoteWeights());
         return null;
     }
 
     @Override
     public Integer withdrawVote(Long voteId) {
-        if(TimeDealTool.judgeVoteFinish(dealVoteMapper.queryVoteDeadTime(voteId))){
+        if(TimeDealTool.judgeVoteFinish(voteInfoMapper.queryVoteDeadTime(voteId))){
             //未到截止时间,撤回投票
-            dealVoteMapper.updateVoteStatus(voteId, VoteStatus.WITHDRAW);
+            voteInfoMapper.updateVoteStatus(voteId, VoteStatus.WITHDRAW);
             return 1;
         }else{
             //此刻超出截止时间，结束投票
-            dealVoteMapper.updateVoteStatus(voteId,VoteStatus.FINISH);
+            voteInfoMapper.updateVoteStatus(voteId,VoteStatus.FINISH);
             return 0;
         }
     }
 
     @Override
     public Integer HandlingFrozenVote(Long voteId,Integer handel) {
-        if(TimeDealTool.judgeVoteFinish(dealVoteMapper.queryVoteDeadTime(voteId))){
+        if(TimeDealTool.judgeVoteFinish(voteInfoMapper.queryVoteDeadTime(voteId))){
             //未到截止时间
             //handel为1则恢复正常
             if(handel == 1){
-                dealVoteMapper.updateVoteStatus(voteId, VoteStatus.UNDERWAY);
+                voteInfoMapper.updateVoteStatus(voteId, VoteStatus.UNDERWAY);
                 return 2;
             }else{
-                dealVoteMapper.updateVoteStatus(voteId, VoteStatus.FINISH);
+                voteInfoMapper.updateVoteStatus(voteId, VoteStatus.CLOSED);
                 return 1;
             }
         }else{
             //此刻超出截止时间，结束投票
-            dealVoteMapper.updateVoteStatus(voteId,VoteStatus.FINISH);
+            voteInfoMapper.updateVoteStatus(voteId,VoteStatus.FINISH);
             return 0;
         }
     }
 
     @Override
     public Integer deleteVote(Long voteId) {
-        return dealVoteMapper.deleteVote(voteId);
+        return voteInfoMapper.deleteVote(voteId);
     }
 }

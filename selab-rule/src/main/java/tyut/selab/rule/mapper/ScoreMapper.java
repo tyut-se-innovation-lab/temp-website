@@ -11,7 +11,7 @@ public interface ScoreMapper {
      * 增减分数
      * @param score
      */
-    public void updateScore(@Param("score") Integer score, @Param("userId") Long userId);
+    public void updateScore(@Param("scores") Integer scores, @Param("userId") Long userId);
 
     /**
      * 该用户需要弹出弹窗

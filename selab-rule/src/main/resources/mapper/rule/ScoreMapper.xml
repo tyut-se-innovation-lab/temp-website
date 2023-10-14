@@ -5,6 +5,6 @@
 <mapper namespace="tyut.selab.rule.mapper.ScoreMapper">
 
     <update id="updateScore">
-        update rule_score set score = #{score} where user_id = #{userId}
+        update rule_score set scores = #{scores} where user_id = #{userId}
     </update>
 </mapper>

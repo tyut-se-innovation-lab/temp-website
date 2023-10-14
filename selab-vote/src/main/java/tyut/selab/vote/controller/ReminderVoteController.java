@@ -1,12 +1,11 @@
 package tyut.selab.vote.controller;
 
 import com.ruoyi.common.core.domain.AjaxResult;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
+
 import lombok.Data;
 import org.springframework.web.bind.annotation.*;
 import tyut.selab.vote.domain.DTO.VoteReminderDTO;
-import tyut.selab.vote.domain.vo.VoteRangeVo;
+
 
 import java.util.ArrayList;
 

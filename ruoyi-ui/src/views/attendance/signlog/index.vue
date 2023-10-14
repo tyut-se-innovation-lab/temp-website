@@ -65,7 +65,7 @@
 
 <script>
 import {Log} from "@/api/attendance/signlog/index.js";
-import {Download} from "@/api/extendsion/download/index.js";
+import downloadBlob from "@/api/extendsion/download/index.js";
 import Page from "@/views/components/pages/index.vue";
 
 export default {
@@ -207,7 +207,7 @@ export default {
     getFile() {
       if (this.fileName !== "") {
         this.log.getFile(this.fileName).then((res) => {
-          new Download().downloadBlob(
+          downloadBlob(
             res,
             "application/vnd.ms-excel",
             this.fileName

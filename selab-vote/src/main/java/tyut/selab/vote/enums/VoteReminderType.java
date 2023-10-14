@@ -29,4 +29,12 @@ public enum VoteReminderType {
         this.sign = sign;
         this.remake = remake;
     }
+
+    public String getSign() {
+        return sign;
+    }
+
+    public String getRemake() {
+        return remake;
+    }
 }

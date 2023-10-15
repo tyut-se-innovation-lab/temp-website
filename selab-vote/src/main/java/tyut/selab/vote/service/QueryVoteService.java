@@ -33,5 +33,4 @@ public interface QueryVoteService {
       * @return
       */
      public List<VoteResultDetails> getVoteResultDetailsById(Long voteId);
-
 }

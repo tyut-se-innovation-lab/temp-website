@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import tyut.selab.rule.domain.DTO.ScoreRequestDTO;
 import tyut.selab.rule.service.ScoreService;
 
 /**
@@ -27,9 +28,9 @@ public class ScoreController {
     @PutMapping
     @ApiOperation("分数增减")
     @PreAuthorize("@ss.hasAnyPermi('rule:content')")
-    public AjaxResult addOrReduceScore(Integer scoreChange, Long userId) {
+    public AjaxResult addOrReduceScore(@RequestBody ScoreRequestDTO scoreChange) {
         //加分减分操作
-        scoreService.addOrReduceScore(scoreChange, userId);
+        scoreService.addOrReduceScore(scoreChange.getScoreChange(), scoreChange.getUserId());
         //设置默认弹窗弹出
         //该用户需要弹出提示
         scoreService.setUserPop(1);

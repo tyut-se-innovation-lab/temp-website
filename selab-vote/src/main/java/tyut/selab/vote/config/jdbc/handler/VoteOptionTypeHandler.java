@@ -40,12 +40,13 @@ public class VoteOptionTypeHandler implements TypeHandler<VoteOptionType> {
 
     @Override
     public VoteOptionType getResult(ResultSet resultSet, String s) throws SQLException {
-        return VoteOptionType.values()[resultSet.getInt(s)];
+       return VoteOptionType.getVoteOptionType(resultSet.getString(s));
+
     }
 
     @Override
     public VoteOptionType getResult(ResultSet resultSet, int i) throws SQLException {
-        return VoteOptionType.values()[resultSet.getInt(i)];
+        return VoteOptionType.getVoteOptionType(resultSet.getString(i));
     }
 
     @Override

@@ -18,6 +18,7 @@ import com.ruoyi.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
+import tyut.selab.vote.domain.DTO.VoteInfoLaunchDTO;
 import tyut.selab.vote.domain.po.VoteInfo;
 
 import tyut.selab.vote.domain.po.VoteOption;
@@ -51,15 +52,15 @@ public class DealVoteServiceImpl implements DealVoteService {
     private VoteOptionMapper voteOptionMapper;
 
     @Override
-    public Integer launchVote(VoteInfo voteInfo) {
+    public Integer launchVote(VoteInfoLaunchDTO voteInfoLaunchDTO) {
 //        Long userId = SecurityUtils.getUserId();
 //        voteInfo.setUserId(userId);
 
-        voteInfo.setStatus(VoteStatus.UNDERWAY);
+        voteInfoLaunchDTO.setStatus(VoteStatus.UNDERWAY);
         // TODO 是否需要判断截止时间合理性
-        voteInfoMapper.saveVoteInformation(voteInfo);
+        voteInfoMapper.saveVoteInformation(voteInfoLaunchDTO);
         List<VoteOption> voteOptionList = new ArrayList<>();
-        voteInfo.getVoteOptionVoList().forEach(voteOptionVo -> {
+        voteInfoLaunchDTO.getVoteOptionVoList().forEach(voteOptionVo -> {
             VoteOption voteOption = new VoteOption();
             voteOption.setVoteId(voteOptionVo.getVoteId());
             voteOption.setOptionType(voteOptionVo.getOptionType());
@@ -67,7 +68,7 @@ public class DealVoteServiceImpl implements DealVoteService {
             voteOptionList.add(voteOption);
         });
         voteOptionMapper.saveVoteOptionInformation(voteOptionList);
-        voteWeightMapper.saveVoteWeightInformation(voteInfo.getVoteWeights());
+        voteWeightMapper.saveVoteWeightInformation(voteInfoLaunchDTO.getVoteWeights());
         return null;
     }
 

@@ -5,7 +5,7 @@
 
 <mapper namespace="tyut.selab.vote.mapper.VoteOptionMapper">
 
-    <resultMap id="voteOptionMap" type="tyut.selab.vote.domain.DTO.VoteOptionLaunchDTO">
+    <resultMap id="voteOptionMap" type="tyut.selab.vote.domain.DTO.VoteOptionDTO">
         <id property="id" column="id"/>
         <result property="voteId" column="vote_id"/>
         <result property="optionType" column="option_type"

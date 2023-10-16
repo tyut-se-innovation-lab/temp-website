@@ -12,4 +12,11 @@ public interface VoteWeightMapper {
      * @return
      */
     Integer saveVoteWeightInformation(@Param("voteWeightList") List<VoteWeight> voteWeightList);
+
+    /**
+     *  通过投票id查询投票权重信息
+     * @param voteId
+     * @return
+     */
+    List<VoteWeight> listVoteWeightByVoteId(Long voteId);
 }

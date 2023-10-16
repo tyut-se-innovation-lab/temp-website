@@ -18,6 +18,9 @@
             <if test="startTime != null and endTime != null">
                 AND att_start_time BETWEEN #{startTime} AND #{endTime}
             </if>
+            <if test="userName != null">
+                att_user LIKE CONCAT('%',#{userName},'%')
+            </if>
         </where>
     </select>
 

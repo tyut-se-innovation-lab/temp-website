@@ -37,7 +37,7 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
     }
 
     @Override
-    public PageInfo<Attendance> bookPageInfo(@Nullable Long attStartTime,@Nullable Long attEndTime, int pageNum, int pageSize) {
+    public PageInfo<Attendance> bookPageInfo(@Nullable Long attStartTime,@Nullable Long attEndTime,@Nullable String userName,int pageNum, int pageSize) {
         Date start = new Date();
         Date end = new Date();
         if (attStartTime != null && attEndTime != null){
@@ -50,8 +50,8 @@ public class AttendanceLogServiceImpl implements IAttendanceLogService {
         PageHelper.startPage(pageNum,pageSize);
         List<Attendance> attendances;
         if (start != null){
-                attendances = attendanceLogMapper.couleSignOut(start,end);
-        }else attendances = attendanceLogMapper.couleSignOut(null,null);
+                attendances = attendanceLogMapper.couleSignOut(start,end,userName);
+        }else attendances = attendanceLogMapper.couleSignOut(null,null,userName);
         return new PageInfo<>(attendances);
     }
     public PageInfo<Attendance> totalBookPageInfo(@Nullable Long attStartTime,@Nullable Long attEndTime, int pageNum, int pageSize) {

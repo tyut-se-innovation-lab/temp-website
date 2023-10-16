@@ -4,6 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="tyut.selab.vote.mapper.VoteWeightMapper">
+
+    <resultMap id="voteWeight" type="tyut.selab.vote.domain.po.VoteWeight">
+        <result property="voteId" column="vote_id"/>
+        <result property="roleId" column="role_id"/>
+        <result property="roleName" column="role_name"/>
+        <result property="weight" column="weight"/>
+    </resultMap>
+
     <insert id="saveVoteWeightInformation">
         insert into selab_vote_weight
         values
@@ -11,4 +19,8 @@
             (#{voteWeight.voteId},#{voteWeight.roleId},#{voteWeight.weight})
         </foreach>
     </insert>
+    <select id="listVoteWeightByVoteId" resultMap="voteWeight">
+        SELECT vote_id,w.role_id,role_name,weight
+        FROM selab_vote_weight w JOIN sys_role r ON w.role_id = r.role_id where vote_id = #{voteId}
+    </select>
 </mapper>

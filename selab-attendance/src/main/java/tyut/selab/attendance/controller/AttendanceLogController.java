@@ -37,8 +37,9 @@ public class AttendanceLogController {
 
                                      Long attEndTime,
                                      @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
-                                     @RequestParam(value = "pageSize",defaultValue = "15") int pageSize){
-        return AjaxResult.success(attendanceLogService.bookPageInfo(attStartTime,attEndTime,pageNum,pageSize));
+                                     @RequestParam(value = "pageSize",defaultValue = "15") int pageSize,
+                                     @Nullable @RequestParam(value = "userName",required = false) String userName){
+        return AjaxResult.success(attendanceLogService.bookPageInfo(attStartTime,attEndTime,userName,pageNum,pageSize));
     }
     /**
      * 查看alluser日志+时间总和

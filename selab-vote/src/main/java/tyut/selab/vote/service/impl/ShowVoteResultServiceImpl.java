@@ -6,7 +6,7 @@ import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteResult;
 import tyut.selab.vote.domain.po.VoteResultDetails;
 import tyut.selab.vote.domain.vo.VoteOptionDetailsVo;
-import tyut.selab.vote.domain.DTO.VoteOptionLaunchDTO;
+import tyut.selab.vote.domain.DTO.VoteOptionDTO;
 import tyut.selab.vote.enums.VoteStatus;
 import tyut.selab.vote.mapper.QueryVoteMapper;
 import tyut.selab.vote.mapper.VoteInfoMapper;
@@ -90,9 +90,9 @@ public class ShowVoteResultServiceImpl implements IShowVoteResultService {
 
     // 实时数据
     private VoteInfo voteInfoForRealTime(VoteInfo voteInfo){
-        List<VoteOptionLaunchDTO> voteOptionVoList = voteInfo.getVoteOptionVoList();
+        List<VoteOptionDTO> voteOptionVoList = voteInfo.getVoteOptionVoList();
         Integer allCount = voteResultMapper.getVoteReultCount(voteInfo.getVoteId(), null);
-        for (VoteOptionLaunchDTO voteOptionVo:voteOptionVoList){
+        for (VoteOptionDTO voteOptionVo:voteOptionVoList){
             Integer voteReultCount = voteResultMapper.getVoteReultCount(voteOptionVo.getVoteId(), voteOptionVo.getId());
             voteOptionVo.setChooseNum(voteReultCount);
             voteOptionVo.setPercentage(voteOptionPercentage(allCount,voteReultCount));
@@ -113,9 +113,9 @@ public class ShowVoteResultServiceImpl implements IShowVoteResultService {
 
     private  VoteInfo insertIsSelect(VoteInfo voteInfo){
         Long userId = SecurityUtils.getUserId();
-        List<VoteOptionLaunchDTO> voteOptionVoList = voteInfo.getVoteOptionVoList();
+        List<VoteOptionDTO> voteOptionVoList = voteInfo.getVoteOptionVoList();
         List<VoteResult> voteResultByOptionIdAndVoteId = voteResultMapper.getVoteResultByOptionIdAndVoteId(voteInfo.getVoteId(),null, userId);
-        for (VoteOptionLaunchDTO voteOptionVo:voteOptionVoList){
+        for (VoteOptionDTO voteOptionVo:voteOptionVoList){
             voteOptionVo.setSelect(false);
             //判断是否被选中
             for(VoteResult voteResult:voteResultByOptionIdAndVoteId){
@@ -142,8 +142,8 @@ public class ShowVoteResultServiceImpl implements IShowVoteResultService {
         voteResultDetails.setUserId(voteInfo.getUserId());
         voteResultDetails.setUserName(voteInfo.getUserName());
         List<VoteOptionDetailsVo> voteOptionDetails = new ArrayList<>();
-        List<VoteOptionLaunchDTO> voteOptionVoList = voteInfo.getVoteOptionVoList();
-        for (VoteOptionLaunchDTO voteOptionVo:voteOptionVoList){
+        List<VoteOptionDTO> voteOptionVoList = voteInfo.getVoteOptionVoList();
+        for (VoteOptionDTO voteOptionVo:voteOptionVoList){
             VoteOptionDetailsVo voteOptionDetail = new VoteOptionDetailsVo();
             voteOptionDetail.setId(voteOptionVo.getId());
             voteOptionDetail.setContent(voteOptionVo.getContent());

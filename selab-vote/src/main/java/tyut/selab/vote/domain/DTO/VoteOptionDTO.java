@@ -1,10 +1,7 @@
 package tyut.selab.vote.domain.DTO;
 
 
-import lombok.Getter;
 import tyut.selab.vote.enums.VoteOptionType;
-
-import java.util.List;
 
 /**
  * @className: VoteOptionVo
@@ -14,7 +11,7 @@ import java.util.List;
  * @version: 1.0
  */
 
-public class VoteOptionLaunchDTO {
+public class VoteOptionDTO {
 
     private Long id;
 
@@ -64,7 +61,7 @@ public class VoteOptionLaunchDTO {
         isSelect = select;
     }
 
-    public VoteOptionLaunchDTO() {
+    public VoteOptionDTO() {
     }
 
     public Long getId() {

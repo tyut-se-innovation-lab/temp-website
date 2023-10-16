@@ -2,7 +2,7 @@ package tyut.selab.vote.mapper;
 
 import org.apache.ibatis.annotations.Param;
 import tyut.selab.vote.domain.po.VoteOption;
-import tyut.selab.vote.domain.DTO.VoteOptionLaunchDTO;
+import tyut.selab.vote.domain.DTO.VoteOptionDTO;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public interface VoteOptionMapper {
      * @param voteId
      * @return
      */
-    List<VoteOptionLaunchDTO> getVoteOptionByVoteId(Long voteId);
+    List<VoteOptionDTO> getVoteOptionByVoteId(Long voteId);
 
     /**
      *   保存选项信息

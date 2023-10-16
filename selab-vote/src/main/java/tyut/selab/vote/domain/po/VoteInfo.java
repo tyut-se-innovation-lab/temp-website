@@ -3,7 +3,7 @@ package tyut.selab.vote.domain.po;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import tyut.selab.vote.domain.DTO.VoteOptionLaunchDTO;
+import tyut.selab.vote.domain.DTO.VoteOptionDTO;
 import tyut.selab.vote.enums.VoteStatus;
 import tyut.selab.vote.enums.VoteType;
 
@@ -34,7 +34,7 @@ public class VoteInfo {
     // 1 为实时 0 为非实时
     private String isRealTime;
     // 投票选项
-    private List<VoteOptionLaunchDTO> voteOptionLaunchDTOs;
+    private List<VoteOptionDTO> voteOptionLaunchDTOs;
     // 是否完成投票 0为未参与  1为已参与
     private String isComplete;
     // 投票权重
@@ -130,11 +130,11 @@ public class VoteInfo {
         this.isRealTime = isRealTime;
     }
 
-    public List<VoteOptionLaunchDTO> getVoteOptionVoList() {
+    public List<VoteOptionDTO> getVoteOptionVoList() {
         return voteOptionLaunchDTOs;
     }
 
-    public void setVoteOptionVoList(List<VoteOptionLaunchDTO> voteOptionLaunchDTOs) {
+    public void setVoteOptionVoList(List<VoteOptionDTO> voteOptionLaunchDTOs) {
         this.voteOptionLaunchDTOs = voteOptionLaunchDTOs;
     }
 

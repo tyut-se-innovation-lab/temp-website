@@ -66,8 +66,10 @@ public interface VoteInfoMapper {
      */
     VoteInfo getVoteStatus(Long voteId);
 
-
-
-
+    /**
+     *  查询投票是否是实时的
+     * @param voteId
+     * @return
+     */
+    String getIsRealTime(Long voteId);
 }
-

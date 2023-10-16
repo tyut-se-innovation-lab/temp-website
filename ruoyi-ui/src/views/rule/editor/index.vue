@@ -28,7 +28,8 @@
       </el-col>
       <!--用户数据-->
       <el-col :span="20" :xs="24">
-        <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
+        <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch"
+                 label-width="68px">
           <el-form-item label="用户名称" prop="userName">
             <el-input
               v-model="queryParams.userName"
@@ -47,71 +48,16 @@
               @keyup.enter.native="handleQuery"
             />
           </el-form-item>
-          <el-form-item label="状态" prop="status">
-            <el-select
-              v-model="queryParams.status"
-              placeholder="用户状态"
-              clearable
-              style="width: 240px"
-            >
-              <el-option
-                v-for="dict in dict.type.sys_normal_disable"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
-            </el-select>
-          </el-form-item>
-          <el-form-item label="创建时间">
-            <el-date-picker
-              v-model="dateRange"
-              style="width: 240px"
-              value-format="yyyy-MM-dd"
-              type="daterange"
-              range-separator="-"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
-            ></el-date-picker>
-          </el-form-item>
+
+
           <el-form-item>
-            <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+            <el-button @click="add">1236</el-button>
+            <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery" >搜索</el-button>
             <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
 
         <el-row :gutter="10" class="mb8">
-          <el-col :span="1.5">
-            <el-button
-              type="primary"
-              plain
-              icon="el-icon-plus"
-              size="mini"
-              @click="handleAdd"
-              v-hasPermi="['system:user:add']"
-            >新增</el-button>
-          </el-col>
-          <el-col :span="1.5">
-            <el-button
-              type="success"
-              plain
-              icon="el-icon-edit"
-              size="mini"
-              :disabled="single"
-              @click="handleUpdate"
-              v-hasPermi="['system:user:edit']"
-            >修改</el-button>
-          </el-col>
-          <el-col :span="1.5">
-            <el-button
-              type="danger"
-              plain
-              icon="el-icon-delete"
-              size="mini"
-              :disabled="multiple"
-              @click="handleDelete"
-              v-hasPermi="['system:user:remove']"
-            >删除</el-button>
-          </el-col>
           <el-col :span="1.5">
             <el-button
               type="info"
@@ -120,7 +66,8 @@
               size="mini"
               @click="handleImport"
               v-hasPermi="['system:user:import']"
-            >导入</el-button>
+            >导入
+            </el-button>
           </el-col>
           <el-col :span="1.5">
             <el-button
@@ -130,33 +77,23 @@
               size="mini"
               @click="handleExport"
               v-hasPermi="['system:user:export']"
-            >导出</el-button>
+            >导出
+            </el-button>
           </el-col>
           <right-toolbar :showSearch.sync="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
         </el-row>
 
         <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
-          <el-table-column type="selection" width="50" align="center" />
-          <el-table-column label="用户编号" align="center" key="userId" prop="userId" v-if="columns[0].visible" />
-          <el-table-column label="用户名称" align="center" key="userName" prop="userName" v-if="columns[1].visible" :show-overflow-tooltip="true" />
-          <el-table-column label="用户昵称" align="center" key="nickName" prop="nickName" v-if="columns[2].visible" :show-overflow-tooltip="true" />
-          <el-table-column label="部门" align="center" key="deptName" prop="dept.deptName" v-if="columns[3].visible" :show-overflow-tooltip="true" />
-          <el-table-column label="手机号码" align="center" key="phonenumber" prop="phonenumber" v-if="columns[4].visible" width="120" />
-          <el-table-column label="状态" align="center" key="status" v-if="columns[5].visible">
-            <template slot-scope="scope">
-              <el-switch
-                v-model="scope.row.status"
-                active-value="0"
-                inactive-value="1"
-                @change="handleStatusChange(scope.row)"
-              ></el-switch>
-            </template>
-          </el-table-column>
-          <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[6].visible" width="160">
-            <template slot-scope="scope">
-              <span>{{ parseTime(scope.row.createTime) }}</span>
-            </template>
-          </el-table-column>
+          <el-table-column type="selection" width="50" align="center"/>
+          <el-table-column label="用户编号" align="center" key="userId" prop="userId" v-if="columns[0].visible"/>
+          <el-table-column label="用户名称" align="center" key="userName" prop="userName" v-if="columns[1].visible"
+                           :show-overflow-tooltip="true"/>
+          <el-table-column label="分数" align="center" key="nickName" prop="nickName" v-if="columns[2].visible"
+                           :show-overflow-tooltip="true"/>
+          <el-table-column label="部门" align="center" key="deptName" prop="dept.deptName" v-if="columns[3].visible"
+                           :show-overflow-tooltip="true"/>
+          <el-table-column label="手机号码" align="center" key="phonenumber" prop="phonenumber"
+                           v-if="columns[4].visible" width="120"/>
           <el-table-column
             label="操作"
             align="center"
@@ -170,25 +107,16 @@
                 icon="el-icon-edit"
                 @click="handleUpdate(scope.row)"
                 v-hasPermi="['system:user:edit']"
-              >修改</el-button>
+              >增减记录
+              </el-button>
               <el-button
                 size="mini"
                 type="text"
                 icon="el-icon-delete"
                 @click="handleDelete(scope.row)"
-                v-hasPermi="['system:user:remove']"
-              >删除</el-button>
-              <el-dropdown size="mini" @command="(command) => handleCommand(command, scope.row)" v-hasPermi="['system:user:resetPwd', 'system:user:edit']">
-                <span class="el-dropdown-link">
-                  <i class="el-icon-d-arrow-right el-icon--right"></i>更多
-                </span>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="handleResetPwd" icon="el-icon-key"
-                                    v-hasPermi="['system:user:resetPwd']">重置密码</el-dropdown-item>
-                  <el-dropdown-item command="handleAuthRole" icon="el-icon-circle-check"
-                                    v-hasPermi="['system:user:edit']">分配角色</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
+                v-hasPermi="['system:user:edit']"
+              >修改记录
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -202,36 +130,120 @@
         />
       </el-col>
     </el-row>
-
-    <!-- 添加或修改用户配置对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
+    <!--修改记录用户配置对话框    -->
+    <el-dialog :title="title" :visible.sync="opendel" width="800px" append-to-body>
+      <el-table
+        :data="tableData"
+        style="width: 100%;"
+        max-height="700">
+        <el-table-column
+          fixed
+          prop="date"
+          label="时间"
+          width="100">
+        </el-table-column>
+        <el-table-column
+          prop="name"
+          label="分数"
+          width="120">
+        </el-table-column>
+        <el-table-column
+          prop="province"
+          label="证据"
+          width="120">
+        </el-table-column>
+        <el-table-column
+          prop="city"
+          label="原因"
+          width="300">
+        </el-table-column>
+        <el-table-column
+          fixed="right"
+          label="操作"
+          width="120">
+          <template slot-scope="scope">
+            <el-button
+              @click.native.prevent="deleteRow(scope.$index, tableData)"
+              type="text"
+              size="small">
+              移除
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
+    <!-- 增加用户配置对话框 -->
+    <el-dialog :title="修改记录" :visible.sync="open" width="600px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
-              <el-form-item label="活动时间" >
-                <el-col :span="12">
-                  <el-form-item prop="date1">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" style="width: 100%;"></el-date-picker>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item prop="date2">
-                    <el-time-picker placeholder="选择时间" v-model="ruleForm.date2" style="width: 100%;"></el-time-picker>
-                  </el-form-item>
-                </el-col>
+          <el-form-item label="记录时间">
+            <el-col :span="12">
+              <el-form-item prop="date1">
+                <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1"
+                                style="width: 100%;"></el-date-picker>
               </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item prop="date2">
+                <el-time-picker placeholder="选择时间" v-model="ruleForm.date2" style="width: 100%;"></el-time-picker>
+              </el-form-item>
+            </el-col>
+          </el-form-item>
         </el-row>
 
-              <el-row>
-                  <el-select v-model="sizeForm.region" placeholder="请选择活动区域">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
-                  </el-select>
-              </el-row>
-
-
+        <el-row>
+          <el-form-item label="选择分数">
+            <el-input
+              v-model="score"
+              placeholder="分数"
+              type="number"
+              step="1"
+              min="-99">
+            </el-input>
+          </el-form-item>
+        </el-row>
+        <el-row>
+          <el-form-item label="上传证据">
+            <el-upload
+              action="#"
+              list-type="picture-card"
+              :auto-upload="false">
+              <i slot="default" class="el-icon-plus"></i>
+              <div slot="file" slot-scope="{file}">
+                <img
+                  class="el-upload-list__item-thumbnail"
+                  :src="file.url" alt="">
+                <span class="el-upload-list__item-actions">
+        <span
+          class="el-upload-list__item-preview"
+          @click="handlePictureCardPreview(file)">
+          <i class="el-icon-zoom-in"></i>
+        </span>
+        <span
+          v-if="!disabled"
+          class="el-upload-list__item-delete"
+          @click="handleDownload(file)"
+        >
+          <i class="el-icon-download"></i>
+        </span>
+        <span
+          v-if="!disabled"
+          class="el-upload-list__item-delete"
+          @click="handleRemove(file)"
+        >
+          <i class="el-icon-delete"></i>
+        </span>
+      </span>
+              </div>
+            </el-upload>
+            <el-dialog :visible.sync="dialogVisible">
+              <img width="100%" :src="dialogImageUrl" alt="">
+            </el-dialog>
+          </el-form-item>
+        </el-row>
         <el-row>
           <el-col :span="24">
-            <el-form-item label="备注">
+            <el-form-item label="原因">
               <el-input v-model="form.remark" type="textarea" placeholder="请输入内容"></el-input>
             </el-form-item>
           </el-col>
@@ -261,10 +273,13 @@
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
         <div class="el-upload__tip text-center" slot="tip">
           <div class="el-upload__tip" slot="tip">
-            <el-checkbox v-model="upload.updateSupport" /> 是否更新已经存在的用户数据
+            <el-checkbox v-model="upload.updateSupport"/>
+            是否更新已经存在的用户数据
           </div>
           <span>仅允许导入xls、xlsx格式文件。</span>
-          <el-link type="primary" :underline="false" style="font-size:12px;vertical-align: baseline;" @click="importTemplate">下载模板</el-link>
+          <el-link type="primary" :underline="false" style="font-size:12px;vertical-align: baseline;"
+                   @click="importTemplate">下载模板
+          </el-link>
         </div>
       </el-upload>
       <div slot="footer" class="dialog-footer">
@@ -276,15 +291,27 @@
 </template>
 
 <script>
-import { listUser, getUser, delUser, addUser, updateUser, resetUserPwd, changeUserStatus, deptTreeSelect } from "@/api/system/user";
-import { getToken } from "@/utils/auth";
+import {
+  addUser,
+  changeUserStatus,
+  deptTreeSelect,
+  getUser,
+  listUser,
+  resetUserPwd,
+  updateUser
+} from "@/api/system/user";
+
+//导入增减分数的api
+import {scoreController} from "../../../api/rule/editor/index"
+import {getToken} from "@/utils/auth";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
+
 
 export default {
   name: "User",
   dicts: ['sys_normal_disable', 'sys_user_sex'],
-  components: { Treeselect },
+  components: {Treeselect},
   data() {
     return {
       // 遮罩层
@@ -317,6 +344,60 @@ export default {
       postOptions: [],
       // 角色选项
       roleOptions: [],
+      //分数
+      score: 0,
+      //上传照片的参数
+      dialogImageUrl: '',
+      dialogVisible: false,
+      disabled: false,
+
+
+      //删除用户配置
+      opendel: false,
+      tableData: [{
+        date: '2016-05-03',
+        name: '王小虎',
+        province: '上海',
+        city: '普陀区',
+        address: '上海市普陀区金沙江路 1518 弄',
+        zip: 200333
+      }, {
+        date: '2016-05-02',
+        name: '王小虎',
+        province: '上海',
+        city: '普陀区',
+        address: '上海市普陀区金沙江路 1518 弄',
+        zip: 200333
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        province: '上海',
+        city: '普陀区',
+        address: '上海市普陀区金沙江路 1518 弄',
+        zip: 200333
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        province: '上海',
+        city: '普陀区',
+        address: '上海市普陀区金沙江路 1518 弄',
+        zip: 200333
+      }, {
+        date: '2016-05-08',
+        name: '王小虎',
+        province: '上海',
+        city: '普陀区',
+        address: '上海市普陀区金沙江路 1518 弄',
+        zip: 200333
+      }, {
+        date: '2016-05-06',
+        name: '王小虎',
+        province: '上海',
+        city: '普陀区',
+        address: '上海市普陀区金沙江路 1518 弄',
+        zip: 200333
+      }],
+
       // 表单参数
       form: {},
       defaultProps: {
@@ -334,7 +415,7 @@ export default {
         // 是否更新已经存在的用户数据
         updateSupport: 0,
         // 设置上传的请求头部
-        headers: { Authorization: "Bearer " + getToken() },
+        headers: {Authorization: "Bearer " + getToken()},
         // 上传的地址
         url: process.env.VUE_APP_BASE_API + "/system/user/importData"
       },
@@ -349,29 +430,33 @@ export default {
       },
       // 列信息
       columns: [
-        { key: 0, label: `用户编号`, visible: true },
-        { key: 1, label: `用户名称`, visible: true },
-        { key: 2, label: `用户昵称`, visible: true },
-        { key: 3, label: `部门`, visible: true },
-        { key: 4, label: `手机号码`, visible: true },
-        { key: 5, label: `状态`, visible: true },
-        { key: 6, label: `创建时间`, visible: true }
+        {key: 0, label: `用户编号`, visible: true},
+        {key: 1, label: `用户名称`, visible: true},
+        {key: 2, label: `用户昵称`, visible: true},
+        {key: 3, label: `部门`, visible: true},
+        {key: 4, label: `手机号码`, visible: true},
+        {key: 5, label: `状态`, visible: true},
+        {key: 6, label: `创建时间`, visible: true}
       ],
       // 表单校验
       rules: {
         date1: [
-          { type: 'date',  message: '请选择日期', trigger: 'change' }
+          {type: 'date', message: '请选择日期', trigger: 'change'}
         ],
         date2: [
-          { type: 'date',  message: '请选择时间', trigger: 'change' }
+          {type: 'date', message: '请选择时间', trigger: 'change'}
         ],
       },
-      ruleForm:{
+      ruleForm: {
         date1: '',
         date2: '',
       },
       sizeForm: {
         region: '',
+      },
+      scroll:{
+        score:1,
+        userId:1
       }
     };
   },
@@ -383,12 +468,32 @@ export default {
   },
   created() {
     this.getList();
+
     this.getDeptTree();
     this.getConfigKey("sys.user.initPassword").then(response => {
       this.initPassword = response.msg;
     });
+    let info = async function(){
+      await scoreController(data.value)
+      console.log(123)
+      console.log(info)
+    }
+
+  },
+  mounted() {
+    //增减分数api调用
+
+
   },
   methods: {
+    //增减分数
+    async add(scroll){
+      let info = await scoreController(scroll.value)
+      console.log(info)
+    },
+
+
+
     /** 查询用户列表 */
     getList() {
       this.loading = true;
@@ -399,11 +504,23 @@ export default {
         }
       );
     },
+
     /** 查询部门下拉树结构 */
     getDeptTree() {
       deptTreeSelect().then(response => {
         this.deptOptions = response.data;
       });
+    },
+    //上传照片的方法
+    handleRemove(file) {
+      console.log(file);
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    handleDownload(file) {
+      console.log(file);
     },
     // 筛选节点
     filterNode(value, data) {
@@ -418,11 +535,11 @@ export default {
     // 用户状态修改
     handleStatusChange(row) {
       let text = row.status === "0" ? "启用" : "停用";
-      this.$modal.confirm('确认要"' + text + '""' + row.userName + '"用户吗？').then(function() {
+      this.$modal.confirm('确认要"' + text + '""' + row.userName + '"用户吗？').then(function () {
         return changeUserStatus(row.userId, row.status);
       }).then(() => {
         this.$modal.msgSuccess(text + "成功");
-      }).catch(function() {
+      }).catch(function () {
         row.status = row.status === "0" ? "1" : "0";
       });
     },
@@ -479,18 +596,8 @@ export default {
           break;
       }
     },
-    /** 新增按钮操作 */
-    handleAdd() {
-      this.reset();
-      getUser().then(response => {
-        this.postOptions = response.posts;
-        this.roleOptions = response.roles;
-        this.open = true;
-        this.title = "添加用户";
-        this.form.password = this.initPassword;
-      });
-    },
-    /** 修改按钮操作 */
+
+    /** 增加按钮操作 */
     handleUpdate(row) {
       this.reset();
       const userId = row.userId || this.ids;
@@ -513,19 +620,24 @@ export default {
         closeOnClickModal: false,
         inputPattern: /^.{5,20}$/,
         inputErrorMessage: "用户密码长度必须介于 5 和 20 之间"
-      }).then(({ value }) => {
+      }).then(({value}) => {
         resetUserPwd(row.userId, value).then(response => {
           this.$modal.msgSuccess("修改成功，新密码是：" + value);
         });
-      }).catch(() => {});
+      }).catch(() => {
+      });
     },
     /** 分配角色操作 */
-    handleAuthRole: function(row) {
+    handleAuthRole: function (row) {
       const userId = row.userId;
       this.$router.push("/system/user-auth/role/" + userId);
     },
+
+
+
+
     /** 提交按钮 */
-    submitForm: function() {
+    submitForm: function () {
       this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.userId != undefined) {
@@ -546,13 +658,10 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete(row) {
-      const userIds = row.userId || this.ids;
-      this.$modal.confirm('是否确认删除用户编号为"' + userIds + '"的数据项？').then(function() {
-        return delUser(userIds);
-      }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess("删除成功");
-      }).catch(() => {});
+      this.opendel = true;
+    },
+    deleteRow(index, rows) {
+      rows.splice(index, 1);
     },
     /** 导出按钮操作 */
     handleExport() {
@@ -567,8 +676,7 @@ export default {
     },
     /** 下载模板操作 */
     importTemplate() {
-      this.download('system/user/importTemplate', {
-      }, `user_template_${new Date().getTime()}.xlsx`)
+      this.download('system/user/importTemplate', {}, `user_template_${new Date().getTime()}.xlsx`)
     },
     // 文件上传中处理
     handleFileUploadProgress(event, file, fileList) {
@@ -579,7 +687,7 @@ export default {
       this.upload.open = false;
       this.upload.isUploading = false;
       this.$refs.upload.clearFiles();
-      this.$alert("<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" + response.msg + "</div>", "导入结果", { dangerouslyUseHTMLString: true });
+      this.$alert("<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" + response.msg + "</div>", "导入结果", {dangerouslyUseHTMLString: true});
       this.getList();
     },
     // 提交上传文件
@@ -589,3 +697,9 @@ export default {
   }
 };
 </script>
+<style scoped>
+/deep/ .el-dialog {
+  height: 78vh;
+  overflow: auto;
+}
+</style>

@@ -10,22 +10,22 @@ import org.springframework.beans.factory.annotation.Value;
  */
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum VoteType {
-    ASSUME_BOSS(1, "控诉管理人员"),
-    SEEK_OPTIONS(2, "征求意见"),
-    VOTE(3,"投票"),
-    CUSTOM(100,"自定义类型");
+    ASSUME_BOSS("1", "控诉管理人员"),
+    SEEK_OPTIONS("2", "征求意见"),
+    VOTE("3","投票"),
+    CUSTOM("100","自定义类型");
    @JsonValue
-    private final int id;
+    private final String id;
     private final String name;
 
 
-    VoteType(int id, String name) {
+    VoteType(String id, String name) {
         this.id = id;
         this.name = name;
 
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

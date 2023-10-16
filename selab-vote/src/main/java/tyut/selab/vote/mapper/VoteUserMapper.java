@@ -24,4 +24,21 @@ public interface VoteUserMapper {
      */
    Integer insertVoteUser(List<VoteUser> voteUsers);
 
+
+    /**
+     *  查询是否已参与投票
+     * @param voteId
+     * @param userId
+     * @return
+     */
+    String getIsCompleteByUserIdAndVoteId(Long voteId,Long userId);
+
+    /**
+     *  修改is_complete字段为已完成
+     * @param voteId
+     * @param userId
+     * @return
+     */
+    Integer updateIsComplete(Long voteId,Long userId);
+
 }

@@ -2,6 +2,7 @@ package tyut.selab.vote.mapper;
 
 import org.apache.ibatis.annotations.Param;
 import tyut.selab.vote.domain.po.VoteOption;
+import tyut.selab.vote.domain.DTO.VoteOptionLaunchDTO;
 
 import java.util.List;
 
@@ -15,11 +16,11 @@ import java.util.List;
 public interface VoteOptionMapper {
 
     /**
-     *  通过voteId查询选项
+     *  通过voteId查询选项  TODO 改成vo类了，但细节未改
      * @param voteId
      * @return
      */
-    List<VoteOption> getVoteOptionByVoteId(Long voteId);
+    List<VoteOptionLaunchDTO> getVoteOptionByVoteId(Long voteId);
 
     /**
      *   保存选项信息

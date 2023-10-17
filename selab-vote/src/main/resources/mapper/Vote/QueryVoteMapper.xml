@@ -47,15 +47,7 @@
         LEFT JOIN sys_user u ON v.user_id = u.user_id
         WHERE v.vote_id = #{voteId} AND del_flag = '0'
     </select>
-
-    <select id="getParseUserIdByOptionId" resultMap="voteRange">
-        SELECT r.vote_id,u.nick_name,v.title,v.content,v.'status',v.create_time,v.dead_time,v.user_id
-        FROM  selab_vote_info v
-            LEFT JOIN selab_vote_user vu ON uv.vote_id = v.vote_id
-            LEFT JOIN sys_user u ON u.user_id = v.user_id
-        WHERE r.user_id  = #{parseUserId} AND del_flag = '0'
-    </select>
-    <select id="getVoteRangeByParams" resultMap="voteRange">
+    <select id="queryForParams" resultMap="voteRange">
         SELECT v.vote_id,u.nick_name,v.title,v.content,v.status,v.create_time,v.dead_time
         FROM selab_vote_info v
             LEFT JOIN sys_user u ON v.user_id = u.user_id
@@ -78,5 +70,63 @@
             </if>
 
         </where>
+    </select>
+    <select id="getMyReport" resultType="tyut.selab.vote.domain.po.VoteRange">
+        select
+            info.vote_id,
+            info.title,
+            info.content,
+            info.status,
+            info.create_time,
+            info.dead_time,
+            sy.nick_name,
+            info.user_id
+        from selab_vote_report as re
+                 left join selab_vote_info as info
+                           on re.vote_id= info.vote_id
+                 left join sys_user as sy
+                           on info.user_id  = sy.user_id
+        where report_user_id=#{userId}
+    </select>
+    <select id="getMyHold" resultType="tyut.selab.vote.domain.po.VoteRange">
+        select info.vote_id,
+               info.title,
+               info.content,
+               info.status,
+               info.create_time,
+               info.dead_time,
+               sy.nick_name,
+               info.user_id
+        from selab_vote_info as info
+                 left join sys_user as sy
+                           on info.user_id = sy.user_id
+        where reslut.user_id=#{userId}
+    </select>
+    <select id="getForUntreated" resultType="tyut.selab.vote.domain.po.VoteRange">
+        select info.vote_id,
+               info.title,
+               info.content,
+               info.status,
+               info.create_time,
+               info.dead_time,
+               sy.nick_name,
+               info.user_id
+        from selab_vote_info as info
+                 left join sys_user as sy
+                           on info.user_id = sy.user_id
+        where info.status=3
+    </select>
+    <select id="getAllVote" resultType="tyut.selab.vote.domain.po.VoteRange">
+        select info.vote_id,
+               info.title,
+               info.content,
+               info.status,
+               info.create_time,
+               info.dead_time,
+               sy.nick_name,
+               info.user_id
+        from selab_vote_info as info
+                 left join sys_user as sy
+                           on info.user_id = sy.user_id
     </select>
 </mapper>

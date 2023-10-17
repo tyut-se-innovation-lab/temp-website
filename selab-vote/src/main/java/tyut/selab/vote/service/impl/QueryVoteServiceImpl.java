@@ -10,50 +10,63 @@ import tyut.selab.vote.mapper.VoteInfoMapper;
 import tyut.selab.vote.service.QueryVoteService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @className: QueryVoteServiceImpl
- * @author: lizhichao
- * @description: TODO
- * @date: 2023/10/13 22:06
+ * @author: zhy
+ * @description: TODO 查询投票实体类
+ * @date: 2023/10/10 21:00
  * @version: 1.0
  */
 public class QueryVoteServiceImpl implements QueryVoteService {
+    @Autowired
+    private VoteInfoMapper voteInfoMapper;
+    @Autowired
+    private QueryVoteMapper queryVoteMapper;
 
-    @Autowired
-    VoteInfoMapper voteInfoMapper;
-    @Autowired
-    QueryVoteMapper queryVoteMapper;
     @Override
-    public List<VoteRange> getForMyReport() {
-        return null;
+    public List<VoteRange> queryForMyReport() {
+        Long userId = SecurityUtils.getUserId();
+        List<VoteRange> myReport = queryVoteMapper.getMyReport(userId);
+        return myReport;
     }
 
     @Override
-    public List<VoteRange> getForMyHold() {
+    public List<VoteRange> queryForMyHold() {
         Long userId = SecurityUtils.getUserId();
-        List<VoteRange> byLaunchUserId = queryVoteMapper.getByLaunchUserId(userId);
+        List<VoteRange> byLaunchUserId = queryVoteMapper.getMyHold(userId);
         return byLaunchUserId;
     }
 
     @Override
+    public List<VoteRange> getAllVote() {
+        List<VoteRange> allVote = queryVoteMapper.getAllVote();
+        return allVote;
+    }
+
+    @Override
     public List<VoteRange> getForUntreated() {
-
-        return null;
+        List<VoteRange> forUntreated = queryVoteMapper.getForUntreated();
+        return forUntreated;
     }
 
-    @Override
-    public List<VoteRange> getForParams() {
-        return null;
-    }
 
     @Override
-    public List<VoteInfo> getVoteInfoById(Long voteId) {
-        return null;
+    public List<VoteRange> queryForParams(Map<String,Integer> params) {
+        Long userId = SecurityUtils.getUserId();
+        Integer isEnd = params.get("isEnd");
+        Integer isParticipate = params.get("isParticipate");
+        List<VoteRange> voteRangeByParams = queryVoteMapper.queryForParams(isEnd, isParticipate, userId);
+        return voteRangeByParams;
     }
 
+
     @Override
-    public List<VoteResultDetails> getVoteResultDetailsById(Long voteId) {
-        return null;
+    public VoteInfo getVoteInfoById(Long voteId) {
+        VoteInfo voteInfoByVoteId = queryVoteMapper.getVoteInfoByVoteId(voteId);
+        return voteInfoByVoteId;
     }
+
+
 }

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tyut.selab.vote.mapper.QueryVoteMapper">
+
+    <resultMap id="voteOption" type="tyut.selab.vote.domain.DTO.VoteOptionDTO">
+        <result property="id" column="id"/>
+        <result property="voteId" column="vote_id"/>
+        <result property="optionType" column="option_type"/>
+        <result property="content" column="content"/>
+    </resultMap>
+    <resultMap id="voteInfo" type="tyut.selab.vote.domain.po.VoteInfo">
+        <id property="voteId" column="vote_id"/>
+        <result property="userName" column="nick_name"/>
+        <result property="userId" column="user_id"/>
+        <result property="voteType" column="vote_type"
+                typeHandler="tyut.selab.vote.config.jdbc.handler.VoteTypeHandler"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="status" column="status"
+                 typeHandler="tyut.selab.vote.config.jdbc.handler.VoteStatusHandler"/>
+        <result property="createTime" column="create_time"/>
+        <result property="deadTime" column="dead_time"/>
+        <result property="optionNum" column="option_num"/>
+        <result property="isRealTime" column="is_realtime"/>
+        <result property="isComplete" column="is_complete"/>
+        <result property="optionNum" column="option_num"/>
+        <collection property="voteWeights" select="tyut.selab.vote.mapper.VoteWeightMapper.listVoteWeightByVoteId" column="vote_id"/>
+        <collection property="voteOptionLaunchDTOs" select="tyut.selab.vote.mapper.VoteOptionMapper.getVoteOptionByVoteId" column="vote_id"/>
+    </resultMap>
+    <resultMap id="voteRange" type="tyut.selab.vote.domain.po.VoteRange">
+        <id property="voteId" column="vote_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="voteStatus" column="status"
+                typeHandler="tyut.selab.vote.config.jdbc.handler.VoteStatusHandler"/>
+        <result property="createTime" column="create_time"/>
+        <result property="deadTIme" column="dead_time"/>
+        <result property="userName" column="nick_name"/>
+        <result property="userId" column="user_id"/>
+    </resultMap>
+    <select id="getVoteInfoByVoteId" resultMap="voteInfo">
+        SELECT v.vote_id,v.user_id,u.nick_name,v.title,v.content,v.vote_type,v.status,v.dead_time,v.create_time,v.is_realtime,v.` option_num`
+        FROM selab_vote_info v
+        LEFT JOIN sys_user u ON v.user_id = u.user_id
+        WHERE v.vote_id = #{voteId} AND del_flag = '0'
+    </select>
+    <select id="queryForParams" resultMap="voteRange">
+        SELECT v.vote_id,u.nick_name,v.title,v.content,v.status,v.create_time,v.dead_time
+        FROM selab_vote_info v
+            LEFT JOIN sys_user u ON v.user_id = u.user_id
+            LEFT JOIN selab_vote_user vu ON v.vote_id = vu.user_id
+        <where>
+            <if test="true">
+                v.del_flag = '0' AND vu.user_id = #{user_id}
+            </if>
+            <if test="isEnd == 1">
+                v.status = 2 OR (v.status = 1 AND v.dead_time AFTER NOW()) OR v.status = 5
+            </if>
+            <if test="isEnd == 0">
+                v.status != 5 AND v.dead_time BEFORE NOW()
+            </if>
+            <if test="isParticipate == 1">
+                u.is_complete = 1
+            </if>
+            <if test="isParticipate == 0">
+                u.is_complete = 0
+            </if>
+
+        </where>
+    </select>
+    <select id="getMyReport" resultType="tyut.selab.vote.domain.po.VoteRange">
+        select
+            info.vote_id,
+            info.title,
+            info.content,
+            info.status,
+            info.create_time,
+            info.dead_time,
+            sy.nick_name,
+            info.user_id
+        from selab_vote_report as re
+                 left join selab_vote_info as info
+                           on re.vote_id= info.vote_id
+                 left join sys_user as sy
+                           on info.user_id  = sy.user_id
+        where report_user_id=#{userId}
+    </select>
+    <select id="getMyHold" resultType="tyut.selab.vote.domain.po.VoteRange">
+        select info.vote_id,
+               info.title,
+               info.content,
+               info.status,
+               info.create_time,
+               info.dead_time,
+               sy.nick_name,
+               info.user_id
+        from selab_vote_info as info
+                 left join sys_user as sy
+                           on info.user_id = sy.user_id
+        where reslut.user_id=#{userId}
+    </select>
+    <select id="getForUntreated" resultType="tyut.selab.vote.domain.po.VoteRange">
+        select info.vote_id,
+               info.title,
+               info.content,
+               info.status,
+               info.create_time,
+               info.dead_time,
+               sy.nick_name,
+               info.user_id
+        from selab_vote_info as info
+                 left join sys_user as sy
+                           on info.user_id = sy.user_id
+        where info.status=3
+    </select>
+    <select id="getAllVote" resultType="tyut.selab.vote.domain.po.VoteRange">
+        select info.vote_id,
+               info.title,
+               info.content,
+               info.status,
+               info.create_time,
+               info.dead_time,
+               sy.nick_name,
+               info.user_id
+        from selab_vote_info as info
+                 left join sys_user as sy
+                           on info.user_id = sy.user_id
+    </select>
+</mapper>

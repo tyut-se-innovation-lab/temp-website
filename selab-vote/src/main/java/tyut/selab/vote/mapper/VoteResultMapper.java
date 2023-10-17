@@ -1,5 +1,6 @@
 package tyut.selab.vote.mapper;
 
+import tyut.selab.vote.domain.po.VoteRange;
 import tyut.selab.vote.domain.po.VoteResult;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 public interface VoteResultMapper {
 
+
     /**
      *  增加结果数据
      * @param voteResult
@@ -25,7 +27,7 @@ public interface VoteResultMapper {
 
 
     /**
-     *  通过 voteId 和 optionId 和 userId （可变参数） 查询投票结果
+     *  通过 voteId 和 optionId 或 userId （可变参数） 查询投票结果
      * @param voteId
      * @param optionId
      * @return
@@ -34,11 +36,26 @@ public interface VoteResultMapper {
 
 
     /**
-     *  查询票数  optionId为可加参数
+     *  查询票数
      * @param voteId
      * @param optionId
      * @return
      */
     Integer getVoteReultCount(Long voteId,Long optionId);
+
+    /**
+     *  查询实名投票的用户加密id
+     * @param optionId
+     * @param voteId
+     * @return
+     */
+    List<String> getParseUserId(Long optionId,Long voteId);
+    /**
+     *  通过userId查询用户名字
+     * @param userIds
+     * @return
+     */
+    List<String> getNickName(List<Long> userIds);
+
 
 }

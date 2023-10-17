@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tyut.selab.vote.mapper.VoteOptionMapper">
+
+    <resultMap id="voteOptionMap" type="tyut.selab.vote.domain.DTO.VoteOptionDTO">
+        <id property="id" column="id"/>
+        <result property="voteId" column="vote_id"/>
+        <result property="optionType" column="option_type"
+                typeHandler="tyut.selab.vote.config.jdbc.handler.VoteOptionTypeHandler"/>
+        <result property="content" column="content"/>
+    </resultMap>
+
+    <select id="getVoteOptionByVoteId" resultMap="voteOptionMap">
+        SELECT id,vote_id,option_type,content FROM selab_vote_option WHERE vote_id = #{voteId}
+    </select>
+    <insert id="saveVoteOptionInformation">
+        insert into selab_vote_option
+        values
+        <foreach collection="voteOptions" separator="," item="voteOption">
+            (null,#{voteOption.voteId},#{voteOption.optionType,typeHandler=tyut.selab.vote.config.jdbc.handler.VoteOptionTypeHandler},#{voteOption.content})
+        </foreach>
+    </insert>
+</mapper>

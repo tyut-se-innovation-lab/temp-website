@@ -5,7 +5,9 @@ import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tyut.selab.vote.domain.DTO.VoteInfoLaunchDTO;
 import tyut.selab.vote.domain.po.VoteInfo;
+import tyut.selab.vote.exception.VoteException;
 import tyut.selab.vote.service.DealVoteService;
 
 import java.util.HashMap;
@@ -29,12 +31,12 @@ public class DealVoteController {
     // 发布投票者拥有当前投票的所有权 权限是活的
     /**
      *   发布投票
-     * @param voteInfo 投票详情Vo类对象
+     * @param voteInfoLaunchDTO 投票详情Vo类对象
      * @return
      */
     @PostMapping("/launch")
-    public AjaxResult launchVote(@RequestBody VoteInfo voteInfo){
-        dealVoteService.launchVote(voteInfo);
+    public AjaxResult launchVote(@RequestBody VoteInfoLaunchDTO voteInfoLaunchDTO){
+        dealVoteService.launchVote(voteInfoLaunchDTO);
         return AjaxResult.success("投票上传成功");
     }
 
@@ -45,9 +47,9 @@ public class DealVoteController {
      * @return
      */
     @GetMapping("/withdraw/{voteId}")
-    public AjaxResult withdrawVote(@PathVariable Long voteId){
-        if(dealVoteService.withdrawVote(voteId) == 1) return AjaxResult.success("撤回成功");
-        return AjaxResult.success("投票已结束");
+    public AjaxResult withdrawVote(@PathVariable Long voteId) throws VoteException {
+        if(dealVoteService.withdrawVote(voteId) == 0) throw new VoteException("该投票已结束");
+        return AjaxResult.success("撤回成功");
     }
 
 
@@ -57,10 +59,10 @@ public class DealVoteController {
      * @return
      */
     @GetMapping("/handle/{voteId}/{handel}")
-    public AjaxResult HandlingFrozenVote(@PathVariable Long voteId,@PathVariable Integer handel){
-        if(dealVoteService.HandlingFrozenVote(voteId, handel) == 2) return AjaxResult.success("投票已恢复正常");
-        if(dealVoteService.HandlingFrozenVote(voteId, handel) == 1) return AjaxResult.success("投票已关闭");
-        return AjaxResult.success("投票已结束");
+    public AjaxResult HandlingFrozenVote(@PathVariable Long voteId,@PathVariable Integer handel) throws VoteException {
+        if(dealVoteService.HandlingFrozenVote(voteId, handel) == 0) throw new VoteException("该投票已结束");
+        if(dealVoteService.HandlingFrozenVote(voteId, handel) == 2) return AjaxResult.success("该投票已恢复正常");
+        return AjaxResult.success("该投票已关闭");
     }
 
     /**

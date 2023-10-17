@@ -1,9 +1,8 @@
-package tyut.selab.vote.domain.po;
-
+package tyut.selab.vote.domain.DTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
-import tyut.selab.vote.domain.DTO.VoteOptionDTO;
+import tyut.selab.vote.domain.po.VoteOption;
+import tyut.selab.vote.domain.po.VoteWeight;
 import tyut.selab.vote.enums.VoteStatus;
 import tyut.selab.vote.enums.VoteType;
 
@@ -11,14 +10,13 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @className: VoteInfoVo
+ * @className: VoteInfoLaunchDTO
  * @author: lizhichao
  * @description: TODO
- * @date: 2023/10/7 17:18
+ * @date: 2023/10/16 15:23
  * @version: 1.0
  */
-
-public class VoteInfo {
+public class VoteInfoLaunchDTO {
     private Long voteId;
     private String userName;
     private Long userId;
@@ -34,7 +32,7 @@ public class VoteInfo {
     // 1 为实时 0 为非实时
     private String isRealTime;
     // 投票选项
-    private List<VoteOptionDTO> voteOptionLaunchDTOs;
+    private List<VoteOption> voteOptionList;
     // 是否完成投票 0为未参与  1为已参与
     private String isComplete;
     // 投票权重
@@ -130,12 +128,12 @@ public class VoteInfo {
         this.isRealTime = isRealTime;
     }
 
-    public List<VoteOptionDTO> getVoteOptionVoList() {
-        return voteOptionLaunchDTOs;
+    public List<VoteOption> getVoteOptionVoList() {
+        return voteOptionList;
     }
 
-    public void setVoteOptionVoList(List<VoteOptionDTO> voteOptionLaunchDTOs) {
-        this.voteOptionLaunchDTOs = voteOptionLaunchDTOs;
+    public void setVoteOptionVoList(List<VoteOption> voteOptionVoList) {
+        this.voteOptionList = voteOptionVoList;
     }
 
     public String getIsComplete() {
@@ -162,7 +160,7 @@ public class VoteInfo {
         this.delFlag = delFlag;
     }
 
-    public VoteInfo() {
+    public VoteInfoLaunchDTO() {
     }
 
     @Override
@@ -179,7 +177,7 @@ public class VoteInfo {
                 ", deadTime=" + deadTime +
                 ", optionNum=" + optionNum +
                 ", isRealTime='" + isRealTime + '\'' +
-                ", voteOptionVoList=" + voteOptionLaunchDTOs +
+                ", voteOptionVoList=" + voteOptionList +
                 ", isComplete='" + isComplete + '\'' +
                 ", voteWeights=" + voteWeights +
                 ", delFlag='" + delFlag + '\'' +

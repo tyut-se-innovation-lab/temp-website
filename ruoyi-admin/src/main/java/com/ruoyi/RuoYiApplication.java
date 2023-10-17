@@ -4,18 +4,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
-
 /**
  * 启动程序
  *
  * @author ruoyi
  */
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 public class RuoYiApplication {
     public static void main(String[] args) {
         // System.setProperty("spring.devtools.restart.enabled", "false");
-
-
 
         SpringApplication.run(RuoYiApplication.class, args);
         System.out.println("(♥◠‿◠)ﾉﾞ  服务启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
@@ -23,7 +20,8 @@ public class RuoYiApplication {
                 " |_   _| \\ \\ / / | | | | |_   _|  / __|   | __|   | |     /   \\   | _ )    | |\n" +
                 "   | |    \\ V /  | |_| |   | |    \\__ \\   | _|    | |__   | - |   | _ \\    |_|\n" +
                 "  _|_|_   _|_|_   \\___/   _|_|_   |___/   |___|   |____|  |_|_|   |___/   _(_)_\n" +
-                "_|\"\"\"\"\"|_| \"\"\" |_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_| \"\"\" |\n" +
+                "_|\"\"\"\"\"|_| \"\"\" |_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_| \"\"\" |\n"
+                +
                 "\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-' ");
 
     }

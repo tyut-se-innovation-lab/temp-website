@@ -14,6 +14,8 @@
 package tyut.selab.vote.config.jdbc.handler;
 
 import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.type.MappedJdbcTypes;
+import org.apache.ibatis.type.MappedTypes;
 import org.apache.ibatis.type.TypeHandler;
 import tyut.selab.vote.enums.VoteOptionType;
 
@@ -28,6 +30,8 @@ import java.sql.SQLException;
  * @Author: 22932
  * @Date: 2023/10/11 19:03:31
  */
+@MappedJdbcTypes(JdbcType.CHAR)
+@MappedTypes(VoteOptionType.class)
 public class VoteOptionTypeHandler implements TypeHandler<VoteOptionType> {
     @Override
     public void setParameter(PreparedStatement preparedStatement, int i, VoteOptionType voteOptionType, JdbcType jdbcType) throws SQLException {
@@ -36,12 +40,13 @@ public class VoteOptionTypeHandler implements TypeHandler<VoteOptionType> {
 
     @Override
     public VoteOptionType getResult(ResultSet resultSet, String s) throws SQLException {
-        return VoteOptionType.values()[resultSet.getInt(s)];
+       return VoteOptionType.getVoteOptionType(resultSet.getString(s));
+
     }
 
     @Override
     public VoteOptionType getResult(ResultSet resultSet, int i) throws SQLException {
-        return VoteOptionType.values()[resultSet.getInt(i)];
+        return VoteOptionType.getVoteOptionType(resultSet.getString(i));
     }
 
     @Override

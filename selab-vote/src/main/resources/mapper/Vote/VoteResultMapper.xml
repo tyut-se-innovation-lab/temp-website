@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tyut.selab.vote.mapper.VoteResultMapper">
+
+    <resultMap id="VoteResultMap" type="tyut.selab.vote.domain.po.VoteResult">
+        <id property="id" column="id" />
+        <result property="voteId" column="vote_id" />
+        <result property="voteOptionId" column="vote_option_id" />
+        <result property="userId" column="user_id"/>
+        <result property="content" column="content" />
+        <result property="isAnonymous" column="is_anonymous" />
+        <result property="createTime" column="create_time" />
+        <result property="weight" column="weight"/>
+        <result property="userName" column="nick_name" />
+    </resultMap>
+    <sql id="vote_result">
+       id,vote_option_id,vote_id,user_id,content,isanonymous,create_time,weight
+    </sql>
+    <insert id="insertVoteResult" parameterType="tyut.selab.vote.domain.po.VoteResult" keyProperty="id">
+        INSERT INTO (vote_id,vote_option_id,user_id,content,is_anonymous,create_time,weight)
+        VALUES(#{voteId},#{voteOptionId},#{userId},#{content},#{isAnonymous},#{createTime},#{weight})
+    </insert>
+    <select id="getVoteResultByOptionIdAndVoteId" parameterType="long">
+        SELECT v.id,v.vote_idv.vote_option_id,v.user_id,v.content,v.isanonymous,v.create_time,v.weight,u.nick_name
+        FROM selab_vote_result v
+        LEFT JOIN sys_user u
+        ON u.user_id = v.user_id
+        WHERE vote_id = #{voteId} AND
+        <if test="optionId != null">
+            v.vote_option_id = #{optionId}
+        </if>
+        <if test="userId != null">
+            v.user_id = #{userId}
+        </if>
+    </select>
+    <select id="getVoteReultCount" resultType="int">
+        SELECT COUNT(id) FROM selab_vote_result
+        <where>
+            <if test="true">
+                vote_id = #{voteId}
+            </if>
+            <if test="optionId != nulll">
+                vote_result_id = #{optionId}
+            </if>
+        </where>
+    </select>
+    <select id="getUserNameByOptionId" resultType="String">
+        SELECT u.nick_name FROM selab_vote_result r
+        LEFT JOIN sys_user u ON  u.user_id = r.user_id
+        WHERE vote_option_id = #{optionId} AND is_anonymous = '0'
+    </select>
+    <select id="getNickName" resultType="String">
+        SELECT nick_name FROM sys_name
+        <where>
+            <foreach collection="userIds" item="userId" separator="OR">
+                user_id = #{userId}
+            </foreach>
+        </where>
+    </select>
+    <select id="getParseUserId" resultType="String">
+        SELECT user_id FROM selab_vote_result
+        WHERE vote_id = #{voteId} AND vote_option_id = #{optionId} AND is_anonymous = '0'
+    </select>
+
+
+</mapper>

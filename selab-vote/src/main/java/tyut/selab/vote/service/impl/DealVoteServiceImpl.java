@@ -17,10 +17,13 @@ package tyut.selab.vote.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tyut.selab.vote.domain.DTO.VoteInfoLaunchDTO;
 import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteOption;
 import tyut.selab.vote.enums.VoteStatus;
-import tyut.selab.vote.mapper.DealVoteMapper;
+import tyut.selab.vote.mapper.VoteInfoMapper;
+import tyut.selab.vote.mapper.VoteOptionMapper;
+import tyut.selab.vote.mapper.VoteWeightMapper;
 import tyut.selab.vote.service.DealVoteService;
 import tyut.selab.vote.tools.TimeDealTool;
 
@@ -38,11 +41,34 @@ import java.util.List;
 public class DealVoteServiceImpl implements DealVoteService {
 
     @Autowired
-    private DealVoteMapper dealVoteMapper;
+    private VoteInfoMapper voteInfoMapper;
+
+    @Autowired
+    private VoteWeightMapper voteWeightMapper;
+
+    @Autowired
+    private VoteOptionMapper voteOptionMapper;
 
 
     @Override
     public Integer launchVote(VoteInfo voteInfo) {
+    public Integer launchVote(VoteInfoLaunchDTO voteInfoLaunchDTO) {
+//        Long userId = SecurityUtils.getUserId();
+//        voteInfo.setUserId(userId);
+
+        voteInfoLaunchDTO.setStatus(VoteStatus.UNDERWAY);
+        // TODO 是否需要判断截止时间合理性
+        voteInfoMapper.saveVoteInformation(voteInfoLaunchDTO);
+        List<VoteOption> voteOptionList = new ArrayList<>();
+        voteInfoLaunchDTO.getVoteOptionVoList().forEach(voteOptionVo -> {
+            VoteOption voteOption = new VoteOption();
+            voteOption.setVoteId(voteOptionVo.getVoteId());
+            voteOption.setOptionType(voteOptionVo.getOptionType());
+            voteOption.setContent(voteOptionVo.getContent());
+            voteOptionList.add(voteOption);
+        });
+        voteOptionMapper.saveVoteOptionInformation(voteOptionList);
+        voteWeightMapper.saveVoteWeightInformation(voteInfoLaunchDTO.getVoteWeights());
         return null;
     }
 
@@ -54,10 +80,39 @@ public class DealVoteServiceImpl implements DealVoteService {
     @Override
     public Integer HandlingFrozenVote(Long voteId, Integer handel) {
         return null;
+        if(TimeDealTool.judgeVoteFinish(voteInfoMapper.queryVoteDeadTime(voteId))){
+            //未到截止时间,撤回投票
+            voteInfoMapper.updateVoteStatus(voteId, VoteStatus.WITHDRAW);
+            return 1;
+        }else{
+            //此刻超出截止时间，结束投票
+            voteInfoMapper.updateVoteStatus(voteId,VoteStatus.FINISH);
+            return 0;
+        }
+    }
+
+    @Override
+    public Integer HandlingFrozenVote(Long voteId,Integer handel) {
+        if(TimeDealTool.judgeVoteFinish(voteInfoMapper.queryVoteDeadTime(voteId))){
+            //未到截止时间
+            //handel为1则恢复正常
+            if(handel == 1){
+                voteInfoMapper.updateVoteStatus(voteId, VoteStatus.UNDERWAY);
+                return 2;
+            }else{
+                voteInfoMapper.updateVoteStatus(voteId, VoteStatus.CLOSED);
+                return 1;
+            }
+        }else{
+            //此刻超出截止时间，结束投票
+            voteInfoMapper.updateVoteStatus(voteId,VoteStatus.FINISH);
+            return 0;
+        }
     }
 
     @Override
     public Integer deleteVote(Long voteId) {
         return null;
+        return voteInfoMapper.deleteVote(voteId);
     }
 }

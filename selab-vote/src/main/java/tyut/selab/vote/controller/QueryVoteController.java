@@ -5,7 +5,8 @@ import com.ruoyi.common.core.domain.AjaxResult;
 
 import org.springframework.web.bind.annotation.*;
 import tyut.selab.vote.domain.po.VoteInfo;
-import tyut.selab.vote.domain.vo.VoteRangeVo;
+import tyut.selab.vote.domain.po.VoteRange;
+
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -28,7 +29,7 @@ public class QueryVoteController extends BaseController {
       */
      @PostMapping("/myreport")
      public AjaxResult queryForMyReport(){
-          return AjaxResult.success(new ArrayList<VoteRangeVo>());
+          return AjaxResult.success(new ArrayList<VoteRange>());
      }
 
      /**
@@ -37,7 +38,7 @@ public class QueryVoteController extends BaseController {
       */
      @PostMapping("/mylaunch")
      public AjaxResult queryForMyHold(){
-          return  AjaxResult.success(new ArrayList<VoteRangeVo>());
+          return  AjaxResult.success(new ArrayList<VoteRange>());
      }
 
      /**
@@ -46,7 +47,7 @@ public class QueryVoteController extends BaseController {
       */
      @PostMapping("/untreated")
      public AjaxResult queryForUntreated(){
-          return AjaxResult.success(new ArrayList<VoteRangeVo>());
+          return AjaxResult.success(new ArrayList<VoteRange>());
      }
 
 
@@ -55,8 +56,8 @@ public class QueryVoteController extends BaseController {
       * @param params  isEnd: , isParticipate:   为空则查询全部
       * @return
       */
-     public AjaxResult queryForHistory(Map<String,Integer> params){
-          return AjaxResult.success(new ArrayList<VoteRangeVo>());
+     public AjaxResult queryForParams(Map<String,Integer> params){
+          return AjaxResult.success(new ArrayList<VoteRange>());
      }
 
      /**

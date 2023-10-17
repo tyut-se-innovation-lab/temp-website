@@ -32,7 +32,7 @@ public class ContextContorller {
     @Autowired
     ContextService contextService;
 
-    @ApiOperation("获取文件流展示到前端，同时可以用该流下载") // @PreAuthorize("@ss.hasPermi('rule:editor')")
+    @ApiOperation("获取文件流展示到前端下载") // @PreAuthorize("@ss.hasPermi('rule:editor')")
     @GetMapping("/deliver")
     public AjaxResult deliverFile( HttpServletResponse res) throws IOException {
         contextService.showfiles(res);

@@ -1,8 +1,7 @@
 package tyut.selab.rule.service.impl;
 
-import com.ruoyi.common.annotation.Log;
-import com.ruoyi.common.core.domain.R;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.rule.domain.VO.OperationVO;
@@ -12,7 +11,6 @@ import tyut.selab.rule.service.RuleService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * 奖惩制度 业务层处理
@@ -23,7 +21,7 @@ public class RuleServiceImpl implements RuleService {
     @Autowired
     private RuleMapper ruleMapper;
 
-    /**
+        /**
      * 查询是否需要弹出奖惩制度
      *
      * @param userId
@@ -73,11 +71,10 @@ public class RuleServiceImpl implements RuleService {
     public List<OperationVO> getOperationInfo(Long userId) {
         List<Operation> operations = ruleMapper.getOperationInfo(userId);
         List<OperationVO> operationVOS = new ArrayList<>();
-        for (int i = 0; i < operations.size(); i++) {
-            operationVOS.get(i).setReason(operations.get(i).getReasonContent());
-            operationVOS.get(i).setUser(operations.get(i).getUpdateUser());
-            operationVOS.get(i).setTime(operations.get(i).getUpdateTime());
-            operationVOS.get(i).setImage(operations.get(i).getImage());
+        for (Operation operation : operations) {
+            OperationVO temp=new OperationVO();
+            BeanUtils.copyProperties(operation,temp);
+            operationVOS.add(temp);
         }
         return operationVOS;
     }

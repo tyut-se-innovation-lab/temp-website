@@ -4,13 +4,13 @@ import lombok.Data;
 
 @Data
 public class Operation {
-    String ruleLogId;
-    String targetUserId;
-    String reasonContent;
+    String rule_log_id;
+    String target_user_id;
+    String reason_content;
     String image;
-    String createTime;
-    String createUserId;
+    String create_Time;
+    String create_user_id;
     String status;
-    String updateTime;
-    String updateUser;
+    String update_time;
+    String update_user;
 }

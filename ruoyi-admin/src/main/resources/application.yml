@@ -107,6 +107,8 @@ mybatis:
     mapperLocations: classpath*:mapper/**/*Mapper.xml
     # 加载全局的配置文件
     configLocation: classpath:mybatis/mybatis-config.xml
+    configuration:
+      map-underscore-to-camel-case: true
 
 # PageHelper分页插件
 pagehelper:

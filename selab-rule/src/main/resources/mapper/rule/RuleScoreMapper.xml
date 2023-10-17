@@ -24,6 +24,7 @@
         from rule_score
         where user_id = #{userId,jdbcType=BIGINT}
     </select>
+    <!--查询用户当天的增减分综合-->
     <select id="getScoreChangeByTime" resultType="java.lang.Integer">
         select sum(score_change) from rule_log
         <where>

@@ -25,7 +25,13 @@ public class ScoreServiceImpl implements ScoreService {
      */
     @Override
     public void addOrReduceScore(Integer scoreChange, Long userId) {
+        if(scoreChange == null){
+            scoreChange = 0;
+        }
         Integer score = scoreMapper.getByUserId(userId);
+        if (score == null) {
+            score = 0;
+        }
         score += scoreChange;
         scoreMapper.updateScore(score, userId);
     }

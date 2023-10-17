@@ -19,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/rule")
 public class RuleController {
+
     @Autowired
     private RuleService ruleService;
 

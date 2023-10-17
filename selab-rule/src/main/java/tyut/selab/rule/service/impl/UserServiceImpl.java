@@ -1,8 +1,11 @@
 package tyut.selab.rule.service.impl;
 
 
+import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
+import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.domain.R;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.rule.domain.RuleLog;
@@ -16,8 +19,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -44,6 +49,7 @@ public class UserServiceImpl implements UserService {
         } else {
             score = scores.get(0);
         }
+        log.info("we12");
         List<RuleLog> logs = ruleLogMapper.selectByUserId(userId);
         RuleVO ruleVO = new RuleVO();
         ruleVO.setRuleScore(score.getScores());
@@ -64,6 +70,9 @@ public class UserServiceImpl implements UserService {
         LocalDateTime begin = LocalDateTime.of(LocalDate.now().withDayOfMonth(1), LocalTime.MIN);
         LocalDateTime end = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.MAX);
         Integer scoreChange = ruleScoreMapper.getScoreChangeByTime(begin, end, userId);
+        if(scoreChange == null){
+            scoreChange = 0;
+        }
         return scoreChange;
     }
 
@@ -78,6 +87,9 @@ public class UserServiceImpl implements UserService {
         LocalDateTime begin = LocalDateTime.of(LocalDate.now(), LocalTime.MIN);
         LocalDateTime end = LocalDateTime.now();
         Integer scoreChange = ruleScoreMapper.getScoreChangeByTime(begin, end, userId);
+        if(scoreChange == null){
+            scoreChange = 0;
+        }
         return scoreChange;
     }
 }

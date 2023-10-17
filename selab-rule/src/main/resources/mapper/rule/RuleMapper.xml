@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tyut.selab.rule.mapper.RuleMapper">
+    <update id="setRuleStatus">
+        update rule_score set rule_status=#{rule_status} where user_id=#{user_id}
+    </update>
+<!--将所有用户的socre清零-->
+    <update id="clearAllScore">
+        update rule_score set scores=0
+    </update>
+    <select id="getRuleStatus" resultType="java.lang.Integer">
+        select rule_status from rule_score where user_id=#{user_id}
+    </select>
+    <select id="getOperationInfo" resultType="tyut.selab.rule.domain.entity.Operation">
+        select * from rule_log where target_user_id = ${userId}
+    </select>
+</mapper>

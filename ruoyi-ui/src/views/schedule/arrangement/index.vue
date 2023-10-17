@@ -195,10 +195,10 @@ export default {
          }else{
           nickName = nickName + this.message[week][cla][i].nickName + "、"
          }
-         
+
           if((i+1)%3 == 0){
             nickName = nickName + `
-            ` 
+            `
           }
         }
         // console.log(nickName);

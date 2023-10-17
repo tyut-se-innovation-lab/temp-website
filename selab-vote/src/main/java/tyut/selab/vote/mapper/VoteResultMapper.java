@@ -1,5 +1,6 @@
 package tyut.selab.vote.mapper;
 
+import tyut.selab.vote.domain.po.VoteRange;
 import tyut.selab.vote.domain.po.VoteResult;
 
 import java.util.List;
@@ -42,6 +43,19 @@ public interface VoteResultMapper {
      */
     Integer getVoteReultCount(Long voteId,Long optionId);
 
+    /**
+     *  查询实名投票的用户加密id
+     * @param optionId
+     * @param voteId
+     * @return
+     */
+    List<String> getParseUserId(Long optionId,Long voteId);
+    /**
+     *  通过userId查询用户名字
+     * @param userIds
+     * @return
+     */
+    List<String> getNickName(List<Long> userIds);
 
 
 }

@@ -14,6 +14,7 @@
 package tyut.selab.vote.mapper;
 
 import org.apache.ibatis.annotations.Param;
+import tyut.selab.vote.domain.DTO.VoteInfoLaunchDTO;
 import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteOption;
 import tyut.selab.vote.domain.po.VoteWeight;
@@ -52,10 +53,10 @@ public interface VoteInfoMapper {
 
     /**
      * 保存投票信息
-     * @param voteInfo
+     * @param VoteInfoLaunchDTO
      * @return
      */
-    Integer saveVoteInformation(@Param("voteInfo") VoteInfo voteInfo);
+    Integer saveVoteInformation(@Param("voteInfoLaunchDTO") VoteInfoLaunchDTO voteInfoLaunchDTO);
 
 
 
@@ -66,8 +67,10 @@ public interface VoteInfoMapper {
      */
     VoteInfo getVoteStatus(Long voteId);
 
-
-
-
+    /**
+     *  查询投票是否是实时的
+     * @param voteId
+     * @return
+     */
+    String getIsRealTime(Long voteId);
 }
-

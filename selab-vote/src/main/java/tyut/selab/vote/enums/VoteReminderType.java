@@ -19,7 +19,7 @@ public enum VoteReminderType {
     NOPARTICIPATE("4","待参与投票提醒"),
     FREEZERESULT("5","冻结处理结果提醒"),
     VOTECLOSEDEND("6","投票即将结束提醒"),
-    VOTEEND("7","投票即将结束提醒");
+    VOTEEND("7","投票结束提醒");
 
     @JsonValue
     private final String sign;

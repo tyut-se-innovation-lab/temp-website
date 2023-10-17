@@ -1,8 +1,6 @@
-package tyut.selab.vote.domain.vo;
+package tyut.selab.vote.domain.DTO;
 
 
-import lombok.Data;
-import lombok.Getter;
 import tyut.selab.vote.enums.VoteOptionType;
 
 /**
@@ -13,22 +11,23 @@ import tyut.selab.vote.enums.VoteOptionType;
  * @version: 1.0
  */
 
-public class VoteOptionVo {
-    @Getter
+public class VoteOptionDTO {
+
     private Long id;
-    @Getter
+
     private Long voteId;
-    @Getter
+
     private VoteOptionType optionType;
-    @Getter
+
     private String content;
-    @Getter
-    private Double percentage;
+
+    private String percentage;
     // 选择数量
-    @Getter
+
     private Integer chooseNum;
     // 是否选中
     private Boolean isSelect;
+
 
     public void setId(Long id) {
         this.id = id;
@@ -46,7 +45,7 @@ public class VoteOptionVo {
         this.content = content;
     }
 
-    public void setPercentage(Double percentage) {
+    public void setPercentage(String percentage) {
         this.percentage = percentage;
     }
 
@@ -62,7 +61,31 @@ public class VoteOptionVo {
         isSelect = select;
     }
 
-    public VoteOptionVo() {
+    public VoteOptionDTO() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getVoteId() {
+        return voteId;
+    }
+
+    public VoteOptionType getOptionType() {
+        return optionType;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getPercentage() {
+        return percentage;
+    }
+
+    public Integer getChooseNum() {
+        return chooseNum;
     }
 
     @Override
@@ -72,7 +95,7 @@ public class VoteOptionVo {
                 ", voteId=" + voteId +
                 ", optionType=" + optionType +
                 ", content='" + content + '\'' +
-                ", percentage=" + percentage +
+                ", percentage='" + percentage + '\'' +
                 ", chooseNum=" + chooseNum +
                 ", isSelect=" + isSelect +
                 '}';

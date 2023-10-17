@@ -31,13 +31,13 @@ import java.sql.SQLException;
  * @Author: 22932
  * @Date: 2023/10/11 19:06:58
  */
-@MappedJdbcTypes(JdbcType.INTEGER)
+@MappedJdbcTypes(JdbcType.CHAR)
 @MappedTypes(VoteType.class)
 public class VoteTypeHandler implements TypeHandler<VoteType> {
 
     @Override
     public void setParameter(PreparedStatement preparedStatement, int i, VoteType voteType, JdbcType jdbcType) throws SQLException {
-        preparedStatement.setInt(i,voteType.getId());
+        preparedStatement.setString(i,voteType.getId());
     }
 
     @Override

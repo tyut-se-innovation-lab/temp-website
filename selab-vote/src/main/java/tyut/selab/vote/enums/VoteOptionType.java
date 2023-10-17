@@ -23,4 +23,14 @@ public enum VoteOptionType {
     public String getRemake() {
         return remake;
     }
+
+    public static VoteOptionType getVoteOptionType(String sign){
+        VoteOptionType[] values = VoteOptionType.values();
+        for (VoteOptionType voteOptionType:values){
+            if(voteOptionType.getSign().equals(sign)){
+                return voteOptionType;
+            }
+        }
+        return null;
+    }
 }

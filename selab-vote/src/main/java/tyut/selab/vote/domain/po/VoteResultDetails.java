@@ -3,8 +3,7 @@ package tyut.selab.vote.domain.po;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-import tyut.selab.vote.domain.vo.VoteOptionDetails;
-import tyut.selab.vote.domain.vo.VoteOptionVo;
+import tyut.selab.vote.domain.vo.VoteOptionDetailsVo;
 import tyut.selab.vote.enums.VoteStatus;
 import tyut.selab.vote.enums.VoteType;
 
@@ -23,7 +22,7 @@ public class VoteResultDetails {
     private Long voteId;
     private String userName;
     private Long userId;
-    private VoteType type;
+    private VoteType voteType;
     private String title;
     private String content;
     private VoteStatus status;
@@ -31,9 +30,11 @@ public class VoteResultDetails {
     private Date createTime;
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date deadTime;
+    // 是否实时
+    private String isRealTime;
     // 投票选项
-    private List<VoteOptionDetails> voteOptionDetails;
-    private List<VoteReport> voteReports;
+    private List<VoteOptionDetailsVo> voteOptionDetails;
+
     // 投票权重
     private List<VoteWeight>  voteWeights;
 }

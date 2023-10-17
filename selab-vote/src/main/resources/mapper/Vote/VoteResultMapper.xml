@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -37,7 +36,33 @@
         </if>
     </select>
     <select id="getVoteReultCount" resultType="int">
-        SELECT COUNT(vote_option_id) FROM selab_vote_result
+        SELECT COUNT(id) FROM selab_vote_result
+        <where>
+            <if test="true">
+                vote_id = #{voteId}
+            </if>
+            <if test="optionId != nulll">
+                vote_result_id = #{optionId}
+            </if>
+        </where>
     </select>
+    <select id="getUserNameByOptionId" resultType="String">
+        SELECT u.nick_name FROM selab_vote_result r
+        LEFT JOIN sys_user u ON  u.user_id = r.user_id
+        WHERE vote_option_id = #{optionId} AND is_anonymous = '0'
+    </select>
+    <select id="getNickName" resultType="String">
+        SELECT nick_name FROM sys_name
+        <where>
+            <foreach collection="userIds" item="userId" separator="OR">
+                user_id = #{userId}
+            </foreach>
+        </where>
+    </select>
+    <select id="getParseUserId" resultType="String">
+        SELECT user_id FROM selab_vote_result
+        WHERE vote_id = #{voteId} AND vote_option_id = #{optionId} AND is_anonymous = '0'
+    </select>
+
 
 </mapper>

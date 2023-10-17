@@ -21,15 +21,16 @@
     <insert id="saveVoteInformation">
         insert into selab_vote_info
         values (null,
-                #{voteInfo.userId},
-                #{voteInfo.title},
-                #{voteInfo.content},
-                #{voteInfo.voteType,typeHandler=tyut.selab.vote.config.jdbc.handler.VoteTypeHandler},
-                #{voteInfo.status,typeHandler=tyut.selab.vote.config.jdbc.handler.VoteStatusHandler},
-                #{voteInfo.deadTime},
-                #{voteInfo.createTime},
-                #{voteInfo.isRealTime},
-                #{voteInfo.optionNum})
+                #{voteInfoLaunchDTO.userId},
+                #{voteInfoLaunchDTO.title},
+                #{voteInfoLaunchDTO.content},
+                #{voteInfoLaunchDTO.voteType,typeHandler=tyut.selab.vote.config.jdbc.handler.VoteTypeHandler},
+                #{voteInfoLaunchDTO.status,typeHandler=tyut.selab.vote.config.jdbc.handler.VoteStatusHandler},
+                #{voteInfoLaunchDTO.deadTime},
+                #{voteInfoLaunchDTO.createTime},
+                #{voteInfoLaunchDTO.isRealTime},
+                #{voteInfoLaunchDTO.optionNum},
+                #{voteInfoLaunchDTO.delFlag})
     </insert>
 
     <insert id="saveVoteOptionInformation">

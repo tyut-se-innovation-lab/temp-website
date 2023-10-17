@@ -1,5 +1,6 @@
 package tyut.selab.vote.service;
 
+import tyut.selab.vote.domain.DTO.VoteInfoLaunchDTO;
 import tyut.selab.vote.domain.po.VoteInfo;
 
 
@@ -10,10 +11,10 @@ import tyut.selab.vote.domain.po.VoteInfo;
 public interface DealVoteService {
     /**
      * 发布投票
-     * @param voteInfo
+     * @param voteInfoLaunchDTO
      * @return
      */
-    Integer launchVote(VoteInfo voteInfo);
+    Integer launchVote(VoteInfoLaunchDTO voteInfoLaunchDTO);
 
     /**
      * 撤回投票

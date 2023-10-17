@@ -8,8 +8,7 @@ public class VoteResult {
     private Long voteId;
     private Long voteOptionId;
     private String userName;
-    private Long userId;
-
+    private String userId;
     private String content;
     private Date createTime;
    // 1 为匿名 0 为实名
@@ -66,11 +65,11 @@ public class VoteResult {
         this.voteOptionId = voteOptionId;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

@@ -473,23 +473,15 @@ export default {
     this.getConfigKey("sys.user.initPassword").then(response => {
       this.initPassword = response.msg;
     });
-    let info = async function(){
-      await scoreController(data.value)
-      console.log(123)
-      console.log(info)
-    }
+    this.add()
 
   },
-  mounted() {
-    //增减分数api调用
 
-
-  },
   methods: {
     //增减分数
     async add(scroll){
-      let info = await scoreController(scroll.value)
-      console.log(info)
+       await scoreController(scroll.value).then()
+
     },
 
 

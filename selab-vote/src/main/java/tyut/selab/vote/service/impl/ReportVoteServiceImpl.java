@@ -39,30 +39,14 @@ public class ReportVoteServiceImpl implements ReportVoteService {
     @Autowired
     private ReportVoteMapper reportVoteMapper;
 
+
     @Override
     public Integer submitReportVote(VoteReport voteReport) {
-        //举报次数达到，则冻结
-        int freezeCount = 10;
-        if(TimeDealTool.judgeVoteFinish(dealVoteMapper.queryVoteDeadTime(voteReport.getVoteId()))){
-            //未到截止时间,可以提交举报信息
-            //Long userId = SecurityUtils.getUserId();
-            //voteReport.setUser_id(userId);
-            reportVoteMapper.submitReportVote(voteReport);
-            if(reportVoteMapper.queryReportCount(voteReport.getVoteId()) >= freezeCount){
-                dealVoteMapper.updateVoteStatus(voteReport.getVoteId(),VoteStatus.FREEZE);
-            }
-            return 1;
-        }else{
-            //此刻超出截止时间
-            return 0;
-        }
-
+        return null;
     }
 
     @Override
     public List<VoteReport> viewReportVote(Long voteId) {
-        return reportVoteMapper.viewReportVote(voteId);
+        return null;
     }
-
-
 }

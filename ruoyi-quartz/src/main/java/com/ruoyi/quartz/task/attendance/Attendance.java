@@ -6,6 +6,7 @@ import tyut.selab.attendance.mapper.GenerateLogMapper;
 import tyut.selab.attendance.service.Impl.AttendanceLogServiceImpl;
 import tyut.selab.attendance.service.Impl.GenerateLogServiceImpl;
 
+
 @Component("attendance")
 public class Attendance {
 

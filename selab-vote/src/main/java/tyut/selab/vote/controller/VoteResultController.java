@@ -1,7 +1,7 @@
 package tyut.selab.vote.controller;
 
 import com.ruoyi.common.core.domain.AjaxResult;
-import io.swagger.v3.oas.annotations.Operation;
+
 import org.springframework.web.bind.annotation.*;
 import tyut.selab.vote.domain.po.VoteUser;
 

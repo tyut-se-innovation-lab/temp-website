@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.time.LocalDateTime;
+
 @Mapper
 public interface ScoreMapper {
     /**
@@ -33,4 +35,12 @@ public interface ScoreMapper {
      */
     @Select("select scores from rule_score where user_id = #{userId}")
     Integer getByUserId(Long userId);
+
+    /**
+     * 根据时间段查询分数增减情况
+     * @param begin
+     * @param end
+     * @return
+     */
+    Integer getScoreChangeByTime(LocalDateTime begin, LocalDateTime end);
 }

@@ -24,6 +24,20 @@
         from rule_score
         where user_id = #{userId,jdbcType=BIGINT}
     </select>
+    <select id="getScoreChangeByTime" resultType="java.lang.Integer">
+        select sum(score_change) from rule_log
+        <where>
+            <if test="begin != null">
+                and create_time &gt; #{begin}
+            </if>
+            <if test="end != null">
+                and create_time &lt; #{end}
+            </if>
+            <if test="userId != null">
+                and target_user_id = #{userId}
+            </if>
+        </where>
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from rule_score

@@ -1,7 +1,9 @@
 package tyut.selab.rule.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import tyut.selab.rule.domain.RuleScore;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -24,5 +26,11 @@ public interface RuleScoreMapper {
 
     int updateByPrimaryKey(RuleScore record);
 
-
+    /**
+     * 根据时间查询分数增减情况
+     * @param begin
+     * @param end
+     * @return
+     */
+    Integer getScoreChangeByTime(@Param("begin") LocalDateTime begin, @Param("end") LocalDateTime end, @Param("userId") Long userId);
 }

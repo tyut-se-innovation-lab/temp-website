@@ -27,8 +27,8 @@ public class ScoreController {
      * @param scoreRequestDTO
      * @return
      */
-    @PutMapping
-    @ApiOperation("分数增减")
+    @PostMapping("/addOrReduceScore")
+    @ApiOperation("分数增减操作")
     @PreAuthorize("@ss.hasAnyPermi('rule:content')")
     public AjaxResult addOrReduceScore(HttpServletRequest request, @RequestBody ScoreRequestDTO scoreRequestDTO) {
         //加分减分操作

@@ -28,6 +28,7 @@ public class ScoreServiceImpl implements ScoreService {
      */
     @Override
     public void addOrReduceScore(HttpServletRequest request, ScoreRequestDTO scoreRequestDTO) {
+        scoreRequestDTO.setScoreChange(scoreRequestDTO.getScoreChange() == null ? 0 : scoreRequestDTO.getScoreChange());
         LoginUser user = tokenService.getLoginUser(request);
         Long menderId = user.getUserId();//操作人
         Integer score = scoreMapper.getByUserId(scoreRequestDTO.getUserId());

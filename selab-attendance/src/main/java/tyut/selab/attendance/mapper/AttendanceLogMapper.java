@@ -24,4 +24,22 @@ public interface AttendanceLogMapper {
      * 统计本周日志
      */
     public void statisticsLogs();
+
+    /**
+     * 根据部门id获得部员id
+     * @param deptId
+     * @return
+     */
+    public List<String> nickName(@Param("deptId") int deptId);
+
+    public String nickUserName(@Param("userId") int userId);
+
+    /**
+     * 根据部门id获得部员日志
+     * @return
+     */
+    public List<Attendance> userTime(@Param("startTime") Date startTime,@Param("endTime") Date endTime,@Param("userId") int userId);
+    public List<Attendance> userTimeName(@Param("startTime") Date startTime,@Param("endTime") Date endTime,@Param("userName") String userName);
+
+    public List<String> allUserName();
 }

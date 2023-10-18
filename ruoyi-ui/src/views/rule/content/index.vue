@@ -1,4 +1,5 @@
 <script>
+import {contextContorller} from "../../../api/rule/content/index"
 export default {
   name: "index",
   data() {
@@ -21,13 +22,26 @@ export default {
         address: '上海市普陀区金沙江路 1516 弄'
       }]
     }
+  },
+  methods:{
+    async add(filename){
+      let info = await contextContorller(filename)
+      console.log(info)
+    }
+  },
+  mounted() {
+     this.add()
   }
+
 }
 </script>
 
 <template>
   <div class="content">
     <el-card class="left box-card">
+
+
+
       <h1>制度内容</h1>
         # 前言
 

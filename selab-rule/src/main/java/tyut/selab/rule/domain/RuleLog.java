@@ -1,5 +1,7 @@
 package tyut.selab.rule.domain;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,6 +9,7 @@ import java.util.Date;
  * 奖惩制度的日志记载
  * @TableName rule_log
  */
+@Data
 public class RuleLog implements Serializable{
     /**
      * 

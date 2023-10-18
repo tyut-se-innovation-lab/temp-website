@@ -1,8 +1,11 @@
 package tyut.selab.rule.controller;
 
+import com.ruoyi.common.annotation.Anonymous;
+import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.domain.R;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +13,7 @@ import tyut.selab.rule.service.UserService;
 
 @RestController
 @RequestMapping("/rule")
+@Slf4j
 public class UserController {
     //查看用户的当前分数和与该用户相关的操作
     @Autowired
@@ -31,7 +35,10 @@ public class UserController {
     @PreAuthorize("@ss.hasAnyPermi('rule:content')")
     public AjaxResult getScoreChangeForDay(@PathVariable Long userId) {
         Integer scoreChange = userService.getScoreChangeForDay(userId);
-        return AjaxResult.success(scoreChange);
+        Integer score = scoreChange;
+        String s = scoreChange.toString();
+        log.info(s);
+        return AjaxResult.success(score);
     }
 
     /**

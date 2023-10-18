@@ -38,6 +38,8 @@ public class ShowVoteResultServiceImpl implements IShowVoteResultService {
     VoteResultMapper voteResultMapper;
     @Autowired
     VoteUserMapper voteUserMapper;
+    @Autowired
+    VoteInfoConverter voteInfoConverter;
 
 
     @Override
@@ -129,33 +131,14 @@ public class ShowVoteResultServiceImpl implements IShowVoteResultService {
    // 包装 VoteResultDetails类
     private VoteResultDetails packageVoteInfo(VoteInfo voteInfo){
 
-        VoteResultDetails voteResultDetails = new VoteResultDetails();
-        voteResultDetails.setVoteId(voteInfo.getVoteId());
-        voteResultDetails.setVoteType(voteInfo.getVoteType());
-        voteResultDetails.setVoteWeights(voteInfo.getVoteWeights());
-        voteResultDetails.setContent(voteInfo.getContent());
-        voteResultDetails.setTitle(voteInfo.getTitle());
-        voteResultDetails.setStatus(voteInfo.getStatus());
-        voteResultDetails.setCreateTime(voteInfo.getCreateTime());
-        voteResultDetails.setDeadTime(voteInfo.getDeadTime());
-        voteResultDetails.setIsRealTime(voteInfo.getIsRealTime());
-        voteResultDetails.setUserId(voteInfo.getUserId());
-        voteResultDetails.setUserName(voteInfo.getUserName());
-        List<VoteOptionDetailsVo> voteOptionDetails = new ArrayList<>();
-        List<VoteOptionDTO> voteOptionVoList = voteInfo.getVoteOptionVoList();
-        for (VoteOptionDTO voteOptionVo:voteOptionVoList){
-            VoteOptionDetailsVo voteOptionDetail = new VoteOptionDetailsVo();
-            voteOptionDetail.setId(voteOptionVo.getId());
-            voteOptionDetail.setContent(voteOptionVo.getContent());
-            voteOptionDetail.setOptionType(voteOptionVo.getOptionType());
-            voteOptionDetail.setVoteNum(voteOptionVo.getChooseNum());
-            voteOptionDetail.setPercentage(voteOptionVo.getPercentage());
+        VoteResultDetails voteResultDetails = voteInfoConverter.voteInfoToVoteResultDetails(voteInfo);
+        for (VoteOptionDetailsVo voteOptionDetailsVo:voteResultDetails.getVoteOptionDetails()){
+
             // userId全是加密后的  加一个方法 通过是否匿名去判断是否解密
-            List<String> parseUserIds = voteResultMapper.getParseUserId(voteOptionVo.getId(),voteOptionVo.getVoteId());
-            List<Long> userIds = parseUserIds.stream().map(AESUtil::decrypt).map(Long::parseLong).toList();
+            List<String> parseUserIds = voteResultMapper.getParseUserId(voteOptionDetailsVo.getId(),voteOptionDetailsVo.getVoteId());
+            List<Long> userIds = parseUserIds.stream().map(AESUtil::decrypt).map(Long::parseLong).collect(Collectors.toList());
             List<String> userNames = voteResultMapper.getNickName(userIds);
-            voteOptionDetail.setUserNames(userNames);
-            voteOptionDetails.add(voteOptionDetail);
+            voteOptionDetailsVo.setUserNames(userNames);
         }
         return voteResultDetails;
     }

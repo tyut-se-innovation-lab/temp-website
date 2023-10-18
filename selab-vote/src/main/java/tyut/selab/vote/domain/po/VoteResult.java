@@ -7,7 +7,6 @@ public class VoteResult {
     private Long id;
     private Long voteId;
     private Long voteOptionId;
-    private String userName;
     private String userId;
     private String content;
     private Date createTime;
@@ -23,14 +22,6 @@ public class VoteResult {
 
     public void setVoteId(Long voteId) {
         this.voteId = voteId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getIsAnonymous() {

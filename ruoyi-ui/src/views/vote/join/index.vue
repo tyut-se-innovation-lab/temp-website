@@ -21,7 +21,7 @@ export default {
         message: 'notification message测试-1',
         type: 'success',
         location: 'left-top',
-        duration: Math.floor(Math.random() * 6000)
+        duration: Math.floor(Math.random() * 5000 + 1000)
       }, {
         title: 'notification title测试-2',
         message: 'notification message测试-2',
@@ -34,7 +34,6 @@ export default {
         type: 'warning',
         location: 'right-top',
         duration: 0,
-        userSelect: false,
         async callback () {
           console.log('@3 async callback 运行了')
           await new Promise(resolve => {

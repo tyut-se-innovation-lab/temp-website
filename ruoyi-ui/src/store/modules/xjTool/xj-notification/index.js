@@ -1,7 +1,4 @@
 import './index.css'
-import { v4 as uuidV4 } from 'uuid'
-// import xj_console from '../console'
-// import message from '../message'
 
 class NotificationList {
   static #length = {
@@ -67,21 +64,6 @@ class Notification {
 
   /* 关闭按钮 */
   #closeSvg = null
-
-  /*
-   * 通知栏 rootBox: String
-   */
-  #uuid = {
-    rootBox: ''
-  }
-
-  /* 只读 通知栏样式 */
-  // #boxStyle = {
-  //   success: { 'background-color': 'rgba(153, 230, 115, .7)' },
-  //   warning: { 'background-color': 'rgba(255, 203, 125, .7)' },
-  //   error: { 'background-color': 'rgba(245, 108, 108, .7)' },
-  //   normal: { 'background-color': 'rgba(0, 0, 0, .5)' }
-  // }
 
   /* 通知栏坐标
    * {'left | right': number, 'top | bottom': number, ranking: number}
@@ -191,9 +173,7 @@ class Notification {
    */
   #create (title, message, type, duration, showClose, userSelect) {
     // 创建 notification 盒子
-    this.#uuid['rootBox'] = uuidV4()
     this.#rootBox = document.createElement('div')
-    this.#rootBox.id = this.#uuid['rootBox']
     this.#rootBox.classList.add('xj-notification')
     this.#rootBox.classList.add(`xj-notification-${ type }`)
     this.#rootBox.style.transformOrigin = 'center center'

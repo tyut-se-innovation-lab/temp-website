@@ -24,7 +24,7 @@ public class ContextServiceImpl implements ContextService {
     @Value("${rule.uploadPath}")
     private String uploadName;
     @Override
-    public void showfiles(String filename, HttpServletResponse res) throws IOException {
+    public void showfiles( HttpServletResponse res) throws IOException {
         String fileName =pathName;
         res.setCharacterEncoding("UTF-8");
         // attachment是以附件的形式下载，inline是浏览器打开
@@ -58,38 +58,4 @@ public class ContextServiceImpl implements ContextService {
         out.close();
     }
 
-    @Override
-    public void upload(MultipartFile file) throws IOException {
-        InputStream inputStream = file.getInputStream();
-        String fileName= uploadName;
-        File newfile=new File(fileName);
-        if(!newfile.exists()){
-            newfile.createNewFile();
-        }
-        BufferedInputStream in=new BufferedInputStream(inputStream);
-        BufferedOutputStream out=new BufferedOutputStream(new FileOutputStream(fileName));
-        int len=-1;
-        byte[] b=new byte[1024];
-        while((len=in.read(b))!=-1){
-            out.write(b,0,len);
-        }
-        in.close();
-        out.close();
-    }
-
-    @Override
-    public void downloadFile(String filename, HttpServletResponse res) throws IOException {
-        String path = pathName;
-        res.setCharacterEncoding("UTF-8");
-        // attachment是以附件的形式下载，inline是浏览器打开
-        res.setHeader("Content-Disposition", "inline;filename="+filename+".txt");
-        res.setContentType("text/plain;UTF-8");
-        // 把二进制流放入到响应体中
-        ServletOutputStream os = res.getOutputStream();
-        File file = new File(path);
-        byte[] bytes = FileUtils.readFileToByteArray(file);
-        os.write(bytes);
-        os.flush();
-        os.close();
-    }
 }

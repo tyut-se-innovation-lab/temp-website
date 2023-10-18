@@ -5,11 +5,11 @@ import lombok.Data;
 @Data
 public class OperationVO {
     //奖惩原因
-    String reason;
+    String reasonContent;
     //奖惩时间
-    String time;
+    String createTime;
     //被执行者
-    String user;
+    String createUserId;
     //图片路径
     String image;
 }

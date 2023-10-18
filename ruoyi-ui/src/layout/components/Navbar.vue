@@ -8,7 +8,7 @@
     <div class="right-menu">
       <template v-if="device!=='mobile'">
         <search id="header-search" class="right-menu-item" />
-        
+
         <el-tooltip content="源码地址" effect="dark" placement="bottom">
           <ruo-yi-git id="ruoyi-git" class="right-menu-item hover-effect" />
         </el-tooltip>
@@ -31,6 +31,9 @@
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
+          <router-link to="/user/noticePop">
+            <el-dropdown-item>通知</el-dropdown-item>
+          </router-link>
           <router-link to="/user/profile">
             <el-dropdown-item>个人中心</el-dropdown-item>
           </router-link>

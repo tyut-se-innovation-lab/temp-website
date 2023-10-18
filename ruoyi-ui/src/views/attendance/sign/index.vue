@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div class="signTotal" v-if="show">
+      <div class="signTotalInner">
+        <span>本周签到有效时长：</span>
+        <span>{{ total }} h</span>
+      </div>
+    </div>
     <div id="sign" v-if="show">
       <button v-if="isSignIn" :disabled="disabled" @click="signIn">{{ title }}</button>
       <button
@@ -32,7 +38,9 @@ export default {
 
       show: false,
 
-      minCountTime: 1, //最小签到时间=
+      minCountTime: 0.5, //最小签到时间
+
+      total: "0",  // 本周已签到时长
     };
   },
 
@@ -63,6 +71,14 @@ export default {
     init() {
     },
 
+    /**
+     * 查看本周有效时长
+     */
+    userWeekTime() {
+      this.sign.userWeekTime().then((res) => {
+        this.total = Math.floor(res.data * 100) / 100
+      })
+    },
 
     /**
      * 是否设置自定义倒计时
@@ -88,6 +104,8 @@ export default {
         this.isSignOut = false;
         this.disabled = true;
         this.title = "签退成功";
+
+        this.userWeekTime();
       });
     },
 
@@ -160,20 +178,45 @@ export default {
 
   created() {
     this.couldSignOut();
+    this.userWeekTime();
   },
+
 
 };
 </script>
 
 <style scoped>
+
+.signTotal {
+  height: 50px;
+  min-width: 600px;
+}
+
+.signTotalInner {
+  margin: 30px 50px 0 0;
+  width: 500px;
+  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  line-height: 50px;
+  background-color: #c2e9fb;
+  border-radius: 24px;
+}
+
+.signTotalInner > span:nth-child(2) {
+  color: #2983bb;
+  font-weight: bold;
+}
+
 #sign {
   width: 70%;
-  min-width: 400px;
-  margin: 0 auto;
-  display: flex;
+  min-width: 600px;
   vertical-align: middle;
   text-align: center;
-  margin-top: 15%;
+  margin: 15% auto 0;
+  display: flex;
   justify-content: space-evenly;
 }
 

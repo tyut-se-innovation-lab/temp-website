@@ -3,6 +3,7 @@ package tyut.selab.rule.service.impl;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.domain.R;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.rule.domain.VO.OperationVO;
@@ -72,12 +73,16 @@ public class RuleServiceImpl implements RuleService {
     @Override
     public List<OperationVO> getOperationInfo(Long userId) {
         List<Operation> operations = ruleMapper.getOperationInfo(userId);
+        for (Operation operation : operations) {
+            //打印
+            log.info("operation:{}", operation);
+        }
         List<OperationVO> operationVOS = new ArrayList<>();
-        for (int i = 0; i < operations.size(); i++) {
-            operationVOS.get(i).setReason(operations.get(i).getReasonContent());
-            operationVOS.get(i).setUser(operations.get(i).getUpdateUser());
-            operationVOS.get(i).setTime(operations.get(i).getUpdateTime());
-            operationVOS.get(i).setImage(operations.get(i).getImage());
+
+        for (Operation operation : operations) {
+            OperationVO operationVO = new OperationVO();
+            BeanUtils.copyProperties(operation, operationVO);
+            operationVOS.add(operationVO);
         }
         return operationVOS;
     }

@@ -21,6 +21,37 @@
         </where>
     </select>
 
+    <select id="nickName" parameterType="java.lang.Integer" resultType="String">
+        SELECT nick_name FROM sys_user WHERE dept_id = #{deptId}
+    </select>
+
+    <select id="nickUserName" parameterType="java.lang.Integer" resultType="String">
+        SELECT nick_name FROM sys_user WHERE user_id = #{userId}
+    </select>
+
+    <select id="allUserName"  resultType="String" >
+    SELECT nick_name FROM sys_user WHERE  del_flag = 0
+    </select>
+    <select id="userTime" parameterType="java.lang.Integer" resultMap="Attendance">
+    SELECT id, att_user, att_start_time, att_end_time, `interval`
+    FROM selab_attendance_log
+    <where>
+        <if test="startTime != null and endTime != null">
+            AND att_start_time BETWEEN #{startTime} AND #{endTime}
+        </if>
+        AND att_user = #{userId}
+    </where>
+    </select>
+    <select id="userTimeName" parameterType="java.lang.String" resultMap="Attendance">
+        SELECT id, att_user, att_start_time, att_end_time, `interval`
+        FROM selab_attendance_log
+        <where>
+            <if test="startTime != null and endTime != null">
+                AND att_start_time BETWEEN #{startTime} AND #{endTime}
+            </if>
+            AND att_user = #{userName}
+        </where>
+    </select>
     <!--  public void statisticsLogs();-->
     <insert id="statisticsLogs">
         INSERT INTO `selab_attendance_log_statistics` (`att_user`, `interval`)
@@ -29,4 +60,8 @@
         GROUP BY `att_user`
         ON DUPLICATE KEY UPDATE `interval` = VALUES(`interval`)
     </insert>
+
+
+
+
 </mapper>

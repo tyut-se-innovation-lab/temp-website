@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import tyut.selab.rule.domain.DTO.ScoreRequestDTO;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 public interface ScoreMapper {
     /**
      * 增减分数
-     * @param score
+     * @param scores
      */
     public void updateScore(@Param("scores") Integer scores, @Param("userId") Long userId);
 
@@ -37,10 +38,8 @@ public interface ScoreMapper {
     Integer getByUserId(Long userId);
 
     /**
-     * 根据时间段查询分数增减情况
-     * @param begin
-     * @param end
-     * @return
+     * 添加操作日志表
+     * @param scoreRequestDTO
      */
-    Integer getScoreChangeByTime(LocalDateTime begin, LocalDateTime end);
+    void addScoreLog(ScoreRequestDTO scoreRequestDTO);
 }

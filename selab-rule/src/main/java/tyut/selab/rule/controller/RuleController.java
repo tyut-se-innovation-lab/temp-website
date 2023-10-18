@@ -1,5 +1,6 @@
 package tyut.selab.rule.controller;
 
+import com.ruoyi.common.annotation.Anonymous;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.domain.R;
 import io.swagger.annotations.Api;
@@ -19,6 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/rule")
 public class RuleController {
+
     @Autowired
     private RuleService ruleService;
 
@@ -28,8 +30,8 @@ public class RuleController {
      * @param userId
      * @return
      */
-    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
-    @ApiOperation("根据rule_score中的rule_status字段查询是否需要弹出规章制度")
+    //@PreAuthorize("@ss.hasAnyPermi('rule:content')")
+    @ApiOperation("查询是否需要弹出规章制度")
     @GetMapping("/getRuleStatus/{userId}")
     public AjaxResult getRuleStatus(@PathVariable("userId") Long userId) {
         return AjaxResult.success(ruleService.getRuleStatus(userId));
@@ -41,9 +43,9 @@ public class RuleController {
      * @param userId
      * @param ruleStatus
      */
-    @ApiOperation("当用户点击不再提示奖惩制度窗口后，发送请求修改rule_score表中的rule_status字段")
+    // @ApiOperation("当用户点击不再提示奖惩制度窗口后，发送请求修改rule_score表中的rule_status字段")
     @PutMapping("/setRuleStatus")
-    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
+    @ApiOperation("规章制度之后不再弹出")
     public AjaxResult setRuleStatus(Long userId, int ruleStatus) {
         ruleService.setRuleStatus(userId, ruleStatus);
         return AjaxResult.success();
@@ -68,6 +70,7 @@ public class RuleController {
      * @return
      */
     @PreAuthorize("@ss.hasAnyPermi('rule:content')")
+    @ApiOperation("获取相关用户操作日志")
     @GetMapping("/getOperationInfo/{userId}")
     public AjaxResult getOperationInfo(@PathVariable Long userId) {
         List<OperationVO> operationInfo = ruleService.getOperationInfo(userId);

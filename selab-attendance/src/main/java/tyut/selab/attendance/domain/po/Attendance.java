@@ -42,6 +42,8 @@ public class Attendance {
     @JSONField(format = "yyyy-MM--dd HH:mm:ss")
     Date attEndTime;
 
+
+
     /**
      * 今日签到总时长
      */

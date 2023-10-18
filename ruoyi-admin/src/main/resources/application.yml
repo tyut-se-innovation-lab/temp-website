@@ -76,7 +76,7 @@ spring:
     # 数据库索引
     database: 0
     # 密码
-    password: 
+    password:
     # 连接超时时间
     timeout: 10s
     lettuce:
@@ -107,7 +107,6 @@ mybatis:
     mapperLocations: classpath*:mapper/**/*Mapper.xml
     # 加载全局的配置文件
     configLocation: classpath:mybatis/mybatis-config.xml
-
 # PageHelper分页插件
 pagehelper:
   helperDialect: mysql

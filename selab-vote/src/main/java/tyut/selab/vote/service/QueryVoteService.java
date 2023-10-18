@@ -5,6 +5,7 @@ import tyut.selab.vote.domain.po.VoteRange;
 import tyut.selab.vote.domain.po.VoteResultDetails;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @className: QueryVoteService
@@ -15,23 +16,22 @@ import java.util.List;
  */
 public interface QueryVoteService {
 
-     public List<VoteRange> getForMyReport();
-     public List<VoteRange> getForMyHold();
-     public List<VoteRange> getForUntreated();
-     public List<VoteRange> getForParams();
+      List<VoteRange> queryForMyReport();
+      List<VoteRange> queryForMyHold();
+      List<VoteRange> getForUntreated();
+      List<VoteRange> queryForParams(Map<String,Integer> params);
+      List<VoteRange> getAllVote();
 
      /**
       *  通过id 查询投票信息
       * @param voteId
       * @return
       */
-     public List<VoteInfo> getVoteInfoById(Long voteId);
+      VoteInfo getVoteInfoById(Long voteId);
 
      /**
       *  通过id 查询投票细节信息
       * @param voteId
       * @return
       */
-     public List<VoteResultDetails> getVoteResultDetailsById(Long voteId);
-
 }

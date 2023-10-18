@@ -42,22 +42,23 @@ public class ReportVoteServiceImpl implements ReportVoteService {
 
     @Override
     public Integer submitReportVote(VoteReport voteReport) {
-        //举报次数达到，则冻结
+        return null;
+        // 举报次数达到，则冻结
         int freezeCount = 10;
-        if(TimeDealTool.judgeVoteFinish(voteInfoMapper.queryVoteDeadTime(voteReport.getVoteId()))){
-            //未到截止时间,可以提交举报信息
-            //Long userId = SecurityUtils.getUserId();
-            //voteReport.setUser_id(userId);
-            if(reportVoteMapper.queryReportCount(voteReport.getVoteId()) >= freezeCount) {
+        if (TimeDealTool.judgeVoteFinish(voteInfoMapper.queryVoteDeadTime(voteReport.getVoteId()))) {
+            // 未到截止时间,可以提交举报信息
+            // Long userId = SecurityUtils.getUserId();
+            // voteReport.setUser_id(userId);
+            if (reportVoteMapper.queryReportCount(voteReport.getVoteId()) >= freezeCount) {
                 return 2;
             }
             reportVoteMapper.submitReportVote(voteReport);
-            if(reportVoteMapper.queryReportCount(voteReport.getVoteId()) >= freezeCount) {
-                voteInfoMapper.updateVoteStatus(voteReport.getVoteId(),VoteStatus.FREEZE);
+            if (reportVoteMapper.queryReportCount(voteReport.getVoteId()) >= freezeCount) {
+                voteInfoMapper.updateVoteStatus(voteReport.getVoteId(), VoteStatus.FREEZE);
             }
             return 1;
-        }else{
-            //此刻超出截止时间
+        } else {
+            // 此刻超出截止时间
             return 0;
         }
 
@@ -65,8 +66,6 @@ public class ReportVoteServiceImpl implements ReportVoteService {
 
     @Override
     public List<VoteReport> viewReportVote(Long voteId) {
-        return reportVoteMapper.viewReportVote(voteId);
+        return null;
     }
-
-
 }

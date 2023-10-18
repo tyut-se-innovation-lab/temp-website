@@ -1,5 +1,6 @@
 package tyut.selab.vote.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteRange;
 import tyut.selab.vote.domain.po.VoteResultDetails;
@@ -23,18 +24,7 @@ public interface QueryVoteMapper {
      * @param voteId
      * @return
      */
-    public VoteInfo getVoteInfoByVoteId(Long voteId);
-
-    public List<VoteRange> getByLaunchUserId(Long voteId);
-
-
-//    /**
-//     * 查询选中指定选项的userId(加密后)
-//     *
-//     * @param parseUserId 加密后的userId
-//     * @return
-//     */
-//    List<VoteRange> getParseUserIdByOptionId(String parseUserId);
+    public VoteInfo getVoteInfoByVoteId(@Param("voteId") Long voteId);
 
 
     /**
@@ -43,5 +33,28 @@ public interface QueryVoteMapper {
      * @param isParticipate 0 1
      * @return
      */
-    List<VoteRange> getVoteRangeByParams(Integer isEnd, Integer isParticipate,Long userId);
+    List<VoteRange> queryForParams(Integer isEnd, Integer isParticipate,Long userId);
+
+    /**
+     *  查询我举报的投票
+     */
+
+    List<VoteRange> getMyReport(@Param("userId")Long userId);
+    /**
+     * 查询我发起的投票
+     * @return
+     */
+    List<VoteRange> getMyHold(@Param("userId")Long userId);
+
+    /**查询所有投票
+     *
+     * @return
+     */
+    List<VoteRange> getAllVote();
+
+    /**
+     * 查询冻结投票
+     * @return
+     */
+    List<VoteRange> getForUntreated();
 }

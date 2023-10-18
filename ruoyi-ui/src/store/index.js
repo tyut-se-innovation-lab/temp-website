@@ -9,6 +9,8 @@ import settings from './modules/settings'
 import getters from './getters'
 import scheduleupload from './modules/schedule/upload/upload'
 
+import xjTool from "@/store/modules/xjTool"
+
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -19,7 +21,8 @@ const store = new Vuex.Store({
     tagsView,
     permission,
     settings,
-    scheduleupload
+    scheduleupload,
+    xjTool
   },
   getters
 })

@@ -20,7 +20,10 @@
     </sql>
     <insert id="insertVoteResult" parameterType="tyut.selab.vote.domain.po.VoteResult" keyProperty="id">
         INSERT INTO (vote_id,vote_option_id,user_id,content,is_anonymous,create_time,weight)
-        VALUES(#{voteId},#{voteOptionId},#{userId},#{content},#{isAnonymous},#{createTime},#{weight})
+        VALUES
+            <foreach collection="voteResults" item="voteResult" separator=",">
+                (#{voteResult.voteId},#{voteResult.voteOptionId},#{voteResult.userId},#{voteResult.content},#{voteResult.isAnonymous},#{voteResult.createTime},#{voteResult.weight})
+            </foreach>
     </insert>
     <select id="getVoteResultByOptionIdAndVoteId" parameterType="long">
         SELECT v.id,v.vote_idv.vote_option_id,v.user_id,v.content,v.isanonymous,v.create_time,v.weight,u.nick_name

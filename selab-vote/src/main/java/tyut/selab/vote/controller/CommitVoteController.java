@@ -2,12 +2,19 @@ package tyut.selab.vote.controller;
 
 import com.ruoyi.common.core.domain.AjaxResult;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tyut.selab.vote.domain.DTO.VoteResultRequest;
 import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteResult;
+import tyut.selab.vote.exception.VoteException;
+import tyut.selab.vote.service.ICommitVoteService;
+import tyut.selab.vote.service.IShowVoteResultService;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @className: ParticipateVoteController
@@ -19,17 +26,21 @@ import tyut.selab.vote.domain.po.VoteResult;
 @RequestMapping("/vote/commit")
 @RestController
 public class CommitVoteController {
+    @Autowired
+    private IShowVoteResultService showVoteResultService;
+    @Autowired
+    private ICommitVoteService commitVoteService;
 
 
     /**
      *  提交投票
-     * @param voteResult
+     * @param voteResultRequest
      * @return
      */
     @PostMapping("/dovote")
-    public AjaxResult doVote(@RequestBody VoteResult voteResult){
-        // userId 后端传值
-        return AjaxResult.success(new VoteInfo());
+    public AjaxResult doVote( @RequestBody VoteResultRequest voteResultRequest) throws VoteException {
+        commitVoteService.commitVote(voteResultRequest);
+        return AjaxResult.success(showVoteResultService.getVoteInfoByVoteId(voteResultRequest.getVoteId()));
     }
 
 

@@ -18,7 +18,7 @@ public class VoteOptionDetailsVo {
     private String content;
 
     private String percentage;
-    private Integer voteNum;
+    private Integer chooseNum;
     private List<String> userNames;
 
     public VoteOptionDetailsVo() {
@@ -65,11 +65,11 @@ public class VoteOptionDetailsVo {
     }
 
     public Integer getVoteNum() {
-        return voteNum;
+        return chooseNum;
     }
 
-    public void setVoteNum(Integer voteNum) {
-        this.voteNum = voteNum;
+    public void setVoteNum(Integer chooseNum) {
+        this.chooseNum = chooseNum;
     }
 
     public List<String> getUserName() {
@@ -88,7 +88,7 @@ public class VoteOptionDetailsVo {
                 ", optionType=" + optionType +
                 ", content='" + content + '\'' +
                 ", percentage=" + percentage +
-                ", voteNum=" + voteNum +
+                ", voteNum=" + chooseNum +
                 ", userName=" + userNames +
                 '}';
     }

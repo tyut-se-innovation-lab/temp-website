@@ -17,10 +17,10 @@ public interface VoteResultMapper {
 
     /**
      *  增加结果数据
-     * @param voteResult
+     * @param voteResults
      * @return
      */
-    Integer insertVoteResult(VoteResult voteResult);
+    Integer insertVoteResult(List<VoteResult> voteResults);
 
 
 

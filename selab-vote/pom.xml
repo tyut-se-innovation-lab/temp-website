@@ -26,14 +26,20 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.19</version>
+        </dependency>
+        <dependency>
             <groupId>com.ruoyi</groupId>
             <artifactId>ruoyi-common</artifactId>
         </dependency>
         <dependency>
-            <groupId>cn.itlym.shoulder</groupId>
-            <artifactId>lombok</artifactId>
-            <version>0.1</version>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.3.1.Final</version>
         </dependency>
+
 
     </dependencies>
 </project>

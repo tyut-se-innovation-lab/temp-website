@@ -41,12 +41,12 @@ public class VoteStatusHandler implements TypeHandler<VoteStatus> {
 
     @Override
     public VoteStatus getResult(ResultSet resultSet, String s) throws SQLException {
-        return VoteStatus.values()[resultSet.getInt(s)];
+        return VoteStatus.values()[resultSet.getInt(s)-1];
     }
 
     @Override
     public VoteStatus getResult(ResultSet resultSet, int i) throws SQLException {
-        return VoteStatus.values()[resultSet.getInt(i)];
+        return VoteStatus.values()[resultSet.getInt(i)-1];
     }
 
     @Override

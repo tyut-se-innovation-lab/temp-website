@@ -19,4 +19,10 @@ public interface VoteWeightMapper {
      * @return
      */
     List<VoteWeight> listVoteWeightByVoteId(Long voteId);
+
+    /**
+     *   通过userId获取本投票权重
+     * @return
+     */
+    Integer getWeightByUserId(Long voteId,Long userId);
 }

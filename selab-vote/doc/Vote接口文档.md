@@ -15,7 +15,7 @@
 **接口路径**:/v3/api-docs
 
 
-[TOC]
+
 
 
 
@@ -792,9 +792,6 @@
       "voteId": 0,   空
       "optionType": "",
       "content": "",
-      "percentage": 0,  空
-      "voteNum": 0,     空
-      "isSelect": true  空
     }
   ],
   "isComplete": 0, 空
@@ -1103,15 +1100,15 @@
 
 #### VoteReminderType
 
-| sign | remake           |
-| :--: | ---------------- |
+| sign | remake         |
+| :--: | -------------- |
 |  1   | 举报数量上限冻结 |
-|  2   | 投票被举报       |
-|  3   | 撤回投票提醒     |
-|  4   | 待参与投票提醒   |
+|  2   | 投票被举报     |
+|  3   | 撤回投票提醒   |
+|  4   | 待参与投票提醒 |
 |  5   | 冻结处理结果提醒 |
 |  6   | 投票即将结束提醒 |
-|  7   | 投票即将结束提醒 |
+|  7   | 投票结束提醒 |
 
 #### VoteStatus
 
@@ -1136,23 +1133,41 @@
 
 #### VoteInfo 投票信息
 
-| 参数名称         | 参数类型           | 参数说明     |
-| ---------------- | ------------------ | ------------ |
-| voteId           | Long               | 主键ID       |
-| userName         | String             | 发起人       |
-| voteType         | VoteType           | 投票类型     |
-| title            | String             | 投票标题     |
-| content          | String             | 投票介绍     |
-| status           | VoteStatus         | 投票状态     |
-| createTime       | Date               | 创建时间     |
-| deadTime         | Date               | 截止时间     |
-| optionNum        | Integer            | 选择个数     |
-| isRealTime       | String             | 投票是否实时 |
-| voteOptionVoList | List<VoteOptionVo> | 投票选项     |
-| isComplete       | Integer            | 是否已完成   |
-| voteWeights      | List<VoteWeight>   | 投票权重     |
-| delFlag          | String             | 删除标志     |
+| 参数名称         | 参数类型                | 参数说明     |
+| ---------------- |---------------------| ------------ |
+| voteId           | Long                | 主键ID       |
+| userName         | String              | 发起人       |
+| voteType         | VoteType            | 投票类型     |
+| title            | String              | 投票标题     |
+| content          | String              | 投票介绍     |
+| status           | VoteStatus          | 投票状态     |
+| createTime       | Date                | 创建时间     |
+| deadTime         | Date                | 截止时间     |
+| optionNum        | Integer             | 选择个数     |
+| isRealTime       | String              | 投票是否实时 |
+| voteOptionLaunchDTOs | List<VoteOptionDTO> | 投票选项     |
+| isComplete       | Integer             | 是否已完成   |
+| voteWeights      | List<VoteWeight>    | 投票权重     |
+| delFlag          | String              | 删除标志     |
 
+#### VoteInfoLaunchDTO 投票信息
+
+| 参数名称         | 参数类型           | 参数说明     |
+| ---------------- | ---------------- | ------------ |
+| voteId           | Long             | 主键ID       |
+| userName         | String           | 发起人       |
+| voteType         | VoteType         | 投票类型     |
+| title            | String           | 投票标题     |
+| content          | String           | 投票介绍     |
+| status           | VoteStatus       | 投票状态     |
+| createTime       | Date             | 创建时间     |
+| deadTime         | Date             | 截止时间     |
+| optionNum        | Integer          | 选择个数     |
+| isRealTime       | String           | 投票是否实时 |
+| voteOptionList | List<VoteOption> | 投票选项     |
+| isComplete       | Integer          | 是否已完成   |
+| voteWeights      | List<VoteWeight> | 投票权重     |
+| delFlag          | String           | 删除标志     |
 ### VoteOption投票选项
 
 | 参数名称   | 参数类型       | 参数说明 |
@@ -1186,20 +1201,20 @@
 
 ## VoteResultDetails(投票细节展示)
 
-| 参数名称          | 参数类型                | 参数说明     |
-| ----------------- | ----------------------- | ------------ |
-| voteId            | Long                    | 主键ID       |
-| userName          | String                  | 发起人       |
-| userId            | Long                    | 发起人ID     |
-| type              | VoteType                | 投票类型     |
-| title             | String                  | 投票标题     |
-| content           | String                  | 投票介绍     |
-| status            | VoteStatus              | 投票状态     |
-| createTime        | Date                    | 创建时间     |
-| deadTime          | Date                    | 截止时间     |
-| voteOptionDetails | List<VoteOptionDetails> | 投票选项     |
-| voteReports       | List<VoteReport>        | 投票举报信息 |
-| voteWeights       | List<VoteWeight>        | 投票权重     |
+| 参数名称              | 参数类型                    | 参数说明             |
+|-------------------|-------------------------|------------------|
+| voteId            | Long                    | 主键ID             |
+| userName          | String                  | 发起人              |
+| userId            | Long                    | 发起人ID            |
+| voteType          | VoteType                | 投票类型             |
+| title             | String                  | 投票标题             |
+| content           | String                  | 投票介绍             |
+| status            | VoteStatus              | 投票状态             |
+| createTime        | Date                    | 创建时间             |
+| deadTime          | Date                    | 截止时间             |
+| voteOptionDetails | List<VoteOptionDetails> | 投票选项             |
+| isRealTime        | String                  | 投票是否实时（1为实时，0为否） |
+| voteWeights       | List<VoteWeight>        | 投票权重             |
 
 #### VoteUser参与投票人
 
@@ -1220,25 +1235,25 @@
 
 #### VoteOptionDetails投票选项细节
 
-| 参数名称   | 参数类型       | 参数说明         |
-| ---------- | -------------- | ---------------- |
+| 参数名称   | 参数类型           | 参数说明         |
+| ---------- |----------------| ---------------- |
 | id         | Long           | 主键ID           |
 | voteId     | Long           | 投票ID           |
 | optionType | VoteOptionType | 选项类型         |
 | content    | String         | 选项内容         |
-| percentage | Double         | 该选项百分比     |
+| percentage | String         | 该选项百分比     |
 | voteNum    | Integer        | 该选项票数       |
 | userName   | List<String>   | 选择当前选项人员 |
 
-#### VoteOptionVo
+#### VoteOptionDTO
 
-| 参数名称   | 参数类型       | 参数说明 |
-| ---------- | -------------- | -------- |
+| 参数名称   | 参数类型           | 参数说明 |
+| ---------- |----------------| -------- |
 | id         | Long           | 主键ID   |
 | voteId     | Long           | 投票ID   |
 | optionType | VoteOptionType | 选项类型 |
 | content    | String         | 选项内容 |
-| percentage | Double         | 百分比   |
+| percentage | String         | 百分比   |
 | voteNum    | Integer        | 票数     |
 | isSelect   | Boolean        | 是否选中 |
 

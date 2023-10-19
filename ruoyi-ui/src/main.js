@@ -11,7 +11,7 @@ import App from './App'
 import store from './store'
 import router from './router'
 import directive from './directive' // directive
-import plugins from './plugins' // plugins
+import {plugins, xjTool} from './plugins' // plugins
 import { download } from '@/utils/request'
 
 import './assets/icons' // icon
@@ -60,8 +60,11 @@ Vue.component('ImagePreview', ImagePreview)
 
 Vue.use(directive)
 Vue.use(plugins)
+Vue.use(xjTool)
 Vue.use(VueMeta)
 DictData.install()
+
+
 
 /**
  * If you don't want to use mock-server

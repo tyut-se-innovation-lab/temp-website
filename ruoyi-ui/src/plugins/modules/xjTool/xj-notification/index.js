@@ -1,5 +1,40 @@
 import './index.css'
 
+/*
+ * notification 通知弹窗
+ * @param {string} title 标题 选填
+ * @param {string} message 信息 必填
+ * @param {string} type 类型 选填 默认normal   success warning error
+ * @param {string} location 位置 选填 默认left-bottom   left-top right-top right-bottom left-bottom-1...
+ * @param {number} duration 持续时间 默认3000 如果是0 则不会自动关闭 除 0 外 最小值为 1000
+ * @param {boolean} showClose 是否可以手动关闭 默认可以 开启时，鼠标移入会停止自动关闭计时
+ * @param {boolean} userSelect 是否限制文本选中 默认 true 禁止选中文本
+ * @param {Function | null} callback 点击通知框时运行的回调函数，callback 接收一个 notification 位置的参数
+ *
+ * 示例:
+ * // 创建一个位于右上角的第二格位置的不会自动消失的通知
+ * const notify1 = this.$xjNotify({
+        title: 'notification title测试-3',
+        message: 'notification message测试-3',
+        type: 'warning',
+        location: 'right-top',
+        duration: 0,
+        callback: () => {
+          console.log('@3 async callback 运行了')
+          this.$router.push({
+            path: `/user/noticePop`,
+          })
+          return '@3 callback 运行 的返回值'
+        }
+      })
+ * // 输出 callback 的返回值
+ * notify1.then(v => { console.log(v) })
+ * // 将通知从第二格改到第五格
+ * notify1.setLocation(5)
+ * // 关闭该通知
+ * notify1.close()
+ */
+
 class NotificationList {
   static #length = {
     'left-bottom': { length: 0, list:[] },
@@ -455,11 +490,4 @@ class Notification {
   }
 }
 
-export default {
-  namespaced: true,
-  actions: {
-    'xjNotification' (context, v) {
-      new Notification(v)
-    }
-  }
-}
+export { Notification }

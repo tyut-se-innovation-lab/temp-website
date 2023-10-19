@@ -4,7 +4,10 @@ import cache from './cache'
 import modal from './modal'
 import download from './download'
 
-export default {
+import _xjTool from "@/plugins/modules/xjTool"
+
+
+export const plugins = {
   install(Vue) {
     // 页签操作
     Vue.prototype.$tab = tab
@@ -16,5 +19,11 @@ export default {
     Vue.prototype.$modal = modal
     // 下载文件
     Vue.prototype.$download = download
+  }
+}
+
+export const xjTool = {
+  install (Vue) {
+    Vue.prototype.$xjNotify = _xjTool.notification
   }
 }

@@ -107,15 +107,7 @@ export const constantRoutes = [
         name: "join",
         path: "join",
         component: () => import('@/views/vote/join/index'),
-        meta: {title: '参与投票'},
-
-        children: [
-          {
-            name: "success",
-            path: "success",
-            component: () => import('@/views/vote/join/success/index')
-          },
-        ]
+        meta: {title: '参与投票'}
       },
       {
         name: "history",
@@ -123,35 +115,6 @@ export const constantRoutes = [
         component: () => import('@/views/vote/history/index'),
         meta: {title: '查看历史投票'},
       },
-      {
-        name: "historydetails",
-        path: "historydetails",
-        component: () => import('@/views/vote/history/details/index'),
-        meta: {title: '历史投票细节'},
-      },
-      {
-        name: "joindetails",
-        path: "joindetails",
-        component: () => import('@/views/vote/join/details/index'),
-        meta: {title: '参与投票细节'},
-      },
-
-      // {
-      //   path: '/vote/history',
-      //   component: () => import('@/views/vote/history/brief/index'),
-      //   children: [
-      //     {
-      //       path: '/vote/history',
-      //       component: () => import('@/views/vote/history/brief/index'),
-      //       children: [
-      //         {
-      //           path: "details",
-      //           component: () => import('@/views/vote/history/details/index')
-      //         }
-      //       ]
-      //     }]
-      // },
-
       // 权重
       {
         path: '/vote/management',
@@ -161,12 +124,6 @@ export const constantRoutes = [
       {
         path: '/vote/initiate',
         component: () => import('../views/vote/initiate/index'),
-      },
-      {
-        name: "historyAllData",
-        path: "historyAllData",
-        component: () => import('@/views/vote/mine/historyAllData.vue'),
-        meta: {title: '我的投票细节'},
       }
     ]
   },

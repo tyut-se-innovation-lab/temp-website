@@ -80,6 +80,17 @@
               end-placeholder="结束日期"
             ></el-date-picker>
           </el-form-item>
+          <el-form-item label="用户分数">
+            <el-date-picker
+              v-model="dateRange"
+              style="width: 240px"
+              value-format="yyyy-MM-dd"
+              type="daterange"
+              range-separator="-"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+            ></el-date-picker>
+          </el-form-item>
           <el-form-item>
             <el-button
               type="primary"
@@ -359,20 +370,9 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="角色">
-              <el-select
-                v-model="form.roleIds"
-                multiple
-                placeholder="请选择角色"
-              >
-                <el-option
-                  v-for="item in roleOptions"
-                  :key="item.roleId"
-                  :label="item.roleName"
-                  :value="item.roleId"
-                  :disabled="item.status == 1"
-                ></el-option>
-              </el-select>
+            <el-form-item label="分数">
+              <el-input v-model="userScore" placeholder="请输入对应的分数">
+              </el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -452,7 +452,7 @@ import {
 import { getToken } from "@/utils/auth";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
-
+import { scoreController } from "@/api/rule/editor";
 export default {
   name: "User",
   dicts: ["sys_normal_disable", "sys_user_sex"],
@@ -489,12 +489,17 @@ export default {
       postOptions: [],
       // 角色选项
       roleOptions: [],
+      //用户分数
+
       // 表单参数
       form: {},
       defaultProps: {
         children: "children",
         label: "label",
       },
+
+      //修改信息表单中分数
+      userScore: "",
       // 用户导入参数
       upload: {
         // 是否显示弹出层（用户导入）
@@ -591,6 +596,12 @@ export default {
     });
   },
   methods: {
+    /*增减用户分数  */
+    async add() {
+      const res = await scoreController(this.userScore, this.form.userId);
+      console.log(res);
+    },
+
     /** 查询用户列表 */
     getList() {
       this.loading = true;
@@ -739,10 +750,12 @@ export default {
       this.$refs["form"].validate((valid) => {
         if (valid) {
           if (this.form.userId != undefined) {
-            updateUser(this.form).then((response) => {
-              this.$modal.msgSuccess("修改成功");
-              this.open = false;
-              this.getList();
+            this.add().then(() => {
+              updateUser(this.form).then((response) => {
+                this.$modal.msgSuccess("修改成功");
+                this.open = false;
+                this.getList();
+              });
             });
           } else {
             addUser(this.form).then((response) => {

@@ -1,9 +1,12 @@
 import request from "@/utils/request";
 
 //增减分数
-export const scoreController = (userId, scoreChange) => {
+export const scoreController = (scoreChange, userId) => {
   return request.put("/rule/score", {
-    userId: 1,
-    scoreChange: 1,
+    scoreChange,
+    userId,
+    //非必须参数
+    createTime: "",
+    menderId: 0,
   });
 };

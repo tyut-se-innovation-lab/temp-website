@@ -1,8 +1,7 @@
 <template>
- <History/>
+  <div>mine</div>
 </template>
 <script>
-import History from "@/views/vote/mine/History.vue";
 export default {
   components: {
     History,

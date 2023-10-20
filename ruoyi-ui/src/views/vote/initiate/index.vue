@@ -1,13 +1,10 @@
 <template>
-    <options></options>
+    <div></div>
 </template>
 
 <script>
-import options from "./option.vue";
 export default {
-  components:{
-    options
-  }
+
 }
 </script>
 

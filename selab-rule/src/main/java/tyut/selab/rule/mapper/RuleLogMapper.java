@@ -24,4 +24,5 @@ public interface RuleLogMapper {
 
     int updateByPrimaryKey(RuleLog record);
 
+    int deleteByLogId(Long logId);
 }

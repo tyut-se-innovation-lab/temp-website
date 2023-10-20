@@ -17,7 +17,7 @@ import './index.css'
         title: 'notification title测试-3',
         message: 'notification message测试-3',
         type: 'warning',
-        location: 'right-top',
+        location: 'right-top-2',
         duration: 0,
         callback: () => {
           console.log('@3 async callback 运行了')

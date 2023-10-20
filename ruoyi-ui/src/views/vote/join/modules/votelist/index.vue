@@ -6,7 +6,9 @@ export default {
 
 <template>
   <div class="voteList">
+    <slot>
 
+    </slot>
   </div>
 </template>
 

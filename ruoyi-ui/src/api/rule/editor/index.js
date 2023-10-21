@@ -21,3 +21,11 @@ export const ruleController = (userId) => {
     method: "get",
   });
 };
+
+//删除用户操作日志
+export const logController = (logId) => {
+  return request({
+    url: "/rule/log/deleteLog/" + logId,
+    method: "delete",
+  });
+};

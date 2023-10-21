@@ -261,17 +261,18 @@
           width="150"
         >
         </el-table-column>
-        <el-table-column prop="score" label="分数" width="120">
+        <el-table-column
+          prop="scoreChange"
+          key="scoreChange"
+          label="分数"
+          width="120"
+        >
         </el-table-column>
-        <el-table-column prop="reason" label="原因" width="360">
+        <el-table-column prop="reasonContent" label="原因" width="360">
         </el-table-column>
         <el-table-column fixed="right" label="操作">
           <template slot-scope="scope">
-            <el-button
-              @click.native.prevent="deleteRow(scope.$index, tableData)"
-              type="text"
-              size="small"
-            >
+            <el-button @click="logControll(scope)" type="text" size="small">
               移除
             </el-button>
           </template>
@@ -457,7 +458,11 @@ import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 
 //导入编辑分数和查询用户日志的api
-import { scoreController, ruleController } from "@/api/rule/editor";
+import {
+  scoreController,
+  ruleController,
+  logController,
+} from "@/api/rule/editor";
 export default {
   name: "User",
   dicts: ["sys_normal_disable", "sys_user_sex"],
@@ -611,6 +616,11 @@ export default {
     });
   },
   methods: {
+    /* 删除用户操作日志 */
+    async logControll(scope) {
+      await logController(scope.row.ruleLogId);
+      this.dialogVisibledele = false;
+    },
     /*增减用户分数  */
     async add() {
       const res = await scoreController(
@@ -804,9 +814,7 @@ export default {
     /** 删除按钮操作 */
     async handleDelete(row) {
       const userIds = row.userId || this.ids;
-      console.log(userIds);
       const res = await ruleController(userIds);
-      console.log(res);
       this.tableData = res.data;
       this.dialogVisibledele = true;
     },

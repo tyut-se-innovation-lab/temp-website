@@ -1,6 +1,4 @@
 <script>
-console.log(123);
-console.log(132);
 export default {
   name: "rule",
   data() {
@@ -153,7 +151,7 @@ export default {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .content {
   width: 100%;
   height: 100%;

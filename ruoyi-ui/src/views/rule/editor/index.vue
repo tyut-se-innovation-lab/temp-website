@@ -227,7 +227,7 @@
                 icon="el-icon-edit"
                 @click="handleUpdate(scope.row)"
                 v-hasPermi="['system:user:edit']"
-                >修改</el-button
+                >增减分数</el-button
               >
               <el-button
                 size="mini"
@@ -235,7 +235,7 @@
                 icon="el-icon-delete"
                 @click="handleDelete(scope.row)"
                 v-hasPermi="['system:user:remove']"
-                >删除</el-button
+                >删除记录</el-button
               >
             </template>
           </el-table-column>
@@ -250,7 +250,34 @@
         />
       </el-col>
     </el-row>
-
+    <!-- 删除记录对话框 -->
+    <el-dialog title="删除记录" :visible.sync="dialogVisibledele" width="80%">
+      <el-table :data="tableData" style="width: 100%" max-height="250">
+        <el-table-column
+          fixed
+          prop="createTime"
+          key="createTime"
+          label="日期"
+          width="150"
+        >
+        </el-table-column>
+        <el-table-column prop="score" label="分数" width="120">
+        </el-table-column>
+        <el-table-column prop="reason" label="原因" width="360">
+        </el-table-column>
+        <el-table-column fixed="right" label="操作">
+          <template slot-scope="scope">
+            <el-button
+              @click.native.prevent="deleteRow(scope.$index, tableData)"
+              type="text"
+              size="small"
+            >
+              移除
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
     <!-- 添加或修改用户配置对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
@@ -286,12 +313,15 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="邮箱" prop="email">
-              <el-input
-                v-model="form.email"
-                placeholder="请输入邮箱"
-                maxlength="50"
-              />
+            <el-form-item label="状态">
+              <el-radio-group v-model="form.status">
+                <el-radio
+                  v-for="dict in dict.type.sys_normal_disable"
+                  :key="dict.value"
+                  :label="dict.value"
+                  >{{ dict.label }}</el-radio
+                >
+              </el-radio-group>
             </el-form-item>
           </el-col>
         </el-row>
@@ -327,50 +357,7 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="用户性别">
-              <el-select v-model="form.sex" placeholder="请选择性别">
-                <el-option
-                  v-for="dict in dict.type.sys_user_sex"
-                  :key="dict.value"
-                  :label="dict.label"
-                  :value="dict.value"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="状态">
-              <el-radio-group v-model="form.status">
-                <el-radio
-                  v-for="dict in dict.type.sys_normal_disable"
-                  :key="dict.value"
-                  :label="dict.value"
-                  >{{ dict.label }}</el-radio
-                >
-              </el-radio-group>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="岗位">
-              <el-select
-                v-model="form.postIds"
-                multiple
-                placeholder="请选择岗位"
-              >
-                <el-option
-                  v-for="item in postOptions"
-                  :key="item.postId"
-                  :label="item.postName"
-                  :value="item.postId"
-                  :disabled="item.status == 1"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="分数">
+            <el-form-item label="分数" :required="true">
               <el-input v-model="userScore" placeholder="请输入对应的分数">
               </el-input>
             </el-form-item>
@@ -378,12 +365,28 @@
         </el-row>
         <el-row>
           <el-col :span="24">
-            <el-form-item label="备注">
-              <el-input
-                v-model="form.remark"
-                type="textarea"
-                placeholder="请输入内容"
-              ></el-input>
+            <el-form-item label="原因" :required="true">
+              <el-input v-model="usermsg" placeholder="请输入原因"> </el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <!-- 上传证据照片 -->
+        <el-row>
+          <el-col :span="24">
+            <el-form-item label="证据照片" prop="">
+              <el-upload
+                :http-request="uploadFile"
+                action="https://jsonplaceholder.typicode.com/posts/"
+                list-type="picture-card"
+                :on-preview="handlePictureCardPreview"
+                :on-remove="handleRemove"
+              >
+                <i class="el-icon-plus"></i>
+              </el-upload>
+              <el-dialog :visible.sync="dialogVisible">
+                <img width="100%" :src="dialogImageUrl" alt="" />
+              </el-dialog>
             </el-form-item>
           </el-col>
         </el-row>
@@ -452,13 +455,17 @@ import {
 import { getToken } from "@/utils/auth";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
-import { scoreController } from "@/api/rule/editor";
+
+//导入编辑分数和查询用户日志的api
+import { scoreController, ruleController } from "@/api/rule/editor";
 export default {
   name: "User",
   dicts: ["sys_normal_disable", "sys_user_sex"],
   components: { Treeselect },
   data() {
     return {
+      //删除记录表单数据
+      tableData: "",
       // 遮罩层
       loading: true,
       // 选中数组
@@ -489,7 +496,6 @@ export default {
       postOptions: [],
       // 角色选项
       roleOptions: [],
-      //用户分数
 
       // 表单参数
       form: {},
@@ -497,9 +503,18 @@ export default {
         children: "children",
         label: "label",
       },
+      //删除记录对话框参数
+      dialogVisibledele: false,
 
       //修改信息表单中分数
       userScore: "",
+      //修改信息表单中原因
+      usermsg: "",
+
+      //上传证据照片参数
+      dialogImageUrl: "",
+      dialogVisible: false,
+
       // 用户导入参数
       upload: {
         // 是否显示弹出层（用户导入）
@@ -598,10 +613,27 @@ export default {
   methods: {
     /*增减用户分数  */
     async add() {
-      const res = await scoreController(this.userScore, this.form.userId);
-      console.log(res);
+      const res = await scoreController(
+        this.usermsg,
+        this.userScore,
+        this.form.userId
+      );
     },
-
+    /*上传证据照片  */
+    /* 删除照片 */
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    /* 放大照片 */
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+      console.log(file);
+    },
+    /* 解决图片回显跨域问题 */
+    uploadFile(file) {
+      this.file = file;
+    },
     /** 查询用户列表 */
     getList() {
       this.loading = true;
@@ -755,6 +787,8 @@ export default {
                 this.$modal.msgSuccess("修改成功");
                 this.open = false;
                 this.getList();
+                this.usermsg = "";
+                this.userScore = "";
               });
             });
           } else {
@@ -768,18 +802,13 @@ export default {
       });
     },
     /** 删除按钮操作 */
-    handleDelete(row) {
+    async handleDelete(row) {
       const userIds = row.userId || this.ids;
-      this.$modal
-        .confirm('是否确认删除用户编号为"' + userIds + '"的数据项？')
-        .then(function () {
-          return delUser(userIds);
-        })
-        .then(() => {
-          this.getList();
-          this.$modal.msgSuccess("删除成功");
-        })
-        .catch(() => {});
+      console.log(userIds);
+      const res = await ruleController(userIds);
+      console.log(res);
+      this.tableData = res.data;
+      this.dialogVisibledele = true;
     },
     /** 导出按钮操作 */
     handleExport() {

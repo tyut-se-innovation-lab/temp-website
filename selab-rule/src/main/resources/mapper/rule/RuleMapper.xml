@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tyut.selab.rule.mapper.RuleMapper">
+
+    <resultMap id="RuleLogResultMap" type="tyut.selab.rule.domain.entity.Operation">
+        <id property="ruleLogId" column="rule_log_id" />
+        <result property="targetUserId" column="target_user_id" />
+        <result property="reasonContent" column="reason_content" />
+        <result property="image" column="image" />
+        <result property="createTime" column="create_time" />
+        <result property="createUserId" column="create_user_id" />
+        <result property="status" column="status" />
+        <result property="updateTime" column="update_time" />
+        <result property="updateUser" column="update_user" />
+        <result property="scoreChange" column="score_change"/>
+        <result property="ruleLogId" column="rule_log_id"/>
+    </resultMap>
+
+    <update id="setRuleStatus">
+        update rule_score set rule_status=#{rule_status} where user_id=#{user_id}
+    </update>
+    <!--将所有用户的socre清零-->
+    <update id="clearAllScore">
+        update rule_score set scores=0
+    </update>
+    <select id="getRuleStatus" resultType="java.lang.Integer">
+        select rule_status from rule_score where user_id=#{user_id}
+    </select>
+    <select id="getOperationInfo" resultMap="RuleLogResultMap">
+        select * from rule_log where target_user_id = #{userId}
+    </select>
+
+
+
+</mapper>

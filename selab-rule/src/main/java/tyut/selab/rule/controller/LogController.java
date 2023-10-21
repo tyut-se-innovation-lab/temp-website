@@ -2,6 +2,7 @@ package tyut.selab.rule.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ruoyi.common.core.domain.AjaxResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
@@ -43,6 +44,7 @@ public class LogController {
     public AjaxResult selectAllLog(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
         PageHelper.startPage(pageNum, pageSize);
         List<OperationVO> operationVOS = logService.selectAllLog();
-        return AjaxResult.success(operationVOS);
+        PageInfo<OperationVO> pageInfo = new PageInfo<>(operationVOS);
+        return AjaxResult.success(pageInfo.getList());
     }
 }

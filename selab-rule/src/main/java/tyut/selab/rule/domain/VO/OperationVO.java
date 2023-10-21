@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class OperationVO {
+    //日志id
+    Long ruleLogId;
     //奖惩原因
     String reasonContent;
     //奖惩时间
@@ -12,4 +14,6 @@ public class OperationVO {
     String createUserId;
     //图片路径
     String image;
+    //操作的分数
+    Integer scoreChange;
 }

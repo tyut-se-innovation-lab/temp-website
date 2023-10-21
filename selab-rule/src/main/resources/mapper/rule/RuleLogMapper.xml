@@ -33,6 +33,13 @@
         delete from rule_log
         where  rule_log_id = #{ruleLogId,jdbcType=BIGINT} 
     </delete>
+<!--deleteByLogId-->
+
+    <delete id="deleteByLogId" parameterType="java.lang.Long">
+        delete from rule_log
+        where  rule_log_id = #{logId,jdbcType=BIGINT}
+    </delete>
+
     <insert id="insert" keyColumn="rule_log_id" keyProperty="ruleLogId" parameterType="tyut.selab.rule.domain.RuleLog" useGeneratedKeys="true">
         insert into rule_log
         ( rule_log_id,target_user_id,reason_content

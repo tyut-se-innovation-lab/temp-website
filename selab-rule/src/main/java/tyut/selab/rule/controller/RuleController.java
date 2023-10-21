@@ -64,7 +64,7 @@ public class RuleController {
     }
 
     /**
-     * 查询需要弹出的操作信息
+     * 获取相关用户操作日志
      *
      * @return
      */

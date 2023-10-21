@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Operation {
-    String ruleLogId;
+    Long ruleLogId;
     String targetUserId;
     String reasonContent;
     String image;
@@ -13,5 +13,5 @@ public class Operation {
     String status;
     String updateTime;
     String updateUser;
-
+    Integer scoreChange;
 }

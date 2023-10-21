@@ -22,6 +22,7 @@ public class UserController {
     //查看用户的当前分数和与该用户相关的操作
     @Autowired
     private UserService userService;
+    @Autowired
     private TokenService tokenService;
 
     @PreAuthorize("@ss.hasAnyPermi('rule:announcement')")

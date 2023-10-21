@@ -1,8 +1,6 @@
 package tyut.selab.rule.controller;
 
-import com.ruoyi.common.annotation.Anonymous;
 import com.ruoyi.common.core.domain.AjaxResult;
-import com.ruoyi.common.core.domain.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +28,7 @@ public class RuleController {
      * @param userId
      * @return
      */
-    //@PreAuthorize("@ss.hasAnyPermi('rule:content')")
+    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
     @ApiOperation("查询是否需要弹出规章制度")
     @GetMapping("/getRuleStatus/{userId}")
     public AjaxResult getRuleStatus(@PathVariable("userId") Long userId) {
@@ -46,6 +44,7 @@ public class RuleController {
     // @ApiOperation("当用户点击不再提示奖惩制度窗口后，发送请求修改rule_score表中的rule_status字段")
     @PutMapping("/setRuleStatus")
     @ApiOperation("规章制度之后不再弹出")
+    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
     public AjaxResult setRuleStatus(Long userId, int ruleStatus) {
         ruleService.setRuleStatus(userId, ruleStatus);
         return AjaxResult.success();

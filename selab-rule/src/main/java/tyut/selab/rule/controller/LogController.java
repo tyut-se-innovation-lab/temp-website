@@ -27,9 +27,9 @@ public class LogController {
     @ApiOperation("根据日志ID删除日志")
     @DeleteMapping("/deleteLog")
     @PreAuthorize("@ss.hasAnyPermi('rule:content')")
-    public AjaxResult deleteLog(@RequestParam String logId){
+    public AjaxResult deleteLog(Long userId,@RequestParam String logId){
         log.info(logId);
-        logService.deleteLog(Long.valueOf(logId));
+        logService.deleteLog(userId,Long.valueOf(logId));
         return AjaxResult.success();
     }
 }

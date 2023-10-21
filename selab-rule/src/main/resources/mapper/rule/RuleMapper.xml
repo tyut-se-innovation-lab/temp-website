@@ -28,7 +28,6 @@
     <select id="getRuleStatus" resultType="java.lang.Integer">
         select rule_status from rule_score where user_id=#{user_id}
     </select>
-
     <select id="getOperationInfo" resultMap="RuleLogResultMap">
         select * from rule_log where target_user_id = #{userId}
     </select>

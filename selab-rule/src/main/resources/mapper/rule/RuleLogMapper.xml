@@ -34,8 +34,11 @@
         select
             <include refid="Base_Column_List" />
         from rule_log
-    </select>
 
+    </select>
+    <select id="getByRuleLogId" resultType="java.lang.Integer">
+        select score_change from rule_log where rule_log_id = #{logId}
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from rule_log

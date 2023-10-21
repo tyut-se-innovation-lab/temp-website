@@ -6,11 +6,11 @@ import tyut.selab.rule.domain.VO.OperationVO;
 import java.util.List;
 
 /**
-* @author Tapper
-* @description 针对表【rule_log(奖惩制度的日志记载)】的数据库操作Mapper
-* @createDate 2023-10-09 12:03:15
-* @Entity tyut.selab.rule.domain.RuleLog
-*/
+ * @author Tapper
+ * @description 针对表【rule_log(奖惩制度的日志记载)】的数据库操作Mapper
+ * @createDate 2023-10-09 12:03:15
+ * @Entity tyut.selab.rule.domain.RuleLog
+ */
 public interface RuleLogMapper {
 
     int deleteByPrimaryKey(Long id);
@@ -27,5 +27,7 @@ public interface RuleLogMapper {
 
     int deleteByLogId(Long logId);
 
+    int getByRuleLogId(Long logId);
+    
     List<OperationVO> selectAllLog();
 }

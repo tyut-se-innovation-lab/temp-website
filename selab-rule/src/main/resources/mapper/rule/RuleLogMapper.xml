@@ -27,6 +27,9 @@
         from rule_log
         where target_user_id = #{userId,jdbcType=BIGINT}
     </select>
+    <select id="getByRuleLogId" resultType="java.lang.Integer">
+        select score_change from rule_log where rule_log_id = #{logId}
+    </select>
 
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

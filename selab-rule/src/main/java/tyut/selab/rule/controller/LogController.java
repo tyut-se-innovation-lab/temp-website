@@ -7,7 +7,10 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import tyut.selab.rule.mapper.RuleLogMapper;
 import tyut.selab.rule.service.LogService;
 
@@ -22,11 +25,11 @@ public class LogController {
 
     //删除日志
     @ApiOperation("根据日志ID删除日志")
-    @DeleteMapping("/deleteLog/{logId}")
+    @DeleteMapping("/deleteLog")
     @PreAuthorize("@ss.hasAnyPermi('rule:content')")
-    public AjaxResult deleteLog(@PathVariable String logId){
+    public AjaxResult deleteLog(Long userId,@RequestParam String logId){
         log.info(logId);
-        logService.deleteLog(Long.valueOf(logId));
+        logService.deleteLog(userId,Long.valueOf(logId));
         return AjaxResult.success();
     }
 }

@@ -1,5 +1,6 @@
 package tyut.selab.rule.service.impl;
 
+import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.common.core.domain.model.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.ruoyi.framework.web.service.TokenService;
@@ -10,6 +11,7 @@ import tyut.selab.rule.service.ScoreService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 分数管理
@@ -57,5 +59,10 @@ public class ScoreServiceImpl implements ScoreService {
     @Override
     public void setOperationPop(Integer i) {
         scoreMapper.setOperationPop(1);
+    }
+
+    @Override
+    public List<SysUser> list(Long scoreCheck) {
+        return scoreMapper.list(scoreCheck);
     }
 }

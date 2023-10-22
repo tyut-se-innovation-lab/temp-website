@@ -1,8 +1,10 @@
 package tyut.selab.rule.service;
 
+import com.ruoyi.common.core.domain.entity.SysUser;
 import tyut.selab.rule.domain.DTO.ScoreRequestDTO;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 分数管理业务层
@@ -28,4 +30,6 @@ public interface ScoreService {
      * @param i
      */
     void setOperationPop(Integer i);
+
+    List<SysUser> list(Long scoreCheck);
 }

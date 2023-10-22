@@ -1,5 +1,6 @@
 package tyut.selab.rule.mapper;
 
+import com.ruoyi.common.core.domain.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -7,6 +8,7 @@ import org.apache.ibatis.annotations.Update;
 import tyut.selab.rule.domain.DTO.ScoreRequestDTO;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Mapper
 public interface ScoreMapper {
@@ -42,4 +44,6 @@ public interface ScoreMapper {
      * @param scoreRequestDTO
      */
     void addScoreLog(ScoreRequestDTO scoreRequestDTO);
+
+    List<SysUser> list(Long scoreCheck);
 }

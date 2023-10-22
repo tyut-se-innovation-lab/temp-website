@@ -2,7 +2,9 @@ package tyut.selab.rule.mapper;
 
 import tyut.selab.rule.domain.RuleLog;
 import tyut.selab.rule.domain.VO.OperationVO;
+import tyut.selab.rule.domain.entity.Operation;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,4 +32,6 @@ public interface RuleLogMapper {
     int getByRuleLogId(Long logId);
     
     List<OperationVO> selectAllLog();
+
+    List<Operation> getLogForDay(Long userId, Date startTime, Date endTime);
 }

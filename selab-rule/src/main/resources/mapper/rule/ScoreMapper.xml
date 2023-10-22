@@ -11,4 +11,11 @@
     <update id="updateScore">
         update rule_score set scores = #{scores} where user_id = #{userId}
     </update>
+<!--
+    List<SysUser> list(Long scoreCheck);
+    查询scoreCheck分数以上的所有用户-->
+    <select id="list" resultType="com.ruoyi.common.core.domain.entity.SysUser">
+        select * from sys_user where user_id in (select user_id from rule_score where scores >= #{scoreCheck})
+    </select>
+
 </mapper>

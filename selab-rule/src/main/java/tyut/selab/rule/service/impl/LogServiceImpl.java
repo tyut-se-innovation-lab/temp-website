@@ -1,5 +1,7 @@
 package tyut.selab.rule.service.impl;
 
+import com.ruoyi.common.core.domain.entity.SysUser;
+import com.ruoyi.system.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.rule.domain.VO.OperationVO;
@@ -16,6 +18,8 @@ public class LogServiceImpl implements LogService {
     private RuleLogMapper ruleLogMapper;
     @Autowired
     private ScoreMapper scoreMapper;
+    @Autowired
+    private SysUserMapper sysUserMapper;
 
     @Override
     public int deleteLog(Long userId, Long logId) {
@@ -26,6 +30,12 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public List<OperationVO> selectAllLog() {
-        return ruleLogMapper.selectAllLog();
+        List<OperationVO> operationVOS = ruleLogMapper.selectAllLog();
+        for (OperationVO operationVO : operationVOS) {
+            Long userId = operationVO.getTargetUserId();
+            SysUser sysUser = sysUserMapper.selectUserById(userId);
+            operationVO.setNickName(sysUser.getNickName());
+        }
+        return operationVOS;
     }
 }

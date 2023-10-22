@@ -18,4 +18,6 @@ public class OperationVO {
     Integer scoreChange;
     //被操作的用户
     String targetUserId;
+    //用户昵称
+    String nickName;
 }

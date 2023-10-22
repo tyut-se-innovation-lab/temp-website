@@ -518,6 +518,8 @@ export default {
         children: "children",
         label: "label",
       },
+      //公共id
+      userID: "",
 
       //删除记录对话框参数
       dialogVisibledele: false,
@@ -630,8 +632,8 @@ export default {
   methods: {
     /* 删除用户操作日志 */
     async logControll(scope) {
-      await logController(this.form.userId, scope.row.ruleLogId);
-      console.log(this.form.userId);
+      // const res = await logController(1, scope.row.ruleLogId);
+      // console.log(res);
       this.dialogVisibledele = false;
     },
     /*增减用户分数  */
@@ -767,6 +769,7 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
+
       const userId = row.userId || this.ids;
       getUser(userId).then((response) => {
         this.form = response.data;

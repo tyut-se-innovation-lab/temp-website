@@ -39,6 +39,14 @@
     <select id="getByRuleLogId" resultType="java.lang.Integer">
         select score_change from rule_log where rule_log_id = #{logId}
     </select>
+<!--        List<Operation> getLogForDay(Long userId, Date startTime, Date endTime);-->
+    <select id="getLogForDay" resultMap="RuleLogResultMap" parameterType="tyut.selab.rule.domain.entity.Operation">
+        select
+            <include refid="Base_Column_List" />
+        from rule_log
+        where target_user_id = #{userId,jdbcType=BIGINT}
+        and create_time between #{startTime,jdbcType=TIMESTAMP} and #{endTime,jdbcType=TIMESTAMP}
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from rule_log

@@ -1,6 +1,8 @@
 package tyut.selab.rule.service.impl;
 
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.domain.AjaxResult;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import tyut.selab.rule.domain.RuleLog;
 import tyut.selab.rule.domain.RuleScore;
 import tyut.selab.rule.domain.VO.RuleVO;
+import tyut.selab.rule.domain.entity.Operation;
 import tyut.selab.rule.mapper.RuleLogMapper;
 import tyut.selab.rule.mapper.RuleScoreMapper;
 import tyut.selab.rule.service.UserService;
@@ -18,6 +21,9 @@ import tyut.selab.rule.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -49,7 +55,6 @@ public class UserServiceImpl implements UserService {
         } else {
             score = scores.get(0);
         }
-        log.info("we12");
         List<RuleLog> logs = ruleLogMapper.selectByUserId(userId);
         RuleVO ruleVO = new RuleVO();
         ruleVO.setRuleScore(score.getScores());
@@ -74,6 +79,30 @@ public class UserServiceImpl implements UserService {
             scoreChange = 0;
         }
         return scoreChange;
+    }
+
+    //查询用户当天的所有相关日志
+    @Override
+    public List<Operation> getLogForDay(Long userId, Integer pageNum, Integer pageSize, Date startTime) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startTime);
+
+        // 将时间部分设置为零点
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        // 获取修正后的时间
+        Date start = calendar.getTime();
+        // 将日期加一天
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        // 获取下一天的零点时间
+        Date end = calendar.getTime();
+        PageHelper.startPage(pageNum, pageSize);
+        List<Operation> operations = ruleLogMapper.getLogForDay(userId, start, end);
+        PageInfo<Operation> operationPageInfo = new PageInfo<>(operations);
+        return operationPageInfo.getList();
     }
 
     /**

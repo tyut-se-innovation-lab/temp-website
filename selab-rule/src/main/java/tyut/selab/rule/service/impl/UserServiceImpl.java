@@ -67,10 +67,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer getScoreChangeForMonth(Long userId) {
         //当前时间的分数-本月第一天00：00：00的分数即当天的增减分情况
-        LocalDateTime begin = LocalDateTime.of(LocalDate.now().withDayOfMonth(1),LocalTime.MIN);
-        LocalDateTime end = LocalDateTime.of(LocalDate.now().minusDays(1), LocalTime.MAX);
+        LocalDateTime begin = LocalDateTime.of(LocalDate.now().withDayOfMonth(1), LocalTime.MIN);
+        LocalDateTime end = LocalDateTime.now();
         Integer scoreChange = ruleScoreMapper.getScoreChangeByTime(begin, end, userId);
-        if(scoreChange == null){
+        if (scoreChange == null) {
             scoreChange = 0;
         }
         return scoreChange;
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
         LocalDateTime begin = LocalDateTime.of(LocalDate.now(), LocalTime.MIN);
         LocalDateTime end = LocalDateTime.now();
         Integer scoreChange = ruleScoreMapper.getScoreChangeByTime(begin, end, userId);
-        if(scoreChange == null){
+        if (scoreChange == null) {
             scoreChange = 0;
         }
         return scoreChange;

@@ -52,7 +52,7 @@ public class LogController {
         PageInfo<OperationVO> pageInfo = new PageInfo<>(operationVOS);
         LogVO logVO = new LogVO();
         logVO.setTotal(pageInfo.getTotal());
-        logVO.setList(pageInfo.getList());
+        logVO.setList(operationVOS);
         return AjaxResult.success(logVO);
     }
 }

@@ -30,8 +30,6 @@ public interface RuleLogMapper {
     int deleteByLogId(Long logId);
 
     int getByRuleLogId(Long logId);
-    
-    List<OperationVO> selectAllLog();
-
+    List<Operation> selectAllLog();
     List<Operation> getLogForDay(Long userId, Date startTime, Date endTime);
 }

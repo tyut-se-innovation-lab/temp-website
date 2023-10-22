@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Operation {
     Long ruleLogId;
-    String targetUserId;
+    Long targetUserId;
     String reasonContent;
     String image;
     String createTime;

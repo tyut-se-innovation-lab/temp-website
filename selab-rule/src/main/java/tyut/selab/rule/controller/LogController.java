@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
+import tyut.selab.rule.domain.VO.LogVO;
 import tyut.selab.rule.domain.VO.OperationVO;
 import tyut.selab.rule.mapper.RuleLogMapper;
 import tyut.selab.rule.service.LogService;
@@ -35,9 +36,9 @@ public class LogController {
     @ApiOperation("根据日志ID删除日志")
     @DeleteMapping("/deleteLog")
     @PreAuthorize("@ss.hasAnyPermi('rule:content')")
-    public AjaxResult deleteLog(@RequestParam Long userId,@RequestParam String logId){
+    public AjaxResult deleteLog(@RequestParam Long userId, @RequestParam String logId) {
         log.info(logId);
-        logService.deleteLog(userId,Long.valueOf(logId));
+        logService.deleteLog(userId, Long.valueOf(logId));
         return AjaxResult.success();
     }
 
@@ -45,10 +46,13 @@ public class LogController {
     @ApiOperation("查出库中所有日志")
     @GetMapping("/selectAllLog")
     @PreAuthorize("@ss.hasAnyPermi('rule:content')")
-    public AjaxResult selectAllLog(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize){
+    public AjaxResult selectAllLog(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<OperationVO> operationVOS = logService.selectAllLog();
         PageInfo<OperationVO> pageInfo = new PageInfo<>(operationVOS);
-        return AjaxResult.success(pageInfo.getList());
+        LogVO logVO = new LogVO();
+        logVO.setTotal(pageInfo.getTotal());
+        logVO.setList(pageInfo.getList());
+        return AjaxResult.success(logVO);
     }
 }

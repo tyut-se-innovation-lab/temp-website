@@ -32,7 +32,7 @@ public class LogServiceImpl implements LogService {
     public List<OperationVO> selectAllLog() {
         List<OperationVO> operationVOS = ruleLogMapper.selectAllLog();
         for (OperationVO operationVO : operationVOS) {
-            Long userId = operationVO.getTargetUserId();
+            Long userId = Long.valueOf(operationVO.getTargetUserId());
             SysUser sysUser = sysUserMapper.selectUserById(userId);
             operationVO.setNickName(sysUser.getNickName());
         }

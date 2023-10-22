@@ -1,8 +1,11 @@
 <script>
+import { userController, monthUserController } from "@/api/rule/announcement";
 export default {
   name: "rule",
   data() {
     return {
+      dayscore: "",
+      monthscore: "",
       pickerOptions: {
         shortcuts: [
           {
@@ -59,20 +62,22 @@ export default {
     };
   },
   methods: {
-    handleClose(done) {
-      this.$confirm("确认关闭？")
-        .then((_) => {
-          done();
-        })
-        .catch((_) => {});
+    async userInfo() {
+      const month = await monthUserController();
+      const day = await userController();
+      this.dayscore = day.data;
+      this.monthscore = month.data;
     },
+  },
+  created() {
+    this.userInfo();
   },
 };
 </script>
 
 <template>
   <div class="content">
-    <el-dialog title="收货地址" :visible.sync="dialogTableVisibleDate">
+    <el-dialog title="今日记录" :visible.sync="dialogTableVisibleDate">
       <el-table :data="gridData">
         <el-table-column
           property="date"
@@ -87,7 +92,7 @@ export default {
         <el-table-column property="address" label="地址"></el-table-column>
       </el-table>
     </el-dialog>
-    <el-dialog title="收货地址" :visible.sync="dialogTableVisibleMonth">
+    <el-dialog title="本月记录" :visible.sync="dialogTableVisibleMonth">
       <el-table :data="gridData">
         <el-table-column
           property="date"
@@ -109,7 +114,7 @@ export default {
             <div class="grid-content grid-con-1">
               <el-icon class="grid-con-icon el-icon-user-solid"> </el-icon>
               <div class="grid-cont-right">
-                <div class="grid-num">1234</div>
+                <div class="grid-num">{{ dayscore }}</div>
                 <div>今日分数</div>
               </div>
             </div>
@@ -120,7 +125,7 @@ export default {
             <div class="grid-content grid-con-2">
               <el-icon class="grid-con-icon el-icon-eleme"> </el-icon>
               <div class="grid-cont-right">
-                <div class="grid-num">1234</div>
+                <div class="grid-num">{{ monthscore }}</div>
                 <div>本月分数</div>
               </div>
             </div>

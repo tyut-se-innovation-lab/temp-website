@@ -81,15 +81,13 @@
             ></el-date-picker>
           </el-form-item>
           <el-form-item label="用户分数">
-            <el-date-picker
-              v-model="dateRange"
+            <el-input
+              v-model="queryParams.score"
+              placeholder="请输入用户分数"
+              clearable
               style="width: 240px"
-              value-format="yyyy-MM-dd"
-              type="daterange"
-              range-separator="-"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
-            ></el-date-picker>
+              @keyup.enter.native="handleQuery"
+            />
           </el-form-item>
           <el-form-item>
             <el-button
@@ -363,11 +361,21 @@
               </el-input>
             </el-form-item>
           </el-col>
+          <el-col :span="12">
+            <el-form-item label="原因" :required="true">
+              <el-input v-model="usermsg" placeholder="请输入原因"> </el-input>
+            </el-form-item>
+          </el-col>
         </el-row>
         <el-row>
           <el-col :span="24">
-            <el-form-item label="原因" :required="true">
-              <el-input v-model="usermsg" placeholder="请输入原因"> </el-input>
+            <el-form-item label="日期" :required="true">
+              <el-date-picker
+                v-model="time"
+                type="datetime"
+                placeholder="选择日期时间"
+              >
+              </el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
@@ -378,7 +386,7 @@
             <el-form-item label="证据照片" prop="">
               <el-upload
                 :http-request="uploadFile"
-                action="https://jsonplaceholder.typicode.com/posts/"
+                action="#"
                 list-type="picture-card"
                 :on-preview="handlePictureCardPreview"
                 :on-remove="handleRemove"
@@ -469,6 +477,8 @@ export default {
   components: { Treeselect },
   data() {
     return {
+      //表单日期
+      time: "",
       //删除记录表单数据
       tableData: "",
       // 遮罩层
@@ -508,6 +518,7 @@ export default {
         children: "children",
         label: "label",
       },
+
       //删除记录对话框参数
       dialogVisibledele: false,
 
@@ -543,6 +554,7 @@ export default {
         phonenumber: undefined,
         status: undefined,
         deptId: undefined,
+        score: undefined,
       },
       // 列信息
       columns: [

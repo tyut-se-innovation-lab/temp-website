@@ -2,6 +2,8 @@ package tyut.selab.rule.service;
 
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.domain.R;
+import tyut.selab.rule.domain.VO.LogVO;
+import tyut.selab.rule.domain.VO.OperationVO;
 import tyut.selab.rule.domain.entity.Operation;
 
 import java.util.Date;
@@ -25,4 +27,8 @@ public interface UserService {
     Integer getScoreChangeForMonth(Long userId);
 
     List<Operation> getLogForDay(Long userId, Integer pageNum, Integer pageSize, Date startTime);
+
+    List<OperationVO> getScoreChangeOperationsForDay(Long userId);
+
+    List<OperationVO> getScoreChangeOperationsForMonth(Long userId);
 }

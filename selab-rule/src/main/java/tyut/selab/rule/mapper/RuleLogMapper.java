@@ -1,6 +1,7 @@
 package tyut.selab.rule.mapper;
 
 import tyut.selab.rule.domain.RuleLog;
+import tyut.selab.rule.domain.VO.OperationVO;
 
 import java.util.List;
 
@@ -27,4 +28,6 @@ public interface RuleLogMapper {
     int deleteByLogId(Long logId);
 
     int getByRuleLogId(Long logId);
+    
+    List<OperationVO> selectAllLog();
 }

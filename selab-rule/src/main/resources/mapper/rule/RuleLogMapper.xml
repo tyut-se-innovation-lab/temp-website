@@ -4,15 +4,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="tyut.selab.rule.mapper.RuleLogMapper">
 
-    <resultMap id="BaseResultMap" type="tyut.selab.rule.domain.RuleLog">
-            <id property="ruleLogId" column="rule_log_id" jdbcType="BIGINT"/>
-            <result property="targetUserId" column="target_user_id" jdbcType="BIGINT"/>
-            <result property="reasonContent" column="reason_content" jdbcType="VARCHAR"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="createUserId" column="create_user_id" jdbcType="BIGINT"/>
-            <result property="status" column="status" jdbcType="INTEGER"/>
-            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-            <result property="updateUserId" column="update_user_id" jdbcType="BIGINT"/>
+    <resultMap id="RuleLogResultMap" type="tyut.selab.rule.domain.entity.Operation">
+        <id property="ruleLogId" column="rule_log_id" />
+        <result property="targetUserId" column="target_user_id" />
+        <result property="reasonContent" column="reason_content" />
+        <result property="image" column="image" />
+        <result property="createTime" column="create_time" />
+        <result property="createUserId" column="create_user_id" />
+        <result property="status" column="status" />
+        <result property="updateTime" column="update_time" />
+        <result property="updateUser" column="update_user" />
+        <result property="scoreChange" column="score_change"/>
+        <result property="ruleLogId" column="rule_log_id"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -21,16 +24,21 @@
         update_time,update_user_id
     </sql>
     <!-- 通过userid查询所有相关日志，返回以ruleLog为元素的list集合-->
-    <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    <select id="selectByUserId" resultMap="RuleLogResultMap" parameterType="java.lang.Long">
         select
             <include refid="Base_Column_List" />
         from rule_log
         where target_user_id = #{userId,jdbcType=BIGINT}
     </select>
+    <select id="selectAllLog" resultMap="RuleLogResultMap">
+        select
+            <include refid="Base_Column_List" />
+        from rule_log
+
+    </select>
     <select id="getByRuleLogId" resultType="java.lang.Integer">
         select score_change from rule_log where rule_log_id = #{logId}
     </select>
-
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from rule_log

@@ -1,5 +1,4 @@
 <script>
-import { contextContorller } from "../../../api/rule/content/index";
 export default {
   name: "index",
   data() {
@@ -27,15 +26,6 @@ export default {
         },
       ],
     };
-  },
-  methods: {
-    async add(filename) {
-      let info = await contextContorller(filename);
-      console.log(info);
-    },
-  },
-  mounted() {
-    this.add();
   },
 };
 </script>
@@ -231,7 +221,7 @@ export default {
         <el-table-column prop="date" label="日期" width="100">
         </el-table-column>
         <el-table-column prop="name" label="姓名" width="70"> </el-table-column>
-        <el-table-column prop="address" label="原因"> </el-table-column>
+        <el-table-column prop="reason" label="原因"> </el-table-column>
       </el-table>
     </el-card>
   </div>

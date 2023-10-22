@@ -23,9 +23,6 @@ export const ruleController = (userId) => {
 };
 
 //删除用户操作日志
-export const logController = (logId) => {
-  return request({
-    url: "/rule/log/deleteLog/" + logId,
-    method: "delete",
-  });
+export const logController = (userId, logId) => {
+  return request.delete("/rule/log/deleteLog", { userId, logId });
 };

@@ -630,7 +630,8 @@ export default {
   methods: {
     /* 删除用户操作日志 */
     async logControll(scope) {
-      await logController(scope.row.ruleLogId);
+      await logController(this.form.userId, scope.row.ruleLogId);
+      console.log(this.form.userId);
       this.dialogVisibledele = false;
     },
     /*增减用户分数  */

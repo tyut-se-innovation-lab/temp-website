@@ -1,14 +1,28 @@
-import request from '@/utils/request'
-import {Message} from 'element-ui'
-//增减分数
-export function scoreController(params){
-  return request.put('http://localhost/dev-api/rule/score',{
-    userId:1,
-    scoreChange:1
-  }).then((result)=>{
-    Message.success('添加成功')
-  }).catch(()=>{
-    Message.error('请求失败')
-  })
-}
+import request from "@/utils/request";
 
+//增减分数
+export const scoreController = (reason, scoreChange, userId) => {
+  return request.put("/rule/score", {
+    //必须参数
+
+    reason,
+    scoreChange,
+    userId,
+    //非必须参数
+    createTime: "",
+    menderId: 0,
+  });
+};
+
+//获取用户操作日志
+export const ruleController = (userId) => {
+  return request({
+    url: "/rule/getOperationInfo/" + userId,
+    method: "get",
+  });
+};
+
+//删除用户操作日志
+export const logController = (userId, logId) => {
+  return request.delete("/rule/log/deleteLog", { userId, logId });
+};

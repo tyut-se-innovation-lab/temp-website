@@ -1,10 +1,8 @@
-import request from '@/utils/request'
+import request from "@/utils/request";
 
 //添加内容
-export function contextContorller(data){
-  return request({
-    url:'/file/deliver',
-    methods:"get",
-    params:data,
-  })
-}
+export const contextContorller = () => {
+  return request.get("/file/deliver", {
+    fille: "",
+  });
+};

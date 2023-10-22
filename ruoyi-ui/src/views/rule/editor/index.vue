@@ -633,7 +633,7 @@ export default {
     /* 删除用户操作日志 */
     async logControll(scope) {
       // const res = await logController(1, scope.row.ruleLogId);
-      // console.log(res);
+      console.log(scope);
       this.dialogVisibledele = false;
     },
     /*增减用户分数  */

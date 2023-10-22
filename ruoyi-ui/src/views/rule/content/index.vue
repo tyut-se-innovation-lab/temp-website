@@ -1,31 +1,35 @@
 <script>
+import { selectAllLog } from "@/api/rule/content";
 export default {
   name: "index",
   data() {
     return {
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄",
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
-      ],
+      //查询参数
+      queryParams: {
+        pageNum: 1,
+        pageSize: 10,
+      },
+      //总条数
+      total: 0,
+      //用户表格数据
+      tableData: null,
     };
+  },
+  created() {
+    this.getList();
+  },
+  methods: {
+    //获取所有用户的操作日志
+    async getList() {
+      await selectAllLog(
+        this.queryParams.pageNum,
+        this.queryParams.pageSize
+      ).then((response) => {
+        console.log(response);
+        this.tableData = response.data;
+        // this.total = response.total;
+      });
+    },
   },
 };
 </script>
@@ -218,11 +222,24 @@ export default {
     <el-card class="box-card right">
       <h1>公告栏</h1>
       <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="date" label="日期" width="100">
+        <el-table-column
+          prop="createTime"
+          key="createTime"
+          label="日期"
+          width="100"
+        >
         </el-table-column>
         <el-table-column prop="name" label="姓名" width="70"> </el-table-column>
-        <el-table-column prop="reason" label="原因"> </el-table-column>
+        <el-table-column prop="reasonContent" key="reasonContent" label="原因">
+        </el-table-column>
       </el-table>
+      <pagination
+        v-show="total > 0"
+        :total="total"
+        :page.sync="queryParams.pageNum"
+        :limit.sync="queryParams.pageSize"
+        @pagination="getList"
+      />
     </el-card>
   </div>
 </template>

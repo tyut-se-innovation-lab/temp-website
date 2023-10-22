@@ -11,9 +11,11 @@ public class OperationVO {
     //奖惩时间
     String createTime;
     //被执行者
-    String createUserId;
+    Long targetUserId;
     //图片路径
     String image;
     //操作的分数
     Integer scoreChange;
+    //用户昵称
+    String nickName;
 }

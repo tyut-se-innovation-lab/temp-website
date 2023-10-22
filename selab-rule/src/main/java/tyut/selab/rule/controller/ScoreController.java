@@ -45,19 +45,21 @@ public class ScoreController {
         return AjaxResult.success();
     }
 
+
     /**
-     * 查询对应分数及以上的用户
-     *
-     * @param scoreRequestDTO
-     * @return
+     * @param user
+     * @param scoreCheck
+     * @param pageNum
+     * @param pageSize
+     * @return {@link AjaxResult}
      */
     @GetMapping("/list")
     @ApiOperation("查询对应分数及以上的用户")
     @PreAuthorize("@ss.hasAnyPermi('rule:content')")
-    public AjaxResult list( @RequestParam Long scoreCheck, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize) {
+    public AjaxResult list( SysUser user,@RequestParam Long scoreCheck, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<SysUser> sysUsers = scoreService.list(scoreCheck);
-        PageInfo<SysUser> pageInfo = new PageInfo<>(sysUsers);
+        List<SysUser> list = scoreService.selectUserList(user,scoreCheck);
+        PageInfo<SysUser> pageInfo = new PageInfo<>(list);
         return AjaxResult.success(pageInfo);
     }
 

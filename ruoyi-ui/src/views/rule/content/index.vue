@@ -227,7 +227,7 @@ export default {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .content {
   width: 100%;
   height: 100%;

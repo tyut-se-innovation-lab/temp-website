@@ -17,7 +17,7 @@ public class OperationVO {
     //操作的分数
     Integer scoreChange;
     //被操作的用户
-    String targetUserId;
+    Long targetUserId;
     //用户昵称
     String nickName;
 }

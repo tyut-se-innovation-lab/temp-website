@@ -20,6 +20,8 @@ export default {
         //显示一页多少条数据
         pageSize: 10,
       },
+      //全部日志总条数
+      monthtotal: 0,
       //总条数
       total: 0,
       //事件记录
@@ -72,8 +74,9 @@ export default {
     },
     //获取该用户全部日志的
     async month() {
-      const monthEvent = await monthUserControll();
-      this.tableDataAll = monthEvent.data;
+      const monthEvent = await dayUserControll();
+      this.tableDataAll = monthEvent.data.list;
+      this.monthtotal = monthEvent.data.total;
     },
     search() {
       userdayLog(
@@ -123,6 +126,7 @@ export default {
   },
   created() {
     this.userInfo();
+    this.month();
   },
 };
 </script>

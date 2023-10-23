@@ -1,10 +1,16 @@
 package tyut.selab.rule.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.system.mapper.SysUserMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+import tyut.selab.rule.domain.VO.LogVO;
 import tyut.selab.rule.domain.VO.OperationVO;
 import tyut.selab.rule.domain.entity.Operation;
 import tyut.selab.rule.mapper.RuleLogMapper;
@@ -17,6 +23,7 @@ import java.util.List;
 import java.util.Vector;
 
 @Service
+@Slf4j
 public class LogServiceImpl implements LogService {
     @Autowired
     private RuleLogMapper ruleLogMapper;
@@ -33,10 +40,18 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public List<OperationVO> selectAllLog() {
+    public String selectUserById(Long userId) {
+        SysUser sysUser = sysUserMapper.selectUserById(userId);
+        return sysUser.getNickName();
+    }
+
+    @Override
+    public LogVO selectAllLog( Integer pageNum,  Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         List<Operation> operations = ruleLogMapper.selectAllLog();
+        PageInfo<Operation> pageInfo = new PageInfo<>(operations);
         List<OperationVO> operationVOS = new ArrayList<>();
-        for (Operation operation : operations) {
+        for (Operation operation : pageInfo.getList()) {
             OperationVO operationVO = new OperationVO();
             BeanUtils.copyProperties(operation, operationVO);
             Long userId = operation.getTargetUserId();
@@ -44,6 +59,9 @@ public class LogServiceImpl implements LogService {
             operationVO.setNickName(sysUser.getNickName());
             operationVOS.add(operationVO);
         }
-        return operationVOS;
+        LogVO logVO=new LogVO();
+        logVO.setTotal(pageInfo.getTotal());
+        logVO.setList(operationVOS);
+        return logVO;
     }
 }

@@ -8,6 +8,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LogVO {
-    Long total;
+    Integer total;
     List<OperationVO> list;
 }

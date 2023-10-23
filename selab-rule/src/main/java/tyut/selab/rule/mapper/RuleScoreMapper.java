@@ -1,5 +1,6 @@
 package tyut.selab.rule.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import tyut.selab.rule.domain.RuleScore;
 import tyut.selab.rule.domain.VO.LogVO;
@@ -14,6 +15,7 @@ import java.util.List;
 * @createDate 2023-10-09 12:03:15
 * @Entity tyut.selab.rule.domain.RuleScore
 */
+@Mapper
 public interface RuleScoreMapper {
 
     int deleteByPrimaryKey(Long id);

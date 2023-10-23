@@ -19,7 +19,7 @@ public interface RuleMapper {
     @Select("select status from rule_log where target_user_id = #{userId}")
     Integer getOperationStatus(Long userId);
 
-    List<Operation> getOperationInfo(Long userid);
+    List<Operation> getOperationInfo(Long userId);
 
     void clearAllScore();
 }

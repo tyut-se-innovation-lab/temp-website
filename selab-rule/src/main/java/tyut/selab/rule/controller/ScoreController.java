@@ -1,9 +1,6 @@
 package tyut.selab.rule.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.ruoyi.common.core.domain.AjaxResult;
-import com.ruoyi.common.core.domain.entity.SysUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +10,6 @@ import tyut.selab.rule.domain.DTO.ScoreRequestDTO;
 import tyut.selab.rule.service.ScoreService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * 分数管理
@@ -44,24 +40,4 @@ public class ScoreController {
         scoreService.setOperationPop(1);
         return AjaxResult.success();
     }
-
-
-    /**
-     * @param user
-     * @param scoreCheck
-     * @param pageNum
-     * @param pageSize
-     * @return {@link AjaxResult}
-     */
-    @GetMapping("/list")
-    @ApiOperation("查询对应分数及以上的用户")
-    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
-    public AjaxResult list( SysUser user,@RequestParam Long scoreCheck, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<SysUser> list = scoreService.selectUserList(user,scoreCheck);
-        PageInfo<SysUser> pageInfo = new PageInfo<>(list);
-        return AjaxResult.success(pageInfo);
-    }
-
-
 }

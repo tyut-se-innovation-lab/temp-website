@@ -35,7 +35,8 @@ public class LogServiceImpl implements LogService {
     @Override
     public int deleteLog(Long userId, Long logId) {
         int scoreChange = ruleLogMapper.getByRuleLogId(logId);
-        scoreMapper.updateScore(-scoreChange, userId);
+        Integer score = scoreMapper.getByUserId(userId);
+        scoreMapper.updateScore(score - scoreChange, userId);
         return ruleLogMapper.deleteByPrimaryKey(logId);
     }
 
@@ -46,7 +47,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public LogVO selectAllLog( Integer pageNum,  Integer pageSize) {
+    public LogVO selectAllLog(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<Operation> operations = ruleLogMapper.selectAllLog();
         PageInfo<Operation> pageInfo = new PageInfo<>(operations);
@@ -59,7 +60,7 @@ public class LogServiceImpl implements LogService {
             operationVO.setNickName(sysUser.getNickName());
             operationVOS.add(operationVO);
         }
-        LogVO logVO=new LogVO();
+        LogVO logVO = new LogVO();
         logVO.setTotal(pageInfo.getTotal());
         logVO.setList(operationVOS);
         return logVO;

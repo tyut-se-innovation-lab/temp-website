@@ -30,6 +30,7 @@
     </select>
     <select id="getOperationInfo" resultMap="RuleLogResultMap">
         select * from rule_log where target_user_id = #{userId}
+        order by create_time desc
     </select>
 
 

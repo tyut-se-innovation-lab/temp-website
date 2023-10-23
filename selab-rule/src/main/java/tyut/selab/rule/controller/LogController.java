@@ -42,9 +42,8 @@ public class LogController {
     @ApiOperation("根据日志ID删除日志")
     @DeleteMapping("/deleteLog")
     @PreAuthorize("@ss.hasAnyPermi('rule:content')")
-    public AjaxResult deleteLog(@RequestParam Long userId, @RequestParam String logId) {
-        log.info(logId);
-        logService.deleteLog(userId, Long.valueOf(logId));
+    public AjaxResult deleteLog(@RequestParam Long userId, @RequestParam Long logId) {
+        logService.deleteLog(userId, logId);
         return AjaxResult.success();
     }
 
@@ -54,7 +53,7 @@ public class LogController {
     @PreAuthorize("@ss.hasAnyPermi('rule:content')")
     public AjaxResult selectAllLog(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
 
-        LogVO logVO = logService.selectAllLog(pageNum,pageSize);
+        LogVO logVO = logService.selectAllLog(pageNum, pageSize);
 
         return AjaxResult.success(logVO);
     }

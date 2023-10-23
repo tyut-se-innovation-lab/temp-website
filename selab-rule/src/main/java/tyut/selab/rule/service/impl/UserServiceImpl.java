@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.rule.domain.RuleLog;
 import tyut.selab.rule.domain.RuleScore;
+import tyut.selab.rule.domain.VO.LogVO;
+import tyut.selab.rule.domain.VO.OperationVO;
 import tyut.selab.rule.domain.VO.RuleVO;
 import tyut.selab.rule.domain.entity.Operation;
 import tyut.selab.rule.mapper.RuleLogMapper;
@@ -103,6 +105,35 @@ public class UserServiceImpl implements UserService {
         List<Operation> operations = ruleLogMapper.getLogForDay(userId, start, end);
         PageInfo<Operation> operationPageInfo = new PageInfo<>(operations);
         return operationPageInfo.getList();
+    }
+
+    /**
+     * 查询用户当天的增减分操作日志
+     *
+     * @param userId
+     */
+    @Override
+    public List<OperationVO> getScoreChangeOperationsForDay(Long userId) {
+        //当前时间的分数-昨天晚上23：59：59秒的分数即当天的增减分操作日志
+        LocalDateTime begin = LocalDateTime.of(LocalDate.now(), LocalTime.MIN);
+        LocalDateTime end = LocalDateTime.now();
+        List<OperationVO> logVOList = ruleScoreMapper.getScoreChangeOperationsByTime(begin, end, userId);
+        return logVOList;
+    }
+
+    /**
+     * 查询用户当月的增减分操作日志
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<OperationVO> getScoreChangeOperationsForMonth(Long userId) {
+        //当前时间的分数-本月第一天00：00：00的分数即当天的增减分操作日志
+        LocalDateTime begin = LocalDateTime.of(LocalDate.now().withDayOfMonth(1), LocalTime.MIN);
+        LocalDateTime end = LocalDateTime.now();
+        List<OperationVO> logVOList = ruleScoreMapper.getScoreChangeOperationsByTime(begin, end, userId);
+        return logVOList;
     }
 
     /**

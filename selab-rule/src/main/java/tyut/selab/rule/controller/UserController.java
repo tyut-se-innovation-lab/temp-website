@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import tyut.selab.rule.domain.VO.LogVO;
 import tyut.selab.rule.domain.VO.OperationVO;
 import tyut.selab.rule.domain.entity.Operation;
 import tyut.selab.rule.service.UserService;
@@ -58,10 +59,11 @@ public class UserController {
     /**
      * 查询用户当天的所有相关日志
      * 接收传来的日期，查询该日期的所有日志
+     *
      * @return
      */
     // 开始时间
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date startTime;
 
@@ -89,5 +91,33 @@ public class UserController {
         return AjaxResult.success(scoreChange);
     }
 
+    /**
+     * 查询用户当天的增减分操作日志
+     *
+     * @param request
+     * @return
+     */
+    @GetMapping("/day/operations")
+    @ApiOperation("查询用户当天的增减分操作日志")
+    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
+    public AjaxResult getScoreChangeOperationsForDay(HttpServletRequest request) {
+        LoginUser user = tokenService.getLoginUser(request);
+        List<OperationVO> logVOList = userService.getScoreChangeOperationsForDay(user.getUserId());
+        return AjaxResult.success(logVOList);
+    }
 
+    /**
+     * 查询用户当月的增减分操作日志
+     *
+     * @param request
+     * @return
+     */
+    @GetMapping("/month/operations")
+    @ApiOperation("查询用户当月的增减分操作日志")
+    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
+    public AjaxResult getScoreChangeOperationsForMonth(HttpServletRequest request) {
+        LoginUser user = tokenService.getLoginUser(request);
+        List<OperationVO> logVOList = userService.getScoreChangeOperationsForMonth(user.getUserId());
+        return AjaxResult.success(logVOList);
+    }
 }

@@ -61,8 +61,14 @@ public class ScoreServiceImpl implements ScoreService {
         scoreMapper.setOperationPop(1);
     }
 
+
     @Override
-    public List<SysUser> list(Long scoreCheck) {
-        return scoreMapper.list(scoreCheck);
+    public List<SysUser> selectUserList(SysUser user, Long scoreCheck) {
+        List<SysUser> sysUsers = scoreMapper.selectUserList(user,scoreCheck);
+        for (SysUser sysUser : sysUsers) {
+            Integer score = scoreMapper.getByUserId(sysUser.getUserId());
+            sysUser.setScore(score);
+        }
+        return sysUsers;
     }
 }

@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import tyut.selab.rule.domain.DTO.ScoreRequestDTO;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
@@ -45,5 +44,5 @@ public interface ScoreMapper {
      */
     void addScoreLog(ScoreRequestDTO scoreRequestDTO);
 
-    List<SysUser> list(Long scoreCheck);
+    List<SysUser> selectUserList(SysUser user, Long scoreCheck);
 }

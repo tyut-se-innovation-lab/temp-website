@@ -39,6 +39,28 @@
             </if>
         </where>
     </select>
+    <resultMap id="OperationResultMap" type="tyut.selab.rule.domain.VO.OperationVO">
+        <result property="ruleLogId" column="rule_log_id"/>
+        <result property="reasonContent" column="reason_content"/>
+        <result property="createTime" column="create_time"/>
+        <result property="image" column="image"/>
+        <result property="scoreChange" column="score_change"/>
+        <result property="targetUserId" column="target_user_id"/>
+    </resultMap>
+    <select id="getScoreChangeOperationsByTime" resultType="tyut.selab.rule.domain.VO.OperationVO" resultMap="OperationResultMap">
+        select * from rule_log
+        <where>
+            <if test="begin != null">
+                and create_time &gt; #{begin}
+            </if>
+            <if test="end != null">
+                and create_time &lt; #{end}
+            </if>
+            <if test="userId != null">
+                and target_user_id = #{userId}
+            </if>
+        </where>
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from rule_score

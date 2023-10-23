@@ -65,9 +65,9 @@ public class UserController {
      * @return
      */
     // 开始时间
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date startTime;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+//    private Date startTime;
 
     @GetMapping("/dayLog")
     @ApiOperation("查询用户当天的所有相关日志")

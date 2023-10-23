@@ -126,6 +126,9 @@ public class UserController {
     public AjaxResult getScoreChangeOperationsForMonth(HttpServletRequest request) {
         LoginUser user = tokenService.getLoginUser(request);
         List<OperationVO> logVOList = userService.getScoreChangeOperationsForMonth(user.getUserId());
-        return AjaxResult.success(logVOList);
+        LogVO logVO = new LogVO();
+        logVO.setList(logVOList);
+        logVO.setTotal(logVOList.size());
+        return AjaxResult.success(logVO);
     }
 }

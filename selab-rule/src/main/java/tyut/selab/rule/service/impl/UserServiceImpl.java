@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.rule.domain.RuleLog;
 import tyut.selab.rule.domain.RuleScore;
+import tyut.selab.rule.domain.VO.LogPageVO;
 import tyut.selab.rule.domain.VO.LogVO;
 import tyut.selab.rule.domain.VO.OperationVO;
 import tyut.selab.rule.domain.VO.RuleVO;
@@ -85,7 +86,7 @@ public class UserServiceImpl implements UserService {
 
     //查询用户当天的所有相关日志
     @Override
-    public List<Operation> getLogForDay(Long userId, Integer pageNum, Integer pageSize, Date startTime) {
+    public LogPageVO getLogForDay(Long userId, Integer pageNum, Integer pageSize, Date startTime) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(startTime);
 
@@ -104,7 +105,10 @@ public class UserServiceImpl implements UserService {
         PageHelper.startPage(pageNum, pageSize);
         List<Operation> operations = ruleLogMapper.getLogForDay(userId, start, end);
         PageInfo<Operation> operationPageInfo = new PageInfo<>(operations);
-        return operationPageInfo.getList();
+        LogPageVO logVO = new LogPageVO();
+        logVO.setTotal(operationPageInfo.getTotal());
+        logVO.setList(operationPageInfo.getList());
+        return logVO;
     }
 
     /**

@@ -29,11 +29,12 @@
             <include refid="Base_Column_List" />
         from rule_log
         where target_user_id = #{userId,jdbcType=BIGINT}
+        order by create_time desc
     </select>
     <select id="selectAllLog" resultMap="RuleLogResultMap">
         select
-            <include refid="Base_Column_List" />
-        from rule_log
+        <include refid="Base_Column_List"/>
+        from rule_log order by create_time desc
 
     </select>
     <select id="getByRuleLogId" resultType="java.lang.Integer">
@@ -46,6 +47,7 @@
         from rule_log
         where target_user_id = #{userId,jdbcType=BIGINT}
         and create_time between #{startTime,jdbcType=TIMESTAMP} and #{endTime,jdbcType=TIMESTAMP}
+        order by create_time desc
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

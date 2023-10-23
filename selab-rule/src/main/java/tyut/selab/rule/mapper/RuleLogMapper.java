@@ -1,5 +1,6 @@
 package tyut.selab.rule.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import tyut.selab.rule.domain.RuleLog;
 import tyut.selab.rule.domain.VO.OperationVO;
 import tyut.selab.rule.domain.entity.Operation;

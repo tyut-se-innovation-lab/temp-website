@@ -44,5 +44,4 @@ public interface ScoreMapper {
      */
     void addScoreLog(ScoreRequestDTO scoreRequestDTO);
 
-    List<SysUser> selectUserList(SysUser user, Long scoreCheck);
 }

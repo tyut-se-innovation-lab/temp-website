@@ -30,6 +30,4 @@ public interface ScoreService {
      * @param i
      */
     void setOperationPop(Integer i);
-
-    List<SysUser> selectUserList(SysUser user, Long scoreCheck);
 }

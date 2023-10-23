@@ -66,15 +66,15 @@ export default {
       const day = await userController();
       const monthEvent = await monthUserControll();
       const dayEvent = await dayUserControll();
-      this.gridData = dayEvent.data;
-      this.tableData = monthEvent.data;
-      this.tableDataAll = monthEvent.data;
+      this.gridData = dayEvent.data.list;
+      this.tableData = monthEvent.data.list;
+      this.tableDataAll = monthEvent.data.list;
       this.dayscore = day.data;
       this.monthscore = month.data;
     },
     //获取该用户全部日志的
     async month() {
-      const monthEvent = await dayUserControll();
+      const monthEvent = await monthUserControll();
       this.tableDataAll = monthEvent.data.list;
       this.monthtotal = monthEvent.data.total;
     },

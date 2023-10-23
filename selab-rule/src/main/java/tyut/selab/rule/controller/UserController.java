@@ -20,6 +20,8 @@ import tyut.selab.rule.domain.entity.Operation;
 import tyut.selab.rule.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -63,16 +65,19 @@ public class UserController {
      * @return
      */
     // 开始时间
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date startTime;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+//    private Date startTime;
 
     @GetMapping("/dayLog")
     @ApiOperation("查询用户当天的所有相关日志")
     @PreAuthorize("@ss.hasAnyPermi('rule:content')")
-    public AjaxResult getScoreChangeLogForDay(HttpServletRequest request, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize, @RequestParam("startTime") Date startTime) {
+    public AjaxResult getScoreChangeLogForDay(HttpServletRequest request, @RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize, @RequestParam("startTime") String startTime) throws ParseException {
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
+        Date startTimeTime = ft.parse(startTime);
         LoginUser user = tokenService.getLoginUser(request);
-        List<Operation> operationList = userService.getLogForDay(user.getUserId(), pageNum, pageSize, startTime);
+        Long userId = user.getUserId();
+        List<Operation> operationList = userService.getLogForDay(userId, pageNum, pageSize, startTimeTime);
         return AjaxResult.success(operationList);
     }
 

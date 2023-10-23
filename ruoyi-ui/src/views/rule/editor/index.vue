@@ -80,15 +80,7 @@
               end-placeholder="结束日期"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="用户分数">
-            <el-input
-              v-model="queryParams.score"
-              placeholder="请输入用户分数"
-              clearable
-              style="width: 240px"
-              @keyup.enter.native="handleQuery"
-            />
-          </el-form-item>
+          
           <el-form-item>
             <el-button
               type="primary"

@@ -6,7 +6,10 @@ export default {
     return {
       //查询参数
       queryParams: {
+        qeury: "",
+        //当前页数
         pageNum: 1,
+        //显示一页多少条数据
         pageSize: 10,
       },
       //总条数
@@ -20,15 +23,32 @@ export default {
   },
   methods: {
     //获取所有用户的操作日志
-    async getList() {
-      await selectAllLog(
-        this.queryParams.pageNum,
-        this.queryParams.pageSize
-      ).then((response) => {
-        console.log(response);
-        this.tableData = response.data;
-        // this.total = response.total;
-      });
+    getList() {
+      selectAllLog(this.queryParams.pageNum, this.queryParams.pageSize).then(
+        (response) => {
+          console.log(response);
+          this.tableData = response.data.list;
+          this.total = response.data.total;
+        }
+      );
+    },
+    //监听 pagesize 改变的事件
+    handleSizeChange(newsize) {
+      //这里conso 选中第几页 最新的值
+      console.log(newsize);
+      //最新的条数（newsize）赋值给 动态的 pagesie
+      this.queryParams.pageSize = newsize;
+      //获取到最新一页显示的数据  重新发送axios请求 这里是封装好的请求方法
+      this.getList();
+    },
+
+    // 监听 页码值 改变的事件
+    handleCurrentChange(newPage) {
+      console.log(newPage);
+      //把最新的页码（newPage）赋值给 动态的 pagenum
+      this.queryParams.pageNum = newPage;
+      //获取到最新显示的页码值  重新发送axios请求 这里是封装好的请求方法
+      this.getList();
     },
   },
 };
@@ -229,17 +249,21 @@ export default {
           width="100"
         >
         </el-table-column>
-        <el-table-column prop="name" label="姓名" width="70"> </el-table-column>
+        <el-table-column prop="nickName" key="nickName" label="姓名" width="70">
+        </el-table-column>
         <el-table-column prop="reasonContent" key="reasonContent" label="原因">
         </el-table-column>
       </el-table>
-      <pagination
-        v-show="total > 0"
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="queryParams.pageNum"
+        :page-size="queryParams.pageSize"
+        :page-sizes="[10, 20, 30, 40, 50, 60, 70, 80, 90, 100]"
+        layout="total, sizes, prev, pager, next ,jumper"
         :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
-        @pagination="getList"
-      />
+      >
+      </el-pagination>
     </el-card>
   </div>
 </template>

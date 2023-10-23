@@ -1,9 +1,30 @@
 <script>
-import { userController, monthUserController } from "@/api/rule/announcement";
+import {
+  userController,
+  monthUserController,
+  dayUserControll,
+  monthUserControll,
+  userdayLog,
+} from "@/api/rule/announcement";
 export default {
   name: "rule",
   data() {
     return {
+      //用户所有日志
+      tableDataAll: null,
+      //查询参数
+      queryParams: {
+        qeury: "",
+        //当前页数
+        pageNum: 1,
+        //显示一页多少条数据
+        pageSize: 10,
+      },
+      //总条数
+      total: 0,
+      //事件记录
+      tableData: null,
+      gridData: null,
       dayscore: "",
       monthscore: "",
       pickerOptions: {
@@ -32,31 +53,7 @@ export default {
           },
         ],
       },
-      value1: "",
-      value2: "",
-      value3: "",
-      gridData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-      ],
+      dayvalue: "",
       dialogTableVisibleDate: false,
       dialogTableVisibleMonth: false,
     };
@@ -65,8 +62,41 @@ export default {
     async userInfo() {
       const month = await monthUserController();
       const day = await userController();
+      const monthEvent = await monthUserControll();
+      const dayEvent = await dayUserControll();
+
+      this.gridData = dayEvent.data;
+      this.tableData = monthEvent.data;
+      this.tableDataAll = monthEvent.data;
       this.dayscore = day.data;
       this.monthscore = month.data;
+    },
+    search() {
+      userdayLog(
+        this.queryParams.pageNum,
+        this.queryParams.pageSize,
+        this.dayvalue
+      ).then((response) => {
+        this.tableDataAll = response.data.list;
+        this.total = response.data.total;
+      });
+    },
+    //监听 pagesize 改变的事件
+    handleSizeChange(newsize) {
+      //这里conso 选中第几页 最新的值
+      console.log(newsize);
+      //最新的条数（newsize）赋值给 动态的 pagesie
+      this.queryParams.pageSize = newsize;
+      //获取到最新一页显示的数据  重新发送axios请求 这里是封装好的请求方法
+      this.search();
+    },
+
+    // 监听 页码值 改变的事件
+    handleCurrentChange(newPage) {
+      //把最新的页码（newPage）赋值给 动态的 pagenum
+      this.queryParams.pageNum = newPage;
+      //获取到最新显示的页码值  重新发送axios请求 这里是封装好的请求方法
+      this.search();
     },
   },
   created() {
@@ -80,31 +110,31 @@ export default {
     <el-dialog title="今日记录" :visible.sync="dialogTableVisibleDate">
       <el-table :data="gridData">
         <el-table-column
-          property="date"
+          property="createTime"
           label="日期"
           width="150"
         ></el-table-column>
         <el-table-column
-          property="name"
-          label="姓名"
+          property="reasonContent"
+          label="原因"
           width="200"
         ></el-table-column>
-        <el-table-column property="address" label="地址"></el-table-column>
+        <el-table-column property="scoreChange" label="分数"></el-table-column>
       </el-table>
     </el-dialog>
     <el-dialog title="本月记录" :visible.sync="dialogTableVisibleMonth">
-      <el-table :data="gridData">
+      <el-table :data="tableData">
         <el-table-column
-          property="date"
-          label="日期132"
+          property="createTime"
+          label="日期"
           width="150"
         ></el-table-column>
         <el-table-column
-          property="name"
-          label="姓名"
+          property="reasonContent"
+          label="原因"
           width="200"
         ></el-table-column>
-        <el-table-column property="address" label="地址"></el-table-column>
+        <el-table-column property="scoreChange" label="分数"></el-table-column>
       </el-table>
     </el-dialog>
     <div class="left">
@@ -136,22 +166,39 @@ export default {
       <div class="input">
         <div class="block">
           <el-date-picker
-            v-model="value1"
+            v-model="dayvalue"
             type="datetime"
             placeholder="选择日期时间"
             default-value
+            value-format="yyyy-MM-dd HH:mm:ss"
           >
           </el-date-picker>
         </div>
-        <el-button type="primary" icon="el-icon-search">搜索</el-button>
+        <el-button
+          type="primary"
+          icon="el-icon-search"
+          @click="search"
+          :disabled="!dayvalue"
+          >搜索</el-button
+        >
       </div>
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="date" label="时间" width="280">
+      <el-table :data="tableDataAll" style="width: 100%">
+        <el-table-column prop="createTime" label="时间" width="280">
         </el-table-column>
-        <el-table-column prop="name" label="分数" width="280">
+        <el-table-column prop="scoreChange" label="分数" width="280">
         </el-table-column>
-        <el-table-column prop="address" label="原因"> </el-table-column>
+        <el-table-column prop="reasonContent" label="原因"> </el-table-column>
       </el-table>
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="queryParams.pageNum"
+        :page-size="queryParams.pageSize"
+        :page-sizes="[10, 20, 30, 40, 50, 60, 70, 80, 90, 100]"
+        layout="total, sizes, prev, pager, next ,jumper"
+        :total="total"
+      >
+      </el-pagination>
     </div>
   </div>
 </template>

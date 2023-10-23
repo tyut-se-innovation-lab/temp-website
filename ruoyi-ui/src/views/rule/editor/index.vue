@@ -519,7 +519,6 @@ export default {
         label: "label",
       },
       //公共id
-      userID: "",
 
       //删除记录对话框参数
       dialogVisibledele: false,
@@ -631,9 +630,12 @@ export default {
   },
   methods: {
     /* 删除用户操作日志 */
-    async logControll(scope) {
-      // const res = await logController(1, scope.row.ruleLogId);
-      console.log(scope);
+    logControll(scope) {
+      const res = logController(
+        scope.row.targetUserId,
+        scope.row.ruleLogId
+      ).then(this.getList());
+      this.getList();
       this.dialogVisibledele = false;
     },
     /*增减用户分数  */

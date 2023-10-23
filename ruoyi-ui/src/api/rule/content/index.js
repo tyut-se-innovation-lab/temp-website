@@ -8,10 +8,8 @@ export const contextContorller = () => {
 };
 
 //获取所有用户的操作日志
-export const selectAllLog = (query) => {
-  return request({
-    url: "/rule/log/selectAllLog",
-    method: "get",
-    params: query,
-  });
+export const selectAllLog = (pageNum, pageSize) => {
+  return request.get(
+    "/rule/log/selectAllLog?pageNum=" + pageNum + "&pageSize=" + pageSize
+  );
 };

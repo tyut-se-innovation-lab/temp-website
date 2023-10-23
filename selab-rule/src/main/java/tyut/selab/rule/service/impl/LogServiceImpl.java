@@ -61,7 +61,7 @@ public class LogServiceImpl implements LogService {
             operationVOS.add(operationVO);
         }
         LogVO logVO = new LogVO();
-        logVO.setTotal(pageInfo.getTotal());
+        logVO.setTotal((int) pageInfo.getTotal());
         logVO.setList(operationVOS);
         return logVO;
     }

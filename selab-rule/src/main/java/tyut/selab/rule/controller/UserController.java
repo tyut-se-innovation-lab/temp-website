@@ -69,7 +69,6 @@ public class UserController {
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
 //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 //    private Date startTime;
-
     @GetMapping("/dayLog")
     @ApiOperation("查询用户当天的所有相关日志")
     @PreAuthorize("@ss.hasAnyPermi('rule:content')")
@@ -109,7 +108,9 @@ public class UserController {
     public AjaxResult getScoreChangeOperationsForDay(HttpServletRequest request) {
         LoginUser user = tokenService.getLoginUser(request);
         List<OperationVO> logVOList = userService.getScoreChangeOperationsForDay(user.getUserId());
-
+        LogVO logVO = new LogVO();
+        logVO.setList(logVOList);
+        logVO.setTotal(logVOList.size());
         return AjaxResult.success(logVOList);
     }
 

@@ -111,7 +111,7 @@ public class UserController {
         LogVO logVO = new LogVO();
         logVO.setList(logVOList);
         logVO.setTotal(logVOList.size());
-        return AjaxResult.success(logVOList);
+        return AjaxResult.success(logVO);
     }
 
     /**

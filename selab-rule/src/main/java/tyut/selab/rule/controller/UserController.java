@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import tyut.selab.rule.domain.VO.LogPageVO;
 import tyut.selab.rule.domain.VO.LogVO;
 import tyut.selab.rule.domain.VO.OperationVO;
 import tyut.selab.rule.domain.entity.Operation;
@@ -77,7 +78,7 @@ public class UserController {
         Date startTimeTime = ft.parse(startTime);
         LoginUser user = tokenService.getLoginUser(request);
         Long userId = user.getUserId();
-        List<Operation> operationList = userService.getLogForDay(userId, pageNum, pageSize, startTimeTime);
+        LogPageVO operationList = userService.getLogForDay(userId, pageNum, pageSize, startTimeTime);
         return AjaxResult.success(operationList);
     }
 
@@ -108,6 +109,7 @@ public class UserController {
     public AjaxResult getScoreChangeOperationsForDay(HttpServletRequest request) {
         LoginUser user = tokenService.getLoginUser(request);
         List<OperationVO> logVOList = userService.getScoreChangeOperationsForDay(user.getUserId());
+
         return AjaxResult.success(logVOList);
     }
 

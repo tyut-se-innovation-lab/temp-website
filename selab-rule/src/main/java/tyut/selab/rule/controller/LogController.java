@@ -55,7 +55,7 @@ public class LogController {
     public AjaxResult selectAllLog(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
 
         LogVO logVO = logService.selectAllLog(pageNum,pageSize);
-        
+
         return AjaxResult.success(logVO);
     }
 }

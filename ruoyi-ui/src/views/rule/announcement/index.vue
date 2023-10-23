@@ -64,12 +64,16 @@ export default {
       const day = await userController();
       const monthEvent = await monthUserControll();
       const dayEvent = await dayUserControll();
-
       this.gridData = dayEvent.data;
       this.tableData = monthEvent.data;
       this.tableDataAll = monthEvent.data;
       this.dayscore = day.data;
       this.monthscore = month.data;
+    },
+    //获取该用户全部日志的
+    async month() {
+      const monthEvent = await monthUserControll();
+      this.tableDataAll = monthEvent.data;
     },
     search() {
       userdayLog(
@@ -97,6 +101,24 @@ export default {
       this.queryParams.pageNum = newPage;
       //获取到最新显示的页码值  重新发送axios请求 这里是封装好的请求方法
       this.search();
+    },
+    //
+    //监听 pagesize 改变的事件
+    handleSizeChange1(newsize) {
+      //这里conso 选中第几页 最新的值
+      console.log(newsize);
+      //最新的条数（newsize）赋值给 动态的 pagesie
+      this.queryParams.pageSize = newsize;
+      //获取到最新一页显示的数据  重新发送axios请求 这里是封装好的请求方法
+      this.month();
+    },
+
+    // 监听 页码值 改变的事件
+    handleCurrentChange1(newPage) {
+      //把最新的页码（newPage）赋值给 动态的 pagenum
+      this.queryParams.pageNum = newPage;
+      //获取到最新显示的页码值  重新发送axios请求 这里是封装好的请求方法
+      this.month();
     },
   },
   created() {
@@ -190,6 +212,7 @@ export default {
         <el-table-column prop="reasonContent" label="原因"> </el-table-column>
       </el-table>
       <el-pagination
+        v-if="dayvalue"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="queryParams.pageNum"
@@ -197,6 +220,17 @@ export default {
         :page-sizes="[10, 20, 30, 40, 50, 60, 70, 80, 90, 100]"
         layout="total, sizes, prev, pager, next ,jumper"
         :total="total"
+      >
+      </el-pagination>
+      <el-pagination
+        v-else
+        @size-change="handleSizeChange1"
+        @current-change="handleCurrentChange1"
+        :current-page="queryParams.pageNum"
+        :page-size="queryParams.pageSize"
+        :page-sizes="[10, 20, 30, 40, 50, 60, 70, 80, 90, 100]"
+        layout="total, sizes, prev, pager, next ,jumper"
+        :total="monthtotal"
       >
       </el-pagination>
     </div>

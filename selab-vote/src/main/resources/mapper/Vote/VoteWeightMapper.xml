@@ -20,7 +20,10 @@
         </foreach>
     </insert>
     <select id="listVoteWeightByVoteId" resultMap="voteWeight">
-        SELECT vote_id,w.role_id,role_name,weight
+        SELECT vote_id,w.role_id,role_name,w.weight
         FROM selab_vote_weight w JOIN sys_role r ON w.role_id = r.role_id where vote_id = #{voteId}
+    </select>
+    <select id="getWeightByRoleId" resultType="int">
+        SELECT weight FROM selab_vote_weight WHERE vote_id = #{voteId} AND role_id = #{roleId}
     </select>
 </mapper>

@@ -45,4 +45,12 @@ public interface ReportVoteMapper {
      * @return
      */
     Integer queryReportCount(@Param("voteId") Long voteId);
+
+
+    /**
+     *  查询本投票所有举报人 （xml null）
+     * @param voteId
+     * @return
+     */
+    List<Long> getUserIdByVoteId(Long voteId);
 }

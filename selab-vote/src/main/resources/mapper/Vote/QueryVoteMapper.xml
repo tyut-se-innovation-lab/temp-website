@@ -42,7 +42,7 @@
         <result property="userId" column="user_id"/>
     </resultMap>
     <select id="getVoteInfoByVoteId" resultMap="voteInfo">
-        SELECT v.vote_id,v.user_id,u.nick_name,v.title,v.content,v.vote_type,v.status,v.dead_time,v.create_time,v.is_realtime,v.` option_num`
+        SELECT v.vote_id,v.user_id,u.nick_name,v.title,v.content,v.vote_type,v.status,v.dead_time,v.create_time,v.is_realtime,v.option_num
         FROM selab_vote_info v
         LEFT JOIN sys_user u ON v.user_id = u.user_id
         WHERE v.vote_id = #{voteId} AND del_flag = '0'
@@ -57,10 +57,10 @@
                 v.del_flag = '0' AND vu.user_id = #{user_id}
             </if>
             <if test="isEnd == 1">
-                v.status = 2 OR (v.status = 1 AND v.dead_time AFTER NOW()) OR v.status = 5
+                v.status = 2 OR (v.status = 1 AND v.dead_time BEFORE NOW()) OR v.status = 5
             </if>
             <if test="isEnd == 0">
-                v.status != 5 AND v.dead_time BEFORE NOW()
+                v.status != 5 AND v.dead_time AFTER NOW()
             </if>
             <if test="isParticipate == 1">
                 u.is_complete = 1

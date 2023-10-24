@@ -1,6 +1,7 @@
 package tyut.selab.vote.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import tyut.selab.vote.domain.po.VoteUser;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public interface VoteUserMapper {
      * @param userId
      * @return
      */
-    String getIsCompleteByUserIdAndVoteId(Long voteId,Long userId);
+    String getIsCompleteByUserIdAndVoteId(@Param("voteId") Long voteId,@Param("userId") Long userId);
 
     /**
      *  修改is_complete字段为已完成
@@ -39,6 +40,6 @@ public interface VoteUserMapper {
      * @param userId
      * @return
      */
-    Integer updateIsComplete(Long voteId,Long userId);
+    Integer updateIsComplete(@Param("voteId") Long voteId,@Param("userId") Long userId);
 
 }

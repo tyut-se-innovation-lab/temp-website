@@ -48,9 +48,7 @@
             (#{voteWeight.voteId},#{voteWeight.roleId},#{voteWeight.weight})
         </foreach>
     </insert>
-    <select id="getIsRealTime" resultType="String">
-        SELECT is_realtime FROM selab_vote_info WHERE vote_id = #{voteId}
-    </select>
+
     <select id="getVoteStatus" resultMap="voteInfo">
         SELECT status FROM selab_vote_info WHERE vote_id = #{voteId}
     </select>

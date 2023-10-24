@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tyut.selab.vote.mapper.ReminderVoteMapepr">
+
+    <resultMap id="voteReminderForReport" type="tyut.selab.vote.domain.po.VoteReminder">
+      <id property="informId" column="inform_id"/>
+      <result property="createTime" column="create_time"/>
+      <result property="voteReminderType" column="inform_type"
+       typeHandler="tyut.selab.vote.config.jdbc.handler.VoteReminderTypeHandler"/>
+      <result property="voteId" column="vote_id"/>
+      <result property="title" column="title"/>
+      <result property="content" column="content"/>
+      <result property="voteStstus" column="status"
+       typeHandler="tyut.selab.vote.config.jdbc.handler.VoteStatusHandler"/>
+      <result property="deadTime" column="dead_time"/>
+      <result property="createTime" column="create_time"/>
+      <result property="reminderTime" column="reminder_time"/>
+      <result property="reminderNews" column="description"/>
+    </resultMap>
+    <resultMap id="voteReminder" type="tyut.selab.vote.domain.po.VoteReminder">
+        <id property="informId" column="inform_id"/>
+        <result property="voteId" column="vote_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="voteStatus" column="status"
+         typeHandler="tyut.selab.vote.config.jdbc.handler.VoteStatusHandler"/>
+        <result property="createTime" column="create_time"/>
+        <result property="deadTime" column="deadTime"/>
+        <result property="voteReminderType" column="inform_type"
+                typeHandler="tyut.selab.vote.config.jdbc.handler.VoteReminderTypeHandler"/>
+        <result property="reminderTime" column="reminder_time"/>
+    </resultMap>
+
+   <insert id="insertVoteReminder" parameterType="tyut.selab.vote.domain.po.VoteReminder">
+       INSERT INTO selab_vote_reform (vote_id,reform_type,create_time) VALUE
+       <foreach collection="voteReminderDtoS" item="voteReminderDto" separator=",">
+           (#{voteReminderDto.voteId},#{voteReminderDto.reform_type,typeHandler = tyut.selab.vote.config.jdbc.handler.VoteReminderTypeHandler},#{createTime})
+       </foreach>
+   </insert>
+    <select id="getReportReminder" parameterType="Long" resultMap="voteReminderForReport">
+       SELECT f.vote_id,v.title,v.content,v.status,v.dead_time,v.create_time,f.reform_type,r.description,f.reminder_time,inform_id
+       FROM selab_vote_inform f LEFT JOIN selab_vote_report r ON f.vote_id = r.vote_id
+       LEFT JOIN selab_vote_inform_user u ON f.inform_id = u.inform_id
+       WHERE u.user_id = #{useId} AND u.is_read = '0'
+    </select>
+    <update id="uodateReminderIsRead">
+        UPDATE selab_vote_inform_user SET is_read = '1'
+        WHERE user_id = #{userId} AND inform_id = #{informId}
+    </update>
+    <select id="getVoteReminder" resultMap="voteReminderForReport">
+        SELECT f.vote_id,v.title,v.status,v.dead_time,v.create_time,f.reform_type,f.reminder_time,v.content,f.inform_id
+        FROM selab_vote_inform f LEFT JOIN selab_vote_inform_user u ON f.inform_id = u.inform_id
+        LEFT JOIN selab_vote_info v ON v.vote_id = f.vote_id
+        WHERE u.user_id = #{userId}
+    </select>
+    <select id="getNewsNum" parameterType="long">
+        SELECT count(*) FROM selab_vote_inform f LEFT JOIN selab_vote_inform_user fu ON fu.inform_id = f.inform_id
+        LEFT JOIN selab_vote_Info v ON v.vote_id = f.vote_id
+        LEFT JOIN selab_vote_user vu ON vu.vote_id = f.vote_id
+           WHERE  (f.inform_type in ['2','3','4','7','8','9'] AND fu.is_read = '0')
+              OR (f.inform_type = '1' AND v.status = 3 AND v.dead_time)
+              OR (f.inform_type = '5' AND v.status = 4 AND v.dead_time)
+              OR (v.inform_type = '6' AND vu.user_id = #{userId} AND vu.is_complete = '0')
+    </select>
+</mapper>

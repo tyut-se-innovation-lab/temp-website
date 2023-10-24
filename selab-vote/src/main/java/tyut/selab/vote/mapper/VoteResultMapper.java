@@ -1,6 +1,7 @@
 package tyut.selab.vote.mapper;
 
-import tyut.selab.vote.domain.po.VoteRange;
+import org.apache.ibatis.annotations.Param;
+import tyut.selab.vote.domain.po.VoteOpinionContent;
 import tyut.selab.vote.domain.po.VoteResult;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface VoteResultMapper {
      * @param voteResults
      * @return
      */
-    Integer insertVoteResult(List<VoteResult> voteResults);
+    Integer insertVoteResult(@Param("voteResults") List<VoteResult> voteResults);
 
 
 
@@ -32,16 +33,16 @@ public interface VoteResultMapper {
      * @param optionId
      * @return
      */
-    List<VoteResult> getVoteResultByOptionIdAndVoteId(Long voteId,Long optionId,Long userId);
+    List<VoteResult> getVoteResultByOptionIdAndVoteId(@Param("voteId") Long voteId,@Param("optionId") Long optionId,@Param("userId") String userId);
 
 
     /**
-     *  查询票数
+     *  查询票数 (带权重)
      * @param voteId
      * @param optionId
      * @return
      */
-    Integer getVoteReultCount(Long voteId,Long optionId);
+    Integer getVoteReaultCount(@Param("voteId") Long voteId,@Param("optionId") Long optionId);
 
     /**
      *  查询实名投票的用户加密id
@@ -49,13 +50,18 @@ public interface VoteResultMapper {
      * @param voteId
      * @return
      */
-    List<String> getParseUserId(Long optionId,Long voteId);
+    List<String> getParseUserId(@Param("optionId") Long optionId,@Param("voteId") Long voteId);
     /**
      *  通过userId查询用户名字
      * @param userIds
      * @return
      */
-    List<String> getNickName(List<Long> userIds);
+    List<String> getNickName(@Param("userIds") List<Long> userIds);
 
-
+    /**
+     *   获取匿名投票意见
+      * @param voteId null
+     * @return
+     */
+   List<VoteOpinionContent> getOptionContent(@Param("voteId") Long voteId);
 }

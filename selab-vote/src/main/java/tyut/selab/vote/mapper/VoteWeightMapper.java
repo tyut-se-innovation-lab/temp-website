@@ -24,5 +24,5 @@ public interface VoteWeightMapper {
      *   通过userId获取本投票权重
      * @return
      */
-    Integer getWeightByUserId(Long voteId,Long userId);
+    Integer getWeightByRoleId(@Param("voteId") Long voteId,@Param("roleId") Long roleId);
 }

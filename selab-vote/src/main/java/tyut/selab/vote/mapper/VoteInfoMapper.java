@@ -19,6 +19,7 @@ import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteOption;
 import tyut.selab.vote.domain.po.VoteWeight;
 import tyut.selab.vote.enums.VoteStatus;
+import tyut.selab.vote.enums.VoteType;
 
 import java.util.Date;
 import java.util.List;
@@ -30,6 +31,7 @@ import java.util.List;
  * @Date: 2023/10/11 18:52:28
  */
 public interface VoteInfoMapper {
+
     /**
      * 查询投票截止时间
      * @param voteId
@@ -44,7 +46,7 @@ public interface VoteInfoMapper {
      */
     Integer updateVoteStatus(@Param("voteId") Long voteId,@Param("status") VoteStatus status);
 
-    /**
+    /** TODO
      * 修改删除状态
      * @param voteId
      * @return
@@ -53,7 +55,7 @@ public interface VoteInfoMapper {
 
     /**
      * 保存投票信息
-     * @param VoteInfoLaunchDTO
+     * @param voteInfoLaunchDTO
      * @return
      */
     Integer saveVoteInformation(@Param("voteInfoLaunchDTO") VoteInfoLaunchDTO voteInfoLaunchDTO);
@@ -67,10 +69,6 @@ public interface VoteInfoMapper {
      */
     VoteInfo getVoteStatus(Long voteId);
 
-    /**
-     *  查询投票是否是实时的
-     * @param voteId
-     * @return
-     */
-    String getIsRealTime(Long voteId);
+    VoteType getVoteType(Long voteId);
+
 }

@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer getScoreChangeForMonth(Long userId) {
         //当前时间的分数-本月第一天00：00：00的分数即当天的增减分情况
-        LocalDateTime begin = LocalDateTime.of(LocalDate.now().withDayOfMonth(1), LocalTime.MIN);
+        LocalDateTime begin = LocalDateTime.of(LocalDate.now().plusMonths(-1).withDayOfMonth(1), LocalTime.MIN);
         LocalDateTime end = LocalDateTime.now();
         Integer scoreChange = ruleScoreMapper.getScoreChangeByTime(begin, end, userId);
         if (scoreChange == null) {
@@ -134,8 +134,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public List<OperationVO> getScoreChangeOperationsForMonth(Long userId) {
-        //当前时间的分数-本月第一天00：00：00的分数即当天的增减分操作日志
-        LocalDateTime begin = LocalDateTime.of(LocalDate.now().withDayOfMonth(1), LocalTime.MIN);
+        //当前时间的分数-上个月第一天00：00：00的分数即当天的增减分操作日志
+        LocalDateTime begin = LocalDateTime.of(LocalDate.now().plusMonths(-1).withDayOfMonth(1), LocalTime.MIN);
         LocalDateTime end = LocalDateTime.now();
         List<OperationVO> logVOList = ruleScoreMapper.getScoreChangeOperationsByTime(begin, end, userId);
         return logVOList;

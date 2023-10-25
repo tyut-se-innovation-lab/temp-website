@@ -51,6 +51,7 @@
     </select>
     <select id="getAllLogs" resultType="tyut.selab.rule.domain.VO.OperationVO" resultMap="RuleLogResultMap">
         select * from rule_log where target_user_id = #{userId}
+        order by create_time desc
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

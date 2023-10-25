@@ -34,14 +34,24 @@ export const monthUserControll = (data) => {
   });
 };
 
+//查询该用户的所有日志信息
+export const allLogs = (pageNum, pageSize) => {
+  return request.get(
+    "/rule/getAllLogs?pageNum=" +
+    pageNum +
+    "&pageSize=" +
+    pageSize
+  );
+};
+
 //条件查询某天的日志
 export const userdayLog = (pageNum, pageSize, startTime) => {
   return request.get(
     "/rule/dayLog?pageNum=" +
-      pageNum +
-      "&pageSize=" +
-      pageSize +
-      "&startTime=" +
-      startTime
+    pageNum +
+    "&pageSize=" +
+    pageSize +
+    "&startTime=" +
+    startTime
   );
 };

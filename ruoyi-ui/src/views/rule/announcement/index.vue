@@ -5,7 +5,9 @@ import {
   dayUserControll,
   monthUserControll,
   userdayLog,
+  allLogs
 } from "@/api/rule/announcement";
+
 export default {
   name: "rule",
   data() {
@@ -74,9 +76,13 @@ export default {
     },
     //获取该用户全部日志的
     async month() {
-      const monthEvent = await monthUserControll();
-      this.tableDataAll = monthEvent.data.list;
-      this.monthtotal = monthEvent.data.total;
+      allLogs(
+        this.queryParams.pageNum,
+        this.queryParams.pageSize,
+      ).then((response) => {
+        this.tableDataAll = response.data.list;
+        this.monthtotal = response.data.total;
+      });
     },
     search() {
       userdayLog(
@@ -168,7 +174,7 @@ export default {
         <div @click="dialogTableVisibleDate = true">
           <el-card shadow="hover" :body-style="{ padding: '0px' }">
             <div class="grid-content grid-con-1">
-              <el-icon class="grid-con-icon el-icon-user-solid"> </el-icon>
+              <el-icon class="grid-con-icon el-icon-user-solid"></el-icon>
               <div class="grid-cont-right">
                 <div class="grid-num">{{ dayscore }}</div>
                 <div>今日分数</div>
@@ -179,10 +185,10 @@ export default {
         <div @click="dialogTableVisibleMonth = true">
           <el-card shadow="hover" :body-style="{ padding: '0px' }">
             <div class="grid-content grid-con-2">
-              <el-icon class="grid-con-icon el-icon-eleme"> </el-icon>
+              <el-icon class="grid-con-icon el-icon-eleme"></el-icon>
               <div class="grid-cont-right">
                 <div class="grid-num">{{ monthscore }}</div>
-                <div>本月分数</div>
+                <div>总分数</div>
               </div>
             </div>
           </el-card>
@@ -205,7 +211,8 @@ export default {
           icon="el-icon-search"
           @click="search"
           :disabled="!dayvalue"
-          >搜索</el-button
+        >搜索
+        </el-button
         >
       </div>
       <el-table :data="tableDataAll" style="width: 100%">
@@ -213,7 +220,7 @@ export default {
         </el-table-column>
         <el-table-column prop="scoreChange" label="分数" width="280">
         </el-table-column>
-        <el-table-column prop="reasonContent" label="原因"> </el-table-column>
+        <el-table-column prop="reasonContent" label="原因"></el-table-column>
       </el-table>
       <el-pagination
         v-if="dayvalue"

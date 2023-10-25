@@ -49,6 +49,9 @@
         and create_time between #{startTime,jdbcType=TIMESTAMP} and #{endTime,jdbcType=TIMESTAMP}
         order by create_time desc
     </select>
+    <select id="getAllLogs" resultType="tyut.selab.rule.domain.VO.OperationVO" resultMap="RuleLogResultMap">
+        select * from rule_log where target_user_id = #{userId}
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from rule_log

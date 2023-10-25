@@ -1,6 +1,7 @@
 package tyut.selab.rule.service.impl;
 
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
@@ -138,6 +139,21 @@ public class UserServiceImpl implements UserService {
         LocalDateTime end = LocalDateTime.now();
         List<OperationVO> logVOList = ruleScoreMapper.getScoreChangeOperationsByTime(begin, end, userId);
         return logVOList;
+    }
+
+    /**
+     * 查询当前用户的所有操作日志
+     *
+     * @param userId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public LogVO getAllLogs(Long userId, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        Page<OperationVO> page = ruleLogMapper.getAllLogs(userId);
+        return new LogVO((int) page.getTotal(), page.getResult());
     }
 
     /**

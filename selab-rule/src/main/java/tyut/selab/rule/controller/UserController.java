@@ -1,6 +1,7 @@
 package tyut.selab.rule.controller;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.github.pagehelper.PageInfo;
 import com.ruoyi.common.annotation.Anonymous;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.domain.AjaxResult;
@@ -129,6 +130,23 @@ public class UserController {
         LogVO logVO = new LogVO();
         logVO.setList(logVOList);
         logVO.setTotal(logVOList.size());
+        return AjaxResult.success(logVO);
+    }
+
+    /**
+     * 查询当前用户的所有操作日志
+     *
+     * @param request
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("/getAllLogs")
+    @ApiOperation("查询当前用户的所有操作日志")
+    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
+    public AjaxResult getAllLogs(HttpServletRequest request, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        LoginUser user = tokenService.getLoginUser(request);
+        LogVO logVO = userService.getAllLogs(user.getUserId(), pageNum, pageSize);
         return AjaxResult.success(logVO);
     }
 }

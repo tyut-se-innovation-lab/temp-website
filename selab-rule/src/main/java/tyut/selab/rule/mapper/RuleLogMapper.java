@@ -1,5 +1,6 @@
 package tyut.selab.rule.mapper;
 
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import tyut.selab.rule.domain.RuleLog;
@@ -32,6 +33,10 @@ public interface RuleLogMapper {
     int deleteByLogId(Long logId);
 
     int getByRuleLogId(Long logId);
+
     List<Operation> selectAllLog();
-    List<Operation> getLogForDay(@Param("userId") Long userId,@Param("startTime") Date startTime,@Param("endTime") Date endTime);
+
+    List<Operation> getLogForDay(@Param("userId") Long userId, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+
+    Page<OperationVO> getAllLogs(Long userId);
 }

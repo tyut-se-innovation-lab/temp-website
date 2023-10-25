@@ -1,5 +1,7 @@
 package tyut.selab.rule.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.domain.R;
 import tyut.selab.rule.domain.VO.LogPageVO;
@@ -32,4 +34,13 @@ public interface UserService {
     List<OperationVO> getScoreChangeOperationsForDay(Long userId);
 
     List<OperationVO> getScoreChangeOperationsForMonth(Long userId);
+
+    /**
+     * 查询当前用户的所有操作日志
+     * @param userId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    LogVO getAllLogs(Long userId, Integer pageNum, Integer pageSize);
 }

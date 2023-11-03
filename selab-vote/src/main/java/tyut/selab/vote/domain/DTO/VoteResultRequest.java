@@ -1,7 +1,7 @@
 package tyut.selab.vote.domain.DTO;
 
-import lombok.Getter;
-
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -12,11 +12,15 @@ import java.util.List;
  * @date: 2023/10/18 19:01
  * @version: 1.0
  */
+
 public class VoteResultRequest {
     private Long voteId;
+    @NotBlank(message = "投票发布人不能为空")
     private String userId;
     // 选项id
+    @NotNull(message = "投票选项不能为空")
     private List<Long> voteOptionIds;
+    @NotBlank
     private String content;
 
     private Date createTime;

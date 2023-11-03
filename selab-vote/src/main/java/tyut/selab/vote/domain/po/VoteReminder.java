@@ -1,4 +1,4 @@
-package tyut.selab.vote.domain.DTO;
+package tyut.selab.vote.domain.po;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -16,7 +16,8 @@ import java.util.Date;
  * @version: 1.0
  */
 @Data
-public class VoteReminderDTO {
+public class VoteReminder {
+    private Long informId;
     private Long voteId;
     private String title;
     private String content;
@@ -28,4 +29,6 @@ public class VoteReminderDTO {
     private String userName;
     private Long userId;
     private VoteReminderType voteReminderType;
+    private Date reminderTime;
+    private String reminderNews;
 }

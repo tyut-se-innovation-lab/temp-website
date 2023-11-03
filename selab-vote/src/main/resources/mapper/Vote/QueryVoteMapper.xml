@@ -28,7 +28,7 @@
         <result property="isComplete" column="is_complete"/>
         <result property="optionNum" column="option_num"/>
         <collection property="voteWeights" select="tyut.selab.vote.mapper.VoteWeightMapper.listVoteWeightByVoteId" column="vote_id"/>
-        <collection property="voteOptionLaunchDTOs" select="tyut.selab.vote.mapper.VoteOptionMapper.getVoteOptionByVoteId" column="vote_id"/>
+        <collection property="voteOptions" select="tyut.selab.vote.mapper.VoteOptionMapper.getVoteOptionByVoteId" column="vote_id"/>
     </resultMap>
     <resultMap id="voteRange" type="tyut.selab.vote.domain.po.VoteRange">
         <id property="voteId" column="vote_id"/>
@@ -37,7 +37,7 @@
         <result property="voteStatus" column="status"
                 typeHandler="tyut.selab.vote.config.jdbc.handler.VoteStatusHandler"/>
         <result property="createTime" column="create_time"/>
-        <result property="deadTIme" column="dead_time"/>
+        <result property="deadTime" column="dead_time"/>
         <result property="userName" column="nick_name"/>
         <result property="userId" column="user_id"/>
     </resultMap>

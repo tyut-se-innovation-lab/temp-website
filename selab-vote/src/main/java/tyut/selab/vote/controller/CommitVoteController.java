@@ -8,13 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tyut.selab.vote.domain.DTO.VoteResultRequest;
-import tyut.selab.vote.domain.po.VoteInfo;
-import tyut.selab.vote.domain.po.VoteResult;
 import tyut.selab.vote.exception.VoteException;
 import tyut.selab.vote.service.ICommitVoteService;
 import tyut.selab.vote.service.IShowVoteResultService;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * @className: ParticipateVoteController
@@ -37,6 +33,7 @@ public class CommitVoteController {
      * @param voteResultRequest
      * @return
      */
+
     @PostMapping("/dovote")
     public AjaxResult doVote( @RequestBody VoteResultRequest voteResultRequest) throws VoteException {
         commitVoteService.commitVote(voteResultRequest);

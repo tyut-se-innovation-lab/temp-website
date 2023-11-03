@@ -13,13 +13,15 @@ import com.fasterxml.jackson.annotation.JsonValue;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum VoteReminderType {
 
-     MAXIMUMNUNREPORT("1","举报数量上限冻结"),
-    VOTEREPORT("2","投票被举报"),
-    VOTEWITHDRAW("3","撤回投票提醒"),
-    NOPARTICIPATE("4","待参与投票提醒"),
-    FREEZERESULT("5","冻结处理结果提醒"),
-    VOTECLOSEDEND("6","投票即将结束提醒"),
-    VOTEEND("7","投票结束提醒");
+    MAXIMUMNUNREPORTForAdmin("1","有一个投票因举报数量上限冻结"),
+    MAXIMUMNUNREPORTForLaunchUser("2","您发布的一个投票已被冻结"),
+    CLOSEBYADMIN("3","您发布的一个投票已被关闭"),
+    VOTEREPORT("4","有一个投票被举报"),
+    VOTEWITHDRAW("5","有一个撤回请求投票"),
+    NOPARTICIPATE("6","您有一个待参与投票"),
+    FREEZERESULTBYWITHDRAW("7","您的撤回请求已处理"),
+    FREEZERESULTBYREPORT("8","您举报的投票已被冻结"),
+    FREEZERESULTCLOSEBYREPORT("9","您举报的投票已被关闭");
 
     @JsonValue
     private final String sign;

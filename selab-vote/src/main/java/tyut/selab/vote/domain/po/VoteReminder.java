@@ -17,6 +17,7 @@ import java.util.Date;
  */
 @Data
 public class VoteReminder {
+    private Long informId;
     private Long voteId;
     private String title;
     private String content;
@@ -28,4 +29,6 @@ public class VoteReminder {
     private String userName;
     private Long userId;
     private VoteReminderType voteReminderType;
+    private Date reminderTime;
+    private String reminderNews;
 }

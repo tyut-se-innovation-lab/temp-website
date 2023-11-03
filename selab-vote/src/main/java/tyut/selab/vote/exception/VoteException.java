@@ -7,7 +7,7 @@ package tyut.selab.vote.exception;
  * @date: 2023/10/11 18:05
  * @version: 1.0
  */
-public class VoteException extends Exception{
+public class VoteException extends RuntimeException{
     public VoteException() {
     }
 

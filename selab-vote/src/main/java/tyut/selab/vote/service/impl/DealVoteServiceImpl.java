@@ -51,7 +51,6 @@ public class DealVoteServiceImpl implements DealVoteService {
 
 
     @Override
-    public Integer launchVote(VoteInfo voteInfo) {
     public Integer launchVote(VoteInfoLaunchDTO voteInfoLaunchDTO) {
 //        Long userId = SecurityUtils.getUserId();
 //        voteInfo.setUserId(userId);
@@ -77,19 +76,7 @@ public class DealVoteServiceImpl implements DealVoteService {
         return null;
     }
 
-    @Override
-    public Integer HandlingFrozenVote(Long voteId, Integer handel) {
-        return null;
-        if(TimeDealTool.judgeVoteFinish(voteInfoMapper.queryVoteDeadTime(voteId))){
-            //未到截止时间,撤回投票
-            voteInfoMapper.updateVoteStatus(voteId, VoteStatus.WITHDRAW);
-            return 1;
-        }else{
-            //此刻超出截止时间，结束投票
-            voteInfoMapper.updateVoteStatus(voteId,VoteStatus.FINISH);
-            return 0;
-        }
-    }
+
 
     @Override
     public Integer HandlingFrozenVote(Long voteId,Integer handel) {
@@ -112,7 +99,7 @@ public class DealVoteServiceImpl implements DealVoteService {
 
     @Override
     public Integer deleteVote(Long voteId) {
-        return null;
+
         return voteInfoMapper.deleteVote(voteId);
     }
 }

@@ -2,7 +2,7 @@ package tyut.selab.vote.tools;
 
 import com.ruoyi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import tyut.selab.vote.mapper.DealVoteMapper;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

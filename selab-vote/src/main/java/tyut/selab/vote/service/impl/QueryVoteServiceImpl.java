@@ -4,7 +4,6 @@ import com.ruoyi.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteRange;
-import tyut.selab.vote.domain.po.VoteResultDetails;
 import tyut.selab.vote.mapper.QueryVoteMapper;
 import tyut.selab.vote.mapper.VoteInfoMapper;
 import tyut.selab.vote.service.QueryVoteService;

@@ -3,11 +3,9 @@ package tyut.selab.vote.mapper;
 import org.apache.ibatis.annotations.Param;
 import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteRange;
-import tyut.selab.vote.domain.po.VoteResultDetails;
 
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @className: QueryVoteInfoMapper

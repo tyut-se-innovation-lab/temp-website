@@ -34,7 +34,7 @@ public class VoteInfo {
     // 1 为实时 0 为非实时
     private String isRealTime;
     // 投票选项
-    private List<VoteOptionDTO> voteOptionLaunchDTOs;
+    private List<? extends VoteOptionDTO> voteOptions;
     // 是否完成投票 0为未参与  1为已参与
     private String isComplete;
     // 投票权重
@@ -130,12 +130,12 @@ public class VoteInfo {
         this.isRealTime = isRealTime;
     }
 
-    public List<VoteOptionDTO> getVoteOptionVoList() {
-        return voteOptionLaunchDTOs;
+    public List<? extends VoteOptionDTO> getVoteOptions() {
+        return voteOptions;
     }
 
-    public void setVoteOptionVoList(List<VoteOptionDTO> voteOptionLaunchDTOs) {
-        this.voteOptionLaunchDTOs = voteOptionLaunchDTOs;
+    public void setVoteOptions(List<? extends VoteOptionDTO> voteOptions) {
+        this.voteOptions = voteOptions;
     }
 
     public String getIsComplete() {
@@ -179,7 +179,7 @@ public class VoteInfo {
                 ", deadTime=" + deadTime +
                 ", optionNum=" + optionNum +
                 ", isRealTime='" + isRealTime + '\'' +
-                ", voteOptionVoList=" + voteOptionLaunchDTOs +
+                ", voteOptionVoList=" + voteOptions +
                 ", isComplete='" + isComplete + '\'' +
                 ", voteWeights=" + voteWeights +
                 ", delFlag='" + delFlag + '\'' +

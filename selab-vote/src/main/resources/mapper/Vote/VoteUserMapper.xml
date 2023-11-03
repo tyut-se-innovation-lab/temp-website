@@ -31,6 +31,15 @@
     <select id="getIsCompleteByUserIdAndVoteId" resultType="String">
         SELECT is_complete FROM selab_vote_user WHERE vote_id = #{voteId} AND user_id = #{userId}
     </select>
+    <select id="getVoteUserList" resultMap="voteUserMap">
+        SELECT vote_id,v.user_id,is_complete,nick_name
+        FROM selab_vote_user v LFET JOIN sys_user u
+        <where>
+            <if test="voteId != null and voteId != ''">AND vote_id = #{voteId}</if>
+            <if test="userId != null and userId != ''">AND v.user_id = #{voteId}</if>
+            <if test="isComplete != null and isComplete != ''">AND is_complete = #{isComplete}</if>
+        </where>
+    </select>
     <update id="updateIsComplete" parameterType="long">
         UPDATE selab_vote_user SET is_complete = 1 WHERE vote_id = #{voteId}
     </update>

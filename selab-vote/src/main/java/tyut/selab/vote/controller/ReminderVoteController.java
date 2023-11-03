@@ -2,9 +2,8 @@ package tyut.selab.vote.controller;
 
 import com.ruoyi.common.core.domain.AjaxResult;
 
-import lombok.Data;
 import org.springframework.web.bind.annotation.*;
-import tyut.selab.vote.domain.DTO.VoteReminderDTO;
+import tyut.selab.vote.domain.po.VoteReminder;
 
 import java.util.ArrayList;
 
@@ -21,12 +20,12 @@ public class ReminderVoteController {
 
     /**
      * 获取投票模块消息
-     * 
+     *
      * @return
      */
     @GetMapping("/reminder")
     public AjaxResult getVoteNews() {
-        return AjaxResult.success(new ArrayList<VoteReminderDTO>());
+        return AjaxResult.success(new ArrayList<VoteReminder>());
     }
 
 }

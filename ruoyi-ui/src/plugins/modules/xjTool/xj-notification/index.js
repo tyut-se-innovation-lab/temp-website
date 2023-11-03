@@ -100,6 +100,7 @@ class Notification {
   /* 关闭按钮 */
   #closeSvg = null
 
+
   /* 通知栏坐标
    * {'left | right': number, 'top | bottom': number, ranking: number}
    */
@@ -129,9 +130,9 @@ class Notification {
    * @param {number} duration 持续时间 默认3000 如果是0 则不会自动关闭 除 0 外 最小值为 1000
    * @param {boolean} showClose 是否可以手动关闭 默认可以 开启时，鼠标移入会停止自动关闭计时
    * @param {boolean} userSelect 是否限制文本选中 默认 true 禁止选中文本
-   * @param {Function | null} callback 点击通知框时运行的回调函数，callback 接收一个 notification 位置的参数
+   * @param {Function | null} onclick 点击通知框时运行的回调函数，onclick 接收一个 notification 位置的参数
    */
-  constructor ({title, message, type = 'normal' , location = 'left-bottom', duration = 3000, showClose = true, userSelect = true, callback = null}) {
+  constructor ({title, message, type = 'normal' , location = 'left-bottom', duration = 3000, showClose = true, userSelect = true, onclick = null}) {
     /* 检查数据合法性 */
     const {_type, _location, _duration, _showClose} = this.#examine(type, message, location, duration, showClose)
     if (this.#isAccessList) {
@@ -144,9 +145,9 @@ class Notification {
       this.#ranking[_location[0] + '-' + _location[1]] = _location[2]
     }
     this.#create(title, message, _type, _duration, _showClose, userSelect)
-    this.#positionInitialization(_location, callback)
+    this.#positionInitialization(_location, onclick)
     this.#setLocation(_location)
-    this.#addEvent(_location, _duration, _showClose, callback)
+    this.#addEvent(_location, _duration, _showClose, onclick)
     _duration !== 0 && (this.#timeout['close'] = setTimeout(() => {
       this.#remove(_location)
     }, _duration))
@@ -204,7 +205,7 @@ class Notification {
    * @param {number} duration 持续时间
    * @param {boolean} showClose 是否可以手动关闭
    * @param {boolean} userSelect 是否限制文本选中
-  // * @param {Function | null} callback 点击通知框时运行的回调函数，默认为 null
+  // * @param {Function | null} onclick 点击通知框时运行的回调函数，默认为 null
    */
   #create (title, message, type, duration, showClose, userSelect) {
     // 创建 notification 盒子
@@ -254,18 +255,18 @@ class Notification {
 
   /**
    * 初始化 notification 位置
-   * 创建 callback Promise
+   * 创建 onclick Promise
    * @param {[string, string, number]} location 位置
-   * @param {Function | null} callback
+   * @param {Function | null} onclick
    */
-  #positionInitialization (location, callback) {
+  #positionInitialization (location, onclick) {
     typeof location[2] === 'undefined' ? (this.#location['ranking'] = this.#ranking[location[0] + '-' + location[1]]) : this.#location['ranking'] = location[2]
     this.#location[location[0]] = - Notification.#ROOT_WIDTH // px
     this.#location[location[1]] = 16 + (this.#location['ranking'] - 1) * Notification.#ROOT_HEIGHT // px
     this.#rootBox.style[location[0]] = this.#location[location[0]] + 'px'
     this.#rootBox.style[location[1]] = this.#location[location[1]] + 'px'
     document.body.appendChild(this.#rootBox)
-    callback && (this.#callbackP['Promise'] = new Promise((resolve, reject) => {
+    onclick && (this.#callbackP['Promise'] = new Promise((resolve, reject) => {
       this.#callbackP['resolve'] = resolve
       this.#callbackP['reject'] = reject
     }))
@@ -339,10 +340,10 @@ class Notification {
    * @param {[string, string, number]} location
    * @param {number} duration
    * @param {boolean} showClose
-   * @param {Function} callback
+   * @param {Function} onclick
    * @returns {{mouseenter: Function, mouseleave: Function, mouseup: Function, mousedown: Function, click: Function}}
    */
-  #generateEvents (location, duration, showClose, callback) {
+  #generateEvents (location, duration, showClose, onclick) {
     return {
       mouseenter: () => {
         clearTimeout(this.#timeout['close'])
@@ -352,6 +353,7 @@ class Notification {
         this.#timeout['close'] && clearTimeout(this.#timeout['close'])
         this.#timeout['close'] = null
         duration !== 0 && (this.#timeout['close'] = setTimeout(() => {
+          this.#callbackP['Promise'] && this.#nRunCallback('[MESSAGE], Notification => 该通知在倒计时结束后被关闭而没有调用 callback 回调函数', 0)
           this.#remove(location)
         }, duration))
         this.#rootBox.style['transition-duration'] = '.4s'
@@ -368,11 +370,12 @@ class Notification {
       },
       click: (e) => {
         if (e.target.classList.contains('xj-notification-close') && showClose) {
+          if (onclick) this.#nRunCallback('[MESSAGE], Notification => 该通知通过点击关闭按钮关闭而没有调用 callback 回调函数', 1)
           this.#remove(location)
           return
         }
-        if (callback) {
-          this.#runCallback(callback)
+        if (onclick) {
+          this.#runCallback(onclick)
           this.#remove(location)
         }
       }
@@ -380,11 +383,11 @@ class Notification {
   }
 
   /**
-   * 处理回调函数的运行
-   * @param {Function} callback
+   * 处理点击事件的运行
+   * @param {Function} onclick
    * @return {null}
    */
-  async #runCallback (callback) {
+  async #runCallback (onclick) {
     let _v = null
     const _l = {}
     for (let key in this.#ranking) {
@@ -392,12 +395,28 @@ class Notification {
       _l['ranking'] = this.#ranking[key]
     }
 
-    this.#callbackP['resolve'](await callback(_l))
+    this.#callbackP['resolve'](await onclick(_l))
     await this.#callbackP['Promise'].then(v => {
       _v = v
     })
 
     this.#then && this.#then(_v)
+  }
+
+  /**
+   * 通知被关闭但是没有运行 onclick
+   * @param {string} err 错误信息
+   * @param {0|1|2} errCode 错误代码 0: 关闭计时结束; 1: 用户点击关闭按钮; 2: close 方法关闭
+   * @returns {null}
+   */
+  async #nRunCallback (err, errCode) {
+    if (!this.#catch) return
+    let _err = {}
+    this.#callbackP['reject']({message: err, code: errCode})
+    await this.#callbackP['Promise'].catch(err => {
+      _err = err
+    })
+    this.#catch(_err)
   }
 
   /* 保存生成的事件 */
@@ -408,10 +427,10 @@ class Notification {
    * @param {[string, string, number]} location
    * @param {number} duration
    * @param {boolean} showClose
-   * @param {Function} callback
+   * @param {Function} onclick
    */
-  #addEvent (location, duration, showClose, callback) {
-    const { mouseenter, mouseleave, mousedown, mouseup, click } = this.#event = this.#generateEvents(location, duration, showClose, callback)
+  #addEvent (location, duration, showClose, onclick) {
+    const { mouseenter, mouseleave, mousedown, mouseup, click } = this.#event = this.#generateEvents(location, duration, showClose, onclick)
     this.#rootBox.addEventListener('mouseenter', mouseenter)
     this.#rootBox.addEventListener('mouseleave', mouseleave)
     this.#rootBox.addEventListener('mousedown', mousedown)
@@ -441,36 +460,60 @@ class Notification {
       console.error('[ERROR]', 'Notification => 该通知没有启用自定义定位, 不能使用 setLocation 修改位置', this)
       return 'Notification => 该通知没有启用自定义定位, 不能使用 setLocation 修改位置'
     }
-    console.log(this.#rootBox)
     let _l = []
     for (let key in this.#ranking) {
       _l = key.split('-')
     }
     _l.push(ranking)
-    console.log('前', this.#location)
     this.#location['ranking'] = this.#ranking[_l[0] + '-' + _l[1]] = ranking
-    console.log('后', this.#location)
     this.#setLocation(_l)
   }
 
   /* 保存then传入的函数: Function */
   #then = null
+  /* 保存catch传入的函数: Function */
+  #catch = null
 
   /**
-   * sCallback 用于处理 callback 的返回值
+   * sCallback 用于处理 onclick 的返回值
    * fCallback 用于处理错误
    * @param {Function} sCallback
    */
   then (sCallback) {
     if (this.#isClose) {
-      console.warn('[WARN]', 'Notification => 通知已关闭, then 方法被拒绝')
-      return
+      console.warn('[WARN]', 'Notification => 通知已关闭, then 方法被拒绝', this)
+      return {
+        catch: () => {
+          console.warn('[WARN]', 'Notification => 通知已关闭, catch 方法被拒绝', this)
+        }
+      }
     }
     if (!this.#callbackP['Promise']) {
-      console.error('[ERROR]', 'Notification => 该通知没有传入 callback 回调函数, 不能使用 then 获取返回值', this)
-      return 'Notification => 该通知没有传入 callback 回调函数, 不能使用 then 获取返回值'
+      console.error('[ERROR]', 'Notification => 该通知没有传入 onclick 点击事件, 不能使用 then 获取返回值', this)
+      return {
+        catch: () => {
+          console.warn('[ERROR]', 'Notification => 该通知没有传入 onclick 点击事件, 不需要使用 catch 处理未运行结果', this)
+        }
+      }
+    }
+    if (this.#then) {
+      console.warn('[WARN]', 'Notification => 该通知已使用 then 函数, 再次使用将会覆盖之前的内容', this)
     }
     this.#then = sCallback
+    return {
+      catch: (errCallback) => this.catch(errCallback)
+    }
+  }
+
+  /**
+   * 运行 onclick 时运行的函数
+   * @param {string} errCallback
+   */
+  catch (errCallback) {
+    if (this.#catch) {
+      console.warn('[WARN]', 'Notification => 该通知已使用 catch 函数, 再次使用将会覆盖之前的内容', this)
+    }
+    this.#catch = errCallback
   }
 
   /**
@@ -486,8 +529,10 @@ class Notification {
       _l = key.split('-')
       _l[2] = this.#ranking[key]
     }
+    this.#callbackP['Promise'] && this.#nRunCallback('[MESSAGE], Notification => 该通知被暴露的 close 方法关闭而没有触发 onclick 点击事件', 2)
     this.#remove(_l)
   }
 }
+
 
 export { Notification }

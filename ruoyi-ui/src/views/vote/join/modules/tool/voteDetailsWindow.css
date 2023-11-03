@@ -1,0 +1,11 @@
+.xj-details-vote-node {
+  border-radius: 30px;
+  height: 60vh;
+  width: 100%;
+  position: absolute;
+  top: calc(100% + 10px);
+  overflow: hidden;
+  background-color: #00000033;
+  transition: all .6s;
+  opacity: 0;
+}

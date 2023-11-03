@@ -1,6 +1,7 @@
 package tyut.selab.vote.mapper;
 
 import org.apache.ibatis.annotations.Param;
+
 import tyut.selab.vote.domain.po.VoteOpinionContent;
 import tyut.selab.vote.domain.po.VoteResult;
 
@@ -60,8 +61,8 @@ public interface VoteResultMapper {
 
     /**
      *   获取匿名投票意见
-      * @param voteId null
+      * @param voteId
      * @return
      */
-   List<VoteOpinionContent> getOptionContent(@Param("voteId") Long voteId);
+   List<VoteOpinionContent> getOptionContent(@Param("voteId") Long voteId,@Param("optionId") Long optionId);
 }

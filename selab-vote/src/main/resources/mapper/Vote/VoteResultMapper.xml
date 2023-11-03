@@ -13,7 +13,6 @@
         <result property="isAnonymous" column="is_anonymous" />
         <result property="createTime" column="create_time" />
         <result property="weight" column="weight"/>
-        <result property="userName" column="nick_name" />
     </resultMap>
     <resultMap id="voteOpinionContent" type="tyut.selab.vote.domain.po.VoteOpinionContent">
         <result property="userId" column="user_id"/>
@@ -29,19 +28,17 @@
             </foreach>
     </insert>
     <select id="getVoteResultByOptionIdAndVoteId" resultMap="VoteResultMap">
-        SELECT v.id,v.vote_id,v.vote_option_id,v.user_id,v.content,v.is_anonymous,v.create_time,v.weight,u.nick_name
-        FROM selab_vote_result v
-        LEFT JOIN sys_user u
-        ON u.user_id = v.user_id
+        SELECT id,vote_id,vote_option_id,user_id,content,is_anonymous,create_time,weight
+        FROM selab_vote_result
         <where>
         <if test="true">
            AND vote_id = #{voteId}
         </if>
         <if test="optionId != null">
-           AND v.vote_option_id = #{optionId}
+           AND vote_option_id = #{optionId}
         </if>
         <if test="userId != null">
-           AND v.user_id = #{userId}
+           AND user_id = #{userId}
         </if>
         </where>
     </select>
@@ -62,7 +59,7 @@
         WHERE vote_option_id = #{optionId} AND is_anonymous = '0'
     </select>
     <select id="getNickName" resultType="String">
-        SELECT nick_name FROM sys_name
+        SELECT nick_name FROM sys_user
         <where>
             <foreach collection="userIds" item="userId" separator="OR">
                 user_id = #{userId}
@@ -74,8 +71,8 @@
         WHERE vote_id = #{voteId} AND vote_option_id = #{optionId} AND is_anonymous = '0'
     </select>
     <select id="getOptionContent" resultMap="voteOpinionContent">
-        SELECT user_id,content,is_anonymous FROM selab_vote_result WHERE vote_id = #{voteId}
+        SELECT user_id,content,is_anonymous
+        FROM selab_vote_result WHERE vote_id = #{voteId} AND vote_option_id = #{optionId}
     </select>
-
 
 </mapper>

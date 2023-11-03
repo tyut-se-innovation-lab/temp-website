@@ -1,7 +1,8 @@
 package tyut.selab.vote.service;
 
 import tyut.selab.vote.domain.DTO.VoteInfoLaunchDTO;
-import tyut.selab.vote.domain.po.VoteInfo;
+import tyut.selab.vote.exception.VoteDeletedException;
+import tyut.selab.vote.exception.VoteProcessedException;
 
 
 /**
@@ -11,29 +12,29 @@ import tyut.selab.vote.domain.po.VoteInfo;
 public interface DealVoteService {
     /**
      * 发布投票
+     *
      * @param voteInfoLaunchDTO
-     * @return
      */
-    Integer launchVote(VoteInfoLaunchDTO voteInfoLaunchDTO);
+    void launchVote(VoteInfoLaunchDTO voteInfoLaunchDTO);
 
     /**
      * 撤回投票
+     *
      * @param voteId
-     * @return
      */
-    Integer withdrawVote(Long voteId);
+    void withdrawVote(Long voteId);
 
     /**
      * 处理冻结投票
      * @param voteId
      * @return
      */
-    Integer HandlingFrozenVote(Long voteId,Integer handel);
+    Integer HandlingFrozenVote(Long voteId,Integer handel) throws VoteProcessedException;
 
     /**
      * 删除投票
      * @param voteId
      * @return
      */
-    Integer deleteVote(Long voteId);
+    Integer deleteVote(Long voteId) throws VoteDeletedException;
 }

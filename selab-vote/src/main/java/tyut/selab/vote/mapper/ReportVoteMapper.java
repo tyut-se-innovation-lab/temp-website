@@ -52,5 +52,13 @@ public interface ReportVoteMapper {
      * @param voteId
      * @return
      */
-    List<Long> getUserIdByVoteId(Long voteId);
+    List<Long> getUserIdByVoteId(@Param("voteId")Long voteId);
+
+    /**
+     * 清除举报次数
+     * @param voteId
+     */
+    void clearReportCount(@Param("voteId")Long voteId);
+
+
 }

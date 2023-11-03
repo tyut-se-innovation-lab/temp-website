@@ -1,6 +1,8 @@
 package tyut.selab.vote.service;
 
 import tyut.selab.vote.domain.po.VoteReport;
+import tyut.selab.vote.exception.ReportRepeatException;
+import tyut.selab.vote.exception.VoteWithdrawnException;
 
 import java.util.List;
 
@@ -11,10 +13,10 @@ import java.util.List;
 public interface ReportVoteService {
     /**
      * 提交举报信息
+     *
      * @param voteReport 举报信息类
-     * @return 判断投票是否结束，未结束则提交成功
      */
-    Integer submitReportVote(VoteReport voteReport);
+    void submitReportVote(VoteReport voteReport) throws ReportRepeatException, VoteWithdrawnException;
 
     /**
      * 查看举报信息

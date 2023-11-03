@@ -75,4 +75,11 @@ public interface VoteInfoMapper {
      * @return
      */
     String getIsRealTime(Long voteId);
+
+    /**
+     * 判断是否被删除
+     * @param voteId
+     * @return
+     */
+    Integer getVoteDelFlag(Long voteId);
 }

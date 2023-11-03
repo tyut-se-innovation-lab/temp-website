@@ -42,4 +42,12 @@ public interface VoteUserMapper {
      */
     Integer updateIsComplete(@Param("voteId") Long voteId,@Param("userId") Long userId);
 
+    /**
+     *  根据特定属性查询list
+     * @param voteUser
+     * @return
+     */
+
+    List<VoteUser> getVoteUserList(VoteUser voteUser);
+
 }

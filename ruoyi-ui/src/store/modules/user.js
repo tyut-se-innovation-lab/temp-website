@@ -5,8 +5,10 @@ const user = {
   state: {
     token: getToken(),
     name: '',
+    userId: null,
     avatar: '',
     roles: [],
+    detailedRoles: [],
     permissions: []
   },
 
@@ -17,11 +19,17 @@ const user = {
     SET_NAME: (state, name) => {
       state.name = name
     },
+    SET_USER_ID: (state, userId) => {
+      state.userId = userId
+    },
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles
+    },
+    SET_ROLES_DETAILED: (state, roles) => {
+      state.detailedRoles = roles
     },
     SET_PERMISSIONS: (state, permissions) => {
       state.permissions = permissions
@@ -54,11 +62,13 @@ const user = {
           const avatar = (user.avatar == "" || user.avatar == null) ? require("@/assets/images/profile.jpg") : process.env.VUE_APP_BASE_API + user.avatar;
           if (res.roles && res.roles.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', res.roles)
+            commit('SET_ROLES_DETAILED', res.user.roles)
             commit('SET_PERMISSIONS', res.permissions)
           } else {
             commit('SET_ROLES', ['ROLE_DEFAULT'])
           }
           commit('SET_NAME', user.userName)
+          commit('SET_USER_ID', user.userId)
           commit('SET_AVATAR', avatar)
           resolve(res)
         }).catch(error => {

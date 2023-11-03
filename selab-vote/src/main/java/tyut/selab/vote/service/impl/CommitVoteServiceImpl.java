@@ -48,12 +48,13 @@ public class CommitVoteServiceImpl implements ICommitVoteService {
                 voteInfoMapper.updateVoteStatus(voteId, VoteStatus.FINISH);
                 throw new VoteException("投票已经结束了");
             }
-//            Long userId = SecurityUtils.getUserId();
-            Long userId = 1L;
-            Integer weight = voteWeightMapper.getWeightByUserId(voteResultRequest.getVoteId(),userId);
+            Long userId = SecurityUtils.getUserId();
+            Long roleId = SecurityUtils.getLoginUser().getUser().getRoleId();
+            Integer weight = voteWeightMapper.getWeightByRoleId(voteResultRequest.getVoteId(),roleId);
             voteResultRequest.setCreateTime(DateUtils.getNowDate());
             // 无论是否匿名。数据库存放的都是加密后的userId--- 如果实名投票的话回在查询的时候进行解密
             String encryptUserId = AESUtil.encrypt(userId.toString());
+            voteResultRequest.setUserId(encryptUserId);
             List<VoteResult> voteResults = voteResultConverter(voteResultRequest, weight);
             Integer rows = voteResultMapper.insertVoteResult(voteResults);
             Integer row1 = voteUserMapper.updateIsComplete(voteId, userId);
@@ -65,11 +66,9 @@ public class CommitVoteServiceImpl implements ICommitVoteService {
         }
 
     }
-        private List<VoteResult> voteResultConverter(VoteResultRequest voteResultRequest,Integer weight){
+        private List<VoteResult> voteResultConverter(VoteResultRequest voteResultRequest, Integer weight){
             List<VoteResult> voteResults = new ArrayList<>();
             List<Long> voteOptionIds = voteResultRequest.getVoteOptionIds();
-            Long userId = SecurityUtils.getUserId();
-
             for (Long voteOptionId : voteOptionIds) {
                 VoteResult voteResult = new VoteResult();
                 voteResult.setVoteOptionId(voteOptionId);

@@ -42,7 +42,7 @@ public class ReportVoteServiceImpl implements ReportVoteService {
 
     @Override
     public Integer submitReportVote(VoteReport voteReport) {
-        return null;
+
         // 举报次数达到，则冻结
         int freezeCount = 10;
         if (TimeDealTool.judgeVoteFinish(voteInfoMapper.queryVoteDeadTime(voteReport.getVoteId()))) {

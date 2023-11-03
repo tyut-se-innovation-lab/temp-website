@@ -11,7 +11,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
  * 角色表 sys_role
- * 
+ *
  * @author ruoyi
  */
 public class SysRole extends BaseEntity
@@ -63,6 +63,13 @@ public class SysRole extends BaseEntity
     /** 角色菜单权限 */
     private Set<String> permissions;
 
+    /**
+     *  权重
+     */
+
+
+    private Integer weight;
+
     public SysRole()
     {
 
@@ -98,6 +105,10 @@ public class SysRole extends BaseEntity
     public String getRoleName()
     {
         return roleName;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
     public void setRoleName(String roleName)
@@ -187,7 +198,10 @@ public class SysRole extends BaseEntity
     {
         this.flag = flag;
     }
-
+    @NotBlank(message = "权重不能为空")
+    public Integer getWeight(){
+        return weight;
+    }
     public Long[] getMenuIds()
     {
         return menuIds;
@@ -235,6 +249,7 @@ public class SysRole extends BaseEntity
             .append("updateBy", getUpdateBy())
             .append("updateTime", getUpdateTime())
             .append("remark", getRemark())
+            .append("weight",getWeight())
             .toString();
     }
 }

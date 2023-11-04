@@ -50,8 +50,9 @@ public class DealVoteServiceImpl implements DealVoteService {
 
     @Override
     public void launchVote(VoteInfoLaunchDTO voteInfoLaunchDTO) {
-//        Long userId = SecurityUtils.getUserId();
-//       voteInfo.setUserId(userId);
+        //初始化投票属性
+        //Long userId = SecurityUtils.getUserId();
+        //voteInfo.setUserId(userId);
         voteInfoLaunchDTO.setStatus(VoteStatus.UNDERWAY);
         voteInfoLaunchDTO.setDelFlag("1");
         voteInfoMapper.saveVoteInformation(voteInfoLaunchDTO);
@@ -61,28 +62,25 @@ public class DealVoteServiceImpl implements DealVoteService {
 
     @Override
     public void withdrawVote(Long voteId) throws VoteOverTimeException, VoteFreezedException {
-        if(TimeDealTool.judgeVoteFinish(voteInfoMapper.queryVoteDeadTime(voteId))){
-            //未到截止时间,撤回投票
-            //判断一下是否已被冻结
-            if(voteInfoMapper.getVoteStatus(voteId).getStatus() == VoteStatus.FREEZE){
-                throw new VoteFreezedException("该投票已被冻结");
-            }
-            voteInfoMapper.updateVoteStatus(voteId, VoteStatus.WITHDRAW);
-        }else{
+        if(!TimeDealTool.judgeVoteFinish(voteInfoMapper.queryVoteDeadTime(voteId)))
             throw new VoteOverTimeException("该投票已结束");
-        }
+
+        if(voteInfoMapper.getVoteStatus(voteId).getStatus() == VoteStatus.FREEZE)
+            throw new VoteFreezedException("该投票已被冻结");
+
+        voteInfoMapper.updateVoteStatus(voteId, VoteStatus.WITHDRAW);
     }
 
     @Override
     public Integer HandlingFrozenVote(Long voteId,Integer handel) throws VoteOverTimeException, VoteProcessedException {
+        VoteStatus voteStatus = voteInfoMapper.getVoteStatus(voteId).getStatus();
+
         if(!TimeDealTool.judgeVoteFinish(voteInfoMapper.queryVoteDeadTime(voteId)))
             throw new VoteOverTimeException("该投票已结束");
 
-        VoteStatus voteStatus = voteInfoMapper.getVoteStatus(voteId).getStatus();
         if(voteStatus == VoteStatus.CLOSED || voteStatus == VoteStatus.UNDERWAY)
             throw new VoteProcessedException("该投票已被处理");
 
-        //handel为1则恢复正常
         if(handel == 1){
             if(voteStatus == VoteStatus.FREEZE){
                 //解除冻结后举报数要清0
@@ -98,7 +96,6 @@ public class DealVoteServiceImpl implements DealVoteService {
 
     @Override
     public Integer deleteVote(Long voteId) throws VoteDeletedException {
-        //判断是否已被删除
         if(voteInfoMapper.getVoteDelFlag(voteId) == 0)
             throw new VoteDeletedException("该投票已被删除");
 

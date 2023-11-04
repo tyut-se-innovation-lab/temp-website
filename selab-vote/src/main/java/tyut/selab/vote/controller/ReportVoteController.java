@@ -5,7 +5,6 @@ import com.ruoyi.common.core.domain.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tyut.selab.vote.domain.po.VoteReport;
-import tyut.selab.vote.exception.ReportRepeatException;
 import tyut.selab.vote.exception.VoteException;
 import tyut.selab.vote.exception.VoteWithdrawnException;
 import tyut.selab.vote.service.ReportVoteService;
@@ -33,7 +32,7 @@ public class ReportVoteController {
      * @return
      */
     @PostMapping("/submit")
-    public AjaxResult submitReportVote(@RequestBody VoteReport voteReport) throws ReportRepeatException, VoteWithdrawnException {
+    public AjaxResult submitReportVote(@RequestBody VoteReport voteReport) throws VoteWithdrawnException {
         reportVoteService.submitReportVote(voteReport);
         return AjaxResult.success("举报成功");
     }

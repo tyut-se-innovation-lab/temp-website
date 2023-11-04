@@ -14,6 +14,7 @@
 package tyut.selab.vote.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import tyut.selab.vote.domain.po.VoteReport;
 import tyut.selab.vote.enums.VoteStatus;
@@ -40,11 +41,10 @@ public class ReportVoteServiceImpl implements ReportVoteService {
     private ReportVoteMapper reportVoteMapper;
 
     @Override
-    public void submitReportVote(VoteReport voteReport) throws VoteOverTimeException, VoteFreezedException, ReportRepeatException, VoteWithdrawnException {
-
+    public void submitReportVote(VoteReport voteReport) throws VoteOverTimeException, VoteFreezedException, VoteWithdrawnException {
         int freezeCount = 10;
         //Long userId = SecurityUtils.getUserId();
-        voteReport.setUser_id(73L);
+        //voteReport.setUser_id(userId);
 
         if (!TimeDealTool.judgeVoteFinish(voteInfoMapper.queryVoteDeadTime(voteReport.getVoteId())))
             throw new VoteOverTimeException("该投票已结束");
@@ -58,6 +58,7 @@ public class ReportVoteServiceImpl implements ReportVoteService {
         if (reportVoteMapper.queryReportCount(voteReport.getVoteId()) >= freezeCount)
             throw new VoteFreezedException("该投票已被冻结");
 
+        //一切正常，则举报并判断是否达到冻结次数
         reportVoteMapper.submitReportVote(voteReport);
         if (reportVoteMapper.queryReportCount(voteReport.getVoteId()) >= freezeCount)
             voteInfoMapper.updateVoteStatus(voteReport.getVoteId(), VoteStatus.FREEZE);

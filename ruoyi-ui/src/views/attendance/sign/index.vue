@@ -158,17 +158,23 @@ export default {
      */
     couldSignOut() {
       this.sign.couldSignOut().then((res) => {
-        if (res.data.couldSignOut) {
-          this.isSignIn = false;
-          this.isSignOut = true;
-        } else {
-          if (res.data.attStartTime) {
-            this.isSignIn = false;
-            this.isSignOut = false;
-            this.isSetAssignCountDown(res.data.attStartTime);
-          } else {
-            this.isSignIn = true;
-            this.isSignOut = false;
+        if (!res.data.couldSignOut) {//签到
+          this.isSignIn = true;
+          this.isSignOut = false;
+        } else {//签退
+          if(res.data.attStartTime){ //有开始时间
+            let current = new Date();
+            let startTime = new Date(res.data.attStartTime);
+            let timeDiff = current.getTime() - startTime.getTime();
+            let diffHours = timeDiff / (1000 * 60 * 60);
+            if (diffHours.toFixed(2) < this.minCountTime){//设计倒计时
+              this.isSignIn = false;
+              this.isSignOut = false;
+              this.isSetAssignCountDown(res.data.attStartTime);
+            }else{
+              this.isSignIn = false;
+              this.isSignOut = true;
+            }
           }
         }
         this.show = true;

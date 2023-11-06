@@ -13,12 +13,12 @@
  */
 package tyut.selab.vote.service.impl;
 
-import com.ruoyi.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import tyut.selab.vote.domain.po.VoteInfo;
 import tyut.selab.vote.domain.po.VoteReport;
 import tyut.selab.vote.enums.VoteStatus;
+import tyut.selab.vote.exception.*;
 import tyut.selab.vote.mapper.ReportVoteMapper;
 import tyut.selab.vote.mapper.VoteInfoMapper;
 import tyut.selab.vote.service.ReportVoteService;
@@ -41,31 +41,31 @@ public class ReportVoteServiceImpl implements ReportVoteService {
     private ReportVoteMapper reportVoteMapper;
 
     @Override
-    public Integer submitReportVote(VoteReport voteReport) {
-
-        // 举报次数达到，则冻结
+    public void submitReportVote(VoteReport voteReport) throws VoteOverTimeException, VoteFreezedException, VoteWithdrawnException {
         int freezeCount = 10;
-        if (TimeDealTool.judgeVoteFinish(voteInfoMapper.queryVoteDeadTime(voteReport.getVoteId()))) {
-            // 未到截止时间,可以提交举报信息
-            // Long userId = SecurityUtils.getUserId();
-            // voteReport.setUser_id(userId);
-            if (reportVoteMapper.queryReportCount(voteReport.getVoteId()) >= freezeCount) {
-                return 2;
-            }
-            reportVoteMapper.submitReportVote(voteReport);
-            if (reportVoteMapper.queryReportCount(voteReport.getVoteId()) >= freezeCount) {
-                voteInfoMapper.updateVoteStatus(voteReport.getVoteId(), VoteStatus.FREEZE);
-            }
-            return 1;
-        } else {
-            // 此刻超出截止时间
-            return 0;
-        }
+        //Long userId = SecurityUtils.getUserId();
+        //voteReport.setUser_id(userId);
 
+        if (!TimeDealTool.judgeVoteFinish(voteInfoMapper.queryVoteDeadTime(voteReport.getVoteId())))
+            throw new VoteOverTimeException("该投票已结束");
+
+        if (voteInfoMapper.getVoteStatus(voteReport.getVoteId()).getStatus() == VoteStatus.CLOSED)
+            throw new VoteCloseException("该投票已被关闭");
+
+        if (voteInfoMapper.getVoteStatus(voteReport.getVoteId()).getStatus() == VoteStatus.WITHDRAW)
+            throw new VoteWithdrawnException("该投票已被撤回");
+
+        if (reportVoteMapper.queryReportCount(voteReport.getVoteId()) >= freezeCount)
+            throw new VoteFreezedException("该投票已被冻结");
+
+        //一切正常，则举报并判断是否达到冻结次数
+        reportVoteMapper.submitReportVote(voteReport);
+        if (reportVoteMapper.queryReportCount(voteReport.getVoteId()) >= freezeCount)
+            voteInfoMapper.updateVoteStatus(voteReport.getVoteId(), VoteStatus.FREEZE);
     }
 
     @Override
     public List<VoteReport> viewReportVote(Long voteId) {
-        return null;
+        return reportVoteMapper.viewReportVote(voteId);
     }
 }

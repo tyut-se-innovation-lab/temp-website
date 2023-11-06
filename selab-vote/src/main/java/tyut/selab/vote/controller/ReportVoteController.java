@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tyut.selab.vote.domain.po.VoteReport;
 import tyut.selab.vote.exception.VoteException;
+import tyut.selab.vote.exception.VoteWithdrawnException;
 import tyut.selab.vote.service.ReportVoteService;
 
 import java.util.ArrayList;
@@ -31,10 +32,8 @@ public class ReportVoteController {
      * @return
      */
     @PostMapping("/submit")
-    public AjaxResult submitReportVote(@RequestBody VoteReport voteReport) throws VoteException {
-        Integer flag = reportVoteService.submitReportVote(voteReport);
-        if(flag==0) throw new VoteException("该投票已结束");
-        if(flag==2) throw new VoteException("该投票已被冻结");
+    public AjaxResult submitReportVote(@RequestBody VoteReport voteReport) throws VoteWithdrawnException {
+        reportVoteService.submitReportVote(voteReport);
         return AjaxResult.success("举报成功");
     }
 

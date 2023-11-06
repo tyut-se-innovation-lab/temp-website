@@ -26,4 +26,10 @@
         select count(*) from selab_vote_report
         where vote_id = #{voteId}
     </select>
+
+    <delete id="clearReportCount">
+        delete from selab_vote_report
+        where vote_id = #{voteId}
+    </delete>
+
 </mapper>

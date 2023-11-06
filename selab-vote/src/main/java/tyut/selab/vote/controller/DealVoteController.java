@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tyut.selab.vote.domain.DTO.VoteInfoLaunchDTO;
 import tyut.selab.vote.domain.po.VoteInfo;
+import tyut.selab.vote.exception.VoteDeletedException;
 import tyut.selab.vote.exception.VoteException;
+import tyut.selab.vote.exception.VoteProcessedException;
 import tyut.selab.vote.service.DealVoteService;
 
 import java.util.HashMap;
@@ -47,8 +49,8 @@ public class DealVoteController {
      * @return
      */
     @GetMapping("/withdraw/{voteId}")
-    public AjaxResult withdrawVote(@PathVariable Long voteId) throws VoteException {
-        if(dealVoteService.withdrawVote(voteId) == 0) throw new VoteException("该投票已结束");
+    public AjaxResult withdrawVote(@PathVariable Long voteId){
+        dealVoteService.withdrawVote(voteId);
         return AjaxResult.success("撤回成功");
     }
 
@@ -59,10 +61,13 @@ public class DealVoteController {
      * @return
      */
     @GetMapping("/handle/{voteId}/{handel}")
-    public AjaxResult HandlingFrozenVote(@PathVariable Long voteId,@PathVariable Integer handel) throws VoteException {
-        if(dealVoteService.HandlingFrozenVote(voteId, handel) == 0) throw new VoteException("该投票已结束");
-        if(dealVoteService.HandlingFrozenVote(voteId, handel) == 2) return AjaxResult.success("该投票已恢复正常");
-        return AjaxResult.success("该投票已关闭");
+    public AjaxResult HandlingFrozenVote(@PathVariable Long voteId,@PathVariable Integer handel) throws VoteException, VoteProcessedException {
+        if(dealVoteService.HandlingFrozenVote(voteId, handel) == 1){
+            return AjaxResult.success("该投票重新开启");
+        }else{
+            return AjaxResult.success("该投票被关闭");
+        }
+
     }
 
     /**
@@ -71,7 +76,7 @@ public class DealVoteController {
      * @return
      */
     @GetMapping("/delete/{voteId}")
-    public AjaxResult deleteVote(@PathVariable Long voteId){
+    public AjaxResult deleteVote(@PathVariable Long voteId) throws VoteDeletedException {
         dealVoteService.deleteVote(voteId);
         return AjaxResult.success("删除成功");
     }

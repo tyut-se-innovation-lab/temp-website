@@ -52,4 +52,15 @@
     <select id="getVoteStatus" resultMap="voteInfo">
         SELECT status FROM selab_vote_info WHERE vote_id = #{voteId}
     </select>
+
+    <select id="getVoteDelFlag" resultType="int">
+        select del_flag from selab_vote_info
+        where vote_id = #{voteId}
+    </select>
+
+    <update id="deleteVote">
+        update selab_vote_info
+        set del_flag = '0'
+        where vote_id = #{voteId}
+    </update>
 </mapper>

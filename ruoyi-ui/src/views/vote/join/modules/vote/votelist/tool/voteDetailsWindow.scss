@@ -1,0 +1,178 @@
+@import "../../assets/iconfont.css";
+.xj-details-vote-node {
+  border-radius: 30px;
+  height: 60vh;
+  width: 100%;
+  position: absolute;
+  top: calc(100% + 10px);
+  overflow: hidden;
+  box-shadow: 0 0 10px #00000000 inset;
+  background-color: #00000008;
+  transition: all 0.6s;
+  opacity: 0;
+}
+.xj-details-vote-node .xj-details-vote-title {
+  width: 100%;
+  position: absolute;
+  box-shadow: 0 0 10px #00000000;
+  background-color: #f7f7f7;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 2% calc(3% + 20px) 2% 7%;
+  transition: all 0.15s;
+  font-size: 16px;
+  font-weight: 700;
+  word-break: break-word;
+  z-index: 200;
+}
+.xj-details-vote-node .xj-details-vote-title .xj-details-vote-rules {
+  position: relative;
+  width: 100%;
+  height: 28px;
+  line-height: 28px;
+  font-size: 12px;
+  font-weight: lighter;
+}
+.xj-details-vote-node .xj-details-vote-title .xj-details-vote-rules .xj-details-vote-remainder {
+  position: absolute;
+  height: 28px;
+  left: 0;
+  padding: 0 10px;
+}
+.xj-details-vote-node .xj-details-vote-title .xj-details-vote-rules .xj-details-vote-weights {
+  transition: all 0.15s;
+  position: absolute;
+  height: 28px;
+  right: 0;
+  padding: 0 10px;
+  border-radius: 8px;
+  color: #409eff;
+  cursor: pointer;
+}
+.xj-details-vote-node .xj-details-vote-title .xj-details-vote-rules .xj-details-vote-weights:hover {
+  color: #66b1ff;
+  background-color: #00000011;
+}
+.xj-details-vote-node .xj-details-vote-title .xj-details-vote-close {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  right: 2%;
+  top: 18%;
+  border-radius: 10px;
+  transition: all 0.15s;
+  cursor: pointer;
+  background-color: #d5322f;
+  color: #ffffff00;
+  text-align: center;
+  line-height: 20px;
+  transform: scale(80%);
+}
+.xj-details-vote-node .xj-details-vote-title .xj-details-vote-close:hover {
+  color: #ffffff;
+}
+.xj-details-vote-node .xj-details-vote-main {
+  position: relative;
+  top: 4%;
+  left: 2%;
+  width: 94%;
+  padding: 1%;
+  transition-timing-function: cubic-bezier(0.22, 1.11, 1, 1);
+}
+.xj-details-vote-node .xj-details-vote-main .xj-details-vote-options {
+  --isCompleteBG: #ffffff;
+  --isCompleteBC: #6ce2fc;
+  --beforeContent: '';
+  --beforeBC: rgba(108, 226, 252, 0.16);
+  --beforeWidth: 0;
+  --afterContent: '111';
+  --afterColor: #00000077;
+  margin: 0 10%;
+}
+.xj-details-vote-node .xj-details-vote-main .xj-details-vote-options .xj-details-vote-option {
+  position: relative;
+  cursor: pointer;
+  height: 28px;
+  line-height: 28px;
+  margin-top: 3%;
+  background-color: #00000005;
+  transition: all 0.15s;
+  border-radius: 3px;
+  border: 1px solid #00000022;
+}
+.xj-details-vote-node .xj-details-vote-main .xj-details-vote-options .xj-details-vote-option p {
+  margin: 0;
+  padding: 0 16px;
+}
+.xj-details-vote-node .xj-details-vote-main .xj-details-vote-options .xj-details-vote-option:hover {
+  background-color: var(--isCompleteBG);
+  border-color: var(--isCompleteBC);
+}
+.xj-details-vote-node .xj-details-vote-main .xj-details-vote-options .xj-details-vote-option::before {
+  content: var(--beforeContent);
+  position: absolute;
+  transition: all 0.15s;
+  top: 0;
+  left: 0;
+  width: var(--beforeWidth);
+  height: 28px;
+  background-color: var(--beforeBC);
+  z-index: -1;
+}
+.xj-details-vote-node .xj-details-vote-main .xj-details-vote-options .xj-details-vote-option:hover::before {
+  background-color: rgba(108, 226, 252, 0.5);
+}
+.xj-details-vote-node .xj-details-vote-main .xj-details-vote-options .xj-details-vote-option::after {
+  transition: all 0.15s;
+  content: attr(data-afterContent);
+  position: absolute;
+  top: 0;
+  right: -1%;
+  transform: translateX(100%);
+  line-height: 28px;
+  color: var(--afterColor);
+}
+.xj-details-vote-node .xj-details-vote-main .xj-details-vote-options .xj-details-vote-option:hover::after {
+  color: #000000;
+}
+.xj-details-vote-node .xj-details-vote-weightDom {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background-color: #f7f7f7;
+  transition: all 0.45s;
+  height: 100%;
+  width: 100%;
+  z-index: 201;
+}
+.xj-details-vote-node .xj-details-vote-weightDom .xj-details-vote-weightTop {
+  width: 100%;
+  height: 36px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #f7f7f7b2;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  text-align: center;
+  line-height: 36px;
+}
+.xj-details-vote-node .xj-details-vote-weightDom .xj-details-vote-weightTop .xj-details-vote-weightCloseButton {
+  margin: 4px 10px;
+  transition: all 0.15s;
+  position: absolute;
+  height: 28px;
+  left: 0;
+  top: 0;
+  line-height: 28px;
+  padding: 0 10px;
+  border-radius: 8px;
+  color: #409eff;
+  cursor: pointer;
+}
+.xj-details-vote-node .xj-details-vote-weightDom .xj-details-vote-weightTop .xj-details-vote-weightCloseButton:hover {
+  color: #66b1ff;
+  background-color: #00000011;
+}
+/*# sourceMappingURL=voteDetailsWindow.css.map */

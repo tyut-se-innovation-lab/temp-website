@@ -1,0 +1,77 @@
+/* [动画参考](https://uiverse.io/Donewenfu/massive-badger-47) */
+.xj-loader {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #ffffffcc;
+  opacity: 0;
+  transform-origin: center;
+  transition: all 0.3s;
+  z-index: 20000;
+}
+.xj-jimu-primary-loading {
+  --color: #ec9595;
+}
+.xj-jimu-primary-loading:before,
+.xj-jimu-primary-loading:after {
+  position: absolute;
+  top: 0;
+  content: '';
+}
+.xj-jimu-primary-loading:before {
+  left: -19.992px;
+}
+.xj-jimu-primary-loading:after {
+  left: 19.992px;
+  -webkit-animation-delay: 0.32s !important;
+  animation-delay: 0.32s !important;
+}
+.xj-jimu-primary-loading:before,
+.xj-jimu-primary-loading:after,
+.xj-jimu-primary-loading {
+  background: var(--color);
+  -webkit-animation: loading-keys-app-loading 0.8s infinite ease-in-out;
+  animation: loading-keys-app-loading 0.8s infinite ease-in-out;
+  width: 13.6px;
+  height: 32px;
+}
+.xj-jimu-primary-loading {
+  text-indent: -9999em;
+  margin: auto;
+  position: absolute;
+  right: calc(50% - 6.8px);
+  top: calc(50% - 16px);
+  -webkit-animation-delay: 0.16s !important;
+  animation-delay: 0.16s !important;
+}
+@-webkit-keyframes loading-keys-app-loading {
+  0%,
+  80%,
+  100% {
+    opacity: 0.75;
+    box-shadow: 0 0 var(--color);
+    height: 32px;
+  }
+  40% {
+    opacity: 1;
+    box-shadow: 0 -8px var(--color);
+    height: 40px;
+  }
+}
+@keyframes loading-keys-app-loading {
+  0%,
+  80%,
+  100% {
+    opacity: 0.75;
+    box-shadow: 0 0 var(--color);
+    height: 32px;
+  }
+  40% {
+    opacity: 1;
+    box-shadow: 0 -8px var(--color);
+    height: 40px;
+  }
+}
+/*# sourceMappingURL=index.css.map */

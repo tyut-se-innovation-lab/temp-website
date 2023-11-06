@@ -1,11 +1,11 @@
 <script>
 export default {
-  name: 'voteList',
+  name: 'voteCard',
 }
 </script>
 
 <template>
-  <div class="voteList">
+  <div class="voteCard">
     <slot>
 
     </slot>

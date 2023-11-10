@@ -6,7 +6,7 @@
   -webkit-backdrop-filter: blur(10px);
   border-radius: 8px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
+  box-sizing: content-box;
   transition: all 0.2s;
   opacity: 0;
   z-index: 20000;
@@ -24,4 +24,3 @@
 .xj-contextmenu .xj-contextmenu-menu:hover {
   background-color: #00000022;
 }
-/*# sourceMappingURL=voteContextmenu.css.map */

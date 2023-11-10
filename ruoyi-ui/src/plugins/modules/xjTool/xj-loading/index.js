@@ -9,6 +9,11 @@ class LoadingInfo {
   _loading
 }
 
+/**
+ * @description 窗口加载动画
+ * @author XunJi - 常
+ * @version 1.1.2
+ */
 class Loading extends LoadingInfo {
 
   /**

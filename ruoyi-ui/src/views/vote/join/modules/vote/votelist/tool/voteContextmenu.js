@@ -11,6 +11,11 @@ class VoteContextmenuInfo {
   _contextmenu
 }
 
+/**
+ * @description 右键菜单 - 完了就把它移动到 xj-tool
+ * @author XunJi - 常
+ * @version 1.0.0
+ */
 class VoteContextmenu extends VoteContextmenuInfo{
 
   /**

@@ -64,18 +64,18 @@ export default {
       dialogOption: {
         speed: 300,
         on: [{
-          opacity: '1',
-          top: '96vh',
+          opacity: '.8',
+          top: '94vh',
           transform: 'scale(10%, 5%) translate(-50%, 0)',
           'transform-origin': 'left top',
           left: '28px',
         }],
         off: [{
-          opacity: '1',
-          top: '96vh',
+          opacity: '.8',
+          top: '94vh',
           transform: 'scale(10%, 5%) translate(-50%, 0)',
           'transform-origin': 'left top',
-          left: '0%',
+          left: '28px',
         }]
       },
       voteData: [
@@ -256,9 +256,9 @@ export default {
     openDialog () {
       let _left = null;
       if (this.$store.getters['device'] === 'mobile') {
-        _left = 30
+        _left = 50
       } else {
-        _left = this.$store.getters['sidebar']['opened'] ? 230 : 100
+        _left = this.$store.getters['sidebar']['opened'] ? 250 : 100
       }
       /* 更新dialog动画 */
       Vue.set(this.dialogOption['on'][0], 'left', `${ _left }px`)
@@ -379,21 +379,46 @@ export default {
                 isSelect: false
               }
             ],
-            isComplete: 1,
+            isComplete: 0,
             voteWeights: [
               {
                 roleId: 0,
-                roleName: '超管',
-                weight: 10
+                roleName: '超级管理员',
+                weight: 100
               },
               {
                 roleId: 100,
-                roleName: '人',
-                weight: 5
+                roleName: '投票管理员',
+                weight: 99
               },
               {
-                roleId: 200,
-                roleName: '贱民',
+                roleId: 101,
+                roleName: '开发组长',
+                weight: 99
+              },
+              {
+                roleId: 102,
+                roleName: '开发管理员',
+                weight: 99
+              },
+              {
+                roleId: 103,
+                roleName: '网安组长',
+                weight: 99
+              },
+              {
+                roleId: 104,
+                roleName: '网安管理员',
+                weight: 99
+              },
+              {
+                roleId: 105,
+                roleName: '实验室开发组成员',
+                weight: 1
+              },
+              {
+                roleId: 106,
+                roleName: '实验室网安组成员',
                 weight: 1
               }
             ],

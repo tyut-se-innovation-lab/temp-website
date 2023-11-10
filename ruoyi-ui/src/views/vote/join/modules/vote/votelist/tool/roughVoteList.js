@@ -8,19 +8,26 @@ import Loading from '@/plugins/modules/xjTool/xj-loading'
 
 
 class RoughListInfo {
-  /** {HTMLDivElement} RoughList 列表元素 */
+  /** RoughList 列表元素
+   * @type {HTMLDivElement} */
   _RoughList
-  /** {List} voteInfos 全部投票粗略信息 */
+  /** voteInfos 全部投票粗略信息
+   * @type {Array} */
   _voteInfos
-  /** {List} 投票节点 */
+  /** 投票节点
+   * @type {Array} */
   _voteNode = []
-  /** {number} roughListHeight 列表高度 */
+  /** roughListHeight 列表高度
+   * @type {number} */
   _roughListHeight
-  /** {number} ROUGH_HEIGHT 投票元素高度 */
+  /** ROUGH_HEIGHT 投票元素高度
+   * @type {number} */
   _ROUGH_HEIGHT = 76
-  /** {string} _equipment 设备类型 */
+  /** _equipment 设备类型
+   * @type {string} */
   equipment
-  /** {Function} _onclick 单个粗略节点被点击时调用的函数 */
+  /** _onclick 单个粗略节点被点击时调用的函数
+   * @type {Function} */
   _onclick = null
 }
 
@@ -28,6 +35,11 @@ const scroll = (e) => {
   e.preventDefault()
 }
 
+/**
+ * @description 粗略投票信息展示管理
+ * @author XunJi - 常
+ * @version 1.0.0
+ */
 class VoteRoughList extends RoughListInfo {
   /**
    * @param {HTMLDivElement} RoughList 列表元素 div
@@ -87,7 +99,6 @@ class VoteRoughList extends RoughListInfo {
     // window.addEventListener('mousewheel', scroll, {passive: false})
     window.addEventListener('touchmove', scroll, { passive: false })
     document.body.style['overflow-y'] = 'hidden'
-    console.log(this._voteNode[ranking - 1].voteNodeMain)
     const _loading = new Loading(this._voteNode[ranking - 1].voteNodeMain, '#b0b8c0')
     _loading.addLoading()
     const num = Math.floor(window.innerHeight / this._ROUGH_HEIGHT) + 2
@@ -138,7 +149,6 @@ class VoteRoughList extends RoughListInfo {
    * 提供一个上下文菜单
    * @param {{equipment: 'desktop'|'mobile', contextmenuList: List<{'message': string, 'onclick': Function}>}} info
    * @returns {VoteContextmenu}
-   * @private
    */
   _contextmenu (info) {
     return new VoteContextmenu({...info, equipment: this.equipment})

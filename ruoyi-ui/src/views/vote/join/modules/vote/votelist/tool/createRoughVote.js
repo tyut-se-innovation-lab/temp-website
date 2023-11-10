@@ -7,33 +7,47 @@ import auth from '@/plugins/auth'
 // import Notification from '@/plugins/modules/xjTool/xj-notification'
 
 class RoughInfo {
-  /** {number} voteId 投票ID */
+  /** voteId 投票ID
+   * @type {number} */
   voteId
-  /** {string} title 标题 */
+  /** title 标题
+   * @type {string} */
   title
-  /** {string} content 内容 */
+  /** content 内容
+   * @type {string} */
   content
-  /** {number} status 状态 */
+  /** status 状态
+   * @type {number} */
   status
-  /** {string} createTime 创建时间 */
+  /** createTime 创建时间
+   * @type {string} */
   createTime
-  /** {string} deadTime 结束时间 */
+  /** deadTime 结束时间
+   * @type {string} */
   deadTime
-  /** {string} userName 发起者 */
+  /** userName 发起者
+   * @type {string} */
   userName
-  /** {number} userId 发起者ID */
+  /** userId 发起者I
+   *  @type {number} */
   userId
-  /** {number} loginUserId 当前用户ID */
+  /** loginUserId 当前用户ID
+   * @type {number} */
   loginUserId
-  /** {HTMLDivElement} voteNode 粗略投票节点 */
+  /** voteNode 粗略投票节点
+   * @type {HTMLDivElement} */
   voteNode = null
-  /** {HTMLDivElement} voteNodeMain 粗略投票主节点 */
+  /** voteNodeMain 粗略投票主节点
+   * @type {HTMLDivElement} */
   voteNodeMain = null
-  /** {HTMLDivElement} voteNodeButton 粗略投票按钮节点 */
+  /** voteNodeButton 粗略投票按钮节点
+   * @type {HTMLDivElement} */
   voteNodeButton = null
-  /** {number} ranking 排名 */
+  /** ranking 排名
+   * @type {number} */
   ranking
-  /** {VoteRoughList} VoteRoughList 实例 */
+  /** VoteRoughList 实例
+   * @type {VoteRoughList} */
   VoteRoughList
 }
 
@@ -41,6 +55,11 @@ const scroll = (e) => {
   e.preventDefault()
 }
 
+/**
+ * @description 粗略投票信息展示
+ * @author XunJi - 常
+ * @version 1.0.0
+ */
 class VoteRough extends RoughInfo {
   /**
    * @param {number} voteId 投票ID
@@ -326,8 +345,8 @@ class VoteRough extends RoughInfo {
             if (!touchInfo['isClick']) {
               this.voteNodeMain.style['transition'] = 'all .3s'
               this.voteNodeButton.style['transition'] = 'background-color .1s, color .1s, width .3s'
-              this.voteNodeMain.style['left'] = -parseFloat(getComputedStyle(this.voteNodeMain)['width']) - 30 + 'px'
-              this.voteNodeButton.style['width'] = parseFloat(getComputedStyle(this.voteNodeMain)['width']) + 20 + 'px'
+              this.voteNodeMain.style['left'] = -parseFloat(getComputedStyle(this.voteNodeMain)['width']) - 40 + 'px'
+              this.voteNodeButton.style['width'] = parseFloat(getComputedStyle(this.voteNodeMain)['width']) + 30 + 'px'
               window.navigator.vibrate && window.navigator.vibrate(100)
               this.voteNodeButton.style['opacity'] = '1'
               touchInfo['isClick'] = true
@@ -358,7 +377,10 @@ class VoteRough extends RoughInfo {
         this.voteNodeButton.style['width'] = '0'
         this.voteNodeButton.style['opacity'] = '0'
         /* 若选中，则触发按钮 */
-        if (touchInfo['isClick']) this.voteNodeButton.click()
+        if (touchInfo['isClick']) {
+          this.voteNodeButton.click()
+          touchInfo['isClick'] = false
+        }
       },
     }
   }

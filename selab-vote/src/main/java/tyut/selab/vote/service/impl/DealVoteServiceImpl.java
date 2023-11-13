@@ -12,20 +12,25 @@
  * <desc> 版本描述
  */
 package tyut.selab.vote.service.impl;
+import com.ruoyi.common.core.domain.entity.SysUser;
+import com.ruoyi.system.mapper.SysRoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.vote.domain.DTO.VoteInfoLaunchDTO;
+import tyut.selab.vote.domain.po.VoteUser;
+import tyut.selab.vote.domain.po.VoteWeight;
 import tyut.selab.vote.enums.VoteStatus;
 import tyut.selab.vote.exception.VoteDeletedException;
 import tyut.selab.vote.exception.VoteFreezedException;
 import tyut.selab.vote.exception.VoteOverTimeException;
 import tyut.selab.vote.exception.VoteProcessedException;
-import tyut.selab.vote.mapper.ReportVoteMapper;
-import tyut.selab.vote.mapper.VoteInfoMapper;
-import tyut.selab.vote.mapper.VoteOptionMapper;
-import tyut.selab.vote.mapper.VoteWeightMapper;
+import tyut.selab.vote.mapper.*;
 import tyut.selab.vote.service.DealVoteService;
 import tyut.selab.vote.tools.TimeDealTool;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @ClassName: DealVoteServiceImpl
@@ -48,10 +53,27 @@ public class DealVoteServiceImpl implements DealVoteService {
     @Autowired
     private ReportVoteMapper reportVoteMapper;
 
+    @Autowired
+    private VoteUserMapper voteUserMapper;
+
+    @Autowired
+    private SysRoleMapper sysRoleMapper;
+
     @Override
     public void launchVote(VoteInfoLaunchDTO voteInfoLaunchDTO) {
-        //初始化投票属性
-        //Long userId = SecurityUtils.getUserId();
+        List<VoteUser> voteUserList = new ArrayList<>();
+        for (VoteWeight voteWeight:voteInfoLaunchDTO.getVoteWeights()
+             ) {
+            for (SysUser sysUser :sysRoleMapper.selectUsersByRoleId(voteWeight.getRoleId())
+                    ) {
+                if(Objects.equals(sysUser.getRoles().get(0).getRoleId(), voteWeight.getRoleId())){
+                    voteUserList.add(new VoteUser(voteInfoLaunchDTO.getVoteId(),sysUser.getUserId(),null,0));
+                }
+            }
+        }
+        voteUserMapper.insertVoteUser(voteUserList);
+    //初始化投票属性
+//        Long userId = SecurityUtils.getUserId();
         //voteInfo.setUserId(userId);
         voteInfoLaunchDTO.setStatus(VoteStatus.UNDERWAY);
         voteInfoLaunchDTO.setDelFlag("1");

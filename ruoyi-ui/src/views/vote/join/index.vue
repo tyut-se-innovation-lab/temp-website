@@ -1,7 +1,7 @@
 <script>
 import Vue from 'vue'
-import VoteFooter from '@/views/vote/join/modules/VoteFooter.vue'
-import VoteRoughList from '@/views/vote/join/modules/tool/roughVoteList'
+import VoteFooter from './modules/VoteFooter.vue'
+import VoteRoughList from './modules/vote/votelist/tool/roughVoteList'
 
 export default {
   name: 'join',
@@ -64,18 +64,18 @@ export default {
       dialogOption: {
         speed: 300,
         on: [{
-          opacity: '1',
-          top: '96vh',
+          opacity: '.8',
+          top: '94vh',
           transform: 'scale(10%, 5%) translate(-50%, 0)',
           'transform-origin': 'left top',
           left: '28px',
         }],
         off: [{
-          opacity: '1',
-          top: '96vh',
+          opacity: '.8',
+          top: '94vh',
           transform: 'scale(10%, 5%) translate(-50%, 0)',
           'transform-origin': 'left top',
-          left: '0%',
+          left: '28px',
         }]
       },
       voteData: [
@@ -230,7 +230,8 @@ export default {
           userId: 14
         }
       ],
-      voteList: null
+      voteList: null,
+      footerShow: true
     }
   },
   methods: {
@@ -255,9 +256,9 @@ export default {
     openDialog () {
       let _left = null;
       if (this.$store.getters['device'] === 'mobile') {
-        _left = 30
+        _left = 50
       } else {
-        _left = this.$store.getters['sidebar']['opened'] ? 230 : 100
+        _left = this.$store.getters['sidebar']['opened'] ? 250 : 100
       }
       /* 更新dialog动画 */
       Vue.set(this.dialogOption['on'][0], 'left', `${ _left }px`)
@@ -271,64 +272,110 @@ export default {
     this.voteList.onclick(({ voteId }) => {
       // return require.voteId(voteId)
       voteId
+      this.footerShow = false
       // 理论上这里返回应该发送的亲求
       return new Promise(resolve => {
         setTimeout(() => {
           resolve({
-            voteId: 0,
+            voteId,
             userName: '迅疾',
             voteType: 3,
-            title: '详细标题11111111111111111111111111111111111111aweaweqwe青蛙恶趣味啊是大多数',
-            content: '详细介绍埃斯库嘎斯的空间噶噶啥的客户嘎斯的空间和按时灯笼裤飞机哈桑法律噶啥的客户嘎斯的空间和按时灯笼裤飞机哈桑法律噶啥的客户嘎斯的空间和按时灯笼裤飞机哈桑法律噶啥的客户嘎斯的空间和按时灯笼裤飞机哈桑法律啥的客户嘎斯的空间和按时灯笼裤飞机哈桑法律框架哈桑打开链接',
+            title: '详细标题1111111111111111111111111111aweaweqwe青蛙恶趣味啊是大多数123',
+            content: '详细介绍埃斯库嘎斯的空间详细介绍埃斯库嘎斯asdaqwe空qweqwe噶噶啥的客户嘎斯的空ferq细介qwe绍qwe埃斯库嘎斯的空间噶噶啥的客户嘎斯的空详细介绍埃斯库嘎斯的空间噶噶啥的客户嘎斯的空详细介绍埃斯库嘎斯的空间噶噶啥的客户嘎斯的空详细介绍埃斯库嘎斯的空间噶噶啥的客户嘎斯的空详细介绍埃斯库嘎斯的空间噶噶啥的客户嘎斯的空噶噶啥的客户嘎斯的空间和按时灯笼裤飞机哈桑法律噶啥的客户嘎斯的空间和按时灯笼裤飞机哈桑法律噶啥的客户嘎斯的空间和按时灯笼裤飞机哈桑法律噶啥的客户嘎斯的空间和按时灯笼裤飞机哈桑法律啥的客户嘎斯的空间和按时灯笼裤飞机哈桑法律框架哈桑打开链接',
             status: 1,
             createTime: '2023-10-03 19:20:24',
             deadTime: '2023-10-13 19:20:24',
             optionNum: 3,
-            isRealTime: '',
+            isRealTime: '1',
             voteOptionLaunchDTOs: [
               {
                 id: 0,
-                voteId: 0,
+                voteId,
                 optionType: 'S',
                 content: '000',
                 percentage: '10%',
-                voteNum: 13,
-                isSelect: false
+                voteNum: 10,
+                isSelect: true
               },
               {
                 id: 1,
-                voteId: 0,
+                voteId,
                 optionType: 'S',
                 content: '111',
-                percentage: '20%',
-                voteNum: 26,
+                percentage: '10%',
+                voteNum: 10,
                 isSelect: false
               },
               {
                 id: 2,
-                voteId: 0,
+                voteId,
                 optionType: 'S',
                 content: '222',
-                percentage: '40%',
-                voteNum: 52,
+                percentage: '10%',
+                voteNum: 10,
                 isSelect: false
               },
               {
                 id: 3,
-                voteId: 0,
+                voteId,
                 optionType: 'S',
                 content: '333',
-                percentage: '30%',
-                voteNum: 39,
-                isSelect: false
+                percentage: '10%',
+                voteNum: 10,
+                isSelect: true
               },
               {
                 id: 4,
-                voteId: 0,
+                voteId,
                 optionType: 'S',
                 content: '444',
-                percentage: '50%',
-                voteNum: 52,
+                percentage: '10%',
+                voteNum: 10,
+                isSelect: false
+              },
+              {
+                id: 5,
+                voteId,
+                optionType: 'S',
+                content: '555',
+                percentage: '10%',
+                voteNum: 10,
+                isSelect: false
+              },
+              {
+                id: 6,
+                voteId,
+                optionType: 'S',
+                content: '666',
+                percentage: '10%',
+                voteNum: 10,
+                isSelect: false
+              },
+              {
+                id: 7,
+                voteId,
+                optionType: 'S',
+                content: '777',
+                percentage: '10%',
+                voteNum: 10,
+                isSelect: false
+              },
+              {
+                id: 8,
+                voteId,
+                optionType: 'S',
+                content: '888',
+                percentage: '10%',
+                voteNum: 10,
+                isSelect: false
+              },
+              {
+                id: 9,
+                voteId,
+                optionType: 'S',
+                content: '999',
+                percentage: '10%',
+                voteNum: 10,
                 isSelect: false
               }
             ],
@@ -336,17 +383,42 @@ export default {
             voteWeights: [
               {
                 roleId: 0,
-                roleName: '超管',
-                weight: 10
+                roleName: '超级管理员',
+                weight: 100
               },
               {
                 roleId: 100,
-                roleName: '人',
-                weight: 5
+                roleName: '投票管理员',
+                weight: 99
               },
               {
-                roleId: 200,
-                roleName: '贱民',
+                roleId: 101,
+                roleName: '开发组长',
+                weight: 99
+              },
+              {
+                roleId: 102,
+                roleName: '开发管理员',
+                weight: 99
+              },
+              {
+                roleId: 103,
+                roleName: '网安组长',
+                weight: 99
+              },
+              {
+                roleId: 104,
+                roleName: '网安管理员',
+                weight: 99
+              },
+              {
+                roleId: 105,
+                roleName: '实验室开发组成员',
+                weight: 1
+              },
+              {
+                roleId: 106,
+                roleName: '实验室网安组成员',
                 weight: 1
               }
             ],
@@ -355,6 +427,13 @@ export default {
         }, 500)
       })
     })
+    this.voteList.onDetailsClose(() => {
+      this.footerShow = true
+    })
+  },
+  beforeRouteLeave (to, from , next) {
+    this.voteList.detailsDisappear && this.voteList.detailsDisappear()
+    next()
   }
 }
 </script>
@@ -385,12 +464,12 @@ export default {
         <el-button @click="show = false">完成</el-button>
       </span>
     </xj-dialog>
-    <vote-footer>
+    <vote-footer :show="footerShow">
       <el-button @click="openDialog">呼出dialog</el-button>
-      <el-button @click="xj_notification(notificationOption[0])">呼出1</el-button>
-      <el-button @click="xj_notification(notificationOption[1])">呼出2</el-button>
-      <el-button @click="xj_notification(notificationOption[2])">呼出3</el-button>
-      <el-button @click="xj_notification(notificationOption[3])">呼出4</el-button>
+<!--      <el-button @click="xj_notification(notificationOption[0])">呼出1</el-button>-->
+<!--      <el-button @click="xj_notification(notificationOption[1])">呼出2</el-button>-->
+<!--      <el-button @click="xj_notification(notificationOption[2])">呼出3</el-button>-->
+<!--      <el-button @click="xj_notification(notificationOption[3])">呼出4</el-button>-->
     </vote-footer>
   </div>
 </template>

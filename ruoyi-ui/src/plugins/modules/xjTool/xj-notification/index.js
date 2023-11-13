@@ -1,4 +1,4 @@
-import './index.css'
+import './index.scss'
 
 /*
  * notification 通知弹窗
@@ -35,6 +35,11 @@ import './index.css'
  * notify1.close()
  */
 
+/**
+ * @description 通知弹窗
+ * @author XunJi - 常
+ * @version 2.1.15
+ */
 class NotificationList {
   static #length = {
     'left-bottom': { length: 0, list:[] },
@@ -533,6 +538,5 @@ class Notification {
     this.#remove(_l)
   }
 }
-
 
 export { Notification }

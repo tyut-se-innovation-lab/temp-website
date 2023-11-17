@@ -211,6 +211,24 @@
                 <artifactId>selab-vote</artifactId>
                 <version>3.8.4</version>
             </dependency>
+
+            <!-- 奖惩制度 -->
+            <dependency>
+                <groupId>tyut.selab</groupId>
+                <artifactId>selab-rule</artifactId>
+                <version>3.8.4</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>3.0.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>3.0.2</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -223,6 +241,7 @@
         <module>ruoyi-common</module>
         <module>selab-vote</module>
         <module>selab-schedule</module>
+        <module>selab-rule</module>
         <module>selab-attendance</module>
     </modules>
     <packaging>pom</packaging>
@@ -234,6 +253,16 @@
             <artifactId>lombok</artifactId>
             <version>1.18.24</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.vlkan.rfos</groupId>
+            <artifactId>rotating-fos</artifactId>
+            <version>0.9.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>3.0.2</version>
         </dependency>
     </dependencies>
 

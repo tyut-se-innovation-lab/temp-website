@@ -1,14 +1,12 @@
 //根据时间过滤
 import { Filter } from './index.js';
 class FilterDate extends Filter {
-    constructor() {
 
-    }
 
     /**
      * 时间过滤
      * @param {Array} dateGap 日期数组:两个元素
-     * @param {Array} data 待过滤数据 
+     * @param {Array} data 待过滤数据
      * @param {String} name 要过滤数据的名字
      */
     filterByDate(dateGap, data, name) {

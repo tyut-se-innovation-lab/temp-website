@@ -1,15 +1,10 @@
 package tyut.selab.rule.service.impl;
 
-import com.ruoyi.common.core.domain.AjaxResult;
-import com.ruoyi.common.core.domain.R;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.math3.geometry.euclidean.threed.SubPlane;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import tyut.selab.rule.service.ContextService;
 
-import javax.servlet.ServletInputStream;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

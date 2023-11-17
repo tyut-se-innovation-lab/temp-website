@@ -1,6 +1,5 @@
 package tyut.selab.rule.domain.VO;
 
-import lombok.*;
 import tyut.selab.rule.domain.entity.Operation;
 
 import java.util.List;

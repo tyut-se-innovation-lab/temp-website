@@ -1,6 +1,7 @@
 package tyut.selab.rule.service.impl;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.json.JSONNull;
 import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson2.JSON;
 import com.ruoyi.common.constant.HttpStatus;
@@ -123,8 +124,21 @@ public class ContentServiceImpl implements ContentService {
             outputStream.write(bytes);
             outputStream.flush();
             outputStream.close();
+            response.setStatus(200);
+            //这里setStatus之后的内容都是不必要的
+            //但是可以成功实现在下载文件时返回参数
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("code",200);
+            map.put("msg","文件下载成功捏");
+            response.setHeader("X-Result-Data", JSONUtil.toJsonStr(map));
         } catch (IOException e) {
             e.printStackTrace();
+            HashMap<String, Object> map = new HashMap<>();
+            response.setStatus(500);
+            map.put("code",500);
+            map.put("msg","网络繁忙,请稍后再试XD");
+            response.setHeader("X-Result-Data", JSONUtil.toJsonStr(map));
         }
+
     }
 }

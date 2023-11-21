@@ -52,10 +52,11 @@ public class ContentController {
     // 但是没有找到合适的转换器，因此抛出了HttpMessageNotWritableException异常。
 
     //如果不想报错就可以把返回值改为void
-
-    //好像还可以把json数据放到自定义请求头中,尝试失败
-
     //思来想去还是改成void了,防止报错太多背锅XD
+
+    //最后把要返回的参数内容放到了自定义的响应头中
+    //但返回的参数内容其实非必要
+
     @GetMapping("/download")
     @PreAuthorize("@ss.hasAnyPermi('rule:content')")
     @ApiOperation("规章制度模块中文件的下载")

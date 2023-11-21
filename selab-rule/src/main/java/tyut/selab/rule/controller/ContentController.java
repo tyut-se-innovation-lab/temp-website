@@ -53,6 +53,8 @@ public class ContentController {
 
     //如果不想报错就可以把返回值改为void
 
+    //好像还可以把json数据放到自定义请求头中,尝试失败
+
     //思来想去还是改成void了,防止报错太多背锅XD
     @GetMapping("/download")
     @PreAuthorize("@ss.hasAnyPermi('rule:content')")

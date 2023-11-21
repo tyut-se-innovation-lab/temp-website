@@ -130,5 +130,4 @@ xss:
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*
 rule:
-  readPath: D://md.md
-  uploadPath: D://12354.md
+  basePath: D://ruoyi/rule/

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="tyut.selab.rule.mapper.RuleLogMapper">
 
-    <resultMap id="RuleLogResultMap" type="tyut.selab.rule.domain.entity.Operation">
+    <resultMap id="RuleLogResultMap" type="tyut.selab.rule.domain.Operation">
         <id property="ruleLogId" column="rule_log_id" />
         <result property="targetUserId" column="target_user_id" />
         <result property="reasonContent" column="reason_content" />
@@ -41,7 +41,7 @@
         select score_change from rule_log where rule_log_id = #{logId}
     </select>
 <!--        List<Operation> getLogForDay(Long userId, Date startTime, Date endTime);-->
-    <select id="getLogForDay" resultMap="RuleLogResultMap" parameterType="tyut.selab.rule.domain.entity.Operation">
+    <select id="getLogForDay" resultMap="RuleLogResultMap" parameterType="tyut.selab.rule.domain.Operation">
         select
             *
         from rule_log

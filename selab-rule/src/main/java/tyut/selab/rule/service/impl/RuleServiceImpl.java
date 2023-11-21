@@ -5,7 +5,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.rule.domain.VO.OperationVO;
-import tyut.selab.rule.domain.entity.Operation;
+import tyut.selab.rule.domain.Operation;
 import tyut.selab.rule.mapper.RuleMapper;
 import tyut.selab.rule.service.RuleService;
 

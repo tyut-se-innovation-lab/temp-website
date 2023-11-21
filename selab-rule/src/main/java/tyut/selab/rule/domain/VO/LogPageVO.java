@@ -1,6 +1,6 @@
 package tyut.selab.rule.domain.VO;
 
-import tyut.selab.rule.domain.entity.Operation;
+import tyut.selab.rule.domain.Operation;
 
 import java.util.List;
 

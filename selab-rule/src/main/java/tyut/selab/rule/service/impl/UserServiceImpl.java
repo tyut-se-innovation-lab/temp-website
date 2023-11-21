@@ -15,7 +15,7 @@ import tyut.selab.rule.domain.VO.LogPageVO;
 import tyut.selab.rule.domain.VO.LogVO;
 import tyut.selab.rule.domain.VO.OperationVO;
 import tyut.selab.rule.domain.VO.RuleVO;
-import tyut.selab.rule.domain.entity.Operation;
+import tyut.selab.rule.domain.Operation;
 import tyut.selab.rule.mapper.RuleLogMapper;
 import tyut.selab.rule.mapper.RuleScoreMapper;
 import tyut.selab.rule.service.UserService;

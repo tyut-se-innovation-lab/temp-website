@@ -1,14 +1,21 @@
 package tyut.selab.rule.service.impl;
 
 import cn.hutool.core.io.FileUtil;
+import com.alibaba.fastjson2.JSON;
+import com.ruoyi.common.constant.HttpStatus;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.domain.model.LoginUser;
+import com.ruoyi.common.utils.ServletUtils;
 import com.ruoyi.common.utils.uuid.UUID;
 import com.ruoyi.framework.web.service.TokenService;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import tyut.selab.rule.domain.PO.RuleContent;
@@ -35,9 +42,12 @@ public class ContentServiceImpl implements ContentService {
     @Autowired
     private RuleContentMapper ruleContentMapper;
 
+    @Autowired
+    private ResourceLoader resourceLoader;
+
     @Override
-    public AjaxResult uploadMarkdown(HttpServletRequest request,MultipartFile file) {
-        if(file==null){
+    public AjaxResult uploadMarkdown(HttpServletRequest request, MultipartFile file) {
+        if (file == null) {
             return AjaxResult.error("文件为空捏");
         }
         //拼接文件名
@@ -50,19 +60,19 @@ public class ContentServiceImpl implements ContentService {
         if (!parent.exists()) {
             parent.mkdirs();
         }
-        String fileName = UUID.randomUUID().toString().replaceAll("-","") + "." + FilenameUtils.getExtension(origin);
-        File destination = new File(parentPath+fileName);
-        String finalPath = parentPath+fileName;
+        String fileName = UUID.randomUUID().toString().replaceAll("-", "") + "." + FilenameUtils.getExtension(origin);
+        File destination = new File(parentPath + fileName);
+        String finalPath = parentPath + fileName;
         Long userId = tokenService.getLoginUser(request).getUserId();
         RuleContent oldContent = ruleContentMapper.selectByPrimaryKey(1L);
-        if(oldContent==null){
+        if (oldContent == null) {
             RuleContent newContent = new RuleContent();
             newContent.setId(1);
             newContent.setTextAddress(finalPath);
             newContent.setCreateTime(new Date());
             newContent.setCreateUser(userId);
             ruleContentMapper.insert(newContent);
-        }else{
+        } else {
             oldContent.setTextAddress(finalPath);
             oldContent.setUpdateTime(new Date());
             oldContent.setUpdateUser(userId);
@@ -81,20 +91,32 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public void downloadMarkdown(HttpServletResponse response) {
         //从库中拿到markdown文件地址
-        //String fileName
         RuleContent originFile = ruleContentMapper.selectByPrimaryKey(1L);
-//        String originFileName = "D://DFS.md";
-        String originFileName= originFile.getTextAddress();
+        String originFilePath = "";
+        Resource resource = null;
+        //使用相对路径拿到保底文件
+        if (originFile == null) {
+            resource = resourceLoader.getResource("classpath:rule/2023-规章制度.md");
+        } else {
+            originFilePath = originFile.getTextAddress();
+        }
+
         //设置响应头
+        response.reset();
         response.setHeader("content-type", "application/octet-stream");
         response.setContentType("application/octet-stream");
         //设置响应文件名
-        String browserFileName = UUID.randomUUID().toString().replaceAll("-","") + "." + FilenameUtils.getExtension(originFileName);
+        String browserFileName = UUID.randomUUID().toString().replaceAll("-", "") + "." + FilenameUtils.getExtension(originFilePath);
         response.setHeader("Content-Disposition", "attachment;filename=" + browserFileName);
         //文件下载
         try {
             ServletOutputStream outputStream = response.getOutputStream();
-            byte[] bytes = FileUtil.readBytes(originFileName);
+            byte[] bytes = null;
+            if (originFilePath == "") {
+                bytes = FileUtil.readBytes(resource.getFile());
+            } else {
+                bytes = FileUtil.readBytes(originFilePath);
+            }
             outputStream.write(bytes);
             outputStream.flush();
             outputStream.close();

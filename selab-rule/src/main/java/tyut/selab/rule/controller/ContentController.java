@@ -13,6 +13,7 @@ import tyut.selab.rule.service.ContentService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 
 /**
@@ -37,9 +38,9 @@ public class ContentController {
     @GetMapping("/download")
     @PreAuthorize("@ss.hasAnyPermi('rule:content')")
     @ApiOperation("规章制度模块中文件的下载")
-    public AjaxResult downloadMarkdown(HttpServletResponse res){
+    public void downloadMarkdown(HttpServletResponse res,HttpServletResponse response){
         contentService.downloadMarkdown(res);
-        return AjaxResult.success("文件下载成功捏");
+        response.setStatus(200);
     }
 
 

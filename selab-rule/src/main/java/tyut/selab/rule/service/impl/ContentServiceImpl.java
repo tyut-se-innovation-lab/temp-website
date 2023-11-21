@@ -1,6 +1,7 @@
 package tyut.selab.rule.service.impl;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson2.JSON;
 import com.ruoyi.common.constant.HttpStatus;
 import com.ruoyi.common.core.domain.AjaxResult;
@@ -28,6 +29,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Service
@@ -84,7 +87,7 @@ public class ContentServiceImpl implements ContentService {
             return AjaxResult.success("文件上传成功捏");
         } catch (IOException e) {
             e.printStackTrace();
-            return AjaxResult.error("网络繁忙,请稍后再试");
+            return AjaxResult.error("网络繁忙,请稍后再试 XD");
         }
     }
 

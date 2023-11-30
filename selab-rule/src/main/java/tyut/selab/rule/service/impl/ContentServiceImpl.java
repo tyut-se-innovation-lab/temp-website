@@ -108,7 +108,7 @@ public class ContentServiceImpl implements ContentService {
         response.setHeader("content-type", "application/octet-stream");
         response.setContentType("application/octet-stream");
         //设置响应文件名
-        String browserFileName = UUID.randomUUID().toString().replaceAll("-", "") + "." + FilenameUtils.getExtension(originFilePath);
+        String browserFileName = UUID.randomUUID().toString().replaceAll("-", "") + "." + "md";
         response.setHeader("Content-Disposition", "attachment;filename=" + browserFileName);
         //文件下载
         try {
@@ -137,6 +137,46 @@ public class ContentServiceImpl implements ContentService {
             map.put("msg","网络繁忙,请稍后再试XD");
             response.setHeader("X-Result-Data", JSONUtil.toJsonStr(map));
         }
-
     }
+
+    @Override
+    public void resetMarkdown(HttpServletResponse response) {
+        //将原库中中的文件地址删除
+        //直到下次上传之前,文件一直从保底文件中读取
+        ruleContentMapper.deleteByPrimaryKey(1L);
+        Resource resource = null;
+        //使用相对路径拿到保底文件
+        resource = resourceLoader.getResource("classpath:rule/2023-规章制度.md");
+        //设置响应头
+        response.setHeader("content-type", "application/octet-stream");
+        response.setContentType("application/octet-stream");
+        //设置响应文件名
+        String browserFileName = UUID.randomUUID().toString().replaceAll("-", "") + "." + "md";
+        response.setHeader("Content-Disposition", "attachment;filename=" + browserFileName);
+        //文件下载
+        try {
+            ServletOutputStream outputStream = response.getOutputStream();
+            byte[] bytes = null;
+            bytes = FileUtil.readBytes(resource.getFile());
+            outputStream.write(bytes);
+            outputStream.flush();
+            outputStream.close();
+            response.setStatus(200);
+            //这里setStatus之后的内容都是不必要的
+            //但是可以成功实现在下载文件时返回参数
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("code",200);
+            map.put("msg","文件下载成功捏");
+            response.setHeader("X-Result-Data", JSONUtil.toJsonStr(map));
+        } catch (IOException e) {
+            e.printStackTrace();
+            HashMap<String, Object> map = new HashMap<>();
+            response.setStatus(500);
+            map.put("code",500);
+            map.put("msg","网络繁忙,请稍后再试XD");
+            response.setHeader("X-Result-Data", JSONUtil.toJsonStr(map));
+        }
+    }
+
+
 }

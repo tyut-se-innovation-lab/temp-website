@@ -50,7 +50,7 @@ public class UserController {
      */
     @GetMapping("/day")
     @ApiOperation("查询用户当天的增减分情况")
-    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
+    @PreAuthorize("@ss.hasAnyPermi('rule:announcement')")
     public AjaxResult getScoreChangeForDay(HttpServletRequest request) {
         LoginUser user = tokenService.getLoginUser(request);
         Integer scoreChange = userService.getScoreChangeForDay(user.getUserId());
@@ -90,7 +90,7 @@ public class UserController {
      */
     @GetMapping("/month")
     @ApiOperation("查询用户当月的增减分情况")
-    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
+    @PreAuthorize("@ss.hasAnyPermi('rule:announcement')")
     public AjaxResult getScoreChangeForMonth(HttpServletRequest request) {
         LoginUser user = tokenService.getLoginUser(request);
         Integer scoreChange = userService.getScoreChangeForMonth(user.getUserId());
@@ -105,7 +105,7 @@ public class UserController {
      */
     @GetMapping("/day/operations")
     @ApiOperation("查询用户当天的增减分操作日志")
-    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
+    @PreAuthorize("@ss.hasAnyPermi('rule:announcement')")
     public AjaxResult getScoreChangeOperationsForDay(HttpServletRequest request) {
         LoginUser user = tokenService.getLoginUser(request);
         List<OperationVO> logVOList = userService.getScoreChangeOperationsForDay(user.getUserId());
@@ -123,7 +123,7 @@ public class UserController {
      */
     @GetMapping("/month/operations")
     @ApiOperation("查询用户当月的增减分操作日志")
-    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
+    @PreAuthorize("@ss.hasAnyPermi('rule:announcement')")
     public AjaxResult getScoreChangeOperationsForMonth(HttpServletRequest request) {
         LoginUser user = tokenService.getLoginUser(request);
         List<OperationVO> logVOList = userService.getScoreChangeOperationsForMonth(user.getUserId());
@@ -143,7 +143,7 @@ public class UserController {
      */
     @GetMapping("/getAllLogs")
     @ApiOperation("查询当前用户的所有操作日志")
-    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
+    @PreAuthorize("@ss.hasAnyPermi('rule:announcement')")
     public AjaxResult getAllLogs(HttpServletRequest request, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         LoginUser user = tokenService.getLoginUser(request);
         LogVO logVO = userService.getAllLogs(user.getUserId(), pageNum, pageSize);

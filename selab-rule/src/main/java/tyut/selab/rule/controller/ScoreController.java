@@ -29,7 +29,7 @@ public class ScoreController {
      */
     @PutMapping
     @ApiOperation("分数增减操作")
-    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
+    @PreAuthorize("@ss.hasAnyPermi('rule:editor')")
     public AjaxResult addOrReduceScore(HttpServletRequest request, @RequestBody ScoreRequestDTO scoreRequestDTO) {
         //加分减分操作
         scoreService.addOrReduceScore(request, scoreRequestDTO);

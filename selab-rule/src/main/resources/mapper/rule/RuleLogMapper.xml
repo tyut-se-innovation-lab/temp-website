@@ -32,9 +32,9 @@
         order by create_time desc
     </select>
     <select id="selectAllLog" resultMap="RuleLogResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from rule_log order by create_time desc
+        select *
+        from rule_log
+        order by create_time desc
 
     </select>
     <select id="getByRuleLogId" resultType="java.lang.Integer">

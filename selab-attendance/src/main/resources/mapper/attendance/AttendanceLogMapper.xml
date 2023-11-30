@@ -10,7 +10,7 @@
         <result property="attEndTime" column="att_end_time"/>
         <result property="signTime" column="interval"/>
     </resultMap>
-    
+
     <!--  public List<Attendance> couleSignOut();-->
     <select id="couleSignOut" parameterType="java.lang.Integer" resultMap="Attendance">
         SELECT id, att_user, att_start_time, att_end_time, `interval` FROM selab_attendance_log
@@ -18,11 +18,14 @@
             <if test="startTime != null and endTime != null">
                 AND att_start_time BETWEEN #{startTime} AND #{endTime}
             </if>
+            <if test="userName != null">
+                att_user LIKE CONCAT('%',#{userName},'%')
+            </if>
         </where>
     </select>
 
     <select id="nickName" parameterType="java.lang.Integer" resultType="String">
-        SELECT nick_name FROM sys_user WHERE dept_id = #{deptId}
+        SELECT nick_name FROM sys_user WHERE dept_id = #{deptId} and  del_flag = 0
     </select>
 
     <select id="nickUserName" parameterType="java.lang.Integer" resultType="String">

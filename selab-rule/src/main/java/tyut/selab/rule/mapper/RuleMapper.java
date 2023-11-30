@@ -3,7 +3,7 @@ package tyut.selab.rule.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import tyut.selab.rule.domain.entity.Operation;
+import tyut.selab.rule.domain.Operation;
 
 import java.util.List;
 

@@ -18,7 +18,7 @@ public interface AttendanceLogMapper {
      * 查询本周日志
      * @return
      */
-    public List<Attendance> couleSignOut(@Param("startTime") Date startTime,@Param("endTime") Date endTime);
+    public List<Attendance> couleSignOut(@Param("startTime") Date startTime,@Param("endTime") Date endTime,@Param("userName")String userName);
 
     /**
      * 统计本周日志

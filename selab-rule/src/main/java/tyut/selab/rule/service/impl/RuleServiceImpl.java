@@ -1,21 +1,16 @@
 package tyut.selab.rule.service.impl;
 
-import com.ruoyi.common.annotation.Log;
-import com.ruoyi.common.core.domain.R;
-import com.ruoyi.common.core.domain.entity.SysUser;
-import com.ruoyi.system.mapper.SysUserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tyut.selab.rule.domain.VO.OperationVO;
-import tyut.selab.rule.domain.entity.Operation;
+import tyut.selab.rule.domain.Operation;
 import tyut.selab.rule.mapper.RuleMapper;
 import tyut.selab.rule.service.RuleService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * 奖惩制度 业务层处理

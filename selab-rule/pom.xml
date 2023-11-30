@@ -35,6 +35,11 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.7.16</version>
+        </dependency>
         <!--txt转word，markdown等-->
         <dependency>
             <groupId>com.github.xuwei-k</groupId>

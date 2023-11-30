@@ -12,6 +12,14 @@
             end-placeholder="结束日期"
           ></el-date-picker>
         </div>
+        <div>
+          <el-input
+            placeholder="请输入名字"
+            v-model="userNameSearch"
+            clearable
+            @change="userNameChange">
+          </el-input>
+        </div>
         <el-button type="" @click="setVisible">下 载</el-button>
       </div>
 
@@ -65,7 +73,7 @@
 
 <script>
 import {Log} from "@/api/attendance/signlog/index.js";
-import {Download} from "@/api/extendsion/download/index.js";
+import downloadBlob from "@/api/extendsion/download/index.js";
 import Page from "@/views/components/pages/index.vue";
 
 export default {
@@ -78,12 +86,14 @@ export default {
       fileList: [],
       fileName: "",
       filterDate: null,
+      userNameSearch: "",   // 搜索名字
       currentPage: 1,
       pageData: {
         totalPages: 0,
         currentPage: 0,
         pagerCount: 0,
       },
+
       downloadVisible: false,
     };
   },
@@ -105,6 +115,13 @@ export default {
     },
 
     /**
+     * 搜索
+     */
+    userNameChange(){
+      this.weekLog()
+    },
+
+    /**
      * 获取记录
      * @param {Number} currentPage 自定义参数:当前页数
      * @param {Number} pageCount 自定义参数:每页最大展示条数
@@ -115,16 +132,14 @@ export default {
         attEndTime: this.filterDate ? this.filterDate[1].getTime() : null,
         currentPage: currentPage || this.currentPage,
         pageCount: pageCount || 15,
+        userNameSearch: this.userNameSearch ? this.userNameSearch : null,
       };
-
       this.log.weekLog(tmpObj).then((res) => {
         // console.log(res);
         this.signLog = res.data;
         this.signLogShowData = res.data.list;
 
         this.initPageData(res);
-
-        // console.log(this.$refs.child.init());
       });
     },
 
@@ -207,7 +222,7 @@ export default {
     getFile() {
       if (this.fileName !== "") {
         this.log.getFile(this.fileName).then((res) => {
-          new Download().downloadBlob(
+          downloadBlob(
             res,
             "application/vnd.ms-excel",
             this.fileName
@@ -224,6 +239,7 @@ export default {
     },
   },
   watch: {
+    // 时间选择监控
     filterDate(newVal, oldVal) {
       //更新数据
       if (this.currentPage !== 1) {
@@ -231,6 +247,7 @@ export default {
       }
       this.weekLog();
     },
+    // 分页按钮监控
     currentPage(newVal, oldVal) {
       this.weekLog();
     },

@@ -1,4 +1,4 @@
-package tyut.selab.rule.domain.entity;
+package tyut.selab.rule.domain;
 
 import lombok.Data;
 

@@ -1,11 +1,10 @@
 package tyut.selab.rule.mapper;
 
 import com.github.pagehelper.Page;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import tyut.selab.rule.domain.RuleLog;
 import tyut.selab.rule.domain.VO.OperationVO;
-import tyut.selab.rule.domain.entity.Operation;
+import tyut.selab.rule.domain.Operation;
 
 import java.util.Date;
 import java.util.List;

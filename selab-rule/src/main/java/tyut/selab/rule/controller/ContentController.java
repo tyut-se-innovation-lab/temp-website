@@ -26,6 +26,7 @@ import java.util.Map;
  */
 @Api("文件文档类")
 @RestController
+@Anonymous
 @RequestMapping("/rule/file")
 public class ContentController {
     @Autowired

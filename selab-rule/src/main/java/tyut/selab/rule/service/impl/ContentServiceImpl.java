@@ -104,7 +104,6 @@ public class ContentServiceImpl implements ContentService {
         } else {
             originFilePath = originFile.getTextAddress();
         }
-
         //设置响应头
         response.setHeader("content-type", "application/octet-stream");
         response.setContentType("application/octet-stream");

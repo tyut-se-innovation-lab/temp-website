@@ -1,5 +1,6 @@
 <script>
-import { selectAllLog } from "@/api/rule/content";
+import axios from "axios";
+import { selectAllLog, downLoad } from "@/api/rule/content";
 export default {
   name: "index",
   data() {
@@ -32,6 +33,34 @@ export default {
         }
       );
     },
+    getloadFile() {
+      downLoad().then((response) => {
+        console.log(response);
+      });
+    },
+    downloadFile() {
+      axios({
+        method: "get",
+        url: "process.env.VUE_APP_BASE_API/rule/file/download",
+        responseType: "blob",
+      })
+        .then((response) => {
+          const blob = new Blob([response.data], {
+            type: "application/octet-stream",
+          });
+
+          // 创建下载链接
+          const link = document.createElement("a");
+          link.href = window.URL.createObjectURL(blob);
+          link.download = "filename.extension"; // 文件名和扩展名
+
+          // 触发点击下载链接
+          link.click();
+        })
+        .catch((error) => {
+          console.error("Error downloading file:", error);
+        });
+    },
     //监听 pagesize 改变的事件
     handleSizeChange(newsize) {
       //这里conso 选中第几页 最新的值
@@ -57,6 +86,7 @@ export default {
 <template>
   <div class="content">
     <el-card class="left box-card">
+      <el-button @click="getloadFile">下载</el-button>
       <h1>奖惩内容</h1>
       <h2>前言</h2>
       1.这个规章制度建立在月份分数制度之上，选择向上加分，最终结果由组长根据个人表现酌情加减分（平时分）<br />

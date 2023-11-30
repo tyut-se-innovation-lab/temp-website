@@ -33,7 +33,6 @@ public class ContentController {
     ContentService contentService;
 
     @PostMapping("/upload")
-    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
     @ApiOperation("规章制度模块中文件的上传")
     public AjaxResult uploadMarkdown(HttpServletRequest request, @RequestPart(value = "file") MultipartFile file){
         AjaxResult result = contentService.uploadMarkdown(request,file);
@@ -59,7 +58,6 @@ public class ContentController {
     //但返回的参数内容其实非必要
 
     @GetMapping("/download")
-    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
     @ApiOperation("规章制度模块中文件的下载")
     public void downloadMarkdown(HttpServletResponse res,HttpServletResponse response){
         contentService.downloadMarkdown(res);

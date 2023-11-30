@@ -106,7 +106,6 @@ public class ContentServiceImpl implements ContentService {
         }
 
         //设置响应头
-        response.reset();
         response.setHeader("content-type", "application/octet-stream");
         response.setContentType("application/octet-stream");
         //设置响应文件名

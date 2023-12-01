@@ -60,8 +60,15 @@ public class ContentController {
     @GetMapping("/download")
     @PreAuthorize("@ss.hasAnyPermi('rule:content')")
     @ApiOperation("规章制度模块中文件的下载")
-    public void downloadMarkdown(HttpServletResponse res) {
+    public void downloadMarkdown(HttpServletResponse res){
         contentService.downloadMarkdown(res);
+    }
+
+    @GetMapping("/reset")
+    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
+    @ApiOperation("规章制度模块中文件的重置")
+    public void resetMarkdown(HttpServletResponse res){
+        contentService.resetMarkdown(res);
     }
 
 }

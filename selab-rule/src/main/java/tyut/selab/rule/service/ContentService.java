@@ -14,4 +14,6 @@ public interface ContentService {
 
 
     void downloadMarkdown(HttpServletResponse response);
+
+    void resetMarkdown(HttpServletResponse response);
 }

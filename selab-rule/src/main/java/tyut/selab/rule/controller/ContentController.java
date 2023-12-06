@@ -35,8 +35,12 @@ public class ContentController {
     @PreAuthorize("@ss.hasAnyPermi('rule:content')")
     @ApiOperation("规章制度模块中文件的上传")
     public AjaxResult uploadMarkdown(HttpServletRequest request, @RequestPart(value = "file") MultipartFile file){
-        AjaxResult result = contentService.uploadMarkdown(request,file);
-        return result;
+        if(request.getContentType()!="multipart/form-data"){
+            return AjaxResult.error("上传的文件是错的捏o.O?");
+        }else{
+            AjaxResult result = contentService.uploadMarkdown(request,file);
+            return result;
+        }
     }
 
     //该下载方法会报错

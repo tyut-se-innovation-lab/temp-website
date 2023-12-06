@@ -1,12 +1,20 @@
 <script>
 // import axios from "axios";
 import VueMarkdown from "vue-markdown";
-import { selectAllLog, downLoad, upLoad, reLoad } from "@/api/rule/content";
+import {
+  selectAllLog,
+  downLoad,
+  upLoad,
+  reLoad,
+  authSet,
+} from "@/api/rule/content";
 import { saveAs } from "file-saver";
 export default {
   name: "index",
   data() {
     return {
+      //权限设置
+      authSet: false,
       //存储文件
       file: null,
       //markde
@@ -28,6 +36,7 @@ export default {
   created() {
     this.getList();
     this.getloadFile();
+    this.reAuthSet();
   },
   methods: {
     handleFileChange(event) {
@@ -53,6 +62,12 @@ export default {
           this.total = response.data.total;
         }
       );
+    },
+    //设置权限
+    reAuthSet() {
+      authSet().then((response) => {
+        this.authSet = response.data;
+      });
     },
     //重置文件内容
     resetFile() {
@@ -99,17 +114,17 @@ export default {
 <template>
   <div class="content">
     <el-card class="left box-card">
-      <b v-if="false"><i>只允许上传markdown文档</i></b>
+      <b v-if="this.authSet"><i>只允许上传markdown文档</i></b>
       <br />
       <input
-        v-if="false"
+        v-if="this.authSet"
         type="file"
         @change="handleFileChange"
         style="width: 250px; height: 20px"
       />
 
-      <el-button @click="uploadFile" v-if="false">上传</el-button>
-      <el-button @click="resetFile" v-if="false">重置</el-button>
+      <el-button @click="uploadFile" v-if="this.authSet">上传</el-button>
+      <el-button @click="resetFile" v-if="this.authSet">重置</el-button>
       <el-button @click="downloadFile">下载</el-button>
       <hr />
       <vue-markdown :source="markdown"></vue-markdown>

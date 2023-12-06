@@ -29,3 +29,7 @@ export function upLoad(formData) {
 export const reLoad = () => {
   return request.get("/rule/file/reset");
 };
+//权限设置
+export const authSet = () => {
+  return request.get("/rule/file/markcheck");
+};

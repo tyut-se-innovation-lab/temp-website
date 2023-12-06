@@ -82,5 +82,12 @@ public class ContentController {
         contentService.resetMarkdown(res);
     }
 
+    @GetMapping("/markcheck")
+    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
+    @ApiOperation("规章制度模块中权限校验")
+    public AjaxResult markCheck(HttpServletRequest res){
+        boolean ans=contentService.MarkCheck(res);
+        return AjaxResult.success(ans);
+    }
 }
 

@@ -1,7 +1,7 @@
 <script>
 // import axios from "axios";
 import VueMarkdown from "vue-markdown";
-import { selectAllLog, downLoad, upLoad } from "@/api/rule/content";
+import { selectAllLog, downLoad, upLoad, reLoad } from "@/api/rule/content";
 import { saveAs } from "file-saver";
 export default {
   name: "index",
@@ -54,6 +54,11 @@ export default {
         }
       );
     },
+    //重置文件内容
+    resetFile() {
+      reLoad();
+      location.reload();
+    },
     //获取文件内容 解析marked
     getloadFile() {
       downLoad().then((response) => {
@@ -94,13 +99,19 @@ export default {
 <template>
   <div class="content">
     <el-card class="left box-card">
+      <b v-if="false"><i>只允许上传markdown文档</i></b>
+      <br />
       <input
+        v-if="false"
         type="file"
         @change="handleFileChange"
-        style="width: 200px; height: 20px"
+        style="width: 250px; height: 20px"
       />
-      <el-button @click="uploadFile">上传</el-button>
+
+      <el-button @click="uploadFile" v-if="false">上传</el-button>
+      <el-button @click="resetFile" v-if="false">重置</el-button>
       <el-button @click="downloadFile">下载</el-button>
+      <hr />
       <vue-markdown :source="markdown"></vue-markdown>
     </el-card>
     <el-card class="box-card right">

@@ -25,3 +25,7 @@ export function upLoad(formData) {
     },
   });
 }
+//重置规章制度的文件
+export const reLoad = () => {
+  return request.get("/rule/file/reset");
+};

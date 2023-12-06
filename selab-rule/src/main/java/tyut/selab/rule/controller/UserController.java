@@ -144,4 +144,6 @@ public class UserController {
         LogVO logVO = userService.getAllLogs(user.getUserId(), pageNum, pageSize);
         return AjaxResult.success(logVO);
     }
+
+
 }

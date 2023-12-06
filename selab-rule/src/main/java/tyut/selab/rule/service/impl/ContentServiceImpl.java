@@ -10,6 +10,7 @@ import com.ruoyi.common.core.domain.model.LoginUser;
 import com.ruoyi.common.utils.ServletUtils;
 import com.ruoyi.common.utils.uuid.UUID;
 import com.ruoyi.framework.web.service.TokenService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.poi.ss.formula.functions.T;
@@ -32,9 +33,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 
 @Service
+@Slf4j
 public class ContentServiceImpl implements ContentService {
     @Value("${rule.basePath}")
     private String baseFileName;
@@ -176,6 +179,16 @@ public class ContentServiceImpl implements ContentService {
             map.put("msg","网络繁忙,请稍后再试XD");
             response.setHeader("X-Result-Data", JSONUtil.toJsonStr(map));
         }
+    }
+
+    @Override
+    public boolean MarkCheck(HttpServletRequest res) {
+        LoginUser user = tokenService.getLoginUser(res);
+        Set<String> permissions = user.getPermissions();
+        if (permissions.contains("rule:editor")){
+            return true;
+        }
+        return false;
     }
 
 

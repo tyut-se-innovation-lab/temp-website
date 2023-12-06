@@ -2,11 +2,14 @@ package tyut.selab.rule.controller;
 
 import cn.hutool.json.JSONUtil;
 import com.ruoyi.common.annotation.Anonymous;
+import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.domain.AjaxResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -26,16 +29,25 @@ import java.util.Map;
  */
 @Api("文件文档类")
 @RestController
-@Anonymous
+@Slf4j
 @RequestMapping("/rule/file")
 public class ContentController {
     @Autowired
     ContentService contentService;
 
     @PostMapping("/upload")
+    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
     @ApiOperation("规章制度模块中文件的上传")
-    public AjaxResult uploadMarkdown(HttpServletRequest request, @RequestPart(value = "file") MultipartFile file){
-        AjaxResult result = contentService.uploadMarkdown(request,file);
+    public AjaxResult uploadMarkdown(HttpServletRequest request, @RequestPart(value = "file",required = false)  MultipartFile file) {
+        if(file==null||file.isEmpty()){
+            return AjaxResult.error("文件为空,你在玩火嘛o.O?");
+        }
+        //文件格式校验
+        String fileName = file.getOriginalFilename();
+        if(!fileName.endsWith(".md")){
+            return AjaxResult.error("文件格式错误,需要.md格式哦o.O?");
+        }
+        AjaxResult result = contentService.uploadMarkdown(request, file);
         return result;
     }
 
@@ -58,6 +70,7 @@ public class ContentController {
     //但返回的参数内容其实非必要
 
     @GetMapping("/download")
+    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
     @ApiOperation("规章制度模块中文件的下载")
     public void downloadMarkdown(HttpServletResponse res){
         contentService.downloadMarkdown(res);

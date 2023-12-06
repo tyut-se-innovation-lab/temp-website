@@ -1,5 +1,5 @@
 <script>
-import axios from "axios";
+// import axios from "axios";
 import VueMarkdown from "vue-markdown";
 import { selectAllLog, downLoad, upLoad } from "@/api/rule/content";
 import { saveAs } from "file-saver";
@@ -7,6 +7,8 @@ export default {
   name: "index",
   data() {
     return {
+      //存储文件
+      file: null,
       //markde
       markdown: "",
       //查询参数
@@ -29,26 +31,18 @@ export default {
   },
   methods: {
     handleFileChange(event) {
-      const file = event.target.files[0];
-      // 将文件对象传递给上传接口
-      this.uploadFile(file);
-      console.log(file);
+      this.file = event.target.files[0];
     },
-    uploadFile(file) {
+    uploadFile() {
       const formData = new FormData();
-      formData.append("file", file);
-      // 调用接口上传文件
-      axios
-        .post("/dev-api/rule/file/upload", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
+      formData.append("file", this.file);
+      upLoad(formData)
         .then((response) => {
           console.log("文件上传成功", response);
+          location.reload(); // 在文件上传成功后刷新页面
         })
         .catch((error) => {
-          console.error("文件上传失败", error);
+          console.error("上传失败");
         });
     },
     //获取所有用户的操作日志

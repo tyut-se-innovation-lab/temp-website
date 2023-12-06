@@ -29,14 +29,14 @@ import java.util.Map;
  */
 @Api("文件文档类")
 @RestController
-@Slf4j
+@Anonymous
 @RequestMapping("/rule/file")
 public class ContentController {
     @Autowired
     ContentService contentService;
 
     @PostMapping("/upload")
-    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
+    //@PreAuthorize("@ss.hasAnyPermi('rule:content')")
     @ApiOperation("规章制度模块中文件的上传")
     public AjaxResult uploadMarkdown(HttpServletRequest request, @RequestPart(value = "file",required = false)  MultipartFile file) {
         if(file==null||file.isEmpty()){

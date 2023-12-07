@@ -35,7 +35,7 @@ public class ContentController {
     ContentService contentService;
 
     @PostMapping("/upload")
-    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
+    @PreAuthorize("@ss.hasAnyPermi('rule:editor')")
     @ApiOperation("规章制度模块中文件的上传")
     public AjaxResult uploadMarkdown(HttpServletRequest request, @RequestPart(value = "file",required = false)  MultipartFile file) {
         if(file==null||file.isEmpty()){
@@ -76,7 +76,7 @@ public class ContentController {
     }
 
     @GetMapping("/reset")
-    @PreAuthorize("@ss.hasAnyPermi('rule:content')")
+    @PreAuthorize("@ss.hasAnyPermi('rule:editor')")
     @ApiOperation("规章制度模块中文件的重置")
     public void resetMarkdown(HttpServletResponse res){
         contentService.resetMarkdown(res);

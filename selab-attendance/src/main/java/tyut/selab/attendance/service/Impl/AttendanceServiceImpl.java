@@ -54,37 +54,15 @@ public class AttendanceServiceImpl implements IAttendanceService {
 
     @Override
     public CouldSignOut couleSignOut() {
-        CouldSignOut couldSignOut = new CouldSignOut();
-        Date attEndTime = dateTime(YYYY_MM_DD_HH_MM_SS,getTime());
-        Attendance attendance = new Attendance();
-        if (attendanceMapper.couleSignOut(sysUserMapper.selectUserById(getUserId()).getNickName()) != null){
-            attendance = attendanceMapper.couleSignOut(sysUserMapper.selectUserById(getUserId()).getNickName());
-        }
-        if(attendance.getAttStartTime() != null){ //当前库中有此人签到时间记录
-            Date attStartTime = attendance.getAttStartTime();
-            Calendar cal1 = Calendar.getInstance();
-            Calendar cal2 = Calendar.getInstance();
-            cal1.setTime(attStartTime);
-            cal2.setTime(attEndTime);
-            couldSignOut.setCouldSignOut(false);
-            couldSignOut.setAttStartTime(attStartTime);
-            if (attendance.getAttEndTime() != null){ //有此人签到和签退记录,不能签退，请先签到
-                couldSignOut.setCouldSignOut(false);
-                couldSignOut.setAttStartTime(null);
-            }else{ // 有签到无签退
-                int hour = cal2.get(Calendar.HOUR_OF_DAY); //签退时间小时数
-                int i = cal1.get(Calendar.HOUR_OF_DAY);
-                if (hour - i >=1){
-                    couldSignOut.setCouldSignOut(true);
-                }else {
-                    couldSignOut.setCouldSignOut(false);
-                }
+        //名字、签到时间、签退时间、总时间
+        Attendance attendance = attendanceMapper.couleSignOut(sysUserMapper.selectUserById(getUserId()).getNickName());
+        if (attendance != null && attendance.getAttStartTime() != null && attendance.getAttEndTime() == null){
+            if(attendance.getAttStartTime().getDate() != new Date().getDate()){
+                return new CouldSignOut(false);
             }
-        }else { //当前库中无此人签到记录,不允许签退
-            couldSignOut.setCouldSignOut(false);
-            couldSignOut.setAttStartTime(null);
+            return new CouldSignOut(attendance.getAttStartTime(),true);
         }
-        return couldSignOut;
+        return new CouldSignOut(false);
     }
 
     @Override

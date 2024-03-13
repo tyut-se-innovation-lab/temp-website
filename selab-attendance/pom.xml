@@ -47,6 +47,11 @@
             <artifactId>poi-ooxml</artifactId>
             <version>5.2.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.vlkan.rfos</groupId>
+            <artifactId>rotating-fos</artifactId>
+            <version>0.9.5</version>
+        </dependency>
     </dependencies>
 
 </project>

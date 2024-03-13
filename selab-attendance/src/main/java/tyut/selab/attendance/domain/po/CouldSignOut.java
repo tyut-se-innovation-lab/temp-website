@@ -20,4 +20,16 @@ public class CouldSignOut {
      * 是否可以签退
      */
     Boolean couldSignOut;
+
+    public CouldSignOut(Boolean couldSignOut) {
+        this.couldSignOut = couldSignOut;
+    }
+
+    public CouldSignOut() {
+    }
+
+    public CouldSignOut(Date attStartTime, Boolean couldSignOut) {
+        this.attStartTime = attStartTime;
+        this.couldSignOut = couldSignOut;
+    }
 }

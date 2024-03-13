@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tyut.selab.rule.mapper.RuleLogMapper">
+
+    <resultMap id="RuleLogResultMap" type="tyut.selab.rule.domain.Operation">
+        <id property="ruleLogId" column="rule_log_id" />
+        <result property="targetUserId" column="target_user_id" />
+        <result property="reasonContent" column="reason_content" />
+        <result property="image" column="image" />
+        <result property="createTime" column="create_time" />
+        <result property="createUserId" column="create_user_id" />
+        <result property="status" column="status" />
+        <result property="updateTime" column="update_time" />
+        <result property="updateUser" column="update_user" />
+        <result property="scoreChange" column="score_change"/>
+        <result property="ruleLogId" column="rule_log_id"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        rule_log_id,target_user_id,reason_content,
+        create_time,create_user_id,status,
+        update_time,update_user_id
+    </sql>
+    <!-- 通过userid查询所有相关日志，返回以ruleLog为元素的list集合-->
+    <select id="selectByUserId" resultMap="RuleLogResultMap" parameterType="java.lang.Long">
+        select
+            <include refid="Base_Column_List" />
+        from rule_log
+        where target_user_id = #{userId,jdbcType=BIGINT}
+        order by create_time desc
+    </select>
+    <select id="selectAllLog" resultMap="RuleLogResultMap">
+        select *
+        from rule_log
+        order by create_time desc
+
+    </select>
+    <select id="getByRuleLogId" resultType="java.lang.Integer">
+        select score_change from rule_log where rule_log_id = #{logId}
+    </select>
+<!--        List<Operation> getLogForDay(Long userId, Date startTime, Date endTime);-->
+    <select id="getLogForDay" resultMap="RuleLogResultMap" parameterType="tyut.selab.rule.domain.Operation">
+        select
+            *
+        from rule_log
+        where target_user_id = #{userId,jdbcType=BIGINT}
+        and create_time between #{startTime,jdbcType=TIMESTAMP} and #{endTime,jdbcType=TIMESTAMP}
+        order by create_time desc
+    </select>
+    <select id="getAllLogs" resultType="tyut.selab.rule.domain.VO.OperationVO" resultMap="RuleLogResultMap">
+        select * from rule_log where target_user_id = #{userId}
+        order by create_time desc
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from rule_log
+        where  rule_log_id = #{ruleLogId,jdbcType=BIGINT} 
+    </delete>
+<!--deleteByLogId-->
+
+    <delete id="deleteByLogId" parameterType="java.lang.Long">
+        delete from rule_log
+        where  rule_log_id = #{logId,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insert" keyColumn="rule_log_id" keyProperty="ruleLogId" parameterType="tyut.selab.rule.domain.RuleLog" useGeneratedKeys="true">
+        insert into rule_log
+        ( rule_log_id,target_user_id,reason_content
+        ,create_time,create_user_id,status
+        ,update_time,update_user_id)
+        values (#{ruleLogId,jdbcType=BIGINT},#{targetUserId,jdbcType=BIGINT},#{reasonContent,jdbcType=VARCHAR}
+        ,#{createTime,jdbcType=TIMESTAMP},#{createUserId,jdbcType=BIGINT},#{status,jdbcType=INTEGER}
+        ,#{updateTime,jdbcType=TIMESTAMP},#{updateUserId,jdbcType=BIGINT})
+    </insert>
+    <insert id="insertSelective" keyColumn="rule_log_id" keyProperty="ruleLogId" parameterType="tyut.selab.rule.domain.RuleLog" useGeneratedKeys="true">
+        insert into rule_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="ruleLogId != null">rule_log_id,</if>
+                <if test="targetUserId != null">target_user_id,</if>
+                <if test="reasonContent != null">reason_content,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="createUserId != null">create_user_id,</if>
+                <if test="status != null">status,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="updateUserId != null">update_user_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="ruleLogId != null">#{ruleLogId,jdbcType=BIGINT},</if>
+                <if test="targetUserId != null">#{targetUserId,jdbcType=BIGINT},</if>
+                <if test="reasonContent != null">#{reasonContent,jdbcType=VARCHAR},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="createUserId != null">#{createUserId,jdbcType=BIGINT},</if>
+                <if test="status != null">#{status,jdbcType=INTEGER},</if>
+                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="updateUserId != null">#{updateUserId,jdbcType=BIGINT},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="tyut.selab.rule.domain.RuleLog">
+        update rule_log
+        <set>
+                <if test="targetUserId != null">
+                    target_user_id = #{targetUserId,jdbcType=BIGINT},
+                </if>
+                <if test="reasonContent != null">
+                    reason_content = #{reasonContent,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="createUserId != null">
+                    create_user_id = #{createUserId,jdbcType=BIGINT},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=INTEGER},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateUserId != null">
+                    update_user_id = #{updateUserId,jdbcType=BIGINT},
+                </if>
+        </set>
+        where   rule_log_id = #{ruleLogId,jdbcType=BIGINT} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="tyut.selab.rule.domain.RuleLog">
+        update rule_log
+        set 
+            target_user_id =  #{targetUserId,jdbcType=BIGINT},
+            reason_content =  #{reasonContent,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            create_user_id =  #{createUserId,jdbcType=BIGINT},
+            status =  #{status,jdbcType=INTEGER},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            update_user_id =  #{updateUserId,jdbcType=BIGINT}
+        where   rule_log_id = #{ruleLogId,jdbcType=BIGINT} 
+    </update>
+</mapper>

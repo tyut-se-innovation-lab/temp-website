@@ -1,9 +1,9 @@
 //本文件提供下载方法
 
-class Download {
-    constructor() {
-
-    }
+// class Download {
+//     constructor() {
+//
+//     }
 
     /**
      * 通过Blob的形式下载
@@ -11,7 +11,7 @@ class Download {
      * @param {String} data Blob字符串
      * @param {String} fileName 文件名称
      */
-    downloadBlob(data, filetype, fileName) {
+    export default function downloadBlob(data, filetype, fileName) {
         const blob = new Blob(new Array(data), {
             type: filetype
         });
@@ -25,4 +25,4 @@ class Download {
             window.URL.revokeObjectURL(link.href);
         }
     }
-}
+// }

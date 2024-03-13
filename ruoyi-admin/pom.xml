@@ -95,6 +95,13 @@
             <version>3.8.4</version>
         </dependency>
 
+        <!-- 意见箱 -->
+        <dependency>
+            <groupId>tyut.selab</groupId>
+            <artifactId>selab-suggestion</artifactId>
+            <version>3.8.4</version>
+        </dependency>
+
         <!-- springboot测试 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -14,7 +14,7 @@ export function suggestionVerity(data) {
       url: '/suggestion/verify',
       method: 'post',
       data: {
-        password : data
+        suggestionKey : data
       }
     })
   }
@@ -28,3 +28,24 @@ export function suggestionList(pageSize,pageNum) {
       }
     })
   }
+
+//重置密码接口
+export function suggestionreVerity(data) {
+  return request({
+    url: '/suggestion/revise',
+    method: 'post',
+    data: {
+      suggestionKey : data
+    }
+  })
+}
+//获取详细信息
+export function suggestionMessage(data) {
+  return request({
+    url: '/suggestion/list/user',
+    method: 'post',
+    data: {
+      suggestionKey : data
+    }
+  })
+}

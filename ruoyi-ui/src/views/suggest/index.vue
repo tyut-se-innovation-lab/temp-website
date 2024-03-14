@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { suggestionVerity, suggestionList, suggestionreVerity, suggestionMessage } from "@/api/suggest"
+import { suggestionVerity, suggestionList, suggestionDeMessage, suggestionMessage } from "@/api/suggest"
 export default {
     data() {
         return {
@@ -88,16 +88,26 @@ export default {
         handleEdit(index, row) {
             this.reset();
             this.dialogFormVisible = true;
-            suggestionMessage(row.suggestionId).then((res)=>{
+            suggestionMessage(row.suggestionId).then((res) => {
                 this.form.name = res.data.suggestionUser
                 this.form.time = res.data.creatTime
-                this.form.desc= res.data.suggestionContent
+                this.form.desc = res.data.suggestionContent
                 console.log(res);
             })
             console.log(index, row);
         },
-        handleDelete(index, row) {
-            console.log(index, row);
+        async handleDelete(index, row) {
+            await suggestionDeMessage(row.suggestionId).then((res) => {
+                this.loading = true
+                this.$message({
+                    type: 'success',
+                    message: res.msg
+                })
+                suggestionList(this.currentPage, this.pageSize).then((res) => {
+                    this.tableData = res.data.list
+                    this.total = res.data.total
+                })
+            })
         },
         //表单重置
         reset() {

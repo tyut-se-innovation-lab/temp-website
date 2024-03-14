@@ -49,3 +49,13 @@ export function suggestionMessage(data) {
     }
   })
 }
+//删除
+export function suggestionDeMessage(data) {
+  return request({
+    url: '/suggestion/delete',
+    method: 'post',
+    data: {
+      suggestionKey : data
+    }
+  })
+}

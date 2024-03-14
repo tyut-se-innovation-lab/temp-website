@@ -51,6 +51,8 @@ public interface SuggestionMapper extends BaseMapper<SuggestionEntity> {
 
     @Update("update selab_suggestion  set suggestion_content = #{suggestionContent} where suggestion_id = #{suggestionId} ")
     int updateSuggestionKey(@Param("suggestionId") int suggestionId, @Param("suggestionContent") String suggestionContent);
+    @Delete("delete from selab_suggestion where suggestion_id = #{suggestionId} ")
+    boolean deleteSuggestionById(@Param("suggestionId") int suggestionId);
 
 
 

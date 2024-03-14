@@ -2,15 +2,16 @@ package tyut.selab.suggestion.controller;
 
 import com.ruoyi.common.core.domain.AjaxResult;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tyut.selab.suggestion.domain.PageParam;
 import tyut.selab.suggestion.domain.entity.SuggestionEntity;
+import tyut.selab.suggestion.domain.vo.SuggestionKey;
 import tyut.selab.suggestion.service.ISuggestionService;
+
+import java.util.Map;
 
 /**
  * @ClassName: SuggestionController
@@ -27,22 +28,30 @@ public class SuggestionController {
     @Autowired
     private ISuggestionService iSuggestionService;
 
-    @PreAuthorize("@ss.hasPermi('suggestion:list')")
+//    @PreAuthorize("@ss.hasPermi('suggestion:list')")
     @PostMapping("/list")
     public AjaxResult getAllSuggestion(@RequestBody @Validated PageParam pageParam){
         return iSuggestionService.getallSuggestion(pageParam);
     }
 
-    @PreAuthorize("@ss.hasPermi('suggestion:add')")
+    @PostMapping("/list/user")
+    public AjaxResult getSuggestionByUser(@RequestBody SuggestionKey suggestionId){
+        return iSuggestionService.getSuggestionById(Integer.valueOf(suggestionId.getSuggestionKey()));
+    }
+//    @PreAuthorize("@ss.hasPermi('suggestion:add')")
     @PostMapping("/add")
     public AjaxResult addSuggestion(@RequestBody @Validated SuggestionEntity suggestionEntity) throws Exception {
         return iSuggestionService.addSuggestion(suggestionEntity);
     }
 
-    @PreAuthorize("@ss.hasPermi('suggestion:verify')")
+//    @PreAuthorize("@ss.hasPermi('suggestion:verify')")
     @PostMapping("/verify")
-    @ResponseBody
-    public AjaxResult verifySuggestionPassword(String password){
-        return iSuggestionService.verifySuggestionKey(password);
+    public AjaxResult verifySuggestionPassword(@RequestBody SuggestionKey suggestionKey){
+        return iSuggestionService.verifySuggestionKey(suggestionKey.getSuggestionKey());
     }
+    @PostMapping("/revise")
+    public AjaxResult reviseSuggestionKey(@RequestBody SuggestionKey suggestionKey){
+        return iSuggestionService.reviseSuggestionKey(suggestionKey.getSuggestionKey());
+    }
+
 }

@@ -59,7 +59,7 @@ public class SwaggerConfig
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 // 扫描指定包中的swagger注解
 //                 .apis(RequestHandlerSelectors.basePackage("com.ruoyi.project.tool.swagger"))
-//                .apis(RequestHandlerSelectors.basePackage("tyut.selab"))
+                .apis(RequestHandlerSelectors.basePackage("tyut.selab.suggestion"))
                 // 扫描所有
                  .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
@@ -69,6 +69,8 @@ public class SwaggerConfig
                 .securityContexts(securityContexts())
                 .pathMapping(pathMapping);
     }
+
+
 
     /**
      * 安全模式，这里指定token通过Authorization头请求头传递

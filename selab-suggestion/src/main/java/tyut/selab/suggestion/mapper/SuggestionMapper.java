@@ -48,4 +48,10 @@ public interface SuggestionMapper extends BaseMapper<SuggestionEntity> {
     })
     SuggestionEntity selectSuggestionById(int  suggestionId);
 
+
+    @Update("update selab_suggestion  set suggestion_content = #{suggestionContent} where suggestion_id = #{suggestionId} ")
+    int updateSuggestionKey(@Param("suggestionId") int suggestionId, @Param("suggestionContent") String suggestionContent);
+
+
+
 }

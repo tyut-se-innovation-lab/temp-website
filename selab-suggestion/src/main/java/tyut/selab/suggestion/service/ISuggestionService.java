@@ -18,4 +18,8 @@ public interface ISuggestionService extends IService<SuggestionEntity> {
     AjaxResult addSuggestion(SuggestionEntity suggestion) throws Exception;
 
     AjaxResult verifySuggestionKey(String suggestionKey);
+
+    AjaxResult reviseSuggestionKey(String suggestionKey);
+
+    AjaxResult getSuggestionById(Integer suggestionId);
 }

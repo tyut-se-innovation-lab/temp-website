@@ -29,7 +29,7 @@ public class AESEncryptionExample {
     }
 
     public static String decrypt(String encryptedData,String key1) throws Exception {
-        key1= Encrypt(key1);
+//        key1= Encrypt(key1);
         key1= adjustString(key1);
         SecretKeySpec key = new SecretKeySpec(key1.getBytes(), "AES");
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");

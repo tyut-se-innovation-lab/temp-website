@@ -54,4 +54,9 @@ public class SuggestionController {
         return iSuggestionService.reviseSuggestionKey(suggestionKey.getSuggestionKey());
     }
 
+    @PostMapping("/delete")
+    public AjaxResult deleteSuggestionById(@RequestBody SuggestionKey suggestionKey){
+        return iSuggestionService.deleteSuggestionById(Integer.valueOf(suggestionKey.getSuggestionKey()));
+    }
+
 }

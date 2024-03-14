@@ -22,4 +22,6 @@ public interface ISuggestionService extends IService<SuggestionEntity> {
     AjaxResult reviseSuggestionKey(String suggestionKey);
 
     AjaxResult getSuggestionById(Integer suggestionId);
+
+    AjaxResult deleteSuggestionById(Integer suggestionId);
 }

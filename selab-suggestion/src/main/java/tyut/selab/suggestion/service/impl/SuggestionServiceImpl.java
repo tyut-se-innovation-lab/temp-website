@@ -110,4 +110,17 @@ public class SuggestionServiceImpl extends ServiceImpl<SuggestionMapper, Suggest
         }
         return AjaxResult.success(suggestion);
     }
+
+    @Override
+    public AjaxResult deleteSuggestionById(Integer suggestionId){
+        String suggestionKey = redisCache.getCacheObject("suggestion_key");
+        if (StringUtils.isNull(suggestionKey)||suggestionId==1) {
+            return AjaxResult.error("请输入密钥!");
+        }
+        if (suggestionMapper.deleteSuggestionById(suggestionId)){
+            return AjaxResult.success("删除成功！");
+        }else {
+            return AjaxResult.error();
+        }
+    }
 }

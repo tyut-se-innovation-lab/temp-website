@@ -27,7 +27,7 @@ public class SuggestionController {
     @Autowired
     private ISuggestionService iSuggestionService;
 
-    @PreAuthorize("@ss.hasPermi('suggestion:list')")
+//    @PreAuthorize("@ss.hasPermi('suggestion:list')")
     @PostMapping("/list")
     public AjaxResult getAllSuggestion(@RequestBody @Validated PageParam pageParam){
         return iSuggestionService.getallSuggestion(pageParam);
@@ -39,7 +39,7 @@ public class SuggestionController {
         return iSuggestionService.addSuggestion(suggestionEntity);
     }
 
-    @PreAuthorize("@ss.hasPermi('suggestion:verify')")
+//    @PreAuthorize("@ss.hasPermi('suggestion:verify')")
     @PostMapping("/verify")
     @ResponseBody
     public AjaxResult verifySuggestionPassword(String password){

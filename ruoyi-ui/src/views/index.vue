@@ -10,7 +10,7 @@
       </pre>
     <h3>别说丑，说就是你来写首页！</h3>
 
-    <img src="../assets/images/建议箱.png" alt="" srcset="" class="suggestion" @click="dialogFormVisible = true">
+    <img src="../assets/images/suggest.png" alt="" srcset="" class="suggestion" @click="dialogFormVisible = true">
 
     <div class="title">意见箱</div>
     <el-dialog title="意见箱" :visible.sync="dialogFormVisible"  :before-close="handleClose">

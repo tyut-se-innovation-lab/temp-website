@@ -28,32 +28,35 @@ public class SuggestionController {
     @Autowired
     private ISuggestionService iSuggestionService;
 
-//    @PreAuthorize("@ss.hasPermi('suggestion:list')")
+    @PreAuthorize("@ss.hasPermi('suggestion:list')")
     @PostMapping("/list")
     public AjaxResult getAllSuggestion(@RequestBody @Validated PageParam pageParam){
         return iSuggestionService.getallSuggestion(pageParam);
     }
 
+    @PreAuthorize("@ss.hasPermi('suggestion:list')")
     @PostMapping("/list/user")
     public AjaxResult getSuggestionByUser(@RequestBody SuggestionKey suggestionId){
         return iSuggestionService.getSuggestionById(Integer.valueOf(suggestionId.getSuggestionKey()));
     }
-//    @PreAuthorize("@ss.hasPermi('suggestion:add')")
+    @PreAuthorize("@ss.hasPermi('suggestion:add')")
     @PostMapping("/add")
     public AjaxResult addSuggestion(@RequestBody @Validated SuggestionEntity suggestionEntity) throws Exception {
         return iSuggestionService.addSuggestion(suggestionEntity);
     }
 
-//    @PreAuthorize("@ss.hasPermi('suggestion:verify')")
+    @PreAuthorize("@ss.hasPermi('suggestion:verify')")
     @PostMapping("/verify")
     public AjaxResult verifySuggestionPassword(@RequestBody SuggestionKey suggestionKey){
         return iSuggestionService.verifySuggestionKey(suggestionKey.getSuggestionKey());
     }
+    @PreAuthorize("@ss.hasPermi('suggestion:verify')")
     @PostMapping("/revise")
     public AjaxResult reviseSuggestionKey(@RequestBody SuggestionKey suggestionKey){
         return iSuggestionService.reviseSuggestionKey(suggestionKey.getSuggestionKey());
     }
 
+    @PreAuthorize("@ss.hasPermi('suggestion:delete')")
     @PostMapping("/delete")
     public AjaxResult deleteSuggestionById(@RequestBody SuggestionKey suggestionKey){
         return iSuggestionService.deleteSuggestionById(Integer.valueOf(suggestionKey.getSuggestionKey()));

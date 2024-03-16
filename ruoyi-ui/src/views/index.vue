@@ -10,9 +10,9 @@
       </pre>
     <h3>别说丑，说就是你来写首页！</h3>
 
-    <img src="../assets/images/suggest.png" alt="" srcset="" class="suggestion" @click="dialogFormVisible = true">
+    <img src="../assets/images/suggest.png" alt="" srcset="" class="suggestion" @click="open">
 
-    <div class="title">意见箱</div>
+    <div class="title"  @click="open">意见箱</div>
     <el-dialog title="意见箱" :visible.sync="dialogFormVisible"  :before-close="handleClose">
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="意见主题"  :rules="[
@@ -33,16 +33,10 @@
             </el-form-item>
           </el-col>
         </el-form-item>
-        <el-form-item label="意见时间">
-          <el-col :span="12">
-            <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
-          </el-col>
-        </el-form-item>
         <el-form-item label="意见内容"  :rules="[
       { required: true, message: '意见内容不能为空'},
-
     ]">
-          <el-input type="textarea" v-model="form.desc"></el-input>
+          <el-input type="textarea" v-model="form.desc" maxlength="300" placeholder="请输入不超过300个字符" :rows="15" scrollbar="true"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -83,6 +77,12 @@ export default {
   },
 
   methods: {
+    open(){
+      this.form.desc = '',
+      this.form.name = '',
+      this.form.region = '',
+      this.dialogFormVisible = true
+    },
     goTarget(href) {
       window.open(href, "_blank");
     },
@@ -199,7 +199,9 @@ export default {
   cursor: pointer;
   animation-play-state: paused
 }
-
+.title:hover{
+  cursor: pointer;
+}
 @keyframes bounce {
 
   0%,

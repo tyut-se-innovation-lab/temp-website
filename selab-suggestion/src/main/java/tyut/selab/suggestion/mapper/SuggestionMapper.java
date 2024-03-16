@@ -1,5 +1,6 @@
 package tyut.selab.suggestion.mapper;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.*;
 import tyut.selab.suggestion.domain.entity.SuggestionEntity;
@@ -18,6 +19,7 @@ public interface SuggestionMapper extends BaseMapper<SuggestionEntity> {
     @Select("select * from selab_suggestion")
     @Results({
             @Result(property = "suggestionId", column = "suggestion_id"),
+            @Result(property = "suggestionTopic", column = "suggestion_topic"),
             @Result(property = "suggestionContent", column = "suggestion_content"),
             @Result(property = "suggestionUser", column = "suggestion_user"),
             @Result(property = "creatTime", column = "creat_time")
@@ -28,6 +30,7 @@ public interface SuggestionMapper extends BaseMapper<SuggestionEntity> {
     @Select(value = "select * from selab_suggestion where suggestion_user=#{suggestionUser}")
     @Results({
             @Result(property = "suggestionId", column = "suggestion_id"),
+            @Result(property = "suggestionTopic", column = "suggestion_topic"),
             @Result(property = "suggestionContent", column = "suggestion_content"),
             @Result(property = "suggestionUser", column = "suggestion_user"),
             @Result(property = "creatTime", column = "creat_time")
@@ -41,6 +44,7 @@ public interface SuggestionMapper extends BaseMapper<SuggestionEntity> {
     @Select(value = "select * from selab_suggestion where suggestion_id= #{suggestionId}")
     @Results({
             @Result(property = "suggestionId", column = "suggestion_id"),
+            @Result(property = "suggestionTopic", column = "suggestion_topic"),
             @Result(property = "suggestionContent", column = "suggestion_content"),
             @Result(property = "suggestionUser", column = "suggestion_user"),
             @Result(property = "creatTime", column = "creat_time")

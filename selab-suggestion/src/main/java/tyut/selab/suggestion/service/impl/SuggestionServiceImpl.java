@@ -60,7 +60,7 @@ public class SuggestionServiceImpl extends ServiceImpl<SuggestionMapper, Suggest
     }
     @Override
     public AjaxResult addSuggestion(SuggestionEntity suggestion) {
-        suggestion.setSuggestionUser(SecurityUtils.getUsername());
+        suggestion.setSuggestionUser(SecurityUtils.getLoginUser().getUser().getNickName());
         SuggestionEntity suggestionEntity =suggestionMapper.selectSuggestionById(1);
         String key = suggestionEntity.getSuggestionContent();
         String suggestionContent =suggestion.getSuggestionContent();

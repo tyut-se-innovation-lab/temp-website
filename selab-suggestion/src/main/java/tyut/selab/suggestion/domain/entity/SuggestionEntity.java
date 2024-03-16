@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * @ClassName: SuggestionEntity
@@ -19,7 +20,12 @@ public class SuggestionEntity {
 
     @TableField("suggestion_id")
     private int suggestionId;
+    @NotBlank(message = "建议主题不能为空")
+    @Size(min=1, max=20,message="建议主题最多20字")
+    @TableField("suggestion_topic")
+    private String suggestionTopic;
     @NotBlank(message = "建议内容不能为空")
+    @Size(min=1, max=300,message="建议内容最多300字")
     @TableField("suggestion_content")
     private String suggestionContent;
     @TableField("suggestion_user")

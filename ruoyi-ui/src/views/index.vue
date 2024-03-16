@@ -17,7 +17,7 @@
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="意见主题"  :rules="[
       { required: true, message: '意见主题不能为空'},
-    ]">
+    ]" maxlength="20" placeholder="请输入不超过20个字符">
           <el-input v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item label="提交方式">
@@ -97,7 +97,7 @@ export default {
       this.$confirm('您确认提交？')
         .then(_ => {
           this.dialogFormVisible = false
-          suggestion(this.form.desc).then((res)=>{
+          suggestion(this.form.desc,this.form.name).then((res)=>{
             this.$message.success(res.msg + '感谢您的意见')
           })
         })

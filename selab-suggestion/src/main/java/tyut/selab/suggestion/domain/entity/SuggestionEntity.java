@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
  **/
 @TableName("tyut_directory")
 @Data
-public class SuggestionEntity {
+public class      SuggestionEntity {
 
     @TableField("suggestion_id")
     private int suggestionId;

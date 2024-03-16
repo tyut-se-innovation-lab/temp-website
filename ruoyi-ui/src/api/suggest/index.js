@@ -1,11 +1,12 @@
 import request from '@/utils/request'
 //提交建议
-export function suggestion(data) {
+export function suggestion(data,title) {
     return request({
       url: '/suggestion/add',
       method: 'post',
       data: {
-        suggestionContent : data
+        suggestionContent : data,
+        suggestionTopic:title
       }
     })
   }

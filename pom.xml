@@ -218,6 +218,13 @@
                 <artifactId>selab-rule</artifactId>
                 <version>3.8.4</version>
             </dependency>
+
+            <!-- 意见箱 -->
+            <dependency>
+                <groupId>tyut.selab</groupId>
+                <artifactId>selab-suggestion</artifactId>
+                <version>3.8.4</version>
+            </dependency>
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-spring-boot-starter</artifactId>
@@ -243,6 +250,7 @@
         <module>selab-schedule</module>
         <module>selab-rule</module>
         <module>selab-attendance</module>
+        <module>selab-suggestion</module>
     </modules>
     <packaging>pom</packaging>
 

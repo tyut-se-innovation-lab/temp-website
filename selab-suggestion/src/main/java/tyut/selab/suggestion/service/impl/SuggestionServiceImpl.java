@@ -44,6 +44,7 @@ public class SuggestionServiceImpl implements ISuggestionService {
         for (SuggestionEntity suggestion : suggestionList){
             try {
                 suggestion.setSuggestionContent(AESEncryptionExample.decrypt(suggestion.getSuggestionContent(),suggestionKey));
+                suggestion.setSuggestionTopic(AESEncryptionExample.decrypt(suggestion.getSuggestionTopic(),suggestionKey));
                 suggestion.setSuggestionUser(AESEncryptionExample.decrypt(suggestion.getSuggestionUser(),suggestionKey));
                 suggestionList1.add(suggestion);
             } catch (Exception e) {
@@ -63,9 +64,11 @@ public class SuggestionServiceImpl implements ISuggestionService {
         SuggestionEntity suggestionEntity =suggestionMapper.selectSuggestionById(1);
         String key = suggestionEntity.getSuggestionContent();
         String suggestionContent =suggestion.getSuggestionContent();
+        String suggestionTopic = suggestion.getSuggestionTopic();
         String suggestionUser = suggestion.getSuggestionUser();
         try {
             suggestion.setSuggestionContent(AESEncryptionExample.encrypt(suggestionContent,key));
+            suggestion.setSuggestionTopic(AESEncryptionExample.encrypt(suggestionTopic,key));
             suggestion.setSuggestionUser(AESEncryptionExample.encrypt(suggestionUser,key));
         } catch (Exception e) {
             throw new ServiceException("信息加密异常，请稍后再试！");
@@ -103,6 +106,7 @@ public class SuggestionServiceImpl implements ISuggestionService {
         SuggestionEntity suggestion =suggestionMapper.selectSuggestionById(suggestionId);
         try {
             suggestion.setSuggestionContent(AESEncryptionExample.decrypt(suggestion.getSuggestionContent(),suggestionKey));
+            suggestion.setSuggestionTopic(AESEncryptionExample.decrypt(suggestion.getSuggestionTopic(),suggestionKey));
             suggestion.setSuggestionUser(AESEncryptionExample.decrypt(suggestion.getSuggestionUser(),suggestionKey));
         } catch (Exception e) {
             throw new ServiceException("内容解密出现异常！");

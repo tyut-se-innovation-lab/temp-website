@@ -3,6 +3,11 @@
         <!-- 修改对话框 -->
         <el-dialog :title="title" :visible.sync="dialogFormVisible" width="680px" append-to-body>
             <el-form ref="form" :model="form" label-width="80px">
+                <el-form-item label="意见主题">
+                    <el-col :span="12">
+                        <el-input v-model="form.title"></el-input>
+                    </el-col>
+                </el-form-item>
                 <el-form-item label="意见人">
                     <el-col :span="12">
                         <el-input v-model="form.name"></el-input>
@@ -14,24 +19,23 @@
                     </el-col>
                 </el-form-item>
                 <el-form-item label="意见内容">
-                    <el-input type="textarea" v-model="form.desc"></el-input>
+                    <el-input type="textarea" v-model="form.desc" :rows="15"></el-input>
                 </el-form-item>
             </el-form>
         </el-dialog>
         <el-table :data="currentPageData" style="width: 100%" :header-cell-style="{ 'text-align': 'center' }" border>
-            <!-- <el-table-column label="主题" prop="title"  width="250px" align="center">
-            </el-table-column> -->
+            <el-table-column label="主题" prop="suggestionTopic" width="250px" align="center">
+            </el-table-column>
             <el-table-column label="提交人" prop="suggestionUser" width="150px" align="center">
             </el-table-column>
             <el-table-column label="时间" prop="creatTime" width="255px" align="center">
             </el-table-column>
-            <el-table-column label="内容" prop="suggestionContent" width="855px">
+            <el-table-column label="内容" prop="suggestionContent" width="755px">
             </el-table-column>
-            <el-table-column align="right">
+            <el-table-column align="center" label="操作">
                 <template slot-scope="scope">
-                    <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-                    <el-button size="mini" type="danger"
-                        @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+                    <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">详情</el-button>
+                    <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -55,6 +59,7 @@ export default {
             dialogFormVisible: false,
             title: '',
             form: {
+                title: '',
                 name: '',
                 region: '',
                 time: '',
@@ -89,6 +94,7 @@ export default {
             this.reset();
             this.dialogFormVisible = true;
             suggestionMessage(row.suggestionId).then((res) => {
+                this.form.title = res.data.suggestionTopic
                 this.form.name = res.data.suggestionUser
                 this.form.time = res.data.creatTime
                 this.form.desc = res.data.suggestionContent

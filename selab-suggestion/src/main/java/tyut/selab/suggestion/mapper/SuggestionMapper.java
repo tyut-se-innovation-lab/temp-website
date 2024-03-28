@@ -38,7 +38,7 @@ public interface SuggestionMapper  {
     })
     List<SuggestionEntity> selectSuggestionByUser(String  suggestionUser);
 
-    @Insert("insert into selab_suggestion(suggestion_content,suggestion_user) values(#{suggestionContent},#{suggestionUser})")
+    @Insert("insert into selab_suggestion(suggestion_topic,suggestion_content,suggestion_user) values(#{suggestionTopic},#{suggestionContent},#{suggestionUser})")
     int insertSuggestion(SuggestionEntity suggestionEntity);
 
     @Select(value = "select * from selab_suggestion where suggestion_id= #{suggestionId}")

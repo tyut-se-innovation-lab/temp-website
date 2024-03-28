@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
  **/
 @TableName("tyut_directory")
 @Data
-public class SuggestionEntity {
+public class      SuggestionEntity {
 
     private int suggestionId;
     @NotBlank(message = "建议主题不能为空")

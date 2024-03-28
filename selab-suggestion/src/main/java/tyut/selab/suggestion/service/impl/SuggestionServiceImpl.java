@@ -1,15 +1,15 @@
 package tyut.selab.suggestion.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.redis.RedisCache;
+import com.ruoyi.common.exception.ServiceException;
 import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.common.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tyut.selab.suggestion.domain.AESEncryptionExample;
+import tyut.selab.suggestion.tool.AESEncryptionExample;
 import tyut.selab.suggestion.domain.PageParam;
 import tyut.selab.suggestion.domain.entity.SuggestionEntity;
 import tyut.selab.suggestion.mapper.SuggestionMapper;
@@ -27,28 +27,27 @@ import java.util.concurrent.TimeUnit;
  * @Version: 1.0
  **/
 @Service
-public class SuggestionServiceImpl extends ServiceImpl<SuggestionMapper, SuggestionEntity> implements ISuggestionService {
+public class SuggestionServiceImpl implements ISuggestionService {
     @Autowired
     private SuggestionMapper suggestionMapper;
     @Autowired
     private RedisCache redisCache;
     @Override
-    public AjaxResult getallSuggestion(PageParam pageParam){
+    public PageInfo<SuggestionEntity> getallSuggestion(PageParam pageParam){
         String suggestionKey = redisCache.getCacheObject("suggestion_key");
         if (StringUtils.isNull(suggestionKey)) {
-            return AjaxResult.error("请输入密钥!");
+            throw new ServiceException("请输入密钥!");
         }
         List<SuggestionEntity> suggestionList = suggestionMapper.selectAllSuggestion();
         suggestionList.remove(0);
         List<SuggestionEntity> suggestionList1 = new ArrayList<SuggestionEntity>();
         for (SuggestionEntity suggestion : suggestionList){
-            System.out.println(suggestion);
             try {
                 suggestion.setSuggestionContent(AESEncryptionExample.decrypt(suggestion.getSuggestionContent(),suggestionKey));
                 suggestion.setSuggestionUser(AESEncryptionExample.decrypt(suggestion.getSuggestionUser(),suggestionKey));
                 suggestionList1.add(suggestion);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                throw new ServiceException("内容解密出现异常！");
             }
         }
         PageHelper.startPage(pageParam.getPageNum(), pageParam.getPageSize());
@@ -56,10 +55,10 @@ public class SuggestionServiceImpl extends ServiceImpl<SuggestionMapper, Suggest
         // 使用PageInfo对查询结果进行包装，获取分页相关信息
         PageInfo<SuggestionEntity> suggestionIPage = new PageInfo<>(suggestionList1);
         // 将查询结果的List赋值给Page对象的构造函数
-        return AjaxResult.success(suggestionIPage);
+        return suggestionIPage;
     }
     @Override
-    public AjaxResult addSuggestion(SuggestionEntity suggestion) {
+    public boolean addSuggestion(SuggestionEntity suggestion) {
         suggestion.setSuggestionUser(SecurityUtils.getLoginUser().getUser().getNickName());
         SuggestionEntity suggestionEntity =suggestionMapper.selectSuggestionById(1);
         String key = suggestionEntity.getSuggestionContent();
@@ -69,58 +68,58 @@ public class SuggestionServiceImpl extends ServiceImpl<SuggestionMapper, Suggest
             suggestion.setSuggestionContent(AESEncryptionExample.encrypt(suggestionContent,key));
             suggestion.setSuggestionUser(AESEncryptionExample.encrypt(suggestionUser,key));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ServiceException("信息加密异常，请稍后再试！");
         }
         suggestionMapper.insertSuggestion(suggestion);
-        return AjaxResult.success("添加成功！");
+        return true;
     }
     @Override
-    public AjaxResult verifySuggestionKey(String suggestionKey){
-        System.out.println(suggestionKey);
+    public boolean verifySuggestionKey(String suggestionKey){
         SuggestionEntity suggestionEntity =suggestionMapper.selectSuggestionById(1);
         if(suggestionEntity.getSuggestionContent().equals(AESEncryptionExample.Encrypt(suggestionKey))){
             redisCache.setCacheObject("suggestion_key",AESEncryptionExample.Encrypt(suggestionKey),5, TimeUnit.MINUTES);
-            return AjaxResult.success("验证成功！");
+            return true;
         }else {
-            return AjaxResult.error();
+            return false;
         }
     }
     @Override
-    public AjaxResult reviseSuggestionKey(String suggestionKey){
+    public boolean reviseSuggestionKey(String suggestionKey){
         String suggestionKey1 = redisCache.getCacheObject("suggestion_key");
         if (StringUtils.isNull(suggestionKey1)) {
-            return AjaxResult.error("请输入密钥!");
+            throw new ServiceException("请输入密钥!");
         }
         suggestionMapper.updateSuggestionKey(1,AESEncryptionExample.Encrypt(suggestionKey));
-        return AjaxResult.success("修改成功！");
+        return true;
     }
 
+
     @Override
-    public AjaxResult getSuggestionById(Integer suggestionId){
+    public SuggestionEntity getSuggestionById(Integer suggestionId){
         String suggestionKey = redisCache.getCacheObject("suggestion_key");
         if (StringUtils.isNull(suggestionKey)||suggestionId==1) {
-            return AjaxResult.error("请输入密钥!");
+            throw new ServiceException("请输入密钥!");
         }
         SuggestionEntity suggestion =suggestionMapper.selectSuggestionById(suggestionId);
         try {
             suggestion.setSuggestionContent(AESEncryptionExample.decrypt(suggestion.getSuggestionContent(),suggestionKey));
             suggestion.setSuggestionUser(AESEncryptionExample.decrypt(suggestion.getSuggestionUser(),suggestionKey));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ServiceException("内容解密出现异常！");
         }
-        return AjaxResult.success(suggestion);
+        return suggestion;
     }
 
     @Override
-    public AjaxResult deleteSuggestionById(Integer suggestionId){
+    public boolean deleteSuggestionById(Integer suggestionId){
         String suggestionKey = redisCache.getCacheObject("suggestion_key");
         if (StringUtils.isNull(suggestionKey)||suggestionId==1) {
-            return AjaxResult.error("请输入密钥!");
+            throw new ServiceException("请输入密钥!");
         }
         if (suggestionMapper.deleteSuggestionById(suggestionId)){
-            return AjaxResult.success("删除成功！");
+            return true ;
         }else {
-            return AjaxResult.error();
+            return false;
         }
     }
 }

@@ -15,7 +15,7 @@ import java.util.List;
  * @Version: 1.0
  **/
 @Mapper
-public interface SuggestionMapper extends BaseMapper<SuggestionEntity> {
+public interface SuggestionMapper  {
     @Select("select * from selab_suggestion")
     @Results({
             @Result(property = "suggestionId", column = "suggestion_id"),

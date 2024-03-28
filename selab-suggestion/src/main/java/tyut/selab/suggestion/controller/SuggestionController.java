@@ -11,7 +11,6 @@ import tyut.selab.suggestion.domain.entity.SuggestionEntity;
 import tyut.selab.suggestion.domain.vo.SuggestionKey;
 import tyut.selab.suggestion.service.ISuggestionService;
 
-import java.util.Map;
 
 /**
  * @ClassName: SuggestionController
@@ -31,35 +30,48 @@ public class SuggestionController {
     @PreAuthorize("@ss.hasPermi('suggestion:list')")
     @PostMapping("/list")
     public AjaxResult getAllSuggestion(@RequestBody @Validated PageParam pageParam){
-        return iSuggestionService.getallSuggestion(pageParam);
+        return AjaxResult.success(iSuggestionService.getallSuggestion(pageParam));
     }
 
     @PreAuthorize("@ss.hasPermi('suggestion:list')")
     @PostMapping("/list/user")
     public AjaxResult getSuggestionByUser(@RequestBody SuggestionKey suggestionId){
-        return iSuggestionService.getSuggestionById(Integer.valueOf(suggestionId.getSuggestionKey()));
+        return AjaxResult.success(iSuggestionService.getSuggestionById(Integer.valueOf(suggestionId.getSuggestionKey())));
     }
     @PreAuthorize("@ss.hasPermi('suggestion:add')")
     @PostMapping("/add")
     public AjaxResult addSuggestion(@RequestBody @Validated SuggestionEntity suggestionEntity) throws Exception {
-        return iSuggestionService.addSuggestion(suggestionEntity);
+        if (iSuggestionService.addSuggestion(suggestionEntity)){
+            return AjaxResult.success("添加成功！");
+        }
+        return AjaxResult.error();
     }
 
     @PreAuthorize("@ss.hasPermi('suggestion:verify')")
     @PostMapping("/verify")
     public AjaxResult verifySuggestionPassword(@RequestBody SuggestionKey suggestionKey){
-        return iSuggestionService.verifySuggestionKey(suggestionKey.getSuggestionKey());
+        if (iSuggestionService.verifySuggestionKey(suggestionKey.getSuggestionKey())){
+            return AjaxResult.success("修改成功！");
+        }
+        return AjaxResult.error();
     }
     @PreAuthorize("@ss.hasPermi('suggestion:verify')")
     @PostMapping("/revise")
     public AjaxResult reviseSuggestionKey(@RequestBody SuggestionKey suggestionKey){
-        return iSuggestionService.reviseSuggestionKey(suggestionKey.getSuggestionKey());
+        if (iSuggestionService.reviseSuggestionKey(suggestionKey.getSuggestionKey())){
+            return AjaxResult.success("修改成功！");
+        }
+        return AjaxResult.error();
+
     }
 
     @PreAuthorize("@ss.hasPermi('suggestion:delete')")
     @PostMapping("/delete")
     public AjaxResult deleteSuggestionById(@RequestBody SuggestionKey suggestionKey){
-        return iSuggestionService.deleteSuggestionById(Integer.valueOf(suggestionKey.getSuggestionKey()));
+        if (iSuggestionService.deleteSuggestionById(Integer.valueOf(suggestionKey.getSuggestionKey()))){
+            return AjaxResult.success("删除成功！");
+        }
+        return AjaxResult.error();
     }
 
 }

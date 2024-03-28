@@ -1,7 +1,6 @@
 package tyut.selab.suggestion.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.ruoyi.common.core.domain.AjaxResult;
+import com.github.pagehelper.PageInfo;
 import tyut.selab.suggestion.domain.PageParam;
 import tyut.selab.suggestion.domain.entity.SuggestionEntity;
 
@@ -12,16 +11,16 @@ import tyut.selab.suggestion.domain.entity.SuggestionEntity;
  * @CreateTime: 2024-03-13 12:33
  * @Version: 1.0
  **/
-public interface ISuggestionService extends IService<SuggestionEntity> {
-    AjaxResult getallSuggestion(PageParam pageParam);
+public interface ISuggestionService {
+    PageInfo<SuggestionEntity> getallSuggestion(PageParam pageParam);
 
-    AjaxResult addSuggestion(SuggestionEntity suggestion) throws Exception;
+    boolean addSuggestion(SuggestionEntity suggestion) throws Exception;
 
-    AjaxResult verifySuggestionKey(String suggestionKey);
+    boolean verifySuggestionKey(String suggestionKey);
 
-    AjaxResult reviseSuggestionKey(String suggestionKey);
+    boolean reviseSuggestionKey(String suggestionKey);
 
-    AjaxResult getSuggestionById(Integer suggestionId);
+    SuggestionEntity getSuggestionById(Integer suggestionId);
 
-    AjaxResult deleteSuggestionById(Integer suggestionId);
+    boolean deleteSuggestionById(Integer suggestionId);
 }

@@ -1,4 +1,4 @@
-package tyut.selab.suggestion.domain;
+package tyut.selab.suggestion.tool;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
